@@ -35,13 +35,6 @@ session_start();
 	$age = 20;
 	echo "Dans 1 an, il aura ".($age+1); //
 
-	if(condition){
-
-	}else if(condition){
-
-	}else{
-
-	}
 
 	$age = 20;
 
@@ -80,8 +73,6 @@ session_start();
 	echo $_POST["email"]??"Votre email...";
 
 
-	if( || &&)
-
 
 	$age = 20;
 
@@ -90,16 +81,16 @@ session_start();
 		//$age = $age + 1;
 	}	
 
-	echo $age //100
+	echo $age; //100
 
 
 	$age = 20;
-	while( ++$age<100 ){
+	while( $age<100 ){
 		$age++;
 		//$age = $age + 1;
 	}	
 
-	echo $age //101
+	echo $age; //101
 
 
 
@@ -123,13 +114,9 @@ session_start();
 	}
 
 
-	foreach () {
-		# code...
-	}
 
 
-
-	$ceciEstMaVariable
+	$ceciEstMaVariable;
 
 	isOdd(2);
 	isOdd();
@@ -153,7 +140,6 @@ session_start();
 
 	$phrase = ltrim($phrase, ";");
 
-	echo ;//test
 
 
 
@@ -179,7 +165,7 @@ session_start();
 
 
 	if (checkAndCleanFirstname($firstname)){
-		...INSERT INTO ..... $firstname
+		//...INSERT INTO ..... $firstname
 	}else{
 		echo "Erreur, le prenom doit faire plus de 2 caractères";
 	}
@@ -263,7 +249,7 @@ session_start();
 				]
 			]; 
 
-
+			/*
 			$_POST
 			$_GET
 
@@ -278,13 +264,14 @@ session_start();
 			
 			$_ENV
 			$_SERVER
+			*/
 
 
 ?>
 
 
 <form method="GET" enctype="">
-	<input type="email" name="email" value="<?php echo echo (empty($_POST["email"]))?"Votre email ...":$_POST["email"] ?>">
+	<input type="email" name="email" value="<?php echo (empty($_POST["email"]))?"Votre email ...":$_POST["email"] ?>">
 
 	<input type="file" name="">
 
