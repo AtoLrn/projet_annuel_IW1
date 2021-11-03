@@ -26,11 +26,17 @@ class Router
 
     public function route(string $path): void
     {
+        $pageFounded = False;
         foreach ($this->routes as $route) {
             if (trim($route["path"], "/") === trim($path, "/")) {
+                $pageFounded = True;
                 $controller = new $route["controller"]();
                 $controller->{$route["action"]}();
             }
+        }
+        if (!$pageFounded) {
+            $error = new ErrorController();
+            $error->error404();
         }
     }
 }
