@@ -1,0 +1,14 @@
+routes:
+    '/':
+        controller: index
+        action: index
+        method: get
+    '/{id}':
+        controller: index
+        action: show
+        method: get
+
+    '/{user}':
+        controller: index
+        action: show
+        method: get
