@@ -1,6 +1,6 @@
 <?php
 
-require_once "Page.php";
+require_once __DIR__ . "/Page.php";
 
 
 class Index extends Page
