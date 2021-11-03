@@ -1,16 +1,15 @@
-routes:
-    '/':
-        controller: Index
-        action: render
+'/':
+    controller: Index
+    action: render
 
-    '/login':
-        controller: UserController
-        action: login
+'/login':
+    controller: UserController
+    action: login
 
-    '/logout':
-        controller: UserController
-        action: logout
+'/logout':
+    controller: UserController
+    action: logout
 
-    '/404':
-        controller: Error
-        action: error404
+'/404':
+    controller: Error
+    action: error404
