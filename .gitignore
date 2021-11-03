@@ -1,2 +1,6 @@
 db_data
 www/.env*
+modules.xml
+php.xml
+vcs.xml
+projet_annuel_IW1.iml
