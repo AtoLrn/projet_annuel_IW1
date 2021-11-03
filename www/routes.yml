@@ -4,8 +4,12 @@ routes:
         action: render
 
     '/login':
-        controller: Page
-        action: render
+        controller: UserController
+        action: login
+
+    '/logout':
+        controller: UserController
+        action: logout
 
     '/404':
         controller: Error
