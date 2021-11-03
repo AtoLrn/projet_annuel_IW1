@@ -1,14 +1,15 @@
 routes:
     '/':
-        controller: index
-        action: index
-        method: get
-    '/{id}':
-        controller: index
-        action: show
+        controller: Index
+        action: render
         method: get
 
-    '/{user}':
-        controller: index
-        action: show
-        method: get
+    '/login':
+        controller: Page
+        action: render
+        method: post
+
+    '/404':
+        controller: Page
+        action: render
+        method: post

@@ -4,10 +4,7 @@ class Page
 {
     protected $pageName = "";
     protected $pageContent = "";
-    public function __construct(string $pageName)
-    {
-        $this->pageName = $pageName;
-    }
+
 
 
     public function render()
@@ -20,6 +17,7 @@ class Page
                 <meta name=\"description\" content=\"Super Site\"/>
             </head>
             <body>
+            
                 $this->pageContent
             </body>
         </html>";
