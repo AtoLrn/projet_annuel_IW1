@@ -1,6 +1,6 @@
 <?php
 
-class Global {
+class Main {
 
     public function home()
     {
