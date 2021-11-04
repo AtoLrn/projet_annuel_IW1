@@ -1,4 +1,7 @@
 <?php
+
+namespace App;
+
 function myAutoloader($class)
 {
     // $class => CleanWords
@@ -27,6 +30,15 @@ if( empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($rout
 
 $controller = ucfirst(strtolower($routes[$uri]["controller"]));
 $action = strtolower($routes[$uri]["action"]);
+
+
+/*
+ *
+ *  Vérfification de la sécurité, est-ce que la route possède le paramètr security
+ *  Si oui est-ce que l'utilisation a les droits et surtout est-ce qu'il est connecté ?
+ *  Sinon rediriger vers la home ou la page de login
+ *
+ */
 
 
 $controllerFile = "Controller/".$controller.".class.php";
