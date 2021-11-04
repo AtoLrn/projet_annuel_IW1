@@ -1,7 +1,4 @@
 <?php
-
-//require "Core/CleanWords.class.php";
-
 function myAutoloader($class)
 {
     // $class => CleanWords
@@ -36,7 +33,9 @@ $controllerFile = "Controller/".$controller.".class.php";
 if(!file_exists($controllerFile)){
     die("Le controller ".$controllerFile." n'existe pas");
 }
-require $controllerFile;
+//Dans l'idée on doit faire un require parce vital au fonctionnement
+//Mais comme on fait vérification avant du fichier le include est plus rapide a executer
+include $controllerFile;
 
 
 if( !class_exists($controller)){
