@@ -5,12 +5,14 @@ namespace App;
 function myAutoloader($class)
 {
     // $class => CleanWords
-    if(file_exists("Core/".$class.".class.php")){
-        include "Core/".$class.".class.php";
+    $class = str_replace("App\\","",$class);
+    $class = str_replace("\\", "/",$class);
+    if(file_exists($class.".class.php")){
+        include $class.".class.php";
     }
 }
 
-spl_autoload_register("myAutoloader");
+spl_autoload_register("App\myAutoloader");
 
 
 
@@ -49,7 +51,7 @@ if(!file_exists($controllerFile)){
 //Mais comme on fait vérification avant du fichier le include est plus rapide a executer
 include $controllerFile;
 
-
+$controller = "App\\Controller\\".$controller;
 if( !class_exists($controller)){
     die("La classe ".$controller." n'existe pas");
 }

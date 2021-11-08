@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Core\CleanWords;
+
 class User {
 
     public function login()
