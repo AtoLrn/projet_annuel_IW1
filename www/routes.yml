@@ -2,6 +2,10 @@
   controller: main
   action: home
 
+/contact:
+  controller: main
+  action: contact
+
 /login:
   controller: user
   action: login
