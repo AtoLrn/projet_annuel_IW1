@@ -10,8 +10,7 @@ class User {
     {
         $view = new View("Login");
 
-        $pseudo = "Prof";
-        $view->assign("pseudo", $pseudo);
+        $view->assign("pseudo", "Prof");
         $view->assign("firstname", "Yves");
         $view->assign("lastname", "Skrzypczyk");
 
