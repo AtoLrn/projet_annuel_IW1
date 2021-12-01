@@ -7,7 +7,7 @@
 </head>
 <body>
 
-ICI JE DOIS INCLURE LA VUE
+    <?php include "View/".$this->view.".view.php"; ?>
 
 </body>
 </html>

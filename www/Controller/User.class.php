@@ -8,7 +8,7 @@ class User {
 
     public function login()
     {
-        $view = new View("Login");
+        $view = new View("Login", "back");
 
         $view->assign("pseudo", "Prof");
         $view->assign("firstname", "Yves");
@@ -44,3 +44,8 @@ class User {
     }
 
 }
+
+
+
+
+

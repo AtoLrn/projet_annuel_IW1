@@ -5,16 +5,23 @@ namespace App\Core;
 class View
 {
     private $view;
+    private $template;
     private $data=[];
 
-    public function __construct($view)
+    public function __construct($view, $template="front")
     {
         $this->setView($view);
+        $this->setTemplate($template);
     }
 
     public function setView($view):void
     {
         $this->view = strtolower($view);
+    }
+
+    public function setTemplate($template):void
+    {
+        $this->template = strtolower($template);
     }
 
 
@@ -33,7 +40,7 @@ class View
     {
         //array("pseudo"=>"Prof") ---> $pseudo = "Prof";
         extract($this->data);
-        include "View/".$this->view.".view.php";
+        include "View/".$this->template.".tpl.php";
     }
 
 }
