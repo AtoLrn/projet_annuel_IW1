@@ -1,14 +1,15 @@
 <?php
-
 namespace App\Controller;
 
 use App\Core\CleanWords;
+use App\Core\View;
 
 class User {
 
     public function login()
     {
-        echo "Se connecter";
+        $view = new View("Login");
+        $pseudo = "Prof";
     }
 
 
