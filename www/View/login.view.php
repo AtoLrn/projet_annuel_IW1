@@ -8,6 +8,6 @@
     <body>
 
         <h1>Page de login</h1>
-        <h2><?= $pseudo;?>, veuillez vous reconnecter</h2>
+        <h2><?= $firstname;?>, veuillez vous reconnecter</h2>
     </body>
 </html>

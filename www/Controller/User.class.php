@@ -9,7 +9,12 @@ class User {
     public function login()
     {
         $view = new View("Login");
+
         $pseudo = "Prof";
+        $view->assign("pseudo", $pseudo);
+        $view->assign("firstname", "Yves");
+        $view->assign("lastname", "Skrzypczyk");
+
     }
 
 
