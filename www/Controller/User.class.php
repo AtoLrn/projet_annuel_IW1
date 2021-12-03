@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Core\CleanWords;
 use App\Core\View;
+use App\Model\User as UserModel;
 
 class User {
 
@@ -19,16 +20,18 @@ class User {
 
     public function register()
     {
-        //Ici on part du principe que l'on a créé un formulaire d'inscription
-        //Et l'utilisateur a renseigné ses données
 
-        $lastname = "   SKrzYPCZyk";
-        $lastname = CleanWords::lastname($lastname);
+        $user = new UserModel();
+        $user->setFirstname("YveS   ");
+        $user->setLastname("   SKrzYPCzyk");
+        $user->setEmail("y.SKRzypCZYK@GMail.com");
+        $user->setPassword("Test1234");
+        $user->generateToken();
 
-        echo $lastname;
+        echo "<pre>";
+        print_r($user);
 
-
-        echo "S'inscrire";
+        $view = new View("register");
     }
 
 
