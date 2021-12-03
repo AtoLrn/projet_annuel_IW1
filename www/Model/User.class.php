@@ -1,7 +1,9 @@
 <?php
 namespace App\Model;
 
-class User
+use App\Core\Sql;
+
+class User extends Sql
 {
     private $id = null;
     private $firstname = null;
@@ -11,6 +13,12 @@ class User
     private $status = 0;
     private $token = null;
 
+    public function __construct()
+    {
+
+        parent::__construct();
+    }
+
     /**
      * @return null|int
      */
@@ -18,6 +26,8 @@ class User
     {
         return $this->id;
     }
+
+
 
     /**
      * @param int $id
@@ -122,6 +132,7 @@ class User
     {
         $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
     }
+
 
 
 }

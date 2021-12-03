@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\CleanWords;
+use App\Core\Sql;
 use App\Core\View;
 use App\Model\User as UserModel;
 
@@ -27,9 +28,8 @@ class User {
         $user->setEmail("y.SKRzypCZYK@GMail.com");
         $user->setPassword("Test1234");
         $user->generateToken();
+        $user->save();
 
-        echo "<pre>";
-        print_r($user);
 
         $view = new View("register");
     }
