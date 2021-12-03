@@ -6,12 +6,12 @@ use App\Core\Sql;
 class User extends Sql
 {
     private $id = null;
-    private $firstname = null;
-    private $lastname = null;
-    private $email;
-    private $password;
-    private $status = 0;
-    private $token = null;
+    protected $firstname = null;
+    protected $lastname = null;
+    protected $email;
+    protected $password;
+    protected $status = 0;
+    protected $token = null;
 
     public function __construct()
     {

@@ -25,17 +25,16 @@ abstract class Sql
         $calledClassExploded = explode("\\",get_called_class());
         $table = strtolower(DBPREFIXE.end($calledClassExploded));
 
+        $columns = get_object_vars($this);
+        $columns = array_diff_key($columns, get_class_vars(get_class()));
 
-        $sql = "INSERT INTO ".$table." (email, password) VALUES ( :email , :password )";
 
-        echo $sql;
-        die();
+        $sql = "INSERT INTO ".$table." (".implode(",",array_keys($columns)).") 
+        VALUES ( :".implode(",:",array_keys($columns)).")";
+
 
         $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute( [
-                                    "password"=>"Test1234",
-                                    "email"=>"y.skrzypczyk@gmail.com"
-                                ] );
+        $queryPrepared->execute( $columns );
 
 
     }
