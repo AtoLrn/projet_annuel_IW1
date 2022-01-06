@@ -5,6 +5,7 @@ namespace App\Core;
 abstract class Sql
 {
     private $pdo;
+    private $table;
 
     public function __construct()
     {
@@ -17,25 +18,43 @@ abstract class Sql
             die("Erreur SQL : ".$e->getMessage());
         }
 
+        //Si l'id n'est pas null alors on fait un update sinon on fait un insert
+        $calledClassExploded = explode("\\",get_called_class());
+        $this->table = strtolower(DBPREFIXE.end($calledClassExploded));
+
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(?int $id): object
+    {
+        $sql = "SELECT * FROM ".$this->table." WHERE id=".$id;
+        $query = $this->pdo->query($sql);
+        return $query->fetchObject(get_called_class());
     }
 
     public function save()
     {
-        //Si l'id n'est pas null alors on fait un update sinon on fait un insert
-        $calledClassExploded = explode("\\",get_called_class());
-        $table = strtolower(DBPREFIXE.end($calledClassExploded));
 
         $columns = get_object_vars($this);
         $columns = array_diff_key($columns, get_class_vars(get_class()));
 
+        if($this->getId() == null){
+            $sql = "INSERT INTO ".$this->table." (".implode(",",array_keys($columns)).") 
+            VALUES ( :".implode(",:",array_keys($columns)).")";
+        }else{
+            $update = [];
+            foreach ($columns as $column=>$value)
+            {
+                $update[] = $column."=:".$column;
+            }
+            $sql = "UPDATE ".$this->table." SET ".implode(",",$update)." WHERE id=".$this->getId() ;
 
-        $sql = "INSERT INTO ".$table." (".implode(",",array_keys($columns)).") 
-        VALUES ( :".implode(",:",array_keys($columns)).")";
-
+        }
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $columns );
-
 
     }
 

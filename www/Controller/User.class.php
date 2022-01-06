@@ -23,11 +23,16 @@ class User {
     {
 
         $user = new UserModel();
-        $user->setFirstname("YveS   ");
-        $user->setLastname("   SKrzYPCzyk");
-        $user->setEmail("y.SKRzypCZYK@GMail.com");
-        $user->setPassword("Test1234");
-        $user->generateToken();
+        /*
+            $user->setFirstname("YveS   ");
+            $user->setLastname("   SKrzYPCzyk");
+            $user->setEmail("y.SKRzypCZYK@GMail.com");
+            $user->setPassword("Test1234");
+            $user->generateToken();
+         */
+
+        $user = $user->setId(2);
+        $user->setEmail("toto@gmail.com");
         $user->save();
 
 
