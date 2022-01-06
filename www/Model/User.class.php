@@ -126,5 +126,91 @@ class User extends Sql
     }
 
 
+    public function getRegisterForm(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"S'inscrire"
+            ],
+            'inputs'=>[
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"Votre email ...",
+                    "required"=>true,
+                    "class"=>"inputForm",
+                    "id"=>"emailForm",
+                    "error"=>"Email incorrect",
+                    "unicity"=>"true",
+                    "errorUnicity"=>"Email déjà en bdd",
+                ],
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre mot de passe ...",
+                    "required"=>true,
+                    "class"=>"inputForm",
+                    "id"=>"pwdForm",
+                    "error"=>"Votre mot de passe doit faire au min 8 caractères avec majscule, minuscules et des chiffres",
+                    ],
+                "passwordConfirm"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Confirmation ...",
+                    "required"=>true,
+                    "class"=>"inputForm",
+                    "id"=>"pwdConfirmForm",
+                    "confirm"=>"password",
+                    "error"=>"Votre mot de passe de confirmation ne correspond pas",
+                ],
+                "firstname"=>[
+                    "type"=>"text",
+                    "placeholder"=>"Votre prénom ...",
+                    "class"=>"inputForm",
+                    "id"=>"firstnameForm",
+                    "min"=>2,
+                    "max"=>50,
+                    "error"=>"Prénom incorrect"
+                ],
+                "lastname"=>[
+                    "type"=>"text",
+                    "placeholder"=>"Votre nom ...",
+                    "class"=>"inputForm",
+                    "id"=>"lastnameForm",
+                    "min"=>2,
+                    "max"=>100,
+                    "error"=>"Nom incorrect"
+                ],
+            ]
+        ];
+    }
+
+    public function getLoginForm(): array
+    {
+        return [
+            "config"=>[
+                "method"=>"POST",
+                "action"=>"",
+                "submit"=>"Se connecter"
+            ],
+            'inputs'=>[
+                "email"=>[
+                    "type"=>"email",
+                    "placeholder"=>"Votre email ...",
+                    "required"=>true,
+                    "class"=>"inputForm",
+                    "id"=>"emailForm",
+                    "error"=>"Email incorrect"
+                ],
+                "password"=>[
+                    "type"=>"password",
+                    "placeholder"=>"Votre mot de passe ...",
+                    "required"=>true,
+                    "class"=>"inputForm",
+                    "id"=>"pwdForm"
+                ]
+            ]
+        ];
+    }
+
 
 }
