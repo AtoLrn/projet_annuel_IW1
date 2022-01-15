@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Core\CleanWords;
@@ -6,7 +7,8 @@ use App\Core\Sql;
 use App\Core\View;
 use App\Model\User as UserModel;
 
-class User {
+class User
+{
 
     public function login()
     {
@@ -15,7 +17,6 @@ class User {
         $view->assign("pseudo", "Prof");
         $view->assign("firstname", "Yves");
         $view->assign("lastname", "Skrzypczyk");
-
     }
 
 
@@ -31,12 +32,13 @@ class User {
             $user->generateToken();
          */
 
-        $user = $user->setId(2);
+        $user = $user->setId(1);
         $user->setEmail("toto@gmail.com");
         $user->save();
 
 
         $view = new View("register");
+        $view->assign("user", $user);
     }
 
 
@@ -50,10 +52,4 @@ class User {
     {
         echo "Mot de passe oublié";
     }
-
 }
-
-
-
-
-
