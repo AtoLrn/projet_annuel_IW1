@@ -1,0 +1,32 @@
+@import "mixin";
+
+.recipe {
+    width: 152px;
+    height: 152px;
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: .8em;
+    cursor: pointer;
+    transition: .2s ease;
+
+    color: white;
+    background-image: url('./sushi.jpeg');
+    background-position: center;
+    background-size: cover;
+    -webkit-box-shadow: inset 0px -70px 20px -10px rgba(0,0,0,0.6); 
+    box-shadow: inset 0px -70px 20px -10px rgba(0,0,0,0.6);
+    h5 {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+    }
+    span {
+        font-size: 12px;
+    }
+    &:hover {
+        transform: translateY(-10px);
+    }
+
+}

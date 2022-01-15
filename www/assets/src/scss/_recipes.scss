@@ -1,0 +1,15 @@
+@import "mixin";
+
+.recipes {
+    @include box-shadow;
+    padding: 1em 1.5em;
+    h4 {
+        margin-top: 0;
+        margin-bottom: 1em;
+    }
+    section {
+        @include flex;
+    }
+   
+
+}

@@ -1,4 +1,12 @@
 
+@mixin grid-container($i) {
+    display: flex;
+    flex-direction: column;
+    gap: $gutter-width;
+    flex-grow: $i;
+    min-width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
+    width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
+}
 
 .grid {
     width: 100%;
@@ -8,12 +16,10 @@
         display: flex;
         flex-wrap: wrap;
         gap: $gutter-width;
-        background-color: purple;
 
         @for $i from 1 through $col-nb {
             .col-lg-#{$i} {
-                flex-grow: $i;
-                min-width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
+                @include grid-container($i);
 
             }
         }
@@ -21,18 +27,16 @@
         @media screen and (max-width: $md-breakpoint) {
             @for $i from 1 through $col-nb {
                 .col-lg-#{$i} {
-                    flex-grow: $i;
-                    min-width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
-    
+                    @include grid-container($i);
+
                 }
             }
         }
         @media screen and (max-width: $sm-breakpoint) {
             @for $i from 1 through $col-nb {
                 .col-lg-#{$i} {
-                    flex-grow: $i;
-                    min-width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
-    
+                    @include grid-container($i);
+
                 }
             }
         } 
