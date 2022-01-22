@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Core\CleanWords;
+use App\Core\Verificator;
 use App\Core\Sql;
 use App\Core\Verificator;
 use App\Core\View;
@@ -42,7 +43,6 @@ class User {
 
     public function register()
     {
-
         $user = new UserModel();
 
         if(!empty($_POST)){
