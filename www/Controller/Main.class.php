@@ -8,7 +8,13 @@ class Main {
 
     public function home()
     {
-        echo "Page d'accueil";
+        $view = new View('home', 'front');
+        if (!empty($_SESSION['id'])){
+            if (!empty($_SESSION['firstname']) && !empty($_SESSION['lastname'])){
+                $view->assign('firstname', $_SESSION['firstname']);
+                $view->assign('lastname', $_SESSION['lastname']);
+            }
+        }
     }
 
 

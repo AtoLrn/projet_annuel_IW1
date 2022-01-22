@@ -1,19 +1,17 @@
-<form action="<?= $data["config"]["action"] ?? "" ?>" method="<?= $data["config"]["method"] ?? "POST" ?>">
+<form method="<?= $data["config"]["method"]??"POST" ?>"  action="<?= $data["config"]["action"]??"" ?>">
 
+    <?php foreach ($data["inputs"] as $name=>$input) :?>
 
-    <?php
+        <input
+                type="<?= $input["type"]??"text" ?>"
+                name="<?= $name?>"
+                placeholder="<?= $input["placeholder"]??"" ?>"
+                id="<?= $input["id"]??"" ?>"
+                class="<?= $input["class"]??"" ?>"
+            <?= empty($input["required"])?"":'required="required"' ?>
+        ><br>
 
-    foreach ($data['inputs'] as $name => $value) {
-    ?>
-    <input type="<?= $value['type'] ?? "text" ?>" placeholder="<?= $value['placeholder'] ?? "text" ?>"
-        class="<?= $value['class'] ?? "" ?>" name="<?= $name ?>" value="<?= $value['value'] ?? "" ?>"
-        id="<?= $value['id'] ?? "" ?>"
-        <?= (isset($value['required']) && $value['required']) ? "required=required" : "" ?> /><br>
-    <?php
-    }
+    <?php endforeach;?>
 
-    ?>
-
-    <input type="submit" value="<?= $data["config"]["submit"] ?? "Submit" ?>">
-
+    <input type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
 </form>

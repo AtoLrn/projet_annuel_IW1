@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+session_start();
 require "conf.inc.php";
 
 function myAutoloader($class)
