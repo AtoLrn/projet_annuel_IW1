@@ -1,0 +1,58 @@
+// background
+.bg {
+    &-black {
+        background-color: $black;
+    }
+    &-white {
+        background-color: $white;
+    }
+    &-light-gray {
+        background-color: $light-gray;
+    }
+    &-pink {
+        background-color: $pink;
+    }
+    &-light-pink {
+        background-color: $light-pink;
+    }
+}
+
+//text color
+.c {
+    &-black {
+        color: $black;
+    }
+    &-white {
+        color: $white;
+    }
+    &-light-gray {
+        background-color: $light-gray;
+    }
+    &-pink {
+        color: $pink;
+    }
+    &-light-pink {
+        color: $light-pink;
+    }
+}
+
+//border color
+
+.bd {
+    &-black {
+        border-color: $black !important;
+    }
+    &-white {
+        border-color: $white !important;
+    }
+    &-light-gray {
+        border-color: $light-gray !important;
+    }
+    &-pink {
+        border-color: $pink !important;
+    }
+    &-light-pink {
+        border-color: $light-pink !important;
+    }
+
+}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Template FRONT</title>
     <meta name="description" content="Description de ma page">
+    <link rel="stylesheet" href="../assets/css/dist/main.css">
 </head>
 <body>
 

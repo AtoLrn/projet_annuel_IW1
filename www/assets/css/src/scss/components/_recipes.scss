@@ -1,5 +1,5 @@
-@import "mixin";
-
+@import "../functions";
+// a revoir trop spécifique 
 .recipes {
     @include box-shadow;
     padding: 1em 1.5em;

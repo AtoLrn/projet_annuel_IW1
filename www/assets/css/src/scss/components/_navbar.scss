@@ -1,0 +1,8 @@
+
+
+.navbar {
+    height: 100vh;
+    width: 217px;
+
+    @include box-shadow;
+}

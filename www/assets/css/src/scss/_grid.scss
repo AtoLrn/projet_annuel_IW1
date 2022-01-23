@@ -8,8 +8,15 @@
     width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
 }
 
+
+
 .grid {
     width: 100%;
+
+    .col {
+        display: flex;
+        flex-direction: column;
+    }
 
     .row {
         width: 100%;
