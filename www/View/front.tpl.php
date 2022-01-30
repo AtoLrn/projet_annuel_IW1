@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <title>Template FRONT</title>
     <meta name="description" content="Description de ma page">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/css/dist/main.css">
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-
 </head>
 
 <body>

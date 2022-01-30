@@ -1,0 +1,43 @@
+@mixin box-shadow {
+    -webkit-box-shadow: 0px 4px 17px 3px rgba(0,0,0,0.15); 
+    box-shadow: 0px 0px 17px 3px rgba(0,0,0,0.15);
+}
+
+@mixin breakpoint($class) {
+    @if $class==xs {
+      @media (max-width: 767px) {
+        @content;
+      }
+    }
+    @else if $class==tablet {
+      @media (max-width: 900px) {
+        @content;
+      }
+    }
+    @else if $class==lg {
+      @media (max-width: 1200px) {
+        @content;
+      }
+    }
+    @else {
+        @warn "Breakpoint mixin supports: xs, tablet, lg";
+    }
+}
+
+
+@mixin flex {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
+
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+
+}

@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Core\View;
+
 class Admin
 {
 
     public function dashboard()
     {
-        echo "Ceci est un beau dashboard";
+        $view = new View("dashboard", "back");
     }
 
 }
