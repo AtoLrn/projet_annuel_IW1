@@ -22,6 +22,7 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         gap: $gutter-width;
 
         @for $i from 1 through $col-nb {

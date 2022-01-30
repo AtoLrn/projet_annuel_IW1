@@ -18,6 +18,10 @@ body {
   margin: 0px;
 }
 
+p, h1, h2, h3, h4 {
+  margin: 0;
+}
+
 p {
   font-size: 16px;
 }
@@ -34,7 +38,7 @@ h3, .h3 {
   font-size: 22px;
 }
 
-@media screen and (max-width: 992px) {
+@media (max-width: 900px) {
   h1, .h1 {
     font-size: 24px;
   }
@@ -58,6 +62,7 @@ h3, .h3 {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 16px;
 }
 .grid .row .col-lg-1 {
@@ -411,7 +416,7 @@ h1 {
 }
 
 .g-1 {
-  gap: 4px;
+  gap: 4px !important;
 }
 
 .m-1 {
@@ -511,7 +516,7 @@ h1 {
 }
 
 .g-2 {
-  gap: 8px;
+  gap: 8px !important;
 }
 
 .m-2 {
@@ -611,7 +616,7 @@ h1 {
 }
 
 .g-3 {
-  gap: 12px;
+  gap: 12px !important;
 }
 
 .m-3 {
@@ -711,7 +716,7 @@ h1 {
 }
 
 .g-4 {
-  gap: 16px;
+  gap: 16px !important;
 }
 
 .m-4 {
@@ -811,7 +816,7 @@ h1 {
 }
 
 .g-5 {
-  gap: 20px;
+  gap: 20px !important;
 }
 
 .m-5 {
@@ -911,7 +916,7 @@ h1 {
 }
 
 .g-6 {
-  gap: 24px;
+  gap: 24px !important;
 }
 
 .m-6 {
@@ -1011,7 +1016,7 @@ h1 {
 }
 
 .g-7 {
-  gap: 28px;
+  gap: 28px !important;
 }
 
 .m-7 {
@@ -1111,7 +1116,7 @@ h1 {
 }
 
 .g-8 {
-  gap: 32px;
+  gap: 32px !important;
 }
 
 .m-8 {
@@ -1211,7 +1216,7 @@ h1 {
 }
 
 .g-9 {
-  gap: 36px;
+  gap: 36px !important;
 }
 
 .m-9 {
@@ -1311,7 +1316,7 @@ h1 {
 }
 
 .g-10 {
-  gap: 40px;
+  gap: 40px !important;
 }
 
 .m-10 {
@@ -1411,7 +1416,7 @@ h1 {
 }
 
 .g-11 {
-  gap: 44px;
+  gap: 44px !important;
 }
 
 .m-11 {
@@ -1511,7 +1516,7 @@ h1 {
 }
 
 .g-12 {
-  gap: 48px;
+  gap: 48px !important;
 }
 
 .m-12 {
@@ -1611,7 +1616,7 @@ h1 {
 }
 
 .g-13 {
-  gap: 52px;
+  gap: 52px !important;
 }
 
 .m-13 {
@@ -1711,7 +1716,7 @@ h1 {
 }
 
 .g-14 {
-  gap: 56px;
+  gap: 56px !important;
 }
 
 .m-14 {
@@ -1811,7 +1816,7 @@ h1 {
 }
 
 .g-15 {
-  gap: 60px;
+  gap: 60px !important;
 }
 
 .m-15 {
@@ -1911,7 +1916,7 @@ h1 {
 }
 
 .g-16 {
-  gap: 64px;
+  gap: 64px !important;
 }
 
 .m-16 {
@@ -2011,7 +2016,7 @@ h1 {
 }
 
 .g-17 {
-  gap: 68px;
+  gap: 68px !important;
 }
 
 .m-17 {
@@ -2111,7 +2116,7 @@ h1 {
 }
 
 .g-18 {
-  gap: 72px;
+  gap: 72px !important;
 }
 
 .m-18 {
@@ -2211,7 +2216,7 @@ h1 {
 }
 
 .g-19 {
-  gap: 76px;
+  gap: 76px !important;
 }
 
 .m-19 {
@@ -2444,12 +2449,30 @@ fieldset input {
 .navbar {
   height: 100vh;
   width: 217px;
+  background-color: #fff;
+  transition: 0.5s;
   box-shadow: 0px 0px 17px 3px rgba(0, 0, 0, 0.15);
 }
-
-.line {
-  width: 100%;
-  height: 1px;
+.navbar > div .burger-menu {
+  display: none;
+  cursor: pointer;
+}
+@media (max-width: 900px) {
+  .navbar {
+    position: fixed;
+    top: 0px;
+    left: -100vw;
+    width: 100vw;
+  }
+  .navbar > div .burger-menu {
+    display: block;
+    position: fixed;
+    top: 30px;
+    right: 24px;
+  }
+  .navbar.open {
+    left: 0px;
+  }
 }
 
 .link {

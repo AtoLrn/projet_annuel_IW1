@@ -3,7 +3,7 @@
 @for $i from 1 to 20 {
     //gap (only for flex / grid)
     .g-#{$i} {
-        gap: calc($i * 4px);
+        gap: calc($i * 4px) !important;
     }
 
     //margin

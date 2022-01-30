@@ -20,6 +20,10 @@ body {
 
 // set basique text
 
+p,h1,h2,h3,h4 {
+    margin: 0;
+}
+
 p {
     font-size: 16px;
 }
@@ -35,7 +39,9 @@ h2, .h2 {
 h3, .h3 {
     font-size: 22px;
 }
-@media screen and (max-width: $md-breakpoint) {
+
+// responsive size
+@include breakpoint(tablet) {
     h1, .h1 {
         font-size: 24px;
     }
