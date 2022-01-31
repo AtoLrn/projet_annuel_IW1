@@ -22,11 +22,10 @@ class User {
                 if (!empty($loggedUser)){
                     if (password_verify($_POST['password'], $loggedUser[0]['password'])){
                         $user = $user->setId($loggedUser[0]['id']);
+                        $user->generateToken();
 
-                        $_SESSION['id'] = $user->getId();
-                        $_SESSION['email'] = $user->getEmail();
-                        $_SESSION['firstname'] = $user->getFirstname();
-                        $_SESSION['lastname'] = $user->getLastname();
+                        $_SESSION['token'] = $user->getToken();
+                        $user->save();
                         header("Location: /");
                     }
                     echo 'mot de passe incorrect';
@@ -63,10 +62,7 @@ class User {
                 $id = $user->save();
                 $user = $user->setId($id);
 
-                $_SESSION['id'] = $user->getId();
-                $_SESSION['email'] = $user->getEmail();
-                $_SESSION['firstname'] = $user->getFirstname();
-                $_SESSION['lastname'] = $user->getLastname();
+                $_SESSION['token'] = $user->getToken();
                 header("Location: /");
             }
             print_r($result);
