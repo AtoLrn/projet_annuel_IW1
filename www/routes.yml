@@ -22,6 +22,10 @@
   controller: user
   action: pwdforget
 
+/handle-article:
+  controller: article
+  action: handleArticle
+
 
 /dashboard:
   controller: admin

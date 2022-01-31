@@ -11,9 +11,7 @@
 </head>
 
 <body>
-
     <?php include "View/" . $this->view . ".view.php"; ?>
-
 </body>
 
 </html>

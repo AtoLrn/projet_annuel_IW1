@@ -59,8 +59,5 @@ class Verificator
             && preg_match("/[A-Z]/", $password, $match)
             ;
     }
-
-
-
-
 }
+
