@@ -27,4 +27,10 @@ class Article
         $view->assign("article", $article);
 
     }
+
+    public function create()
+    {
+        $view = new View("article", "front");
+    }
+
 }

@@ -1,0 +1,7 @@
+// a revoir trop spécifique
+
+.wysiwyg {
+    @include box-shadow;
+    width: 100%;
+    border-radius: 5px;
+}
