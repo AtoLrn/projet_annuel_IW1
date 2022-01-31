@@ -1,3 +1,3 @@
 
-        <h1>Page de login</h1>
-        <h2><?= $firstname;?>, veuillez vous reconnecter</h2>
+<h1>Page de login</h1>
+<?php $this->partialInclude("form", $user->getLoginForm()) ?>

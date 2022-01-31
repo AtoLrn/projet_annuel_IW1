@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use PDO;
+
 abstract class Sql
 {
     private $pdo;
@@ -37,7 +39,7 @@ abstract class Sql
         return $query->fetchObject(get_called_class());
     }
 
-    public function save()
+    public function save(): int
     {
 
         $columns = get_object_vars($this);
@@ -56,11 +58,31 @@ abstract class Sql
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($columns);
+        return $this->pdo->lastInsertId();
     }
 
     public function delete()
     {
         $sql = "DELETE FROM " . $this->table . " WHERE id=" . $this->getId();
         $queryPrepared = $this->pdo->query($sql);
+    }
+
+    public function select(array $values,array $params)
+    {
+        $calledClassExploded = explode("\\",get_called_class());
+        $table = strtolower(DBPREFIXE.end($calledClassExploded));
+
+        $sql = "SELECT ".implode(",", $values)." FROM ".$table." WHERE ";
+
+        foreach ($params as $key => $values) {
+            $sql .= $key." = :".$key." AND ";
+        }
+
+        $sql = substr($sql,0,-4);
+
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute( $params );
+
+        return $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
     }
 }
