@@ -22,18 +22,15 @@
     controller: user
     action: pwdforget
 
-<<<<<<< HEAD
 /handle-article:
-  controller: article
-  action: handleArticle
+    controller: article
+    action: handleArticle
 
-=======
 /article-creation:
     controller: article
     action: create
     security:
         - user
->>>>>>> enh(editorjs): add editorjs partial
 
 /dashboard:
     controller: admin
