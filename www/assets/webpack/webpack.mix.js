@@ -15,6 +15,12 @@ mix.setPublicPath('../dist')
 
 mix.babel([
  '../src/js/jquery-3.6.0.min.js',
+ '../src/js/editor-js.js',
+ '../src/js/editor-js-header.js',
+ '../src/js/editor-js-image.js',
+ '../src/js/editor-js-quote.js',
+ '../src/js/editor-js-delimiter.js',
+ '../src/js/editor-js-list.js',
  '../src/js/user.js',
  '../src/js/list.js',
  '../src/js/register-login.js',

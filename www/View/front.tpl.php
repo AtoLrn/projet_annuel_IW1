@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assets/dist/main.css">
     <script type="text/javascript" src="../assets/dist/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 </head>
 
 <body class="grid">
@@ -30,6 +29,7 @@
     <img class="burger-menu" src="../assets/img/logo/burger-menu.svg" alt="">
 
     <?php include "View/" . $this->view . ".view.php"; ?>
+
 </body>
 
 </html>
