@@ -33,7 +33,7 @@ class View
     public function partialInclude(string $partial, $data): void
     {
         if (!file_exists("View/Partial/" . $partial . ".partial.php")) {
-            die("N'exists pas");
+            die("N existe pas");
         }
 
         include("View/Partial/" . $partial . ".partial.php");
