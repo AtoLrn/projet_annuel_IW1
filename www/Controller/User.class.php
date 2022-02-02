@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Core\CleanWords;
 use App\Core\Verificator;
 use App\Core\Sql;
-use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
