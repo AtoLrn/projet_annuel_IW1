@@ -34,6 +34,7 @@ if( empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($rout
 
 $controller = ucfirst(strtolower($routes[$uri]["controller"]));
 $action = strtolower($routes[$uri]["action"]);
+$rights = $routes[$uri]["security"];
 
 
 /*
@@ -63,5 +64,31 @@ $objectController = new $controller();
 if( !method_exists($objectController, $action)){
     die("L'action ".$action." n'existe pas");
 }
-// $action = login ou logout ou register ou home
-$objectController->$action();
+// Check Authorization
+$authorized = False;
+
+if(!empty($rights)){
+    switch ($_SESSION['type']) {         
+        case 'user':
+            if(in_array("user", $rights)){
+                $authorized = True;
+            }
+        
+        case 'admin':
+            if(in_array("admin", $rights)){
+                $authorized = True;
+            }
+            break;   
+        default:
+            $authorized = False;
+            break;
+        }
+} else {
+    $authorized = True;
+}
+if ($authorized) {
+    // $action = login ou logout ou register ou home
+    $objectController->$action();
+} else {
+    header("Location: /login?url=".$uri);
+}
