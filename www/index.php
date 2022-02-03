@@ -26,6 +26,8 @@ if(!file_exists($routeFile)){
     die("Le fichier ".$routeFile." n'existe pas");
 }
 
+$uri = strtok($uri, "?");
+
 $routes = yaml_parse_file($routeFile);
 
 if( empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($routes[$uri]["action"])){
@@ -92,3 +94,4 @@ if ($authorized) {
 } else {
     header("Location: /login?url=".$uri);
 }
+

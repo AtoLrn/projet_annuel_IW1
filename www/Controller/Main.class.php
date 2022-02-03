@@ -17,6 +17,11 @@ class Main {
             ]);
             if (!empty($userInfo)){
                 $user = $user->setId($userInfo[0]['id']);
+
+                $user->generateToken();
+                $_SESSION['token'] = $user->getToken();
+                $user->save();
+
                 $view->assign('firstname', $user->getFirstname());
                 $view->assign('lastname', $user->getLastname());
             }
