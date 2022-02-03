@@ -1,11 +1,18 @@
 
-@mixin grid-container($i) {
+@mixin grid-container-row($i) {
     display: flex;
     flex-direction: column;
     gap: $gutter-width;
     flex-grow: $i;
     min-width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
     width: calc((($i / ($col-nb)) * 100%) - $gutter-width);
+}
+
+@mixin grid-container-col($i) {
+    gap: $gutter-width;
+    flex-grow: $i;
+    min-height: calc((($i / ($col-nb)) * 100%) - $gutter-width);
+    height: calc((($i / ($col-nb)) * 100%) - $gutter-width);
 }
 
 
@@ -16,6 +23,44 @@
     .col {
         display: flex;
         flex-direction: column;
+
+        &.a-start {
+            align-items: flex-start;
+        }
+        &.a-end {
+            align-items: flex-end; 
+        }
+        &.j-start {
+            justify-content: flex-start;
+        }
+        &.j-bet {
+            justify-content: space-between;
+        }
+
+        @for $i from 1 through $col-nb {
+            .row-lg-#{$i} {
+                @include grid-container-col($i);
+
+            }
+        }
+
+        @media screen and (max-width: $md-breakpoint) {
+            @for $i from 1 through $col-nb {
+                .row-lg-#{$i} {
+                    @include grid-container-col($i);
+
+                }
+            }
+        }
+        @media screen and (max-width: $sm-breakpoint) {
+            @for $i from 1 through $col-nb {
+                .row-lg-#{$i} {
+                    @include grid-container-col($i);
+
+                }
+            }
+        } 
+        
     }
 
     .row {
@@ -25,9 +70,22 @@
         align-items: center;
         gap: $gutter-width;
 
+        &.a-start {
+            align-items: flex-start;
+        }
+        &.a-end {
+            align-items: flex-end; 
+        }
+        &.j-start {
+            justify-content: flex-start;
+        }
+        &.j-bet {
+            justify-content: space-between;
+        }
+
         @for $i from 1 through $col-nb {
             .col-lg-#{$i} {
-                @include grid-container($i);
+                @include grid-container-row($i);
 
             }
         }
@@ -35,7 +93,7 @@
         @media screen and (max-width: $md-breakpoint) {
             @for $i from 1 through $col-nb {
                 .col-lg-#{$i} {
-                    @include grid-container($i);
+                    @include grid-container-row($i);
 
                 }
             }
@@ -43,7 +101,7 @@
         @media screen and (max-width: $sm-breakpoint) {
             @for $i from 1 through $col-nb {
                 .col-lg-#{$i} {
-                    @include grid-container($i);
+                    @include grid-container-row($i);
 
                 }
             }

@@ -1,0 +1,152 @@
+<section class="p-12 grid h-per-20">
+   <h1 class="h1 mb-12"> <?= $listTpl['title'] ?> </h1> 
+   <section class="row grid g-12 a-start">
+        <div class="col-lg-8 card p-6">
+            <table id="list-table" class="m-0 w-per-20" data-page-length="20">
+                    <thead>
+                        <tr>
+                            <?php
+                            foreach($list[0] as $key => $values){
+                                echo $key != "id" ? "<td>" .$key. "</td>" : "";
+                            }
+                            ?>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td class='bd-t-1 bd-light-gray'>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        foreach($list as $key => $values): 
+                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray'>";
+                            foreach($values as $key => $value){
+                                echo $key != "id" ? "<td>" .$value. "</td>" : "";
+                            }
+                            echo "</tr>";
+                        endforeach;  
+                        ?>                      
+                    </tbody>
+            </table>
+        </div>
+        <aside class="col-lg-3 grid">
+            <div class="col g-12 h-per-20">
+                <article class="row-lg-6 card grid py-6 px-8 g-6">
+                    <div class="row j-bet grid a-start">
+                        <div class="col h-per-20 g-3">
+                            <p>noé pigeau</p>
+                            <p>lerin@antoine.be</p>
+                            <p>admin</p>
+                        </div>
+                        <img src="assets/img/users/antoine.svg" alt="" height="72" width="72">
+                    </div>
+                    <div class="bd-t-1 bd-light-gray"></div>
+                    <div>
+                        <button>supprimer</button>
+                    </div>
+                </article>
+                
+
+                <article class="row-lg-6 card">
+                    <h1>oui c"est moi</h1>
+                </article>
+            </div>
+        </aside>
+    </section>
+
+</section>

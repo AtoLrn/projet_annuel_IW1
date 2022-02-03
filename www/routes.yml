@@ -33,3 +33,9 @@
   security:
     - admin
     - user
+
+/list:
+  controller: admin
+  action: list
+  security:
+    - admin

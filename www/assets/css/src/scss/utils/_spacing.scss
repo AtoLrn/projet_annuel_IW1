@@ -1,6 +1,6 @@
 // GLOBALS SPACING / HEIGHT / WIDTH
 
-@for $i from 1 to 20 {
+@for $i from 0 to 21 {
     //gap (only for flex / grid)
     .g-#{$i} {
         gap: calc($i * 4px) !important;
@@ -40,8 +40,8 @@
         padding-bottom: calc($i * 4px); 
     }
     .px-#{$i} {
-        padding-left: calc($i * 4px); 
-        padding-right: calc($i * 4px); 
+        padding-left: calc($i * 4px) !important; 
+        padding-right: calc($i * 4px) !important; 
     }
     .pt-#{$i} {
         padding-top: calc($i * 4px);
@@ -64,7 +64,7 @@
         border-top: calc($i * 1px) solid $black;
     }
     .bd-b-#{$i} {
-        border-bottom: calc($i * 1px) solid $black;
+        border-bottom: calc($i * 1px) solid $black !important;
     }
     .bd-l-#{$i} {
         border-right: calc($i * 1px) solid $black;
@@ -78,7 +78,11 @@
         height: calc($i * 4px);
     }
     .h-per-#{$i} {
-        height: calc($i * 5%);
+        height: calc($i * 5%) !important;
+    }
+
+    .h-em-#{$i} {
+        height: calc($i * 4em) !important;
     }
 
     //width
@@ -88,5 +92,9 @@
 
     .w-per#{$i} {
         width: calc($i * 5%);
+    }
+
+    .w-em#{$i} {
+        width: calc($i * 4em);
     }
 }

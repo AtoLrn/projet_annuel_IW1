@@ -126,6 +126,14 @@ class User extends Sql
         $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
     }
 
+    public function getSelectTemplate(): array
+    {
+        return [
+            "args" => ["id", "email", "firstname", "lastname", "status"], 
+            "title" => "Les Utilisateurs"       
+        ];
+    }
+
 
     public function getRegisterForm(): array
     {

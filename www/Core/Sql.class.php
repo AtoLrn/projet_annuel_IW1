@@ -67,18 +67,21 @@ abstract class Sql
         $queryPrepared = $this->pdo->query($sql);
     }
 
-    public function select(array $values,array $params)
+    public function select(array $values, array $params=[])
     {
         $calledClassExploded = explode("\\",get_called_class());
         $table = strtolower(DBPREFIXE.end($calledClassExploded));
 
-        $sql = "SELECT ".implode(",", $values)." FROM ".$table." WHERE ";
+        $sql = "SELECT ".implode(",", $values)." FROM ".$table;     
 
-        foreach ($params as $key => $values) {
-            $sql .= $key." = :".$key." AND ";
+        if( $params !== null && count($params) > 0) {
+            $sql .= " WHERE ";
+            $val = [];
+            foreach ($params as $key => $values) {
+                array_push($val, $key . " = :" . $key);
+            }
+            $sql .= implode(" AND " , $val);
         }
-
-        $sql = substr($sql,0,-4);
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $params );
