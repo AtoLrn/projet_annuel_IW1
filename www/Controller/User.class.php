@@ -2,9 +2,9 @@
 namespace App\Controller;
 
 use App\Core\CleanWords;
+use App\Core\Mail;
 use App\Core\Verificator;
 use App\Core\Sql;
-use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
 
@@ -39,7 +39,6 @@ class User {
         $view->assign("user", $user);
     }
 
-
     public function register()
     {
         $user = new UserModel();
@@ -61,7 +60,8 @@ class User {
 
                 $id = $user->save();
                 $user = $user->setId($id);
-
+                $mail = new Mail();
+                $mail->mailConfirm($_POST['email'], $_POST['firstname'], $_POST['lastname']);
                 $_SESSION['token'] = $user->getToken();
                 header("Location: /");
             }
