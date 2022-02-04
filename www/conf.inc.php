@@ -11,6 +11,7 @@ define("DBPREFIXE", "esgi_");
 define("FIRSTNAME", "Didier");
 define("LASTNAME", "MATOU");
 define("WEBSITENAME", "Poulet Raffiné");
+define("WEBSITEURL", 'localhost');
 
 define("MAILUSERNAME", "didiermatoutest@gmail.com");
 define("MAILPASSWORD", "yjxukwpukectwoxr");

@@ -16,20 +16,23 @@ class User {
         if (!empty($_POST)){
             /*$result = Verificator::checkForm($user->getLoginForm(), $_POST);
             if (empty($result)){*/
-                $loggedUser = $user->select(['id','password'],[
+                $loggedUser = $user->select(['id','password','isVerify'],[
                     'email' => $_POST['email']
                 ]);
 
                 if (!empty($loggedUser)){
-                    if (password_verify($_POST['password'], $loggedUser[0]['password'])){
-                        $user = $user->setId($loggedUser[0]['id']);
-                        $user->generateToken();
+                    if ($loggedUser[0]['isVerify']) {
+                        if (password_verify($_POST['password'], $loggedUser[0]['password'])) {
+                            $user = $user->setId($loggedUser[0]['id']);
+                            $user->generateToken();
 
-                        $_SESSION['token'] = $user->getToken();
-                        $user->save();
-                        header("Location: /");
+                            $_SESSION['token'] = $user->getToken();
+                            $user->save();
+                            header("Location: /");
+                        }
+                        echo 'mot de passe incorrect';
                     }
-                    echo 'mot de passe incorrect';
+                    echo 'Ce mail n\'est pas vérifié';
                 }
                 echo 'identifient incorrect';
             /*}
@@ -42,6 +45,7 @@ class User {
     public function register()
     {
         $user = new UserModel();
+        $view = new View("register", 'front');
 
         if(!empty($_POST)){
 
@@ -57,20 +61,40 @@ class User {
                 $user->setEmail($_POST['email']);
                 $user->setPassword($_POST['password']);
                 $user->generateToken();
-
+                $user->generateMailToken();
                 $id = $user->save();
+
                 $user = $user->setId($id);
                 $mail = new Mail();
-                $mail->mailConfirm($_POST['email'], $_POST['firstname'], $_POST['lastname']);
+                $mail->mailValidation($_POST['email'], $_POST['firstname'], $_POST['lastname'], $user->getMailToken());
                 $_SESSION['token'] = $user->getToken();
-                header("Location: /");
+                $view->assign('isCreated', true);
+                return;
             }
             print_r($result);
 
         }
-
-        $view = new View("register", 'front');
+        $view->assign('isCreated', false);
         $view->assign("user", $user);
+    }
+
+    public function mailValidation()
+    {
+        $user = new UserModel();
+        $view = new View("mail-validation", 'front');
+        if ($_GET['token']){ // Faire une sécu ic!!!!!!!!!
+            $tokenIsExist = $user->select(['id'],['mailToken' => $_GET['token']]);
+            if (!empty($tokenIsExist)){
+                $user = $user->setId($tokenIsExist[0]['id']);
+                $user->setIsVerify(1);
+                $user->save();
+                $_SESSION['token'] = $user->getToken();
+                $view->assign('validationStatus', true);
+                return;
+            }
+        }
+
+        $view->assign('validationStatus', false);
     }
 
 
