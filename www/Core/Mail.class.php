@@ -12,6 +12,7 @@ require 'Libs/PHPMailer-master/src/SMTP.php';
 class Mail
 {
     protected $mail;
+    private static $_instance;
 
     public function __construct()
     {
@@ -34,6 +35,17 @@ class Mail
         }
     }
 
+    public static function getInstance(): Mail
+    {
+        if(is_null(self::$_instance)){
+            self::$_instance = new Mail();
+        }
+        return self::$_instance;
+    }
+
+    /**
+     * @throws Exception
+     */
     public function mailValidation(string $userMail, string $firstName, string $lastName, string $token)
     {
         try {
