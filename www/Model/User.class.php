@@ -13,7 +13,7 @@ class User extends Sql
     protected $password;
     protected $status = "user";
     protected $isVerified = 0;
-    protected $token = null;
+    protected $mailToken = null;
 
     public function __construct()
     {
@@ -112,22 +112,6 @@ class User extends Sql
         $this->status = $status;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    /**
-     * length : 255
-     */
-    public function generateToken(): void
-    {
-        $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
-    }
-
     public function getSelectTemplate(): array
     {
         return [
@@ -156,6 +140,37 @@ class User extends Sql
         ];
     }
 
+    /**
+     * @return null|string
+     */
+    public function getMailToken(): ?string
+    {
+        return $this->mailToken;
+    }
+
+    /**
+     * length : 255
+     */
+    public function generateMailToken(): void
+    {
+        $this->mailToken = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
+    /**
+     * @param string $isVerified
+     */
+    public function setIsVerified(string $isVerified): void
+    {
+        $this->isVerified = $isVerified;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIsVerified(): int
+    {
+        return $this->isVerified;
+    }
 
     public function getRegisterForm(): array
     {
