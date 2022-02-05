@@ -39,3 +39,9 @@
   action: list
   security:
     - admin
+
+/get-user:
+  controller: admin
+  action: getuser
+  security:
+    - user

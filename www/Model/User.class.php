@@ -129,8 +129,28 @@ class User extends Sql
     public function getSelectTemplate(): array
     {
         return [
-            "args" => ["id", "email", "firstname", "lastname", "status"], 
-            "title" => "Les Utilisateurs"       
+            "title" => "Les Utilisateurs",
+            "tables" => [
+                "user" => [
+                    "args" => ["id", "email", "firstname", "lastname", "status"],
+                    "params" => ["id" => ""],
+                    "lf" => ["article"]
+                ],
+                "article" => [
+                    "args" => ["id", "title", "description"],
+                    "params" => [],
+                    "lf" => ["like", "comment"]
+                ],
+                "like" => [
+                    "args" => ["id"],
+                    "params" => [],
+                ],
+                "comment" => [
+                    "args" => ["id"],
+                    "params" => [],
+                ]
+            ],
+               
         ];
     }
 

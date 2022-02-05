@@ -24,13 +24,32 @@ class Admin
         $listTpl = $model->getSelectTemplate();
         
         $list = $model->select(
-            $listTpl["args"]
+            [
+                "user" => [
+                    "args" => ["id", "email", "firstname", "lastname", "status"],
+                    "params" => [],
+                ]
+            ]
         );
+
 
         $view = new View("list", "back");
         $view->assign("list", $list);
         $view->assign("listTpl", $listTpl);
         $view->assign("model", $model);
+        $view->assign("table", $value);
+    }
+
+    public function getuser()
+    {
+        $id = $_POST['id'] ?? 1;
+        $user = new UserModel();
+        $listTpl = $user->getSelectTemplate();
+        $listTpl['tables']['user']['params']['id'] = $id;
+        $result = $user->select($listTpl['tables']);
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($result);
     }
 
 }
