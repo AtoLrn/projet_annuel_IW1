@@ -11,7 +11,8 @@ class User extends Sql
     protected $lastname = null;
     protected $email;
     protected $password;
-    protected $status = 0;
+    protected $status = "user";
+    protected $isVerified = 0;
     protected $token = null;
 
     public function __construct()
@@ -62,6 +63,7 @@ class User extends Sql
         $this->lastname = strtoupper(trim($lastname));
     }
 
+
     /**
      * @return string
      */
@@ -95,17 +97,17 @@ class User extends Sql
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStatus(): int
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
-     * @param int $status
+     * @param string $status
      */
-    public function setStatus(int $status): void
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }

@@ -3,16 +3,27 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Model\User as UserModel;
 
 class Main {
 
     public function home()
     {
         $view = new View('home', 'front');
-        if (!empty($_SESSION['id'])){
-            if (!empty($_SESSION['firstname']) && !empty($_SESSION['lastname'])){
-                $view->assign('firstname', $_SESSION['firstname']);
-                $view->assign('lastname', $_SESSION['lastname']);
+        if (!empty($_SESSION['token'])){
+            $user = new UserModel();
+            $userInfo = $user->select(['id'],[
+                'token' => $_SESSION['token']
+            ]);
+            if (!empty($userInfo)){
+                $user = $user->setId($userInfo[0]['id']);
+
+                $user->generateToken();
+                $_SESSION['token'] = $user->getToken();
+                $user->save();
+
+                $view->assign('firstname', $user->getFirstname());
+                $view->assign('lastname', $user->getLastname());
             }
         }
     }

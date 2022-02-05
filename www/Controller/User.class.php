@@ -2,12 +2,12 @@
 namespace App\Controller;
 
 use App\Core\CleanWords;
+use App\Core\Mail;
 use App\Core\Verificator;
 use App\Core\Sql;
-use App\Core\Verificator;
 use App\Core\View;
 use App\Model\User as UserModel;
-
+use App\Model\Session;
 class User {
 
     public function login()
@@ -29,11 +29,18 @@ class User {
                     if (password_verify($_POST['password'], $loggedUser[0]['password'])){
                         $user = $user->setId($loggedUser[0]['id']);
 
-                        $_SESSION['id'] = $user->getId();
-                        $_SESSION['email'] = $user->getEmail();
-                        $_SESSION['firstname'] = $user->getFirstname();
-                        $_SESSION['lastname'] = $user->getLastname();
-                        header("Location: /");
+                        $session = new Session();
+                        $session->generateToken();
+                        $session->setUserId($user->getId());
+                        $session->save();
+
+                        if ($_GET["uri"]) {
+                            header("Location: ".$_GET["uri"]);
+
+                        } else {
+                            header("Location: /");
+                        }
+
                     }
                     echo 'mot de passe incorrect';
                 }
@@ -44,7 +51,6 @@ class User {
         $view = new View("Login", "front");
         $view->assign("user", $user);
     }
-
 
     public function register()
     {
@@ -69,15 +75,17 @@ class User {
                 $user->setLastname($_POST['lastname']);
                 $user->setEmail($_POST['email']);
                 $user->setPassword($_POST['password']);
-                $user->generateToken();
 
                 $id = $user->save();
                 $user = $user->setId($id);
 
-                $_SESSION['id'] = $user->getId();
-                $_SESSION['email'] = $user->getEmail();
-                $_SESSION['firstname'] = $user->getFirstname();
-                $_SESSION['lastname'] = $user->getLastname();
+                $session = new Session();
+                $session->generateToken();
+                $session->setUserId($id);
+                $session->save();
+
+                $mail = new Mail();
+                $mail->mailConfirm($_POST['email'], $_POST['firstname'], $_POST['lastname']);
                 header("Location: /");
             }
             print_r($result);
