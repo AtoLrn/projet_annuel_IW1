@@ -14,4 +14,3 @@ define("WEBSITENAME", "Poulet Raffiné");
 
 define("MAILUSERNAME", "didiermatoutest@gmail.com");
 define("MAILPASSWORD", "yjxukwpukectwoxr");
-
