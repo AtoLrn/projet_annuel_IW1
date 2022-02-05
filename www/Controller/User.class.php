@@ -16,9 +16,14 @@ class User {
         if (!empty($_POST)){
             /*$result = Verificator::checkForm($user->getLoginForm(), $_POST);
             if (empty($result)){*/
-                $loggedUser = $user->select(['id','password'],[
-                    'email' => $_POST['email']
-                ]);
+                $loggedUser = $user->select(
+                    [
+                        "user" => [
+                            "args" => ["id", "password"],
+                            "params" => ["email" => $_POST['email'] ],
+                        ]
+                    ]
+                );
 
                 if (!empty($loggedUser)){
                     if (password_verify($_POST['password'], $loggedUser[0]['password'])){
@@ -54,8 +59,14 @@ class User {
         if(!empty($_POST)){
 
             $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
-            if ($user->select(['id'],['email' => $_POST['email']]))
-            {
+            if ($user->select(
+                [
+                    "user" => [
+                        "args" => ["id", "password"],
+                        "params" => ["email" => $_POST['email'] ]
+                    ]
+                ])
+            ) {
                 $result[] = 'This email already exist';
             }
             if (empty($result)) {

@@ -67,22 +67,79 @@ abstract class Sql
         $queryPrepared = $this->pdo->query($sql);
     }
 
-    public function select(array $values,array $params)
+    public function select(array $tables): ?array
     {
         $calledClassExploded = explode("\\",get_called_class());
-        $table = strtolower(DBPREFIXE.end($calledClassExploded));
+        $table = strtolower(end($calledClassExploded));
+    
+        $args = $this->getArgs($tables);
+        $lf = $this->getLeftJoins($tables);
+        $sql = "SELECT " .$args. " FROM " .DBPREFIXE.$table.$lf; 
 
-        $sql = "SELECT ".implode(",", $values)." FROM ".$table." WHERE ";
-
-        foreach ($params as $key => $values) {
-            $sql .= $key." = :".$key." AND ";
+        $where = $this->getWhere($tables);
+        if($where !== "") {  
+            $sql .= " WHERE " .$where;
+        }
+        
+        $params = [];
+        foreach($tables as $key => $val) {
+            $params = array_merge($params, $val['params']);
         }
 
-        $sql = substr($sql,0,-4);
+        return $this->dbFetchAll($sql, $params);
+    }
 
+
+
+
+
+    private function dbFetchAll($sql, $params): ?array
+    {
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute( $params );
 
         return $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    private function getArgs(array $tables): string
+    {       
+        $args = [];
+        foreach ($tables as $keyTable => $values) {
+            foreach ($values['args'] as $key => $vals) {
+                array_push($args, DBPREFIXE.$keyTable. "." .$vals. " AS " . $keyTable. "_" .$vals);
+            }
+        }
+
+        return implode("," , $args);       
+    }
+
+    private function getLeftJoins(array $tables): string
+    {      
+        $lf = [];
+
+        $tables = array_filter($tables, function($table) {
+            return isset($table['lf']);
+        });
+
+        foreach ($tables as $key => $values) {
+            foreach($values['lf'] as $val) {
+                array_push($lf, " LEFT JOIN " .DBPREFIXE.$val. " ON " .DBPREFIXE.$key. ".id = " .DBPREFIXE.$val. "." .$key. "Id");
+            }
+        }
+
+        return implode("" , $lf);           
+    }
+
+    private function getWhere(array $tables): string
+    {
+
+        $where = [];
+        foreach ($tables as $key => $table) {
+            foreach ($table['params'] as $keyParams => $param) {
+                array_push($where, DBPREFIXE.$key. "." .$keyParams. " = :" . $keyParams);
+            }        
+        }
+                  
+        return implode(" AND ", $where);
     }
 }

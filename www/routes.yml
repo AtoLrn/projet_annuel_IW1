@@ -30,8 +30,20 @@
     action: handleArticle
 
 /dashboard:
-    controller: admin
-    action: dashboard
-    security:
-        - admin
-        - user
+  controller: admin
+  action: dashboard
+  security:
+    - admin
+    - user
+
+/list:
+  controller: admin
+  action: list
+  security:
+    - admin
+
+/get-user:
+  controller: admin
+  action: getuser
+  security:
+    - user
