@@ -8,25 +8,25 @@
                     <thead>
                         <tr>
                             <?php
-                            foreach($list[0] as $key => $values){
+                            foreach($list[0] as $key => $values):
                                 $name = explode("_", $key);
-                                $name = end($name);
-                                echo $key != $table."_id" ? "<td>" . $name . "</td>" : "";
-                            }
-                            ?>
-                            
+                                $name = end($name); 
+                                if($key != $table."_id"): ?>
+                                    <td> <?= $name ?> </td>
+                                <?php endif;
+                            endforeach;  ?>           
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        foreach($list as $key => $values): 
-                            echo "<tr id='" .$key. "' class='bd-t-1 bd-light-gray' onclick='getUsersById(" .$values[ $table.'_id' ]. ")'>";
-                            foreach($values as $key => $value){
-                                echo $key != $table."_id" ? "<td class='bd-t-1 bd-light-gray'>" .$value. "</td>" : "";
-                            }
-                            echo "</tr>";
-                        endforeach;  
-                        ?>                      
+                        <?php foreach($list as $key => $values): ?>
+                            <tr id="<?= $key ?>" class="bd-t-1 bd-light-gray" onclick="getUsersById(<?= $values[ $table.'_id' ] ?>)">
+                            <?php foreach($values as $key => $value): 
+                                if($key != $table."_id"): ?>
+                                    <td class="bd-t-1 bd-light-gray"><?= $value ?></td>
+                                <?php endif;
+                            endforeach;  ?>
+                            </tr>
+                        <?php endforeach;  ?>                      
                     </tbody>
             </table>
             
