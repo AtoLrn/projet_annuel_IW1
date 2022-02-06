@@ -12,11 +12,14 @@ class Main {
         $view = new View('home', 'front');
         if (!empty($_SESSION['token'])){
             $user = new UserModel();
-            $userInfo = $user->select(['id'],[
-                'token' => $_SESSION['token']
+            $userInfo = $user->select([
+                "user" => [
+                    "args" => ["id"], "params" => ["token"]
+                ]
             ]);
+            
             if (!empty($userInfo)){
-                $user = $user->setId($userInfo[0]['id']);
+                $user = $user->setId($userInfo[0]['user_id']);
 
                 $user->generateToken();
                 $_SESSION['token'] = $user->getToken();

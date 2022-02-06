@@ -26,8 +26,8 @@ class User {
                 );
 
                 if (!empty($loggedUser)){
-                    if (password_verify($_POST['password'], $loggedUser[0]['password'])){
-                        $user = $user->setId($loggedUser[0]['id']);
+                    if (password_verify($_POST['password'], $loggedUser[0]['user_password'])){
+                        $user = $user->setId($loggedUser[0]['user_id']);
 
                         $session = new Session();
                         $session->generateToken();
@@ -62,8 +62,7 @@ class User {
             if ($user->select(
                 [
                     "user" => [
-                        "args" => ["id", "password"],
-                        "params" => ["email" => $_POST['email'] ]
+                        "args" => ["id", "password"], "params" => ["email" => $_POST['email'] ]
                     ]
                 ])
             ) {
