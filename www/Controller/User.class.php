@@ -90,7 +90,7 @@ class User
                 $session->setUserId($id);
                 $session->save();
 
-                $mail = new Mail();
+                $mail = Mail::getInstance();
                 $mail->mailValidation($_POST['email'], $_POST['firstname'], $_POST['lastname'], $user->getMailToken());
                 $view->assign('isCreated', true);
                 return;
