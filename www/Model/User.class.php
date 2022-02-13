@@ -9,12 +9,11 @@ class User extends Sql
     protected $id = null;
     protected $firstname = null;
     protected $lastname = null;
+    protected $status = "user";
     protected $email;
     protected $password;
-    protected $status = 0;
-    protected $token = null;
+    protected $isVerified = 0;
     protected $mailToken = null;
-    protected $isVerify = 0;
 
     public function __construct()
     {
@@ -64,6 +63,7 @@ class User extends Sql
         $this->lastname = strtoupper(trim($lastname));
     }
 
+
     /**
      * @return string
      */
@@ -97,35 +97,55 @@ class User extends Sql
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getStatus(): int
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
-     * @param int $status
+     * @param string $status
      */
-    public function setStatus(int $status): void
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getToken(): ?string
+    public function getSelectTemplate(): array
     {
-        return $this->token;
+        return [
+            "title" => "Les Utilisateurs",
+            "tables" => [
+                "user" => [
+                    "args" => ["id", "email", "firstname", "lastname", "status"],
+                    "params" => ["id" => ""],
+                    "lf" => ["article"]
+                ],
+                "article" => [
+                    "args" => ["id", "title", "description"],
+                    "params" => [],
+                    "lf" => ["like", "comment"]
+                ],
+                "like" => [
+                    "args" => ["id"],
+                    "params" => [],
+                ],
+                "comment" => [
+                    "args" => ["id"],
+                    "params" => [],
+                ]
+            ],
+
+        ];
     }
 
     /**
-     * length : 255
+     * @param string $isVerified
      */
-    public function generateToken(): void
+    public function setIsVerified(string $isVerified): void
     {
-        $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
+        $this->isVerified = $isVerified;
     }
 
     /**
@@ -158,6 +178,11 @@ class User extends Sql
     public function getIsVerify(): int
     {
         return $this->isVerify;
+    }
+
+    public function getIsVerified(): int
+    {
+        return $this->isVerified;
     }
 
     public function getRegisterForm(): array

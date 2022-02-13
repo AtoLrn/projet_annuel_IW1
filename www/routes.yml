@@ -1,39 +1,57 @@
 /:
-  controller: main
-  action: home
+    controller: main
+    action: home
 
 /contact:
-  controller: main
-  action: contact
+    controller: main
+    action: contact
 
 /login:
-  controller: user
-  action: login
+    controller: user
+    action: login
 
 /logout:
-  controller: user
-  action: logout
+    controller: user
+    action: logout
+    security:
+        - user
+        - admin
 
 /register:
+    controller: user
+    action: register
+
+/mail-validation:
   controller: user
-  action: register
+  action: mailValidation
 
 /mail-validation:
   controller: user
   action: mailValidation
 
 /forget:
-  controller: user
-  action: pwdforget
+    controller: user
+    action: pwdforget
 
 /handle-article:
-  controller: article
-  action: handleArticle
-
+    controller: article
+    action: handleArticle
 
 /dashboard:
   controller: admin
   action: dashboard
   security:
     - admin
+    - user
+
+/list:
+  controller: admin
+  action: list
+  security:
+    - admin
+
+/get-user:
+  controller: admin
+  action: getuser
+  security:
     - user

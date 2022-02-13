@@ -15,4 +15,3 @@ define("WEBSITEURL", 'localhost');
 
 define("MAILUSERNAME", "didiermatoutest@gmail.com");
 define("MAILPASSWORD", "yjxukwpukectwoxr");
-
