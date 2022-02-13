@@ -70,9 +70,9 @@ class Session extends Sql
 
             ]
         ]);
-        
+
         if (!empty($res)) {
-            return $session->setId($res[0]['user_id']);
+            return $session->setId($res[0]['session_id']);
         }
         return null;
     }

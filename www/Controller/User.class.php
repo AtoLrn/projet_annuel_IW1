@@ -28,7 +28,9 @@ class User
                 ]
             );
             if (!empty($loggedUser)) {
-                    if (password_verify($_POST['password'], $loggedUser[0]['user_password'])){
+                if ($loggedUser[0]['user_isVerified'])
+
+                    if (password_verify($_POST['password'], $loggedUser[0]['user_password'])) {
 
                         $user = $user->setId($loggedUser[0]['user_id']);
 
@@ -43,13 +45,13 @@ class User
                             header("Location: /");
                         }
                     }
-                    echo 'identifient incorrect';
-                }
-                echo 'Ce mail n\'est pas vérifié';
-                /*}
-                print_r($result);*/
+                echo 'identifient incorrect';
             }
+            echo 'Ce mail n\'est pas vérifié';
+            /*}
+                print_r($result);*/
         }
+
         $view = new View("Login", "front");
         $view->assign("user", $user);
     }
@@ -66,7 +68,7 @@ class User
                 [
                     "user" => [
 
-                        "args" => ["id", "password"], "params" => ["email" => $_POST['email'] ]
+                        "args" => ["id", "password"], "params" => ["email" => $_POST['email']]
                     ]
                 ]
             )) {
