@@ -67,10 +67,12 @@ class Session extends Sql
             "session" => [
                 "args" => ["id", "token", "expiration", "userId"],
                 "params" => ["token" => $token]
+
             ]
         ]);
+        
         if (!empty($res)) {
-            return $session->setId($res[0]['session_id']);
+            return $session->setId($res[0]['user_id']);
         }
         return null;
     }

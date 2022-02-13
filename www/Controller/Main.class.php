@@ -16,7 +16,18 @@ class Main {
             $session = Session::getByToken($_SESSION['token']);
             if ($session !== null){
                 $user = $user->setId($session->getUserId());
+            $userInfo = $user->select([
+                "user" => [
+                    "args" => ["id"], "params" => ["token"]
+                ]
+            ]);
+            
+            if (!empty($userInfo)){
+                $user = $user->setId($userInfo[0]['user_id']);
 
+                $user->generateToken();
+                $_SESSION['token'] = $user->getToken();
+                $user->save();
                 $view->assign('firstname', $user->getFirstname());
                 $view->assign('lastname', $user->getLastname());
             }
