@@ -1,0 +1,34 @@
+@import "../functions";
+// a revoir trop spécifique 
+.user-card {
+    @include box-shadow;
+    @include flex-column;
+
+    position: relative;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+
+    padding: 1em 1.5em;
+
+
+    img {
+        position: absolute;        
+        width: 75px;
+        height: 75px;
+        right: 1.5em;
+        border-radius: 50%;
+    }
+    span {
+        font-weight: 400;
+        &.certif {
+            &::after {
+                margin-left: .5em;
+                content: "☑️";
+            }
+        }
+    }
+    a {
+        align-self: flex-end;
+    }
+}

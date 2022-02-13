@@ -1,0 +1,44 @@
+
+.navbar {
+    height: 100vh;
+    width: 217px;
+    background-color: $white;
+    transition: 0.5s;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+    & > div .burger-menu {
+        display: none;
+        cursor: pointer;     
+    }
+
+    @include box-shadow;
+    @include breakpoint(tablet) {
+        left: -100vw;
+        width: 100vw;
+
+        & > div .burger-menu {
+            display: block;
+            position: fixed;
+            top: 30px;
+            right: 24px;
+        }
+
+        &.open {
+            left: 0px; 
+        }
+    }
+}
+
+.main {
+    padding-left: 217px;
+    min-height: 100vh;
+    & > *:first-child {
+        min-height: 100vh;
+    }
+    @include breakpoint(tablet) {
+        padding-left: 0px;
+    }
+    
+}

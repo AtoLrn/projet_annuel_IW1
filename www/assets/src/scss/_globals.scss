@@ -1,0 +1,56 @@
+// globals init css
+* {
+    box-sizing: border-box;
+    color: $black;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0px;
+}
+
+// set basique text
+
+p,h1,h2,h3,h4 {
+    margin: 0;
+}
+
+p {
+    font-size: 16px;
+}
+
+h1, .h1 {
+    font-size: 32px;
+}
+
+h2, .h2 {
+    font-size: 24px;
+}
+
+h3, .h3 {
+    font-size: 22px;
+}
+
+// responsive size
+@include breakpoint(tablet) {
+    h1, .h1 {
+        font-size: 24px;
+    }
+    
+    h2, .h2 {
+        font-size: 22px;
+    }
+    
+    h3, .h3 {
+        font-size: 18px;
+    }
+}
