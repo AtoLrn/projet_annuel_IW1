@@ -82,6 +82,9 @@
         &.j-bet {
             justify-content: space-between;
         }
+        &.j-end {
+            justify-content: flex-end;
+        }
 
         @for $i from 1 through $col-nb {
             .col-lg-#{$i} {

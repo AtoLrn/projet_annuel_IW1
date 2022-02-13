@@ -54,3 +54,17 @@ h3, .h3 {
         font-size: 18px;
     }
 }
+
+.mobile{
+    display: none;
+    @include breakpoint(tablet) {
+        display: flex;
+    }
+}
+
+
+.desktop {
+    @include breakpoint(tablet) {
+        display: none;
+    }
+}

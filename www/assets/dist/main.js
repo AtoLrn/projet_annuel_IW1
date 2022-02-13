@@ -4047,10 +4047,25 @@ $(document).ready(function () {
 
   if ($('#list-table')[0]) {
     $('#list-table').DataTable({
-      responsive: true
+      responsive: true,
+      autoWidth: false,
+      lengthChange: false,
+      searching: false,
+      bInfo: false,
+      language: {
+        'paginate': {
+          'previous': '<span class="prev-icon"> < </span>',
+          'next': '<span class="next-icon"> > </span>'
+        }
+      }
     });
   }
 });
+
+var closeMenu = function closeMenu() {
+  $('.aside-info').removeClass("show");
+};
+
 var status = {
   user: "Utilisateur",
   admin: "Adminnistrateur",

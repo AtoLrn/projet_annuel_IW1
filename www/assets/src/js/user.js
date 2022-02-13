@@ -37,3 +37,5 @@ const setAsideInfo = (data) => {
     info.append( `<p>${status[data.user_status] || "Utilisateur" }</p>` );
     $('.aside-info').addClass("show")
 }
+
+

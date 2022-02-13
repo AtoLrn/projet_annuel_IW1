@@ -1,0 +1,50 @@
+
+.list {
+    padding: 48px;
+    @include breakpoint(tablet) {
+        padding: 48px 0;
+    }
+}
+.table-container {
+    
+    @include flex;
+    gap: 48px;
+    position: relative;
+    .table {
+        flex-grow: 1;
+        width: auto;
+
+        table {
+            width: 100%;
+        }
+
+        
+    }
+    @include breakpoint(tablet) {
+        
+    }
+
+    .aside-info {
+
+        opacity: 0;
+        transition: 0.3s;
+        width: 356px;
+        
+    
+        &.show {
+            opacity: 1;
+        }
+    
+        @include breakpoint(tablet) {
+            opacity: 1;
+            position: absolute;
+            width: calc(100vw - 48px);
+            z-index: 1;
+            right: calc(-100vw);
+            &.show {
+                right: 24px;
+            }
+    
+        }
+    }
+}
