@@ -14,6 +14,7 @@ class Session extends Sql
     public function __construct()
     {
         parent::__construct();
+        $this->expiration = date('Y-m-d H:i:s');
     }
 
     public function getId(): ?int
@@ -64,12 +65,14 @@ class Session extends Sql
         $session = new Session();
         $res = $session->select([
             "session" => [
-                "args" => ['id', 'token', 'expiration', 'userId'], "params" => ["token" => $token]
+                "args" => ["id", "token", "expiration", "userId"],
+                "params" => ["token" => $token]
+
             ]
         ]);
-        
+
         if (!empty($res)) {
-            return $session->setId($res[0]['user_id']);
+            return $session->setId($res[0]['session_id']);
         }
         return null;
     }

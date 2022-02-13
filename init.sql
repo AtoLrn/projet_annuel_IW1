@@ -8,8 +8,8 @@ CREATE TABLE `esgi_user` (
   `password` varchar(255) NOT NULL,
   `mailToken` varchar(255) NOT NULL,
 
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE `esgi_session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `token` varchar(255) NOT NULL,
   `userId` int(11) NOT NULL,
-  `expiration` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expiration` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`),
   PRIMARY KEY (`id`)
 );
@@ -43,8 +43,8 @@ CREATE TABLE `esgi_article` (
   `title` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`),
   FOREIGN KEY (`categoryId`) REFERENCES `esgi_category` (`id`),
   PRIMARY KEY (`id`)

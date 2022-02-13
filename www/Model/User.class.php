@@ -9,11 +9,11 @@ class User extends Sql
     protected $id = null;
     protected $firstname = null;
     protected $lastname = null;
+    protected $status = "user";
     protected $email;
     protected $password;
-    protected $status = "user";
     protected $isVerified = 0;
-    protected $token = null;
+    protected $mailToken = null;
 
     public function __construct()
     {
@@ -112,22 +112,6 @@ class User extends Sql
         $this->status = $status;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    /**
-     * length : 255
-     */
-    public function generateToken(): void
-    {
-        $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
-    }
-
     public function getSelectTemplate(): array
     {
         return [
@@ -152,10 +136,54 @@ class User extends Sql
                     "params" => [],
                 ]
             ],
-               
+
         ];
     }
 
+    /**
+     * @param string $isVerified
+     */
+    public function setIsVerified(string $isVerified): void
+    {
+        $this->isVerified = $isVerified;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMailToken(): ?string
+    {
+        return $this->mailToken;
+    }
+
+    /**
+     * length : 255
+     */
+    public function generateMailToken(): void
+    {
+        $this->mailToken = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
+    /**
+     * @param string $isVerify
+     */
+    public function setIsVerify(string $isVerify): void
+    {
+        $this->isVerify = $isVerify;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIsVerify(): int
+    {
+        return $this->isVerify;
+    }
+
+    public function getIsVerified(): int
+    {
+        return $this->isVerified;
+    }
 
     public function getRegisterForm(): array
     {
