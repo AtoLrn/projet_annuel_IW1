@@ -1,7 +1,11 @@
 <section class="p-12 grid h-per-20 list">
-   <h1 class="h1 mb-12">  <?= $listTpl['title'] ?> </h1> 
-   <?php if(count($list) > 0): ?>
-   <section class="table-container">
+    <h1 class="h1 mb-12 xs-ml-6">  <?= $listTpl['title'] ?> </h1> 
+    <?php if(count($list) > 0): ?>
+    <div class="mb-7 xs-ml-6">
+        <p class="mb-2" >Rechercher :</p>
+        <input id="search" type="text" class="input input-search" placeholder="rechercher ...">
+    </div>
+    <section class="table-container">
         <div class="table card p-6">     
             <table id="list-table" class="m-0 w-per-20" data-page-length="20">
                     <thead>

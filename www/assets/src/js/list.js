@@ -3,19 +3,27 @@ $(document).ready(() => {
         $('.navbar').toggleClass('open')
     })
     if($('#list-table')[0]) {
-        $('#list-table').DataTable({
+
+        //init datatables
+        tab = $('#list-table').DataTable({
             responsive: true,
             autoWidth: false,
-            lengthChange: false,
-            searching: false,
+            lengthChange: false,         
             bInfo : false,
             language: {
                 'paginate': {
-                    'previous': '<span class="prev-icon"> < </span>',
-                    'next': '<span class="next-icon"> > </span>'
+                    'previous': '<img src="assets/img/logo/arrow-list.svg">',
+                    'next': '<img src="assets/img/logo/arrow-list.svg">'
                 }
-            }
+            },
+
         });
+
+        // search custom input
+        $('#search').keyup(function(){
+            console.log("ok")
+            tab.search( this.value ).draw();
+        })
     }
     
 })

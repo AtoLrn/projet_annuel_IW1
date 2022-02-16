@@ -4,6 +4,7 @@
     @include breakpoint(tablet) {
         padding: 48px 0;
     }
+    width: 100%;
 }
 .table-container {
     
@@ -15,13 +16,15 @@
         width: auto;
 
         table {
-            width: 100%;
+            width: 100%; 
         }
 
         
     }
     @include breakpoint(tablet) {
-        
+        .table {
+            width: 100%;
+        }
     }
 
     .aside-info {
@@ -37,14 +40,47 @@
     
         @include breakpoint(tablet) {
             opacity: 1;
-            position: absolute;
+            position: fixed;
             width: calc(100vw - 48px);
             z-index: 1;
             right: calc(-100vw);
+            top: 120px;
             &.show {
                 right: 24px;
             }
     
         }
     }
+}
+
+// ------ edit datatables css ------ //
+
+// pagination
+.dataTables_paginate {
+    margin-top: 16px !important;
+
+    .paginate_button {
+        padding: 4px 8px !important;
+        border-radius: 5px !important;
+        border: 1px solid #D4D4D4 !important;
+        background-color: $white !important;
+        min-width: 28px;
+        margin-left: 4px !important;
+    }
+    
+    .paginate_button.previous, .paginate_button.next {
+        padding: 4px 6px !important;
+        cursor: pointer !important;
+    }
+    
+    .paginate_button.previous {
+        transform: rotate(180deg);
+        margin-left: 0px !important;
+    }
+}
+
+//searching
+
+.dataTables_filter {
+    display: none;
 }
