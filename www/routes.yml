@@ -21,6 +21,14 @@
     controller: user
     action: register
 
+/mail-validation:
+  controller: user
+  action: mailValidation
+
+/mail-validation:
+  controller: user
+  action: mailValidation
+
 /forget:
     controller: user
     action: pwdforget

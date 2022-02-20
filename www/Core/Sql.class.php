@@ -55,6 +55,8 @@ abstract class Sql
             }
             $sql = "UPDATE " . $this->table . " SET " . implode(",", $update) . " WHERE id=" . $this->getId();
         }
+        // DEBUG
+        // echo $sql;
 
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($columns);
@@ -69,20 +71,20 @@ abstract class Sql
 
     public function select(array $tables): ?array
     {
-        $calledClassExploded = explode("\\",get_called_class());
+        $calledClassExploded = explode("\\", get_called_class());
         $table = strtolower(end($calledClassExploded));
-    
+
         $args = $this->getArgs($tables);
         $lf = $this->getLeftJoins($tables);
-        $sql = "SELECT " .$args. " FROM " .DBPREFIXE.$table.$lf; 
+        $sql = "SELECT " . $args . " FROM " . DBPREFIXE . $table . $lf;
 
         $where = $this->getWhere($tables);
-        if($where !== "") {  
-            $sql .= " WHERE " .$where;
+        if ($where !== "") {
+            $sql .= " WHERE " . $where;
         }
-        
+
         $params = [];
-        foreach($tables as $key => $val) {
+        foreach ($tables as $key => $val) {
             $params = array_merge($params, $val['params']);
         }
 
@@ -96,38 +98,38 @@ abstract class Sql
     private function dbFetchAll($sql, $params): ?array
     {
         $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute( $params );
+        $queryPrepared->execute($params);
 
         return $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
     }
 
     private function getArgs(array $tables): string
-    {       
+    {
         $args = [];
         foreach ($tables as $keyTable => $values) {
             foreach ($values['args'] as $key => $vals) {
-                array_push($args, DBPREFIXE.$keyTable. "." .$vals. " AS " . $keyTable. "_" .$vals);
+                array_push($args, DBPREFIXE . $keyTable . "." . $vals . " AS " . $keyTable . "_" . $vals);
             }
         }
 
-        return implode("," , $args);       
+        return implode(",", $args);
     }
 
     private function getLeftJoins(array $tables): string
-    {      
+    {
         $lf = [];
 
-        $tables = array_filter($tables, function($table) {
+        $tables = array_filter($tables, function ($table) {
             return isset($table['lf']);
         });
 
         foreach ($tables as $key => $values) {
-            foreach($values['lf'] as $val) {
-                array_push($lf, " LEFT JOIN " .DBPREFIXE.$val. " ON " .DBPREFIXE.$key. ".id = " .DBPREFIXE.$val. "." .$key. "Id");
+            foreach ($values['lf'] as $val) {
+                array_push($lf, " LEFT JOIN " . DBPREFIXE . $val . " ON " . DBPREFIXE . $key . ".id = " . DBPREFIXE . $val . "." . $key . "Id");
             }
         }
 
-        return implode("" , $lf);           
+        return implode("", $lf);
     }
 
     private function getWhere(array $tables): string
@@ -136,10 +138,10 @@ abstract class Sql
         $where = [];
         foreach ($tables as $key => $table) {
             foreach ($table['params'] as $keyParams => $param) {
-                array_push($where, DBPREFIXE.$key. "." .$keyParams. " = :" . $keyParams);
-            }        
+                array_push($where, DBPREFIXE . $key . "." . $keyParams . " = :" . $keyParams);
+            }
         }
-                  
+
         return implode(" AND ", $where);
     }
 }
