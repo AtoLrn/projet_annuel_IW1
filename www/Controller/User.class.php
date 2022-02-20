@@ -6,8 +6,12 @@ use App\Core\Mail;
 use App\Core\Verificator;
 use App\Core\Sql;
 use App\Core\View;
+use App\Core\Server;
 use App\Model\User as UserModel;
 use App\Model\Session;
+
+
+
 class User {
 
     public function login()
@@ -105,6 +109,54 @@ class User {
     public function pwdforget()
     {
         echo "Mot de passe oublié";
+    }
+
+
+    // -------------- API calls ------------- //
+
+
+    public function getUserById()
+    {
+        $content = file_get_contents('php://input');
+        $_POST = json_decode($content, true);
+        Server::ensureHttpMethod('POST');
+
+        $id = $_POST['id'] ?? null;
+        $user = new UserModel();
+        $listTpl = $user->formatUserById();
+        $listTpl['user']['params']['id'] = $id;
+        $result = $user->select($listTpl);
+        if($result) {
+            http_response_code(200);
+        }else {
+            http_response_code(500);
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($result);
+    }
+
+
+    public function getUsers()
+    {
+        Server::ensureHttpMethod('GET');
+        $user = new UserModel();
+        $result = $user->select(
+            [
+                "user" => [
+                    "args" => ["id", "email", "lastname", "firstname", "status"],
+                    "params" => [],
+                ]
+            ]
+        );
+        if($result) {
+            http_response_code(200);
+        }else {
+            http_response_code(500);
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($result);
     }
 
 }

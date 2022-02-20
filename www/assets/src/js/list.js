@@ -24,10 +24,21 @@ $(document).ready(() => {
             console.log("ok")
             tab.search( this.value ).draw();
         })
+
+        getList();
     }
     
 })
 
 const closeMenu = () => {
     $('.aside-info').removeClass("show")
+}
+
+const getList = () => {
+    for(const i of ['user', 'article', 'comment']){
+        if($('#list-table').hasClass(i)) {
+            window["get" + i[0].toUpperCase() + i.substring(1) + "s"]();
+        }
+    }
+
 }

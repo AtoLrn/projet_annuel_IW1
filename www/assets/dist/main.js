@@ -1,3 +1,9 @@
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 /*! jQuery v3.6.0 | (c) OpenJS Foundation and other contributors | jquery.org/license */
@@ -4040,6 +4046,110 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     return C.$ === S && (C.$ = Gt), e && C.jQuery === S && (C.jQuery = Vt), S;
   }, "undefined" == typeof e && (C.jQuery = C.$ = S), S;
 });
+var statusUser = {
+  user: "Utilisateur",
+  admin: "Adminnistrateur",
+  chief: "Cuisinier"
+};
+
+var getUsers = function getUsers() {
+  console.log("nice");
+  fetch('http://localhost/get-users', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  }).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    console.log(data);
+    setTableUser(data);
+  })["catch"](function (error) {
+    console.log('Erreur : ' + error);
+  });
+};
+
+var getUserById = function getUserById(userId) {
+  console.log(userId);
+  var form = Object.assign({}, {
+    id: userId
+  });
+  fetch('http://localhost/get-user', {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(form)
+  }).then(function (r) {
+    return r.json();
+  }).then(function (data) {
+    data = data[0];
+    setAsideInfo(data);
+  })["catch"](function (error) {
+    console.log('Erreur : ' + error);
+  });
+};
+
+var setTableUser = function setTableUser(data) {
+  var content = $('#table-content');
+  content.html("");
+
+  var _iterator = _createForOfIteratorHelper(data),
+      _step;
+
+  try {
+    var _loop = function _loop() {
+      var row = _step.value;
+      console.log(row);
+      var tr = $("<tr></tr>");
+      tr.addClass("bd-t-1 bd-light-gray");
+      tr.click(function () {
+        getUserById(row['user_id']);
+      });
+      content.append(tr);
+      var i = 0;
+
+      for (var col in row) {
+        if (col != 'user_id') {
+          var td = $('<td></td>');
+          td.addClass("bd-t-1 bd-light-gray");
+          if (i > 2) td.addClass("desktop");
+
+          if (col == 'user_status') {
+            td.html(statusUser[row[col]]);
+          } else {
+            td.html(row[col]);
+          }
+
+          tr.append(td);
+        }
+
+        i++;
+      }
+    };
+
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      _loop();
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+};
+
+var setAsideInfo = function setAsideInfo(data) {
+  var info = $('#infos');
+  info.html("");
+  info.append("<p>".concat(data.user_lastname, "</p>"));
+  info.append("<p>".concat(data.user_firstname, "</p>"));
+  info.append("<p>".concat(data.user_email, "</p>"));
+  info.append("<p>".concat(statusUser[data.user_status], "</p>"));
+  $('.aside-info').addClass("show");
+};
+
 $(document).ready(function () {
   $('.burger-menu').click(function () {
     $('.navbar').toggleClass('open');
@@ -4064,6 +4174,7 @@ $(document).ready(function () {
       console.log("ok");
       tab.search(this.value).draw();
     });
+    getList();
   }
 });
 
@@ -4071,39 +4182,12 @@ var closeMenu = function closeMenu() {
   $('.aside-info').removeClass("show");
 };
 
-var status = {
-  user: "Utilisateur",
-  admin: "Adminnistrateur",
-  chief: "Cuisinier"
-};
+var getList = function getList() {
+  for (var _i2 = 0, _arr = ['user', 'article', 'comment']; _i2 < _arr.length; _i2++) {
+    var i = _arr[_i2];
 
-var getUserById = function getUserById(userId) {
-  var form = Object.assign({}, {
-    id: userId
-  });
-  fetch('http://localhost/get-user', {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    method: 'POST',
-    body: JSON.stringify(form)
-  }).then(function (r) {
-    return r.json();
-  }).then(function (data) {
-    data = data[0];
-    setAsideInfo(data);
-  })["catch"](function (error) {
-    console.log('Erreur : ' + error);
-  });
-};
-
-var setAsideInfo = function setAsideInfo(data) {
-  var info = $('#infos');
-  info.html("");
-  info.append("<p>".concat(data.user_lastname, "</p>"));
-  info.append("<p>".concat(data.user_firstname, "</p>"));
-  info.append("<p>".concat(data.user_email, "</p>"));
-  info.append("<p>".concat(status[data.user_status] || "Utilisateur", "</p>"));
-  $('.aside-info').addClass("show");
+    if ($('#list-table').hasClass(i)) {
+      window["get" + i[0].toUpperCase() + i.substring(1) + "s"]();
+    }
+  }
 };

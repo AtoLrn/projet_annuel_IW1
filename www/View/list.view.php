@@ -1,40 +1,25 @@
 <section class="p-12 grid h-per-20 list">
     <h1 class="h1 mb-12 xs-ml-6">  <?= $listTpl['title'] ?> </h1> 
-    <?php if(count($list) > 0): ?>
     <div class="mb-7 xs-ml-6">
-        <p class="mb-2" >Rechercher :</p>
+        <p class="mb-2" > <?= $listTpl['search'] ?> </p>
         <input id="search" type="text" class="input input-search" placeholder="rechercher ...">
     </div>
     <section class="table-container">
         <div class="table card p-6">     
-            <table id="list-table" class="m-0 w-per-20" data-page-length="20">
+            <table id="list-table" class="<?= $table ?> m-0 w-per-20" data-page-length="20">
                     <thead>
                         <tr>
                             <?php
                             $count = 0;
-                            foreach($list[0] as $key => $values):
-                                $count++;
-                                $name = explode("_", $key);
-                                $name = end($name); 
-                                if($key != $table."_id"): ?>
-                                    <td class="<?= $count > 3 ? "desktop" : "" ?>"> <?= $name ?> </td>
-                                <?php endif;
+                            foreach($listTpl['columns'] as $key => $name):
+                                $count++;?>
+                                    <td class="<?= $count > 2 ? "desktop" : "" ?>"> <?= $name ?> </td>
+                                <?php
                             endforeach;  ?>           
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach($list as $key => $values): ?>
-                            <tr id="<?= $key ?>" class="bd-t-1 bd-light-gray" onclick="getUserById(<?= $values[ $table.'_id' ] ?>)">
-                            <?php
-                             $count = 0;
-                             foreach($values as $key => $value): 
-                                $count++;
-                                if($key != $table."_id"): ?>
-                                    <td class="bd-t-1 bd-light-gray <?= $count > 3 ? " desktop" : "" ?>"><?= $value ?></td>
-                                <?php endif;
-                            endforeach;  ?>
-                            </tr>
-                        <?php endforeach;  ?>                      
+                    <tbody id="table-content">
+                          <!-- data is set on load -->
                     </tbody>
             </table>          
         </div>
@@ -66,8 +51,4 @@
             </div>
         </aside>
     </section>
-    <?php else: ?>
-            <p>il n'y a pas encore de données</p>
-    <?php endif; ?>
-
 </section>

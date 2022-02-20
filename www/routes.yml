@@ -43,6 +43,12 @@
 
 
 /get-user:
-  controller: admin
-  action: getuser
+  controller: user
+  action: getUserById
+  security:
+
+
+/get-users:
+  controller: user
+  action: getUsers
   security:

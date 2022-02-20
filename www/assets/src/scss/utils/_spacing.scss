@@ -143,15 +143,31 @@
     }
 
     //width
-    .w-px#{$i} {
+    .w-px-#{$i} {
         width: calc($i * 4px);
     }
 
-    .w-per#{$i} {
+    .w-per-#{$i} {
         width: calc($i * 5%);
     }
 
-    .w-em#{$i} {
+    .w-em-#{$i} {
         width: calc($i * 4em);
+    }
+
+    @include breakpoint(tablet) {
+
+        .xs-w-px-#{$i} {
+            width: calc($i * 4px);
+        }
+    
+        .xs-w-per-#{$i} {
+            width: calc($i * 5%);
+        }
+    
+        .xs-w-em-#{$i} {
+            width: calc($i * 4em);
+        }
+
     }
 }
