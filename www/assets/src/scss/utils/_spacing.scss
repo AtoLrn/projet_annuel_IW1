@@ -30,6 +30,37 @@
     .mr-#{$i} { // right
         margin-right: calc($i * 4px); 
     }
+
+    @include breakpoint(tablet) {
+        .xs-g-#{$i} {
+            gap: calc($i * 4px) !important;
+        }
+    
+        //margin
+        .xs-m-#{$i} { // all
+            margin: calc($i * 4px);
+        }
+        .xs-my-#{$i} { // on axe Y 
+            margin-top: calc($i * 4px);
+            margin-bottom: calc($i * 4px); 
+        }
+        .xs-mx-#{$i} { // axe X
+            margin-left: calc($i * 4px); 
+            margin-right: calc($i * 4px); 
+        }   
+        .xs-mt-#{$i} { // top
+            margin-top: calc($i * 4px);
+        }
+        .xs-mb-#{$i} { // bottom
+            margin-bottom: calc($i * 4px); 
+        }
+        .xs-ml-#{$i} { // left
+            margin-left: calc($i * 4px); 
+        }
+        .xs-mr-#{$i} { // right
+            margin-right: calc($i * 4px); 
+        }
+    }
     
     //padding
     .p-#{$i} { // all 
@@ -54,6 +85,32 @@
     }
     .pr-#{$i} {
         padding-right: calc($i * 4px); 
+    }
+
+    @include breakpoint(tablet) {
+        .xs-p-#{$i} { // all 
+            padding: calc($i * 4px);
+        }
+        .xs-py-#{$i} {
+            padding-top: calc($i * 4px);
+            padding-bottom: calc($i * 4px); 
+        }
+        .xs-px-#{$i} {
+            padding-left: calc($i * 4px) !important; 
+            padding-right: calc($i * 4px) !important; 
+        }
+        .xs-pt-#{$i} {
+            padding-top: calc($i * 4px);
+        }
+        .xs-pb-#{$i} {
+            padding-bottom: calc($i * 4px); 
+        }
+        .xs-pl-#{$i} {
+            padding-left: calc($i * 4px); 
+        }
+        .xs-pr-#{$i} {
+            padding-right: calc($i * 4px); 
+        }
     }
 
     //border
@@ -86,15 +143,31 @@
     }
 
     //width
-    .w-px#{$i} {
+    .w-px-#{$i} {
         width: calc($i * 4px);
     }
 
-    .w-per#{$i} {
+    .w-per-#{$i} {
         width: calc($i * 5%);
     }
 
-    .w-em#{$i} {
+    .w-em-#{$i} {
         width: calc($i * 4em);
+    }
+
+    @include breakpoint(tablet) {
+
+        .xs-w-px-#{$i} {
+            width: calc($i * 4px);
+        }
+    
+        .xs-w-per-#{$i} {
+            width: calc($i * 5%);
+        }
+    
+        .xs-w-em-#{$i} {
+            width: calc($i * 4em);
+        }
+
     }
 }

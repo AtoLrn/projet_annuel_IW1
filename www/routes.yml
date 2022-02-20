@@ -48,10 +48,15 @@
   controller: admin
   action: list
   security:
-    - admin
+
 
 /get-user:
-  controller: admin
-  action: getuser
+  controller: user
+  action: getUserById
   security:
-    - user
+
+
+/get-users:
+  controller: user
+  action: getUsers
+  security:

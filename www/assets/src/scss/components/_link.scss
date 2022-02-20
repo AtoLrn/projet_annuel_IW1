@@ -1,5 +1,6 @@
 .link {
     transition: 0.3s;
+    cursor: pointer;
     &.active{
         font-weight: bold;
     }

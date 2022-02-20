@@ -112,31 +112,56 @@ class User extends Sql
         $this->status = $status;
     }
 
-    public function getSelectTemplate(): array
+
+    /**
+     * @return null|string
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * length : 255
+     */
+    public function generateToken(): void
+    {
+        $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
+
+    public function formatList(): array
     {
         return [
             "title" => "Les Utilisateurs",
-            "tables" => [
-                "user" => [
-                    "args" => ["id", "email", "firstname", "lastname", "status"],
-                    "params" => ["id" => ""],
-                    "lf" => ["article"]
-                ],
-                "article" => [
-                    "args" => ["id", "title", "description"],
-                    "params" => [],
-                    "lf" => ["like", "comment"]
-                ],
-                "like" => [
-                    "args" => ["id"],
-                    "params" => [],
-                ],
-                "comment" => [
-                    "args" => ["id"],
-                    "params" => [],
-                ]
+            "search" => "Rechercher un utilisateur",
+            "columns" => ["Mail", "Nom", "Prénom", "Statut"]
+              
+        ];
+    }
+
+    public function formatUserById(): array
+    {
+        return [          
+            "user" => [
+                "args" => ["id", "email", "firstname", "lastname", "status"],
+                "params" => ["id" => ""],
+                "lf" => ["article"]
+            ],
+            "article" => [
+                "args" => ["id", "title", "description"],
+                "params" => [],
+                "lf" => ["like", "comment"]
+            ],
+            "like" => [
+                "args" => ["id"],
+                "params" => [],
             ],
 
+            "comment" => [
+                "args" => ["id"],
+                "params" => [],
+            ]                 
         ];
     }
 

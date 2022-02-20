@@ -1,6 +1,6 @@
 
 // a revoir trop spécifique et a mettre sous forme de classe
-input {
+.input {
 
     outline: none;
     border: 1px solid #E2E2E2;
@@ -10,13 +10,27 @@ input {
     font-size: 16px;
     color: #04172F;
     transition: .2s ease;
-    width: 100%;
-    &:focus {
-        border: 1px solid #FF409C;
-        background-color: rgba(191, 15, 121, 0.03);
 
+    &-pink {
+        &:focus {
+            border: 1px solid #FF409C;
+            background-color: rgba(191, 15, 121, 0.03);
+    
+        }
     }
+
+    &-search {
+        width: 200px;
+        &:focus {
+            border: 1px solid $light-gray; 
+        }
+    }
+
     &.error {
         border: 1px solid #E77280;
     }
+}
+
+input::placeholder {
+    color: #E2E2E2;
 }
