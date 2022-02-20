@@ -33,6 +33,10 @@
     controller: article
     action: handleArticle
 
+/recette:
+    controller: article
+    action: getArticle
+
 /dashboard:
   controller: admin
   action: dashboard
