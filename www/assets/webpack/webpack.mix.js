@@ -26,7 +26,7 @@ mix.babel([
  '../src/js/register-login.js',
  '../src/js/article.js',
  '../src/js/navbar.js',
-
+ '../src//js/certification.js'
 ], '../dist/main.js');
 
 //mix.minify('../web/dist/main.js');

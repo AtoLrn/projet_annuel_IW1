@@ -46,7 +46,7 @@ const getUserById = (userId) => {
         return r.json();
     }).then((data) => {
         data = data[0]
-        setAsideInfo(data);    
+        setAsideUserInfo(data);
     }).catch((error) => {
         console.log('Erreur : ' + error);
     });
@@ -73,7 +73,7 @@ const setTableUser = (data, tab) => {
     }
 }
 
-const setAsideInfo = (data) => {
+const setAsideUserInfo = (data) => {
     $('.aside-info').removeClass("show");
     let info = $('#infos');
     info.html("");

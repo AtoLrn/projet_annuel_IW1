@@ -19,19 +19,7 @@ class Main
 
             if ($session !== null) {
                 $user = $user->setId($session->getUserId());
-
-                $userInfo = $user->select([
-                    "user" => [
-                        "args" => ["id"], "params" => ["id" => $session->getUserId()]
-                    ]
-                ]);
-
-                if (!empty($userInfo)) {
-                    $user = $user->setId($userInfo[0]['user_id']);
-                    $user->save();
-                    $view->assign('firstname', $user->getFirstname());
-                    $view->assign('lastname', $user->getLastname());
-                }
+                $view->assign('firstname', $user->getFirstname());
             }
         }
     }

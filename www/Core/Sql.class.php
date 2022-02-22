@@ -72,7 +72,8 @@ abstract class Sql
     public function select(array $tables): ?array
     {
         $calledClassExploded = explode("\\", get_called_class());
-        $table = strtolower(end($calledClassExploded));
+        /*$table = strtolower(end($calledClassExploded));*/
+        $table = array_keys($tables)[0];
 
         $args = $this->getArgs($tables);
         $joins = $this->getJoins($tables, 'lf') . $this->getJoins($tables, 'ij') . $this->getJoins($tables, 'rj');
