@@ -1,7 +1,6 @@
 // a revoir trop spécifique
 
 .btn {
-    
     color: white;
     font-weight: 500;
     text-decoration: none;
@@ -13,9 +12,10 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     &-pink {
-        
+
         border: 1px solid $pink;
         background-color: $pink;
         &:hover {
@@ -25,7 +25,7 @@
     }
 
     &-danger {
-        
+
         border: 1px solid $light-pink;
         background-color: $light-pink;
         &:hover {
@@ -35,7 +35,7 @@
     }
 
     &-outline-pink {
-        
+
         border: 1px solid $pink;
         background-color: $white;
         color: $pink;
@@ -48,6 +48,6 @@
         padding: 4px 12px;
         font-size: 12px;
     }
-    
-    
+
+
 }

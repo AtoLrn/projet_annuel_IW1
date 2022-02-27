@@ -1,0 +1,38 @@
+
+.login-register-bg {
+    background-image: url("../img/login-register-bg.png");
+    background-size: cover;
+}
+
+.selector-button {
+    font-weight: 800;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px $light-gray;
+    height: 68px;
+    background-color: white;
+    &.login {
+        border-radius: 12px 0 0 0;
+    }
+
+    &.register {
+        border-radius: 0 12px 0 0;
+    }
+
+    &.selected {
+        color: $pink;
+        border: solid 1px $pink;
+        z-index: 2;
+    }
+}
+
+
+.smooth-div {
+    animation: smoothTransition 0.5s linear;
+}
+
+
+
+

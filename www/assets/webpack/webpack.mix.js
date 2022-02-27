@@ -17,7 +17,7 @@ mix.babel([
  '../src/js/jquery-3.6.0.min.js',
  '../src/js/user.js',
  '../src/js/list.js',
- 
+ '../src/js/register-login.js'
 
 ], '../dist/main.js');
 

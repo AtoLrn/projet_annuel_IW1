@@ -14,10 +14,9 @@ use App\Model\Session;
 
 class User
 {
-    public function login()
+    public function login(UserModel $user, array $post): ?string
     {
-        $user = new UserModel();
-        if (!empty($_POST)) {
+        if (!empty($post)) {
             /*$result = Verificator::checkForm($user->getLoginForm(), $_POST);
             if (empty($result)){*/
             $loggedUser = $user->select(
@@ -29,7 +28,7 @@ class User
                 ]
             );
             if (!empty($loggedUser)) {
-                if ($loggedUser[0]['user_isVerified'])
+                if ($loggedUser[0]['user_isVerified']) {
 
                     if (password_verify($_POST['password'], $loggedUser[0]['user_password'])) {
 
@@ -46,30 +45,24 @@ class User
                             header("Location: /");
                         }
                     }
-                echo 'identifient incorrect';
+                }
+                return 'Ce mail n\'est pas vérifié';
             }
-            echo 'Ce mail n\'est pas vérifié';
-            /*}
-                print_r($result);*/
+            return 'identifient incorrect';
         }
-
-        $view = new View("Login", "front");
-        $view->assign("user", $user);
+        return "formulaire absent";
     }
 
-    public function register()
+    public function register(UserModel $user, array $post): array
     {
-        $user = new UserModel();
-        $view = new View("register", 'front');
+        if (!empty($post)) {
 
-        if (!empty($_POST)) {
-
-            $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
+            $result = Verificator::checkForm($user->getRegisterForm(), $post);
             if ($user->select(
                 [
                     "user" => [
 
-                        "args" => ["id", "password"], "params" => ["email" => $_POST['email']]
+                        "args" => ["id", "password"], "params" => ["email" => $post['email']]
                     ]
                 ]
             )) {
@@ -77,10 +70,10 @@ class User
             }
             if (empty($result)) {
 
-                $user->setFirstname($_POST['firstname']);
-                $user->setLastname($_POST['lastname']);
-                $user->setEmail($_POST['email']);
-                $user->setPassword($_POST['password']);
+                $user->setFirstname($post['firstname']);
+                $user->setLastname($post['lastname']);
+                $user->setEmail($post['email']);
+                $user->setPassword($post['password']);
                 $user->generateMailToken();
                 $id = $user->save();
 
@@ -92,13 +85,38 @@ class User
                 $session->save();
 
                 $mail = Mail::getInstance();
-                $mail->mailValidation($_POST['email'], $_POST['firstname'], $_POST['lastname'], $user->getMailToken());
-                $view->assign('isCreated', true);
-                return;
+                $mail->mailValidation($post['email'], $post['firstname'], $post['lastname'], $user->getMailToken());
+                return [1];
             }
-            print_r($result);
+            return $result;
         }
-        $view->assign('isCreated', false);
+        return ['formulaire absent'];
+    }
+
+    public function register_login(){
+        $user = new UserModel();
+        $isCreated = false;
+        $errorMessage = null;
+        $view = new View("register-login", 'front');
+
+        if (!empty($_POST) ) {
+            if ($_GET["formType"] !== null) {
+                if ($_GET["formType"] === "login") {
+                    $response = $this->login($user, $_POST);
+                    $errorMessage = $response ?? null;
+                } else if ($_GET["formType"] === "register") {
+                    $response = $this->register($user, $_POST);
+                    if (is_string($response[0])) {
+                        $errorMessage = !empty($response) ? $response[0] : "un problème est survenu";
+                    } else {
+                        $isCreated = $response;
+                    }
+                }
+            }
+        }
+
+        $view->assign('isCreated', $isCreated);
+        $view->assign('errorMessage', $errorMessage);
         $view->assign("user", $user);
     }
 

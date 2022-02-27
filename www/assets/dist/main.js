@@ -4235,3 +4235,39 @@ var displayPopUp = function displayPopUp(id) {
 var closePopUp = function closePopUp() {
   $('#pop-up').removeClass('show');
 };
+
+$(document).ready(function () {
+  var registerButton = $('#registerButton');
+  var registerForm = $('#registerForm');
+  var loginButton = $('#loginButton');
+  var loginForm = $('#loginForm');
+  var params = new URL(document.location).searchParams;
+  var formType = params.get('formType');
+
+  if (formType === 'register') {
+    registerButton.addClass('selected');
+    loginForm.addClass('hidden');
+    registerForm.addClass('smooth-div');
+  } else {
+    loginButton.addClass('selected');
+    registerForm.addClass('hidden');
+    loginForm.addClass('smooth-div');
+  }
+
+  console.log('gggg');
+  registerButton.click(function () {
+    displayForm(registerButton, registerForm, loginButton, loginForm);
+  });
+  loginButton.click(function () {
+    displayForm(registerButton, registerForm, loginButton, loginForm);
+  });
+});
+
+var displayForm = function displayForm(registerButton, registerForm, loginButton, loginForm) {
+  loginForm.toggleClass('hidden');
+  loginButton.toggleClass('selected');
+  registerForm.toggleClass('hidden');
+  registerButton.toggleClass('selected');
+  loginForm.toggleClass('smooth-div');
+  registerForm.toggleClass('smooth-div');
+};
