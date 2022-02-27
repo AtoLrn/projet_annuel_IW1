@@ -4788,6 +4788,40 @@ fieldset input {
   }
 }
 
+.navbar-front {
+  box-shadow: 0px 0px 17px 3px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-front nav ul {
+  font-weight: 500;
+  width: 600px !important;
+  display: flex;
+  justify-content: space-between;
+}
+.navbar-front nav ul li {
+  cursor: pointer;
+}
+.navbar-front section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.navbar-front section a {
+  font-size: 16px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  padding: 0.2em;
+  gap: 8px;
+}
+
 .main {
   padding-left: 217px;
   min-height: 100vh;
