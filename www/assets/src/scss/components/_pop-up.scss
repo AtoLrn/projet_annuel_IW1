@@ -1,0 +1,30 @@
+.cont-popup {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    backdrop-filter: blur(3px);
+    display: none;
+
+    &.show {
+        display: block;
+    }
+
+    .pop-up {
+        background: $white;
+        position: absolute;
+        width: 400px;
+        top: calc(35%);
+        left: calc(50% - 200px);
+    }
+
+    @include breakpoint(tablet) {
+        .pop-up {
+            width: calc(100% - 48px);
+            top: calc(35%);
+            left: 24px;
+        }
+    }
+}
