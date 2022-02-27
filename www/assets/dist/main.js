@@ -4184,10 +4184,6 @@ var setAsideInfo = function setAsideInfo(data) {
 };
 
 $(document).ready(function () {
-  $('.burger-menu').click(function () {
-    $('.navbar').toggleClass('open');
-  });
-
   if ($('#list-table')[0]) {
     //init datatables
     tab = $('#list-table').DataTable({
@@ -4319,3 +4315,10 @@ var hideImage = function hideImage() {
     }
   });
 };
+
+$(document).ready(function () {
+  $('.burger-menu').click(function () {
+    $('.navbar').toggleClass('open');
+    $('.navbar-front').toggleClass('open');
+  });
+});

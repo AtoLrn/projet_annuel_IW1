@@ -33,15 +33,22 @@
 
 .navbar-front {
     @include box-shadow;
-
+    padding: 0 80px;
     width: 100%;
     position: fixed;
     top: 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    overflow: hidden;
+    transition: .5s ease;
+    z-index: 2;
     background-color: $white;
-    z-index: 10;
+
+    .burger-menu {
+        cursor: pointer;
+        display: none;
+    }
     nav {
         ul {
             font-weight: 500;
@@ -70,7 +77,54 @@
             gap: 8px;
         }
     }
+    @include breakpoint(tablet) {
+        height: 100vh;
+        padding: 0 20px;
+        position: absolute;
+        transform: translateX(100vw); 
+        flex-direction: column;
+        nav {
+            div {
+                border-bottom: 1px solid;
+                width: 100%;
+                img {
+                    height: 78px;
+                }
+            }
+            flex-direction: column;
+            align-items: flex-start  !important;
+            ul {
+                border-bottom: 1px solid;
+                width: 100% !important;
+                flex-direction: column;
+                gap: 2em;
+                padding-bottom: 1em;
+            }
+        }
+ 
+    }
+    &.open {
+        transform: translateX(0vw); 
+        
+    }
 }
+
+
+
+.burger-menu {
+    z-index: 3;
+    display: none;
+    @include breakpoint(tablet) {
+        
+            cursor: pointer;
+            display: block;
+            position: fixed;
+            top: 30px;
+            right: 24px;
+         
+    }
+}
+
 
 .main {
     padding-left: 217px;
