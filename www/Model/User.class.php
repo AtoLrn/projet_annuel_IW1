@@ -214,17 +214,20 @@ class User extends Sql
     {
         return [
             "config" => [
+                "id" => "registerForm",
                 "method" => "POST",
-                "action" => "",
-                "submit" => "S'inscrire"
+                "action" => "/register-login?formType=register",
+                "submit" => "S'inscrire",
+                "class" => "col a-center py-4 w-per-20 px-8"
             ],
             'inputs' => [
                 "email" => [
                     "type" => "email",
                     "placeholder" => "Votre email ...",
                     "required" => true,
-                    "class" => "inputForm",
+                    "class" => "input input-pink",
                     "id" => "emailForm",
+                    "label" => "Email",
                     "error" => "Email incorrect",
                     "unicity" => "true",
                     "errorUnicity" => "Email déjà en bdd",
@@ -233,24 +236,27 @@ class User extends Sql
                     "type" => "password",
                     "placeholder" => "Votre mot de passe ...",
                     "required" => true,
-                    "class" => "inputForm",
+                    "class" => "input input-pink",
                     "id" => "pwdForm",
+                    "label" => "Mot de passe",
                     "error" => "Votre mot de passe doit faire au min 8 caractères avec majscule, minuscules et des chiffres",
                 ],
                 "passwordConfirm" => [
                     "type" => "password",
                     "placeholder" => "Confirmation ...",
                     "required" => true,
-                    "class" => "inputForm",
+                    "class" => "input input-pink",
                     "id" => "pwdConfirmForm",
+                    "label" => "Confirmez votre mot de passe",
                     "confirm" => "password",
                     "error" => "Votre mot de passe de confirmation ne correspond pas",
                 ],
                 "firstname" => [
                     "type" => "text",
                     "placeholder" => "Votre prénom ...",
-                    "class" => "inputForm",
+                    "class" => "input input-pink",
                     "id" => "firstnameForm",
+                    "label" => "Prénom",
                     "min" => 2,
                     "max" => 50,
                     "error" => "Prénom incorrect"
@@ -258,8 +264,9 @@ class User extends Sql
                 "lastname" => [
                     "type" => "text",
                     "placeholder" => "Votre nom ...",
-                    "class" => "inputForm",
+                    "class" => "input input-pink",
                     "id" => "lastnameForm",
+                    "label" => "Nom",
                     "min" => 2,
                     "max" => 100,
                     "error" => "Nom incorrect"
@@ -272,25 +279,29 @@ class User extends Sql
     {
         return [
             "config" => [
+                "id" => "loginForm",
                 "method" => "POST",
-                "action" => "",
-                "submit" => "Se connecter"
+                "action" => "/register-login?formType=login",
+                "submit" => "Se connecter",
+                "class" => "col a-center py-4 w-per-20 px-8"
             ],
             'inputs' => [
                 "email" => [
                     "type" => "email",
                     "placeholder" => "Votre email ...",
                     "required" => true,
-                    "class" => "inputForm",
+                    "class" => "input input-pink",
                     "id" => "emailForm",
+                    "label" => "Email",
                     "error" => "Email incorrect"
                 ],
                 "password" => [
                     "type" => "password",
                     "placeholder" => "Votre mot de passe ...",
                     "required" => true,
-                    "class" => "inputForm",
-                    "id" => "pwdForm"
+                    "class" => "input input-pink",
+                    "id" => "pwdForm",
+                    "label" => "Mot de passe"
                 ]
             ]
         ];

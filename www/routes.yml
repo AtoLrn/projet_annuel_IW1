@@ -6,10 +6,6 @@
     controller: main
     action: contact
 
-/login:
-    controller: user
-    action: login
-
 /logout:
     controller: user
     action: logout
@@ -17,9 +13,9 @@
         - user
         - admin
 
-/register:
+/register-login:
     controller: user
-    action: register
+    action: register_login
 
 /mail-validation:
   controller: user

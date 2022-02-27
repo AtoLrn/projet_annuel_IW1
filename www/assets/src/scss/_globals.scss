@@ -18,7 +18,7 @@ body, html {
     margin: 0px;
     width: 100vw;
     max-width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
 }
 
 // set basique text
@@ -76,4 +76,8 @@ h3, .h3 {
     @include breakpoint(tablet) {
         display: none;
     }
+}
+
+.hidden {
+    display: none !important;
 }

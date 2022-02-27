@@ -163,6 +163,11 @@
         width: calc($i * 4em);
     }
 
+    //min-height
+    .min-h-#{$i} {
+        min-height: calc($i * 5%);
+    }
+
     @include breakpoint(tablet) {
 
         .xs-w-px-#{$i} {
@@ -177,5 +182,11 @@
             width: calc($i * 4em);
         }
 
+    }
+}
+
+.w-mobile {
+    @include breakpoint(xs){
+        width: calc(100% - 48px) !important;
     }
 }

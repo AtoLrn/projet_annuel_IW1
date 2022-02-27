@@ -36,6 +36,9 @@
         &.j-start {
             justify-content: flex-start;
         }
+        &.j-center {
+            justify-content: center;
+        }
         &.j-bet {
             justify-content: space-between;
         }
@@ -87,6 +90,9 @@
         }
         &.j-bet {
             justify-content: space-between;
+        }
+        &.j-center {
+            justify-content: center;
         }
         &.j-end {
             justify-content: flex-end;
