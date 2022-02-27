@@ -20,6 +20,10 @@
             td {
                 padding: 12px;
             }
+            tbody td{
+                border-top: 1px solid $light-gray;
+                cursor: pointer;
+            }
 
         }
 
@@ -35,7 +39,7 @@
 
         opacity: 0;
         transition: 0.3s;
-        width: 356px;
+        width: 400px;
         
     
         &.show {
@@ -48,7 +52,7 @@
             width: calc(100vw - 48px);
             z-index: 1;
             right: calc(-100vw);
-            top: 120px;
+            top: 8vh;
             &.show {
                 right: 24px;
             }

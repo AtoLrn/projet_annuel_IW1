@@ -4052,7 +4052,7 @@ var statusUser = {
   chief: "Cuisinier"
 };
 
-var getUsers = function getUsers() {
+var getUsers = function getUsers(tab) {
   console.log("nice");
   fetch('http://localhost/get-users', {
     headers: {
@@ -4064,7 +4064,7 @@ var getUsers = function getUsers() {
     return r.json();
   }).then(function (data) {
     console.log(data);
-    setTableUser(data);
+    setTableUser(data, tab);
   })["catch"](function (error) {
     console.log('Erreur : ' + error);
   });
@@ -4092,9 +4092,9 @@ var getUserById = function getUserById(userId) {
   });
 };
 
-var setTableUser = function setTableUser(data) {
-  var content = $('#table-content');
-  content.html("");
+var setTableUser = function setTableUser(data, tab) {
+  var rowNode = tab.row.add(['Fiona White', 32, 'Edinburgh', 'bonjour']).draw().node();
+  tab.clear();
 
   var _iterator = _createForOfIteratorHelper(data),
       _step;
@@ -4102,32 +4102,18 @@ var setTableUser = function setTableUser(data) {
   try {
     var _loop = function _loop() {
       var row = _step.value;
-      console.log(row);
-      var tr = $("<tr></tr>");
-      tr.addClass("bd-t-1 bd-light-gray");
-      tr.click(function () {
-        getUserById(row['user_id']);
-      });
-      content.append(tr);
-      var i = 0;
+      var cols = [];
 
       for (var col in row) {
         if (col != 'user_id') {
-          var td = $('<td></td>');
-          td.addClass("bd-t-1 bd-light-gray");
-          if (i > 2) td.addClass("desktop");
-
-          if (col == 'user_status') {
-            td.html(statusUser[row[col]]);
-          } else {
-            td.html(row[col]);
-          }
-
-          tr.append(td);
+          cols.push(row[col]);
         }
-
-        i++;
       }
+
+      var rowNode = tab.row.add(cols).draw().node();
+      $(rowNode).click(function () {
+        getUserById(row['user_id']);
+      });
     };
 
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
@@ -4139,14 +4125,61 @@ var setTableUser = function setTableUser(data) {
     _iterator.f();
   }
 };
+/*const setTableUser = (data, tab) => {
+
+    var rowNode = tab
+        .row.add( [ 'Fiona White', 32, 'Edinburgh', 'bonjour' ] )
+        .draw()
+        .node();
+    
+    tab.html("");
+    for(const row of data) {
+        let tr = $("<tr></tr>")
+        tr.addClass("bd-t-1 bd-light-gray");
+        tr.click(function() {
+            getUserById(row['user_id'])
+        });
+        content.append(tr);
+        let i = 0
+        for(const col in row) {
+            
+            if(col != 'user_id') {
+                let td = $('<td></td>')
+                td.addClass("bd-t-1 bd-light-gray")
+
+                if(i > 2)td.addClass("desktop")
+                if(col == 'user_status') {
+                    td.html(statusUser[row[col]])
+                }else {
+                    td.html(row[col]);
+                }
+                tr.append(td);
+            }
+            i++;
+        }
+
+        
+
+    }
+}*/
+
+
+var btns = function btns() {
+  return ["<button class='btn btn-pink'> Supprimer </button>", "<button class='btn btn-pink'> Changer status </button>"];
+};
 
 var setAsideInfo = function setAsideInfo(data) {
+  $('.aside-info').removeClass("show");
   var info = $('#infos');
   info.html("");
   info.append("<p>".concat(data.user_lastname, "</p>"));
   info.append("<p>".concat(data.user_firstname, "</p>"));
   info.append("<p>".concat(data.user_email, "</p>"));
   info.append("<p>".concat(statusUser[data.user_status], "</p>"));
+  var btns = $('#btns');
+  btns.html("");
+  btns.append("<button class='btn btn-pink little'> Changer status </button>");
+  btns.append("<button class='btn btn-danger little' onclick='displayPopUp(".concat(data.user_id, ")'> Supprimer </button>"));
   $('.aside-info').addClass("show");
 };
 
@@ -4174,7 +4207,7 @@ $(document).ready(function () {
       console.log("ok");
       tab.search(this.value).draw();
     });
-    getList();
+    getList(tab);
   }
 });
 
@@ -4182,12 +4215,23 @@ var closeMenu = function closeMenu() {
   $('.aside-info').removeClass("show");
 };
 
-var getList = function getList() {
+var getList = function getList(tab) {
   for (var _i2 = 0, _arr = ['user', 'article', 'comment']; _i2 < _arr.length; _i2++) {
     var i = _arr[_i2];
 
     if ($('#list-table').hasClass(i)) {
-      window["get" + i[0].toUpperCase() + i.substring(1) + "s"]();
+      window["get" + i[0].toUpperCase() + i.substring(1) + "s"](tab);
     }
   }
+};
+
+var displayPopUp = function displayPopUp(id) {
+  console.log(id);
+  $('#pop-up').addClass('show');
+  $('#cancel').click(closePopUp);
+  $('#delete').click(closePopUp);
+};
+
+var closePopUp = function closePopUp() {
+  $('#pop-up').removeClass('show');
 };

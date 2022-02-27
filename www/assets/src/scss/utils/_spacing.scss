@@ -130,6 +130,10 @@
         border-left: calc($i * 1px) solid $black;
     }
 
+    .br-#{$i} {
+        border-radius: calc($i * 1px);
+    }
+
     //height
     .h-px-#{$i} {
         height: calc($i * 4px);
@@ -140,6 +144,10 @@
 
     .h-em-#{$i} {
         height: calc($i * 4em) !important;
+    }
+
+    .min-h-px-#{$i} {
+        min-height: calc($i * 8px);
     }
 
     //width
