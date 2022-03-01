@@ -349,7 +349,7 @@ h3,
   }
 }
 .grid .row {
-  flex: 1;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

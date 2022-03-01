@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 </head>
 
-<body>
+<body class="grid">
     <header class="navbar-front grid h-px-20 mb-5">
         <nav class="row j-bet">
             <div><img height="52px" src="assets/img/logo/croc-miam.svg" alt=""></div>
