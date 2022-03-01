@@ -5464,6 +5464,11 @@ fieldset input {
   cursor: pointer;
 }
 @media (max-width: 900px) {
+  .table-container .table table tbody td:nth-child(n+3) {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
   .table-container .table {
     width: 100%;
   }

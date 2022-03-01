@@ -23,6 +23,11 @@
             tbody td{
                 border-top: 1px solid $light-gray;
                 cursor: pointer;
+                @include breakpoint(tablet) {
+                    &:nth-child(n+3) {
+                        display: none;
+                    }
+                }
             }
 
         }
