@@ -5310,6 +5310,8 @@ fieldset input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #fff;
+  z-index: 10;
 }
 .navbar-front nav ul {
   font-weight: 500;
