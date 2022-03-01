@@ -18,7 +18,8 @@ mix.babel([
  '../src/js/user.js',
  '../src/js/list.js',
  '../src/js/register-login.js',
- '../src/js/article.js'
+ '../src/js/article.js',
+ '../src/js/navbar.js',
 
 ], '../dist/main.js');
 

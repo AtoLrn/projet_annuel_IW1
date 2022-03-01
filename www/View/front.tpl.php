@@ -11,10 +11,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 </head>
 
-<body class="grid">
-    <header class="navbar-front grid h-px-20 px-20 mb-5">
+<body>
+    <header class="navbar-front grid h-px-20 mb-5">
         <nav class="row j-bet">
             <div><img height="52px" src="assets/img/logo/croc-miam.svg" alt=""></div>
+            
             <ul>
                 <li>Nos Recettes</li>
                 <li>Les Cuisiniers</li>
@@ -26,6 +27,8 @@
             </section>
         </nav>
     </header>
+    <img class="burger-menu" src="../assets/img/logo/burger-menu.svg" alt="">
+
     <?php include "View/" . $this->view . ".view.php"; ?>
 </body>
 
