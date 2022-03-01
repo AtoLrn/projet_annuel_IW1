@@ -9,6 +9,7 @@ class Article extends Sql
     protected $id = null;
     protected $title;
     protected $content;
+    protected $description;
     protected $categoryId = null;
     protected $userId = null;
 
@@ -37,9 +38,19 @@ class Article extends Sql
         return $this->content;
     }
 
-    public function setContent(?string $content): void 
+    public function setContent(?string $content): void
     {
         $this->content = $content;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
     }
 
     public function getUserId(): ?string
@@ -47,7 +58,7 @@ class Article extends Sql
         return $this->content;
     }
 
-    public function setUserId(?string $userId): void 
+    public function setUserId(?string $userId): void
     {
         $this->userId = $userId;
     }
@@ -57,7 +68,7 @@ class Article extends Sql
         return $this->categoryId;
     }
 
-    public function setCategoryId(?string $categoryId): void 
+    public function setCategoryId(?string $categoryId): void
     {
         $this->categoryId = $categoryId;
     }
@@ -87,16 +98,8 @@ class Article extends Sql
                     "id" => "content-article",
                     "error" => "votre contenu ne doit pas être vide",
                 ],
-                
+
             ]
         ];
     }
-
-
-
-
-
-    
-
-
 }

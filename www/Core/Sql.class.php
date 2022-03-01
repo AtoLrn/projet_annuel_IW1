@@ -32,11 +32,12 @@ abstract class Sql
     /**
      * @param int $id
      */
-    public function setId(?int $id): object
+    public function setId(?int $id): ?object
     {
         $sql = "SELECT * FROM " . $this->table . " WHERE id=" . $id;
         $query = $this->pdo->query($sql);
-        return $query->fetchObject(get_called_class());
+        $obj = $query->fetchObject(get_called_class());
+        return $obj ? $obj : null;
     }
 
     public function save(): int
