@@ -4303,12 +4303,12 @@ var hideImage = function hideImage() {
   var selected = getValue();
   img.each(function (i, t) {
     if (i < selected) {
-      $(t).addClass('hidden');
+      $(t).addClass('hidden-recipe');
       $(t).css({
         transform: "translateX(-".concat(100 * (selected - 1), "% + -").concat((selected - 1) * 5, "em) translateY(10%)")
       });
     } else {
-      $(t).removeClass('hidden');
+      $(t).removeClass('hidden-recipe');
       $(t).css({
         transform: "translateX(calc(-".concat(100 * selected, "% + -").concat(selected * 5, "em))")
       });

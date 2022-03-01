@@ -37,11 +37,11 @@ const hideImage = () => {
     const selected = getValue()
     img.each((i,t) => {
         if (i < selected) {
-            $(t).addClass('hidden')
+            $(t).addClass('hidden-recipe')
             $(t).css({transform: `translateX(-${100 * (selected - 1)}% + -${(selected - 1) * 5}em) translateY(10%)`})
         }
         else {
-            $(t).removeClass('hidden')
+            $(t).removeClass('hidden-recipe')
             $(t).css({transform: `translateX(calc(-${100 * selected}% + -${selected * 5}em))`})
         }
     })

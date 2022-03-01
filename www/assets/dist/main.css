@@ -5078,7 +5078,7 @@ h1 {
     min-width: 95%;
   }
 }
-.recette-container .recette-img.hidden {
+.recette-container .recette-img.hidden-recipe {
   opacity: 0%;
   z-index: -1;
 }
