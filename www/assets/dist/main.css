@@ -5315,7 +5315,7 @@ fieldset input {
   justify-content: space-between;
   overflow: hidden;
   transition: 0.5s ease;
-  z-index: 2;
+  z-index: 10;
   background-color: #fff;
 }
 .navbar-front .burger-menu {
@@ -5377,7 +5377,7 @@ fieldset input {
 }
 
 .burger-menu {
-  z-index: 3;
+  z-index: 20;
   display: none;
 }
 @media (max-width: 900px) {
@@ -5562,6 +5562,7 @@ fieldset input {
   border: solid 1px #9e9e9e;
   height: 68px;
   background-color: white;
+  z-index: 2;
 }
 .selector-button.login {
   border-radius: 12px 0 0 0;

@@ -42,7 +42,7 @@
     justify-content: space-between;
     overflow: hidden;
     transition: .5s ease;
-    z-index: 2;
+    z-index: 10;
     background-color: $white;
 
     .burger-menu {
@@ -112,7 +112,7 @@
 
 
 .burger-menu {
-    z-index: 3;
+    z-index: 20;
     display: none;
     @include breakpoint(tablet) {
         
