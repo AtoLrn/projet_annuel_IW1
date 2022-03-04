@@ -13,6 +13,7 @@
     border: solid 1px $light-gray;
     height: 68px;
     background-color: white;
+    z-index: 2;
     &.login {
         border-radius: 12px 0 0 0;
     }

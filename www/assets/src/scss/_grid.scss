@@ -16,11 +16,9 @@
 
 .grid {
     width: 100%;
-
     .col {
         display: flex;
         flex-direction: column;
-
         &.a-start {
             align-items: flex-start;
         }
