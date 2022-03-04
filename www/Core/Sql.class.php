@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-use PDO;
+use App\Core\Connection;
 
 abstract class Sql
 {
@@ -14,12 +14,7 @@ abstract class Sql
         //Se connecter à la bdd
         //il faudra mettre en place le singleton
         try {
-            $this->pdo = new \PDO(
-                DBDRIVER . ":host=" . DBHOST . ";port=" . DBPORT . ";dbname=" . DBNAME,
-                DBUSER,
-                DBPWD,
-                [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
-            );
+            $this->pdo = Connection::getInstance();
         } catch (\Exception $e) {
             die("Erreur SQL : " . $e->getMessage());
         }
