@@ -5,8 +5,17 @@ const statusUser = {
 }
 
 
+const deleteUserById = (id) => {
+    fetch( `http://localhost/delete-user?id=${id}`, {
+        method: 'DELETE',
+    }).then(r => {
+        tab = $('#list-table').DataTable();
+        getList(tab);
+    });
+}
+
+
 const getUsers = (tab) => {
-    console.log("nice")
     fetch('http://localhost/get-users', {
         headers: {
             'Accept': 'application/json',
@@ -16,7 +25,6 @@ const getUsers = (tab) => {
     }).then((r) => {
         return r.json();
     }).then((data) => {
-        console.log(data)
         setTableUser(data, tab);     
     }).catch((error) => {
         console.log('Erreur : ' + error);
@@ -24,7 +32,6 @@ const getUsers = (tab) => {
 }
 
 const getUserById = (userId) => {
-    console.log(userId)
     const form = Object.assign({}, {
         id: userId
     })
@@ -46,12 +53,7 @@ const getUserById = (userId) => {
 }
 
 const setTableUser = (data, tab) => {
-
-    var rowNode = tab
-        .row.add( [ 'Fiona White', 32, 'Edinburgh', 'bonjour' ] )
-        .draw()
-        .node();
-    
+  
     tab.clear();
     for(const row of data) {
         let cols = []
@@ -70,52 +72,6 @@ const setTableUser = (data, tab) => {
         });
     }
 }
-
-/*const setTableUser = (data, tab) => {
-
-    var rowNode = tab
-        .row.add( [ 'Fiona White', 32, 'Edinburgh', 'bonjour' ] )
-        .draw()
-        .node();
-    
-    tab.html("");
-    for(const row of data) {
-        let tr = $("<tr></tr>")
-        tr.addClass("bd-t-1 bd-light-gray");
-        tr.click(function() {
-            getUserById(row['user_id'])
-        });
-        content.append(tr);
-        let i = 0
-        for(const col in row) {
-            
-            if(col != 'user_id') {
-                let td = $('<td></td>')
-                td.addClass("bd-t-1 bd-light-gray")
-
-                if(i > 2)td.addClass("desktop")
-                if(col == 'user_status') {
-                    td.html(statusUser[row[col]])
-                }else {
-                    td.html(row[col]);
-                }
-                tr.append(td);
-            }
-            i++;
-        }
-
-        
-
-    }
-}*/
-
-
-const btns = () => {
-    return [
-        "<button class='btn btn-pink'> Supprimer </button>",
-        "<button class='btn btn-pink'> Changer status </button>",
-    ]
-} 
 
 const setAsideInfo = (data) => {
     $('.aside-info').removeClass("show");

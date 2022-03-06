@@ -173,17 +173,19 @@ class User
         $result = $user->select($listTpl);
         if($result) {
             http_response_code(200);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result);
         }else {
             http_response_code(500);
         }
 
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($result);
+        
     }
 
 
     public function getUsers()
     {
+        
         Server::ensureHttpMethod('GET');
         $user = new UserModel();
         $result = $user->select(
@@ -194,14 +196,41 @@ class User
                 ]
             ]
         );
+        if($result) {       
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result);
+            http_response_code(200);
+        }else {
+            http_response_code(500);
+        }
+    
+    }
+
+
+    public function deleteUserById()
+    {
+        $content = file_get_contents('php://input');
+        $_POST = json_decode($content, true);
+        Server::ensureHttpMethod('DELETE');
+
+        $id = $_GET['id'] ?? null;
+        if($id === null) {
+            http_response_code(400);
+            die();
+        }
+
+        $user = new UserModel();
+        $user = $user->setId($id);
+        if($user === null) {
+            http_response_code(404);
+            die();
+        }
+        $result = $user->delete();
         if($result) {
             http_response_code(200);
         }else {
             http_response_code(500);
         }
-
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($result);
     }
 
 }

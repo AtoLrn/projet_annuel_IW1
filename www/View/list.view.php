@@ -95,8 +95,8 @@
         <p class="h2">Confirmer-vous la suppression ?</p>
         <p class="c-light-gray"> Si vous confirmez l'element sera supprimez définitivement</p>
         <div class="row j-bet g-6">
-            <button id="cancel" class="btn btn-danger col-lg-4"> Supprimer </button>
-            <button id="delete" class="btn btn-outline-pink col-lg-4"> Annuler </button>         
+            <button id="delete" class="btn btn-danger col-lg-4"> Supprimer </button>
+            <button id="cancel" class="btn btn-outline-pink col-lg-4"> Annuler </button>         
         </div>
     </section>
 </div>

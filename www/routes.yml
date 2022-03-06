@@ -59,4 +59,7 @@
 /get-users:
   controller: user
   action: getUsers
-  security:
+
+/delete-user:
+  controller: user
+  action: deleteUserById

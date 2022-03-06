@@ -4052,8 +4052,16 @@ var statusUser = {
   chief: "Cuisinier"
 };
 
+var deleteUserById = function deleteUserById(id) {
+  fetch("http://localhost/delete-user?id=".concat(id), {
+    method: 'DELETE'
+  }).then(function (r) {
+    tab = $('#list-table').DataTable();
+    getList(tab);
+  });
+};
+
 var getUsers = function getUsers(tab) {
-  console.log("nice");
   fetch('http://localhost/get-users', {
     headers: {
       'Accept': 'application/json',
@@ -4063,7 +4071,6 @@ var getUsers = function getUsers(tab) {
   }).then(function (r) {
     return r.json();
   }).then(function (data) {
-    console.log(data);
     setTableUser(data, tab);
   })["catch"](function (error) {
     console.log('Erreur : ' + error);
@@ -4071,7 +4078,6 @@ var getUsers = function getUsers(tab) {
 };
 
 var getUserById = function getUserById(userId) {
-  console.log(userId);
   var form = Object.assign({}, {
     id: userId
   });
@@ -4093,7 +4099,6 @@ var getUserById = function getUserById(userId) {
 };
 
 var setTableUser = function setTableUser(data, tab) {
-  var rowNode = tab.row.add(['Fiona White', 32, 'Edinburgh', 'bonjour']).draw().node();
   tab.clear();
 
   var _iterator = _createForOfIteratorHelper(data),
@@ -4125,48 +4130,6 @@ var setTableUser = function setTableUser(data, tab) {
     _iterator.f();
   }
 };
-/*const setTableUser = (data, tab) => {
-
-    var rowNode = tab
-        .row.add( [ 'Fiona White', 32, 'Edinburgh', 'bonjour' ] )
-        .draw()
-        .node();
-    
-    tab.html("");
-    for(const row of data) {
-        let tr = $("<tr></tr>")
-        tr.addClass("bd-t-1 bd-light-gray");
-        tr.click(function() {
-            getUserById(row['user_id'])
-        });
-        content.append(tr);
-        let i = 0
-        for(const col in row) {
-            
-            if(col != 'user_id') {
-                let td = $('<td></td>')
-                td.addClass("bd-t-1 bd-light-gray")
-
-                if(i > 2)td.addClass("desktop")
-                if(col == 'user_status') {
-                    td.html(statusUser[row[col]])
-                }else {
-                    td.html(row[col]);
-                }
-                tr.append(td);
-            }
-            i++;
-        }
-
-        
-
-    }
-}*/
-
-
-var btns = function btns() {
-  return ["<button class='btn btn-pink'> Supprimer </button>", "<button class='btn btn-pink'> Changer status </button>"];
-};
 
 var setAsideInfo = function setAsideInfo(data) {
   $('.aside-info').removeClass("show");
@@ -4184,6 +4147,10 @@ var setAsideInfo = function setAsideInfo(data) {
 };
 
 $(document).ready(function () {
+  $('.burger-menu').click(function () {
+    $('.navbar').toggleClass('open');
+  });
+
   if ($('#list-table')[0]) {
     //init datatables
     tab = $('#list-table').DataTable({
@@ -4195,12 +4162,14 @@ $(document).ready(function () {
         'paginate': {
           'previous': '<img src="assets/img/logo/arrow-list.svg">',
           'next': '<img src="assets/img/logo/arrow-list.svg">'
-        }
+        },
+        "lengthMenu": "Display -- records per page",
+        "zeroRecords": "Aucun éléments trouvés",
+        "infoEmpty": "No records available"
       }
     }); // search custom input
 
     $('#search').keyup(function () {
-      console.log("ok");
       tab.search(this.value).draw();
     });
     getList(tab);
@@ -4222,10 +4191,12 @@ var getList = function getList(tab) {
 };
 
 var displayPopUp = function displayPopUp(id) {
-  console.log(id);
   $('#pop-up').addClass('show');
+  $('#delete').click(function () {
+    closePopUp();
+    deleteUserById(id);
+  });
   $('#cancel').click(closePopUp);
-  $('#delete').click(closePopUp);
 };
 
 var closePopUp = function closePopUp() {
