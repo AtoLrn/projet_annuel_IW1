@@ -4,8 +4,6 @@ namespace App\Core;
 
 use App\Core\Connection;
 use PDO;
-
-use PDO;
 use PDOStatement;
 
 abstract class Sql
