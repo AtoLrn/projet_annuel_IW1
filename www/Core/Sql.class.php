@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Core\Connection;
+use PDO;
 
 use PDO;
 use PDOStatement;
@@ -76,8 +77,8 @@ abstract class Sql
         $table = strtolower(end($calledClassExploded));
 
         $args = $this->getArgs($tables);
-        $lf = $this->getLeftJoins($tables);
-        $sql = "SELECT " . $args . " FROM " . DBPREFIXE . $table . $lf;
+        $joins = $this->getJoins($tables, 'lf') . $this->getJoins($tables, 'ij') . $this->getJoins($tables, 'rj');
+        $sql = "SELECT " . $args . " FROM " . DBPREFIXE . $table . $joins;
 
         $where = $this->getWhere($tables);
         if ($where !== "") {
@@ -116,21 +117,30 @@ abstract class Sql
         return implode(",", $args);
     }
 
-    private function getLeftJoins(array $tables): string
+    private function getJoins(array $tables, $separator): string
     {
-        $lf = [];
+        $separators = [
+            'lf' => 'LEFT JOIN',
+            'ij' => 'INNER JOIN',
+            'rj' => 'RIGHT JOIN'
+        ];
 
-        $tables = array_filter($tables, function ($table) {
-            return isset($table['lf']);
-        });
+        if(!isset($separators[$separator])) {
+            return "";
+        }
+
+        $joins = [];
+        $tables = array_filter($tables, function($table) use($separator) {
+            return isset($table[$separator]);
+        } );
 
         foreach ($tables as $key => $values) {
-            foreach ($values['lf'] as $val) {
-                array_push($lf, " LEFT JOIN " . DBPREFIXE . $val . " ON " . DBPREFIXE . $key . ".id = " . DBPREFIXE . $val . "." . $key . "Id");
+            foreach ($values[$separator] as $val) {
+                array_push($joins, " " . $separators[$separator] . " " . DBPREFIXE . $val . " ON " . DBPREFIXE . $key . ".id = " . DBPREFIXE . $val . "." . $key . "Id");
             }
         }
 
-        return implode("", $lf);
+        return implode("", $joins);
     }
 
     private function getWhere(array $tables): string
