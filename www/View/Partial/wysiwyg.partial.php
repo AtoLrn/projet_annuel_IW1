@@ -1,13 +1,15 @@
 <?php 
-    $randomId = uniqid();
+    $id = $data["id"] ?? uniqid();
 ?>
 
-<div id="<?= $randomId ?>" class="wysiwyg">
+
+<div id="<?= $id."-editor" ?>" class="<?= isset($data['class']) ? $data['class'] : 'wysiwyg' ?>">
 </div>
+<input style="display:none" id="<?= $id ?>" name="<?= $data["name"] ?>" />
 
 <script>
 const editor = new EditorJS({
-    holder: '<?= $randomId ?>',
+    holder: '<?= $id."-editor" ?>',
     tools: {
         header: {
             class: Header,
@@ -30,10 +32,10 @@ const editor = new EditorJS({
         delimiter: Delimiter,
         // ...
     },
-    readOnly: <?= $data['data'] ? "true" : "false" ?>,
-    data:  <?= "\"" . $data['data'] . "\""  ?? "{}" ?>,
+    readOnly: <?= isset($data['data']) ? "true" : "false" ?>,
+    data: <?= isset($data['data']) ? $data["data"] : "{}" ?>,  
     onChange: async () => {
-        localStorage.setItem('editorjs', JSON.stringify(await editor.save()));
+        $("#<?= $id ?>").val(JSON.stringify(await editor.save()));
     }
 })
 </script>

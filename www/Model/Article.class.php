@@ -77,28 +77,48 @@ class Article extends Sql
     {
         return [
             "config" => [
+                "id" => "articleForm",
                 "method" => "POST",
-                "action" => "",
-                "submit" => "Publier"
+                "action" => "/create-recette",
+                "submit" => "Publier",
+                "class" => "col a-center py-4 w-per-20 px-8",
+                "enctype" => "multipart/form-data",
+
             ],
             'inputs' => [
                 "title" => [
                     "type" => "text",
-                    "placeholder" => "Titre",
+                    "placeholder" => "Votre Titre",
                     "required" => true,
-                    "class" => "input-form",
-                    "id" => "titre-form",
-                    "error" => "Titre entre 3 et 100 caractères",
+                    "class" => "input input-pink",
+                    "id" => "title",
+                    "label" => "Titre",
+                    "error" => "Mauvais Titre"
                 ],
-                "content" => [
+                "description" => [
                     "type" => "text",
-                    "placeholder" => "Votre contenu ...",
+                    "placeholder" => "Description de votre recette",
                     "required" => true,
-                    "class" => "input-form",
-                    "id" => "content-article",
-                    "error" => "votre contenu ne doit pas être vide",
+                    "class" => "input input-pink",
+                    "id" => "description",
+                    "label" => "Description"
                 ],
-
+                "photo[]" => [
+                    "type" => "file",
+                    "multiple" => true,
+                    "placeholder" => "Vos Photos",
+                    "required" => true,
+                    "class" => "input input-pink",
+                    "id" => "photo",
+                    "label" => "Photos",
+                ],
+                "article" => [
+                    "type" => "wysiwyg",
+                    "required" => true,
+                    "id" => "article",
+                    "class" => "p-8 card",
+                    "label" => "Article",
+                ]
             ]
         ];
     }

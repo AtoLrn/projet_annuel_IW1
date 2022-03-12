@@ -10,11 +10,20 @@ class Verificator
     {
         $result = [];
         //Le nb de inputs envoyés ?
-        if( count($data) != count($config['inputs'])){
+
+        $images = array_filter($config['inputs'], function($input) {
+            return $input["type"] === "file";
+        });
+
+        if( count($data) != (count($config['inputs']) - count($images))){
             die("Tentative de hack !!!!");
         }
 
         foreach ($config['inputs'] as $name=>$input){
+
+            if($input["type"] === "file") {
+                continue;
+            }
 
             if(!isset($data[$name]) ){
                 $result[] = "Le champs ".$name." n'existe pas";

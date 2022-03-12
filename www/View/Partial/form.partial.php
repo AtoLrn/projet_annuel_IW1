@@ -2,18 +2,21 @@
 
     <?php foreach ($data["inputs"] as $name=>$input) :?>
 
-        <?php if ($input["type"] === "textarea") :?>
-            <textarea
-                name = "<?= $name ?>"
-                rows = "<?= $input["rows"] ?? "10" ?>"
-                cols = "<?= $input["cols"] ?? "10" ?> "
-                placeholder="<?= $input["placeholder"]??"" ?>"
-                class="<?= $input["class"] ?? "" ?>"
-                <?= empty($input["required"])?"":'required="required"' ?>
-            ></textarea>
-        <?php else :?>
-            <div class="col my-4 mx-8 j-bet g-2 w-per-20">
-                <label for="<?= $input["id"]??"" ?>"><?= $input["label"]?></label>
+        
+        <div class="col my-4 mx-8 j-bet g-2 w-per-20">
+
+            <label for="<?= $input["id"]??"" ?>"><?= $input["label"]?></label>
+            <?php if ($input["type"] === "wysiwyg") { ?>
+                <?php $this->partialInclude("wysiwyg", 
+                [
+                    "class" => $input["class"] ?? "", 
+                    "name" => $name,
+                    "id" => $input["id"] ?? ""
+                ]) ?>
+            <?php } elseif ($input["type"] === "select") { ?>
+                <span>Not implemented</span>
+            <?php } else { ?>
+
                 <input
                         type="<?= $input["type"]??"text" ?>"
                         name="<?= $name?>"
@@ -21,10 +24,12 @@
                         id="<?= $input["id"]??"" ?>"
                         class="<?= $input["class"]??"" ?>"
                     <?= empty($input["required"])?"":'required="required"' ?>
-                >
-            </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
+                    <?= empty($input["multiple"])?"":'multiple="multiple"' ?>
+                />
+            <?php } ?>
+
+        </div>
+    <?php endforeach;?>
 
     <input class="btn btn-pink my-4 w-per-16" type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
 </form>
