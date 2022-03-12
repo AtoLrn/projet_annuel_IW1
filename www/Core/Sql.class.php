@@ -72,7 +72,7 @@ abstract class Sql
         $table = strtolower(end($calledClassExploded));
 
         $args = $this->getArgs($tables);
-        $joins = $this->getJoins($tables, 'lf') . " " . $this->getJoins($tables, 'ij') . " " . $this->getJoins($tables, 'rj');
+        $joins = $this->getJoins($tables, 'lf') . $this->getJoins($tables, 'ij') . $this->getJoins($tables, 'rj');
         $sql = "SELECT " . $args . " FROM " . DBPREFIXE . $table . $joins;
 
         $where = $this->getWhere($tables);
