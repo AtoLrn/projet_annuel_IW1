@@ -4,6 +4,9 @@ namespace App\Core;
 
 use App\Core\Connection;
 
+use PDO;
+use PDOStatement;
+
 abstract class Sql
 {
     private $pdo;
@@ -59,10 +62,12 @@ abstract class Sql
         return $this->pdo->lastInsertId();
     }
 
-    public function delete()
+    public function delete(): PDOStatement
     {
         $sql = "DELETE FROM " . $this->table . " WHERE id=" . $this->getId();
         $queryPrepared = $this->pdo->query($sql);
+
+        return $queryPrepared;
     }
 
     public function select(array $tables): ?array

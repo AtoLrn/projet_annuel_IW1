@@ -18,7 +18,7 @@ CREATE TABLE `esgi_session` (
   `token` varchar(255) NOT NULL,
   `userId` int(11) NOT NULL,
   `expiration` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 
@@ -45,8 +45,8 @@ CREATE TABLE `esgi_article` (
   `content` text NOT NULL,
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`),
-  FOREIGN KEY (`categoryId`) REFERENCES `esgi_category` (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`categoryId`) REFERENCES `esgi_category` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 
@@ -55,8 +55,8 @@ CREATE TABLE `esgi_comment` (
   `userId` int(11) NOT NULL,
   `articleId` INT(11) NOT NULL,
   `content` TEXT NOT NULL,
-  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`),
-  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 
@@ -64,8 +64,8 @@ CREATE TABLE `esgi_like` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `articleId` INT(11) NOT NULL,
-  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`),
-  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 
@@ -74,8 +74,8 @@ CREATE TABLE `esgi_ingredient_article` (
   `ingredientId` int(11) NOT NULL,
   `articleId` INT(11) NOT NULL,
   `quantity` VARCHAR(255) NOT NULL,
-  FOREIGN KEY (`ingredientId`) REFERENCES `esgi_ingredient` (`id`),
-  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`),
+  FOREIGN KEY (`ingredientId`) REFERENCES `esgi_ingredient` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 
@@ -83,15 +83,15 @@ CREATE TABLE `esgi_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `articleId` INT(11) NOT NULL,
   `path` VARCHAR(2048) NOT NULL,
-  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`),
+  FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `esgi_subscription` (
   `idSubscribtion` INT(11) NOT NULL,
   `idTargetSubscribtion` INT(11) NOT NULL,
-  FOREIGN KEY (`idSubscribtion`) REFERENCES `esgi_user` (`id`),
-  FOREIGN KEY (`idTargetSubscribtion`) REFERENCES `esgi_user` (`id`),
+  FOREIGN KEY (`idSubscribtion`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`idTargetSubscribtion`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`idSubscribtion`, `idTargetSubscribtion`)
 );
 
@@ -100,6 +100,27 @@ CREATE TABLE `esgi_page` (
   `userId` int(11) NOT NULL,
   `title` VARCHAR(2048) NOT NULL,
   `content` TEXT NOT NULL,
-  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`),
+  FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
+
+
+
+
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'ananas', 'MA', 'ananas@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'peche', 'PE', 'peche@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'kiwi', 'KI', 'kiwi@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'pomme', 'PO', 'pomme@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'fraise', 'FR', 'fraise@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'cerise', 'CE', 'cerise@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'groseille', 'GR', 'groseille@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'mirthille', 'MI', 'mirthille@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'banane', 'BA', 'banane@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'brocolli', 'BR', 'brocolli@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'courgette', 'CO', 'courgette@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'tomate', 'TO', 'tomate@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'antoine', 'LE REIN', 'antoine@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'armand', 'LA D', 'armand@gmail.com', "test1234", "");
+INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'noe', 'LE BO', 'noe@gmail.com', "test1234", "");
+
+

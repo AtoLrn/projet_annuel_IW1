@@ -1,4 +1,7 @@
 $(document).ready(() => {
+    $('.burger-menu').click(() => {
+        $('.navbar').toggleClass('open')
+    })
     if($('#list-table')[0]) {
 
         //init datatables
@@ -11,14 +14,16 @@ $(document).ready(() => {
                 'paginate': {
                     'previous': '<img src="assets/img/logo/arrow-list.svg">',
                     'next': '<img src="assets/img/logo/arrow-list.svg">'
-                }
+                },
+                "lengthMenu": "Display -- records per page",
+                "zeroRecords": "Aucun éléments trouvés",
+                "infoEmpty": "No records available"
             },
         
         });
 
         // search custom input
         $('#search').keyup(function(){
-            console.log("ok")
             tab.search( this.value ).draw();
         })
 
@@ -41,10 +46,12 @@ const getList = (tab) => {
 }
 
 const displayPopUp = (id) => {
-    console.log(id);
     $('#pop-up').addClass('show');
-    $('#cancel').click(closePopUp);
-    $('#delete').click(closePopUp)
+    $('#delete').click( function() {
+        closePopUp();
+        deleteUserById(id);        
+    });
+    $('#cancel').click(closePopUp)
 }
 
 const closePopUp = () => {
