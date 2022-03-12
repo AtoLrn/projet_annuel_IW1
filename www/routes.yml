@@ -6,6 +6,10 @@
     controller: main
     action: contact
 
+/login:
+    controller: user
+    action: login
+
 /logout:
     controller: user
     action: logout
@@ -24,6 +28,10 @@
 /mail-validation:
   controller: user
   action: mailValidation
+
+/register:
+    controller: user
+    action: register
 
 /forget:
     controller: user
@@ -63,3 +71,17 @@
 /delete-user:
   controller: user
   action: deleteUserById
+  security:
+  
+/article-creation:
+    controller: article
+    action: create
+    security:
+        - user
+
+/dashboard:
+    controller: admin
+    action: dashboard
+    security:
+        - admin
+        - user

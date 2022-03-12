@@ -31,18 +31,7 @@
     <div class="grid">
         <div class="row mt-10 a-start reverse">
             <div class="col-lg-6 p-8 card">
-                <h3 class="c-light-pink" style="font-size: 32px">La Recette</h3>
-                <span>Faut faire revenir les oignons pour que ce soit bon</span>
-                <span>Ensuite il faut déguster</span>
-                <span>Faut faire revenir les oignons pour que ce soit bon</span>
-                <span>Ensuite il faut déguster</span>
-                <span>Faut faire revenir les oignons pour que ce soit bon</span>
-                <span>Ensuite il faut déguster</span>
-                <span>Faut faire revenir les oignons pour que ce soit bon</span>
-                <span>Ensuite il faut déguster</span>
-                <span>Faut faire revenir les oignons pour que ce soit bon</span>
-                <span>Ensuite il faut déguster</span>
-
+                <?php $this->partialInclude("wysiwyg", null) ?>
             </div>
             <div class="col-lg-6 pl-5">
                 <h2 style="font-size: 36px">Ingredients</h2>
@@ -57,3 +46,6 @@
         </div>
     </div>
 </main>
+
+
+

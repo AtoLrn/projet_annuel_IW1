@@ -5580,3 +5580,12 @@ fieldset input {
   -webkit-animation: smoothTransition 0.5s linear;
           animation: smoothTransition 0.5s linear;
 }
+
+.wysiwyg {
+  max-width: 100%;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+.wysiwyg .codex-editor__redactor {
+  padding-bottom: 100px !important;
+}

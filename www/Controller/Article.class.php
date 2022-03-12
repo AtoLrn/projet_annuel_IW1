@@ -46,4 +46,10 @@ class Article
         $view->assign("title", $article->getTitle());
         $view->assign("description", $article->getDescription());
     }
+    public function create()
+    {
+        $view = new View("article", "front");
+    }
+
+
 }
