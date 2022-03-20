@@ -32,4 +32,59 @@
 
 </body>
 
+
+
+<style>
+
+    html {
+        --bg-color: <?= '#222222' ?>;
+        --ph-color: <?= '#AAAAAA' ?>;
+        --text-color: <?= '#EEEEEE' ?>;
+        --shadow-color: <?= '#FFFFFF26' ?>;
+        --btn-color: <?= 'green' ?>;
+        --btn-color-light: <?= 'green' ?>;
+        --font-family: <?= 'Open Sans' ?>;
+    }
+    
+
+    /* *:not(div), .navbar-front {
+        background-color: var(--bg-color);
+    }
+
+    * {
+        color: var(--text-color);
+    }
+
+    .card {
+        box-shadow: 0px 4px 16px 2px var(--shadow-color);
+    }
+
+    .btn:not(.selector-button) {
+        border: 1px solid var(--btn-color);
+        background-color: var(--btn-color) !important;
+        color: var(--bg-color);
+
+    }
+    .btn:not(.selector-button):hover {
+        background-color: var(--bg-color) !important; 
+        color: var(--btn-color); 
+    }
+
+    .selector-button {
+        background-color: var(--bg-color);    
+        border: 1px solid var(--text-color);
+        color: var(--text-color);
+    }
+    .selector-button.selected {
+        background-color: var(--bg-color); 
+        border: 1px solid var(--btn-color);
+        color: var(--btn-color); 
+    } */
+
+   
+
+    
+
+</style>
+
 </html>

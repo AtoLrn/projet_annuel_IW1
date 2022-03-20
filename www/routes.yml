@@ -100,3 +100,7 @@
     security:
         - admin
         - user
+
+/settings:
+    controller: theme
+    action: settings

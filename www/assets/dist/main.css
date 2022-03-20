@@ -107,6 +107,9 @@ h3,
   display: flex;
   flex-direction: column;
 }
+.grid .col.reverse {
+  flex-direction: column-reverse;
+}
 .grid .col.a-start {
   align-items: flex-start;
 }
@@ -134,11 +137,17 @@ h3,
   min-height: calc(8.3333333333% - 16px);
   height: calc(8.3333333333% - 16px);
 }
+.grid .col .order-1 {
+  order: -1;
+}
 .grid .col .row-lg-2 {
   gap: 16px;
   flex-grow: 2;
   min-height: calc(16.6666666667% - 16px);
   height: calc(16.6666666667% - 16px);
+}
+.grid .col .order-2 {
+  order: 0;
 }
 .grid .col .row-lg-3 {
   gap: 16px;
@@ -146,11 +155,17 @@ h3,
   min-height: calc(25% - 16px);
   height: calc(25% - 16px);
 }
+.grid .col .order-3 {
+  order: 1;
+}
 .grid .col .row-lg-4 {
   gap: 16px;
   flex-grow: 4;
   min-height: calc(33.3333333333% - 16px);
   height: calc(33.3333333333% - 16px);
+}
+.grid .col .order-4 {
+  order: 2;
 }
 .grid .col .row-lg-5 {
   gap: 16px;
@@ -158,11 +173,17 @@ h3,
   min-height: calc(41.6666666667% - 16px);
   height: calc(41.6666666667% - 16px);
 }
+.grid .col .order-5 {
+  order: 3;
+}
 .grid .col .row-lg-6 {
   gap: 16px;
   flex-grow: 6;
   min-height: calc(50% - 16px);
   height: calc(50% - 16px);
+}
+.grid .col .order-6 {
+  order: 4;
 }
 .grid .col .row-lg-7 {
   gap: 16px;
@@ -170,11 +191,17 @@ h3,
   min-height: calc(58.3333333333% - 16px);
   height: calc(58.3333333333% - 16px);
 }
+.grid .col .order-7 {
+  order: 5;
+}
 .grid .col .row-lg-8 {
   gap: 16px;
   flex-grow: 8;
   min-height: calc(66.6666666667% - 16px);
   height: calc(66.6666666667% - 16px);
+}
+.grid .col .order-8 {
+  order: 6;
 }
 .grid .col .row-lg-9 {
   gap: 16px;
@@ -182,11 +209,17 @@ h3,
   min-height: calc(75% - 16px);
   height: calc(75% - 16px);
 }
+.grid .col .order-9 {
+  order: 7;
+}
 .grid .col .row-lg-10 {
   gap: 16px;
   flex-grow: 10;
   min-height: calc(83.3333333333% - 16px);
   height: calc(83.3333333333% - 16px);
+}
+.grid .col .order-10 {
+  order: 8;
 }
 .grid .col .row-lg-11 {
   gap: 16px;
@@ -194,11 +227,17 @@ h3,
   min-height: calc(91.6666666667% - 16px);
   height: calc(91.6666666667% - 16px);
 }
+.grid .col .order-11 {
+  order: 9;
+}
 .grid .col .row-lg-12 {
   gap: 16px;
   flex-grow: 12;
   min-height: calc(100% - 16px);
   height: calc(100% - 16px);
+}
+.grid .col .order-12 {
+  order: 10;
 }
 @media screen and (max-width: 992px) {
   .grid .col .row-lg-1 {
@@ -354,6 +393,9 @@ h3,
   flex-wrap: wrap;
   align-items: center;
   gap: 16px;
+}
+.grid .row.reverse {
+  flex-direction: row-reverse;
 }
 .grid .row.a-start {
   align-items: flex-start;
@@ -5161,6 +5203,12 @@ h1 {
 }
 .input-search:focus {
   border: 1px solid #9e9e9e;
+}
+.input-color {
+  height: 32px;
+  padding: 2px;
+  width: 48px;
+  border-radius: 4px;
 }
 .input.error {
   border: 1px solid #E77280;

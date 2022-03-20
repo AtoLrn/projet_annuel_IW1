@@ -21,12 +21,21 @@
                 <div class="bd-t-1 bd-light-gray mb-11"></div>
                 <nav class="grid">
                     <ul class="col g-9 grid">
-                        <li class="row g-3"> <img src="../assets/img/logo/users.svg" alt=""> <a href="#"
-                                class="link-black">Utilisateurs</a> </li>
-                        <li class="row g-3"> <img src="../assets/img/logo/articles.svg" alt=""> <a href="#"
-                                class="link-black">Articles</a> </li>
-                        <li class="row g-3"> <img src="../assets/img/logo/comments.svg" alt=""> <a href="#"
-                                class="link-black">Commentaires</a> </li>
+                        <li class="row g-3"> <img src="../assets/img/logo/users.svg" alt=""> 
+                        <a href="#" class="link-black">Utilisateurs</a> 
+                    </li>
+                        <li class="row g-3">
+                            <img src="../assets/img/logo/articles.svg" alt="">
+                            <a href="#" class="link-black">Articles</a> 
+                        </li>
+                        <li class="row g-3"> 
+                            <img src="../assets/img/logo/comments.svg" alt="">
+                            <a href="#" class="link-black">Commentaires</a>
+                        </li>
+                        <li class="row g-3"> 
+                            <img src="../assets/img/logo/comments.svg" alt="">
+                            <a href="/settings" class="link-black">Settings</a>
+                        </li>
                     </ul>
                 </nav>
                 <img class="burger-menu" src="../assets/img/logo/burger-menu.svg" alt="">
