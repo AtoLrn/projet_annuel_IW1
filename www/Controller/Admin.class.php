@@ -27,6 +27,4 @@ class Admin
         $view->assign("table", $value);
     }
 
-    
-
 }
