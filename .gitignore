@@ -1,3 +1,5 @@
 db_data
 www/.env*
 .idea
+*/.node_modules/*
+www/assets/documents/certification-request

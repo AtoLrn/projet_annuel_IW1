@@ -25,9 +25,21 @@
   controller: user
   action: mailValidation
 
-/mail-validation:
-  controller: user
-  action: mailValidation
+/certification-request:
+  controller: certification
+  action: certificationRequest
+
+/get-certifications:
+  controller: certification
+  action: getCertifications
+
+/get-certification:
+  controller: certification
+  action: getCertificationById
+
+/modify-certification-status:
+  controller: certification
+  action: modifyCertificationStatus
 
 /register:
     controller: user

@@ -8,6 +8,7 @@ use App\Core\Verificator;
 use App\Core\Sql;
 use App\Core\View;
 use App\Core\Server;
+use App\Model\Certification as CertificationModel;
 use App\Model\User as UserModel;
 use App\Model\Session;
 
@@ -144,7 +145,6 @@ class User
 
         $view->assign('validationStatus', false);
     }
-
 
     public function logout()
     {

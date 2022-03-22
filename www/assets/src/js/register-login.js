@@ -16,8 +16,6 @@ $(document).ready(() => {
         loginForm.addClass('smooth-div')
     }
 
-    console.log('gggg')
-
     registerButton.click(function () {
         displayForm(registerButton, registerForm, loginButton, loginForm)
     })

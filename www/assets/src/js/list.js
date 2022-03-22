@@ -37,7 +37,7 @@ const closeMenu = () => {
 }
 
 const getList = (tab) => {
-    for(const i of ['user', 'article', 'comment']){
+    for(const i of ['user', 'article', 'comment', 'certification']){
         if($('#list-table').hasClass(i)) {
             window["get" + i[0].toUpperCase() + i.substring(1) + "s"](tab);
         }

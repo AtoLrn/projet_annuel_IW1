@@ -64,4 +64,35 @@ class Mail
         }
     }
 
+    public function certificationValidation(string $userMail, string $firstName, string $lastName, string $certificationStatus) {
+        try {
+            $this->mail->addAddress($userMail, $firstName . ' ' . $lastName);
+            $this->mail->isHTML(true);
+            $this->mail->Subject = 'Résultat de la demande de certification';
+            if ($certificationStatus === 'approved') {
+                $this->mail->Body = '<p>Suite à votre demande de certification sur notre plateforme, nous avons le plaisir de vous annoncer que cette dernière a été accepté. 
+                                        Vous avez désormais la possibilité de créer des idées de recettes dans le thème de notre plateforme afin de le partager à notre communauté. </p>
+                                     <br>
+                                     <br>
+                                     <p>Merci pour la contribution que vous apportez</p>
+                                     <br>
+                                     <br>
+                                     <p>Cordialement,</p>
+                                     <br>
+                                     <p>L\'équipe' . WEBSITENAME . '</p>';
+            } else if ($certificationStatus === 'refused') {
+                $this->mail->Body = '<p>Suite à votre demande de certification sur notre plateforme, nous avons le regret de vous annoncer que cette dernière a été refusé, car il a été jugé
+                                        que vos compétences ne correspondent pas aux attentes pour créer du contenu sur notre site.</p>
+                                     <br>
+                                     <br>
+                                     <p>Cordialement,</p>
+                                     <br>
+                                     <p>L\'équipe' . WEBSITENAME . '</p>';
+            }
+            $this->mail->send();
+        }catch (Exception $error){
+            echo $error;
+        }
+    }
+
 }
