@@ -63,7 +63,7 @@ class Certification
                         $isRequestCreated = $this->sendCertificationRequest($certificationDemand, $user);
                     }
                     $view->assign("isRequestCreated", $isRequestCreated);
-                    $view->assign("user", $user);
+                    $view->assign("certification", $certificationDemand);
                     return;
                 }
                 $view->assign("demandAlreadyExist", $demandAlreadyExist);

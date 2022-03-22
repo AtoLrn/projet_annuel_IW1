@@ -8,7 +8,7 @@
                     <p>Votre demande à bien été envoyé</p>
                 <?php else: ?>
                      <div class="g-5 col a-center">
-                         <?php $this->partialInclude("form", $user->getCertificationRequestForm()) ?>
+                         <?php $this->partialInclude("form", $certification->getCertificationRequestForm()) ?>
                      </div>
                 <?php endif; ?>
             <?php else: ?>
