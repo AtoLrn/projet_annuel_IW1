@@ -33,10 +33,10 @@ class Theme extends Sql
 
     public function setName(?string $name): void
     {
-        $this->name = ucwords(strtolower(trim($name)));
+        $this->name = ucwords(strtolower(trim(htmlspecialchars($name))));
     }
 
-    public function getbgColor(): ?string
+    public function getBgColor(): ?string
     {
         return $this->bgColor;
     }
@@ -95,7 +95,7 @@ class Theme extends Sql
     {
         $this->shadowColor = ucwords(strtolower(trim($shadowColor)));
     }
-    
+
     public function getFontFamily(): ?string
     {
         return $this->fontFamily;
@@ -106,19 +106,19 @@ class Theme extends Sql
         $this->fontFamily = ucwords(strtolower(trim($fontFamily)));
     }
 
-    public function getThemeForm(): array
+    public function getThemeForm(int $id = null): array
     {
         return [
             "config" => [
                 "id" => "themeForm",
                 "method" => "POST",
-                "action" => "/settings",
+                "action" => "/settings" . (!is_null($id) ? "?id=" . $id : "") ,
                 "submit" => "Ajouter",
                 "class" => "grid col g-4 p-8",
                 "classContInputs" => "row reverse g-6 j-end"
             ],
             'inputs' => [
-                "title" => [
+                "name" => [
                     "type" => "text",
                     "placeholder" => "Titre ...",
                     "required" => true,
@@ -127,6 +127,7 @@ class Theme extends Sql
                     "error" => "Title incorrect",
                     "unicity" => "true",
                     "errorUnicity" => "Title déjà en bdd",
+                    "value" => $this->getName()
                 ],
                 "fontFamily" => [
                     "type" => "text",
@@ -200,10 +201,9 @@ class Theme extends Sql
                     "error" => "couleurs des ombres incorrect",
                     "value" => $this->getShadowColor()
                 ],
-                
-                
+
+
             ]
         ];
     }
-
 }
