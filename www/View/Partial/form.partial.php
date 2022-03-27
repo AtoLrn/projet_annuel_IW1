@@ -19,5 +19,5 @@
 
     <?php endforeach;?>
 
-    <input class="btn btn-pink my-4 w-per-16" type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
+    <input class="<?= $data['config']['classSubmit'] ?? 'btn btn-pink my-4 w-per-16' ?>" type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
 </form>

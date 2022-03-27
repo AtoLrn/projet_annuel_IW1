@@ -106,16 +106,18 @@ class Theme extends Sql
         $this->fontFamily = ucwords(strtolower(trim($fontFamily)));
     }
 
-    public function getThemeForm(int $id = null): array
+    public function getThemeForm(?int $id = null): array
     {
         return [
             "config" => [
                 "id" => "themeForm",
                 "method" => "POST",
                 "action" => "/settings" . (!is_null($id) ? "?id=" . $id : "") ,
-                "submit" => "Ajouter",
-                "class" => "grid col g-4 p-8",
-                "classContInputs" => "row reverse g-6 j-end"
+                "submit" => (!is_null($id) ? "Modifier" : "Ajouter"),
+                "class" => "grid col g-4 card p-6 w-em-8 xs-w-per-20",
+                "classContInputs" => "row reverse g-6 j-end",
+                "classSubmit" => "btn btn-pink my-4 w-per-20"
+
             ],
             'inputs' => [
                 "name" => [
