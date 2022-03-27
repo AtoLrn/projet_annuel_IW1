@@ -133,7 +133,7 @@ CREATE TABLE `esgi_theme` (
   `btnColorLight` char(7) NOT NULL,
   `phColor` char(7) NOT NULL,
   `shadowColor` char(9) NOT NULL,
-  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `selected` BOOLEAN NOT NULL DEFAULT FALSE,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );

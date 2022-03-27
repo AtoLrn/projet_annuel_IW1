@@ -1,5 +1,8 @@
 .link {
     transition: 0.3s;
+    border: none;
+    background-color: transparent;
+    padding: 0;
     cursor: pointer;
     &.active{
         font-weight: bold;
@@ -9,6 +12,13 @@
 
         &:hover {
             border-bottom: 1px solid $black;
+        }
+    }
+    &-danger {
+        color: $light-pink;
+
+        &:hover {
+            border-bottom: 1px solid $light-pink;
         }
     }
 }

@@ -9,10 +9,10 @@ use App\Core\Verificator;
 
 class Theme
 {
-    public function settings()
+    public function handleTheme(): void
     {
         $theme = new ThemeModel();  
-        $view = new View("settings", "back");
+        $view = new View("handle-theme", "back");
         if(isset($_GET['id']) && is_numeric($_GET['id'])) {
             $tmp = $theme->setId($_GET['id']);
             if(!is_null($tmp)) {
@@ -24,11 +24,12 @@ class Theme
     
         if(!empty($_POST)) {
             $msg = $this->saveTheme($theme);
+            $view->assign('msg', $msg);
         } 
-        $view->assign('msg', $msg);        
+                
     }
 
-    private function saveTheme($theme): void
+    private function saveTheme($theme)
     {      
         $result = Verificator::checkForm($theme->getThemeForm(), $_POST);
         if(empty($result)){
@@ -43,6 +44,21 @@ class Theme
             return $theme->save();         
         }  
         return $result;                
+    }
+
+
+    public function listThemes(): void
+    {
+        $theme = new ThemeModel();
+        $themes = $theme->select([
+            "theme" => [
+                "args" => [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"],
+                "params" => []
+            ]
+            ]);
+        $view = new View("list-themes", "back");
+        $view->assign("themes", $themes);
+        
     }
 
 }

@@ -101,6 +101,11 @@
         - admin
         - user
 
-/settings:
+/theme:
     controller: theme
-    action: settings
+    action: handleTheme
+
+/list-themes:
+    controller: theme
+    action: listThemes
+
