@@ -3,3 +3,4 @@ www/.env*
 .idea
 */.node_modules/*
 www/assets/documents/certification-request
+www/assets/img/ingredient-images

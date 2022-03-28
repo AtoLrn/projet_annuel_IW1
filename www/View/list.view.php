@@ -47,6 +47,8 @@
                 if (key_exists('q', $_GET)) {
                     if ($_GET['q'] === 'certification') {
                         $this->partialInclude("certification-infos", []);
+                    } elseif ($_GET['q'] === 'ingredient') {
+                        $this->partialInclude("ingredient-infos", []);
                     } else {
                         $this->partialInclude("users-articles", []);
                     }

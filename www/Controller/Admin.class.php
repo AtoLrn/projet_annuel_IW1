@@ -15,7 +15,7 @@ class Admin
 
     public function list()
     {
-        $lists = ['user', 'article', 'comment', 'certification'];
+        $lists = ['user', 'article', 'comment', 'certification', 'ingredient'];
         $value =  isset($_GET['q']) ? (in_array($_GET['q'], $lists) ? $_GET['q']: 'user') : 'user';
         $model = "App\\Model\\" . ucfirst($value);
         
