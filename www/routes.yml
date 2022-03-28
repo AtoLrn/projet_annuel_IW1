@@ -94,3 +94,7 @@
     controller: theme
     action: listThemes
 
+/delete-theme:
+    controller: theme
+    action: deleteThemeById
+

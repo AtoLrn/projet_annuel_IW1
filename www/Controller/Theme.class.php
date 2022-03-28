@@ -24,7 +24,11 @@ class Theme
     
         if(!empty($_POST)) {
             $msg = $this->saveTheme($theme);
-            $view->assign('msg', $msg);
+            if(is_numeric($msg)) {
+                header('Location: /list-themes?success=add');
+            }else {
+                $view->assign('error', $msg);
+            }
         } 
                 
     }
@@ -59,6 +63,21 @@ class Theme
         $view = new View("list-themes", "back");
         $view->assign("themes", $themes);
         
+    }
+
+    public function deleteThemeById(): void 
+    {
+        if(isset($_GET['id']) && is_numeric($_GET['id'])) {
+            $theme = new ThemeModel();
+            $theme = $theme->setId($_GET['id']);
+            if(!is_null($theme->getId())) {
+                $theme->delete();    
+            }          
+            header('Location: /list-themes?success=delete');
+            die();
+        }
+        header('Location: /list-themes?error=delete');
+
     }
 
 }

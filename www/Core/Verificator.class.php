@@ -11,10 +11,10 @@ class Verificator
         $result = [];
         //Le nb de inputs envoyés ?
         if( count($data) != count($config['inputs'])){
-            die("Tentative de hack !!!!");
+            die("checking form errors: not validated.");
         }
 
-        foreach ($config['inputs'] as $name=>$input){
+        foreach ($config['inputs'] as $name => $input){
 
             if(!isset($data[$name]) ){
                 $result[] = "Le champs ".$name." n'existe pas";

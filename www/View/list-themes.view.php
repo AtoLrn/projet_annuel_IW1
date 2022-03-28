@@ -1,4 +1,4 @@
-<div class="grid p-10 xs-p-6">
+<div class="grid p-10 xs-p-6 col a-start">
     <h1 class="h1 mb-9">Mes Thèmes</h1>
 
     <section class="grid row g-9">
@@ -69,7 +69,17 @@
         <?php endforeach; ?>    
     </section>
 
-    <a href="/theme" class="btn btn-pink mt-9 w-em-4 xs-w-per-20">Ajouter un nouveau theme</a>
+    <a href="/theme" class="btn btn-pink mt-9 xs-w-per-20">Ajouter un nouveau theme</a>
 
+    <?php if(isset($_GET['success'])): ?>
+    <div class="p-3 mt-9 bd-1 bd-success c-success br-2 xs-w-per-20"> 
+        <?= $_GET['success'] == "add" ? "Thème ajouté avec succès." : "Thème supprimé avec succès." ?> 
+    </div>
+    <?php endif; ?>
 
+    <?php if(isset($_GET['error'])): ?>
+    <div class="p-3 mt-9 bd-1 bd-light-pink c-light-pink br-2 xs-w-per-20"> 
+        <?= $_GET['error'] == 'add' ? "Une erreur est survenu lors de l'ajout du thème." : "Une erreur est survenu lors de la suppression du thème." ?> 
+    </div>
+    <?php endif; ?>
 </div>

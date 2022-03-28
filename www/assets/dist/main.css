@@ -751,6 +751,9 @@ h1 {
 .c-light-pink {
   color: #e77280;
 }
+.c-success {
+  color: #4BB543;
+}
 
 .bd-black {
   border-color: #111111 !important;
@@ -766,6 +769,9 @@ h1 {
 }
 .bd-light-pink {
   border-color: #e77280 !important;
+}
+.bd-success {
+  border-color: #4BB543 !important;
 }
 
 .g-0 {

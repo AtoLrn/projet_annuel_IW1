@@ -13,6 +13,7 @@
                     id="<?= $input["id"] ?? "" ?>"
                     class="<?= $input["class"] ?? "" ?>"
                     value="<?= $input["value"] ?? "" ?>"
+                <?= empty($input["maxLength"]) ? "" : 'maxLength="' . $input['maxLength'] . '"' ?>
                 <?= empty($input["required"]) ? "" : 'required="required"' ?>
             >
         </div>
