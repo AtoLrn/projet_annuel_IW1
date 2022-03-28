@@ -39,6 +39,9 @@
     &-light-pink {
         color: $light-pink;
     }
+    &-success {
+        color: $green-success;
+    }
 }
 
 //border color
@@ -58,5 +61,8 @@
     }
     &-light-pink {
         border-color: $light-pink !important;
+    }
+    &-success {
+        border-color: $green-success !important;
     }
 }

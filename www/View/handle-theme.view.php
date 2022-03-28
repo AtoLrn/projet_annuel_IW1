@@ -3,8 +3,7 @@
 
     <?php $this->partialInclude("form", $theme->getThemeForm($id ?? null)) ?>
 
-    <button class="link link-danger" onclick="displayPopUp(0)">Supprimer</button>
-    
+    <button class="link link-danger" onclick="displayPopUp(0)">Supprimer</button>    
 <div>
 
 <div id="pop-up" class="cont-popup grid">

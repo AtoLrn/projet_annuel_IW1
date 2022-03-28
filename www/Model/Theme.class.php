@@ -112,7 +112,7 @@ class Theme extends Sql
             "config" => [
                 "id" => "themeForm",
                 "method" => "POST",
-                "action" => "/settings" . (!is_null($id) ? "?id=" . $id : "") ,
+                "action" => "/theme" . (!is_null($id) ? "?id=" . $id : "") ,
                 "submit" => (!is_null($id) ? "Modifier" : "Ajouter"),
                 "class" => "grid col g-4 card p-6 w-em-8 xs-w-per-20",
                 "classContInputs" => "row reverse g-6 j-end",
@@ -129,7 +129,8 @@ class Theme extends Sql
                     "error" => "Title incorrect",
                     "unicity" => "true",
                     "errorUnicity" => "Title déjà en bdd",
-                    "value" => $this->getName()
+                    "value" => $this->getName(),
+                    "maxLength" => 15
                 ],
                 "fontFamily" => [
                     "type" => "text",

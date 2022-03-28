@@ -19,7 +19,7 @@ class Verificator
             die("Tentative de hack !!!!");
         }
 
-        foreach ($config['inputs'] as $name=>$input){
+        foreach ($config['inputs'] as $name => $input){
 
             if($input["type"] === "file") {
                 continue;
