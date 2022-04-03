@@ -1,8 +1,7 @@
 <div class="grid p-10 xs-p-6 col a-start">
     <h1 class="h1 mb-9">Mes Thèmes</h1>
 
-    <section class="grid row g-9">
-        
+    <section class="grid row g-9">     
         <?php  foreach($themes as $key => $theme): ?>
             <article class="grid col card p-6 g-3 w-em-4 xs-w-per-20">
                 <div class="row j-bet a-center">
@@ -60,11 +59,18 @@
                     </div>
                 </div>
 
+                <?php if($theme['theme_selected'] == false): ?>
+                
+                <form class="col" action="/list-themes" method="POST">
+                    <input type="hidden" name="idTheme" value="<?= $theme['theme_id'] ?>">
+                    <input class="btn btn-pink p-2 a-self-end"  type="submit" value="Selectionner">
+                </form> 
 
+                <?php else:?>
                 
-                   
+                <p class="mt-5 c-pink" style="text-align: right;">Selectionné</p>
                 
-                
+                <?php endif; ?>
             </article>
         <?php endforeach; ?>    
     </section>

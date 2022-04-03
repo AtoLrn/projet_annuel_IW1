@@ -26,33 +26,47 @@
             </section>
         </nav>
     </header>
-    <img class="burger-menu" src="../assets/img/logo/burger-menu.svg" alt="">
-
+    <?php include "assets/img/logo/burger-menu.php"; ?>
     <?php include "View/" . $this->view . ".view.php"; ?>
+    
 
 </body>
 
 
 
 <style>
+     <?php
+        use App\Model\Theme; 
+        $theme = new Theme();
+        $themeSelected = $theme->select([
+            "theme" => [
+                "args" => ["id"],
+                "params" => ['selected' => 1] 
+            ]
+        ]);
+        $theme = $theme->setId($themeSelected[0]['theme_id']);
+    ?>
 
     html {
-        --bg-color: <?= '#222222' ?>;
-        --ph-color: <?= '#AAAAAA' ?>;
-        --text-color: <?= '#EEEEEE' ?>;
-        --shadow-color: <?= '#FFFFFF26' ?>;
-        --btn-color: <?= 'green' ?>;
-        --btn-color-light: <?= 'green' ?>;
-        --font-family: <?= 'Open Sans' ?>;
+        --bg-color: <?= $theme->getBgColor(); ?>;
+        --ph-color: <?= $theme->getPhColor(); ?>;
+        --text-color: <?= $theme->getTextColor(); ?>;
+        --shadow-color: <?= $theme->getShadowColor(); ?>;
+        --btn-color: <?= $theme->getBtnColor(); ?>;
+        --btn-color-light: <?= $theme->getBtnColorLight(); ?>;
+        --font-family: <?= $theme->getFontFamily(); ?>;
     }
     
-
-    /* *:not(div), .navbar-front {
+    *:not(div), .navbar-front {
         background-color: var(--bg-color);
     }
 
     * {
         color: var(--text-color);
+    }
+
+    svg circle {
+        fill: var(--btn-color);
     }
 
     .card {
@@ -79,7 +93,7 @@
         background-color: var(--bg-color); 
         border: 1px solid var(--btn-color);
         color: var(--btn-color); 
-    } */
+    } 
 
    
 
