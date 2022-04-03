@@ -87,8 +87,8 @@
         padding-bottom: calc($i * 4px);
     }
     .px-#{$i} {
-        padding-left: calc($i * 4px) !important;
-        padding-right: calc($i * 4px) !important;
+        padding-left: calc($i * 4px);
+        padding-right: calc($i * 4px);
     }
     .pt-#{$i} {
         padding-top: calc($i * 4px);

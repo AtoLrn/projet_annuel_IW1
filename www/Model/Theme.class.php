@@ -15,10 +15,28 @@ class Theme extends Sql
     protected $btnColorLight = "#e77280";
     protected $shadowColor = "#000000";
     protected $fontFamily = "Open Sans";
+    protected $selected = 0;
 
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function selectTheme(int $idTheme): void 
+    {
+        $themeSelected = $this->select([
+            "theme" => [
+                "args" => ["id"],
+                "params" => ['selected' => true] 
+            ]
+        ]);
+        $this->setId($themeSelected[0]['theme_id']);
+        $this->setSelected(0);
+        $this->save();
+        $this->setId($idTheme);
+        $this->setSelected(1);
+        $this->save();
+        
     }
 
     public function getId(): ?int
@@ -104,6 +122,16 @@ class Theme extends Sql
     public function setFontFamily(?string $fontFamily): void
     {
         $this->fontFamily = ucwords(strtolower(trim($fontFamily)));
+    }
+
+    public function getSelected(): int
+    {
+        return $this->selected;
+    }
+
+    public function setSelected(int $selected): void
+    {
+        $this->selected = $selected;
     }
 
     public function getThemeForm(?int $id = null): array

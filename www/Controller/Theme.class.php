@@ -54,12 +54,36 @@ class Theme
     public function listThemes(): void
     {
         $theme = new ThemeModel();
+        if(isset($_POST['idTheme'])) {
+            $themeSelected = $theme->select([
+                "theme" => [
+                    "args" => ["id"],
+                    "params" => ['selected' => 1] 
+                ]
+            ]);
+            $theme = $theme->setId($themeSelected[0]['theme_id']);
+            $theme->setSelected(0);
+            $theme->save();
+            $theme = $theme->setId($_POST['idTheme']);
+            $theme->setSelected(1);
+            $theme->save();
+        }
         $themes = $theme->select([
             "theme" => [
                 "args" => [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"],
                 "params" => []
             ]
-            ]);
+        ]);
+        usort($themes, function($a, $b){
+            if ($a['theme_selected'] == true) {
+                return -1;
+            }
+            if ($b['theme_selected'] == true) {
+                return 1;
+            }
+
+            
+        });
         $view = new View("list-themes", "back");
         $view->assign("themes", $themes);
         
