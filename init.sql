@@ -104,7 +104,22 @@ CREATE TABLE `esgi_page` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `esgi_certification` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text CHARACTER SET utf8 COLLATE utf8_latvian_ci NOT NULL,
+  `idDocumentPath` varchar(2048) NOT NULL,
+  `officialDocumentPath` varchar(2048) NOT NULL,
+  `status` enum('inDemand','approved','refused') NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `esgi_certification`
+    ADD PRIMARY KEY (`id`),
+    ADD KEY `fk_certification_user` (`userId`);
+
+ALTER TABLE `esgi_certification`
+    ADD CONSTRAINT `fk_certification_user` FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`);
 
 
 INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'ananas', 'MA', 'ananas@gmail.com', "test1234", "");

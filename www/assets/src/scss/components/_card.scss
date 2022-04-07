@@ -7,3 +7,13 @@
     flex-direction: column;
     animation: smoothTranistion, 0.5s;
 }
+
+.dark-card {
+    border-radius: 12px;
+    border: 1px solid #F0F0F0;
+    display: flex;
+    flex-direction: column;
+    background-color: #F1F1F1;
+    padding: 10px;
+    text-align: justify;
+}
