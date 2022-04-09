@@ -1035,7 +1035,6 @@ input::placeholder {
 .card {
   box-shadow: 0px 4px 16px 2px rgba(0, 0, 0, 0.15);
   border-radius: 12px;
-  border: 1px solid #F0F0F0;
   display: flex;
   flex-direction: column;
   -webkit-animation: smoothTranistion, 0.5s;
@@ -1163,18 +1162,12 @@ input::placeholder {
   }
 }
 
-.login-register-bg {
-  background-image: url("../img/login-register-bg.png");
-  background-size: cover;
-}
-
 .selector-button {
   font-weight: 800;
   color: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 1px #9e9e9e;
   height: 68px;
   background-color: white;
   z-index: 2;
@@ -1194,6 +1187,38 @@ input::placeholder {
 .smooth-div {
   -webkit-animation: smoothTransition 0.5s linear;
           animation: smoothTransition 0.5s linear;
+}
+
+.bulle-1, .bulle-2, .bulle-3, .bulle-4 {
+  background: transparent;
+  position: fixed;
+  opacity: 0.8;
+}
+
+.bulle-1 {
+  top: 30vh;
+  left: -100px;
+  z-index: 2;
+}
+
+.bulle-2 {
+  top: 45vh;
+  left: 100px;
+  height: 220px;
+  width: 220px;
+}
+
+.bulle-3 {
+  top: 50vh;
+  right: -100px;
+  z-index: 2;
+}
+
+.bulle-4 {
+  top: 48vh;
+  right: 100px;
+  height: 220px;
+  width: 220px;
 }
 
 .wysiwyg {

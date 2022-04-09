@@ -21,8 +21,8 @@
                 <li>Vos Abonnements</li>
             </ul>
             <section>
-            <a class="link" href="/login"><img src="../assets/img/logo/users.svg" alt="" width="24px">Se Connecter</a>
-            <a class="link" href="/register"><img src="../assets/img/logo/users.svg" alt="" width="24px">S'inscrire</a>
+            <a class="link" href="/login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
+            <a class="link" href="/register"> <?php include "assets/img/logo/users.php"; ?> S'inscrire</a>
             </section>
         </nav>
     </header>
@@ -51,8 +51,9 @@
         --bg-color: <?= $theme->getBgColor(); ?>;
         --ph-color: <?= $theme->getPhColor(); ?>;
         --text-color: <?= $theme->getTextColor(); ?>;
-        --shadow-color: <?= $theme->getShadowColor(); ?>;
+        --shadow-color: <?= $theme->getShadowColor() . "30"; ?>;
         --btn-color: <?= $theme->getBtnColor(); ?>;
+        --btn-color-shadow: <?= $theme->getBtnColor() . "5"; ?>;
         --btn-color-light: <?= $theme->getBtnColorLight(); ?>;
         --font-family: <?= $theme->getFontFamily(); ?>;
     }
@@ -61,15 +62,29 @@
         background-color: var(--bg-color);
     }
 
-    * {
+    *, .input {
         color: var(--text-color);
     }
 
-    svg circle {
-        fill: var(--btn-color);
+
+    .bulle-1 ellipse, .bulle-3 ellipse{
+        fill: var(--btn-color) !important;
     }
 
-    .card {
+    .bulle-2 ellipse, .bulle-4 ellipse {
+        fill: var(--btn-color-light) !important;
+    }
+
+    .text-color {
+        fill: var(--text-color) !important;
+    }
+
+    .input-pink:focus {
+        border: 1px solid var(--btn-color);
+        background-color: var(--btn-color-shadow);
+    }
+
+    .card, .navbar-front {
         box-shadow: 0px 4px 16px 2px var(--shadow-color);
     }
 
