@@ -21,20 +21,25 @@
                 <div class="bd-t-1 bd-light-gray mb-11"></div>
                 <nav class="grid">
                     <ul class="col g-9 grid">
-                        <li class="row g-3"> <img src="../assets/img/logo/users.svg" alt=""> 
-                        <a href="#" class="link-black">Utilisateurs</a> 
-                    </li>
+                        <li class="row g-3"> 
+                            <?php include "assets/img/logo/users.php"; ?> 
+                            <a href="/list" class="link-black">Utilisateurs</a> 
+                        </li>
                         <li class="row g-3">
-                            <img src="../assets/img/logo/articles.svg" alt="">
-                            <a href="#" class="link-black">Articles</a> 
+                            <?php include "assets/img/logo/articles.php"; ?>
+                            <a href="/list?q=articles" class="link-black">Articles</a> 
                         </li>
                         <li class="row g-3"> 
-                            <img src="../assets/img/logo/comments.svg" alt="">
-                            <a href="#" class="link-black">Commentaires</a>
+                            <?php include "assets/img/logo/comments.php"; ?>
+                            <a href="/list?q=comments" class="link-black">Commentaires</a>
                         </li>
                         <li class="row g-3"> 
-                            <img src="../assets/img/logo/comments.svg" alt="">
-                            <a href="/settings" class="link-black">Settings</a>
+                            <?php include "assets/img/logo/themes.php"; ?>
+                            <a href="/list-themes" class="link-black">Mon thème</a>
+                        </li>
+                        <li class="row g-3"> 
+                            <?php include "assets/img/logo/settings.php"; ?>
+                            <a href="/settings" class="link-black">Paramètres</a>
                         </li>
                     </ul>
                 </nav>
