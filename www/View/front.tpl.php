@@ -64,6 +64,7 @@
 
     *, .input {
         color: var(--text-color);
+        font-family: var(--font-family),  sans-serif;;
     }
 
 
