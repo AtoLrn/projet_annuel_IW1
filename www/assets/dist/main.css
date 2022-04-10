@@ -1360,6 +1360,65 @@ input::placeholder {
   }
 }
 
+.showcase {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-bottom: 0.5em;
+}
+.showcase > section {
+  background-color: #ff5e84;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: ease 0.2s;
+}
+.showcase > section > span {
+  color: white;
+}
+.showcase > section > span.remove {
+  font-weight: bold;
+  margin-left: 0.5em;
+}
+.showcase > section:hover {
+  transform: scale(1.05);
+}
+
+.search {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 2;
+  max-height: 350px;
+  border-radius: 5px;
+  margin-top: 0.5em;
+  overflow-y: auto;
+  border: 1px solid #ff5e84;
+  top: 100%;
+  width: 100%;
+}
+.search > section {
+  transition: 0.2s ease;
+  cursor: pointer;
+  padding: 1em;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ff5e8475;
+}
+.search > section > span .valid {
+  font-weight: bold;
+  color: green;
+}
+.search > section:hover {
+  background-color: #f1f1f1;
+}
+.search > section:last-child {
+  border-bottom: none;
+}
+
 .g-0 {
   gap: 0px !important;
 }

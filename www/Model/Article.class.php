@@ -103,6 +103,15 @@ class Article extends Sql
                     "id" => "description",
                     "label" => "Description"
                 ],
+                "ingredient[]" => [
+                    "type" => "select",
+                    "placeholder" => "Liste Des Ingredients",
+                    "required" => true,
+                    "class" => "input input-pink",
+                    "id" => "ingredient",
+                    "label" => "Ingredients",
+                    "options" => "['Salade', 'Tomate', 'Oignons']"
+                ],
                 "photo[]" => [
                     "type" => "file",
                     "multiple" => true,

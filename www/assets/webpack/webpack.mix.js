@@ -23,6 +23,7 @@ mix.babel([
  '../src/js/editor-js-list.js',
  '../src/js/user.js',
  '../src/js/list.js',
+ '../src/js/select.js',
  '../src/js/register-login.js',
  '../src/js/article.js',
  '../src/js/navbar.js',
