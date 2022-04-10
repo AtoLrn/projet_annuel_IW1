@@ -218,7 +218,7 @@ class User extends Sql
                 "method" => "POST",
                 "action" => "/register-login?formType=register",
                 "submit" => "S'inscrire",
-                "class" => "col a-center py-4 w-per-20 px-8"
+                "class" => "col a-center py-4 w-per-20 px-8 g-5"
             ],
             'inputs' => [
                 "email" => [
@@ -283,7 +283,7 @@ class User extends Sql
                 "method" => "POST",
                 "action" => "/register-login?formType=login",
                 "submit" => "Se connecter",
-                "class" => "col a-center py-4 w-per-20 px-8"
+                "class" => "col a-center py-4 w-per-20 px-8 g-5"
             ],
             'inputs' => [
                 "email" => [

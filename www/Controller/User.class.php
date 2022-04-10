@@ -66,7 +66,7 @@ class User
                     ]
                 ]
             )) {
-                $result[] = 'This email already exist';
+                $result["email"][] = 'Ce mail est deja utilisé';
             }
             if (empty($result)) {
 
@@ -86,11 +86,11 @@ class User
 
                 $mail = Mail::getInstance();
                 $mail->mailValidation($post['email'], $post['firstname'], $post['lastname'], $user->getMailToken());
-                return [1];
+                return [];
             }
             return $result;
         }
-        return ['formulaire absent'];
+        return ['server' => 'form invalid'];
     }
 
     public function register_login(){
@@ -106,17 +106,16 @@ class User
                     $errorMessage = $response ?? null;
                 } else if ($_GET["formType"] === "register") {
                     $response = $this->register($user, $_POST);
-                    if (is_string($response[0])) {
-                        $errorMessage = !empty($response) ? $response[0] : "un problème est survenu";
+                    if (!empty($response)) {
+                        $view->assign('errorMessage', $response);
                     } else {
                         $isCreated = $response;
+                        $view->assign('isCreated', $isCreated);
                     }
                 }
             }
         }
 
-        $view->assign('isCreated', $isCreated);
-        $view->assign('errorMessage', $errorMessage);
         $view->assign("user", $user);
     }
 
