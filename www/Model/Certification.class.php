@@ -106,6 +106,38 @@ class Certification extends Sql
         $this->userId = $userId;
     }
 
+    public function getCertificationRequestForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "",
+                "enctype" => "multipart/form-data",
+                "submit" => "Envoyer"
+            ],
+            "inputs" => [
+                "description" => [
+                    "type" => "textarea",
+                    "rows" => "30",
+                    "cols" => "20",
+                    "placeholder" => "Décrivez nous votre demande (motivation, expérience, ect...)",
+                    "required" => true,
+                    "label" => "Description de votre demande"
+                ],
+                "idDocument" => [
+                    "type" => "file",
+                    "required" => true,
+                    "label" => "Document d'identité"
+                ],
+                "officialDocument" => [
+                    "type" => "file",
+                    "required" => true,
+                    "label" => "Document officiel attestant de votre profession"
+                ]
+            ]
+        ];
+    }
+
     public function formatList(): array
     {
         return [

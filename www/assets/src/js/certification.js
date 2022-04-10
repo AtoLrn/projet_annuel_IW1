@@ -77,6 +77,16 @@ const setAsideCertificationInfo = (data) => {
         btns.append( `<button class='btn btn-danger little' onclick='modifyCertificationStatus(${data.certification_id}, "refused", ${data.user_id})'> Refuser </button>` );
     }
 
+    let descriptionArea = $('#descriptionArea')
+    descriptionArea.html("");
+    descriptionArea.append(`${data.certification_description}`)
+
+    let idDocumentBtn = $('#idDocument')
+    let officialDocumentBtn = $('#officialDocument')
+    idDocumentBtn.attr('href', data.certification_idDocumentPath)
+    idDocumentBtn.attr('download', `${data.user_lastname}_${data.user_firstname}_idDocument`)
+    officialDocumentBtn.attr('href', data.certification_officialDocumentPath)
+    officialDocumentBtn.attr('download', `${data.user_lastname}_${data.user_firstname}_officialDocument`)
 
     $('.aside-info').addClass("show");
 }
