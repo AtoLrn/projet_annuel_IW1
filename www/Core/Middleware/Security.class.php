@@ -12,7 +12,6 @@ class Security
     {
 
         $authorized = False;
-
         if (!empty($rights)) {
             if (isset($_SESSION['token'])) {
                 $session = Session::getByToken($_SESSION['token']);
@@ -25,11 +24,15 @@ class Security
                     $user = new User();
                     $user = $user->setId($session->getUserId());
                     $status = $user->getStatus();
-
                     switch ($status) {
                         case 'user':
                             if (in_array("user", $rights)) {
                                 $authorized = True;
+                            }
+
+                        case 'chief':
+                            if (in_array("chief", $rights)) {
+                                    $authorized = True;
                             }
 
                         case 'admin':
@@ -49,7 +52,7 @@ class Security
             $authorized = True;
         }
         if (!$authorized) {
-            header("Location: /login?url=" . $_SERVER["REQUEST_URI"]);
+            header("Location: /register-login?url=" . $_SERVER["REQUEST_URI"]);
             exit();
         }
     }

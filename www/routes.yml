@@ -49,13 +49,16 @@
     controller: user
     action: pwdforget
 
-/handle-article:
-    controller: article
-    action: handleArticle
-
 /recette:
     controller: article
     action: getArticle
+
+/create-recette:
+    controller: article
+    action: create
+    security:
+    - user
+    - chief
 
 /dashboard:
   controller: admin
