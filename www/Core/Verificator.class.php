@@ -26,23 +26,35 @@ class Verificator
             }
 
             if(!isset($data[$name]) ){
-                $result[] = "Le champs ".$name." n'existe pas";
+                $result[$name][] = "Le champs ".$name." n'existe pas";
             }
 
             if(empty($data[$name]) && !empty($input["required"]) ){
-                $result[] = "Le champs ".$name." ne peut pas être vide";
+                $result[$name][] = "Le champs ".$name." ne peut pas être vide";
             }
 
             if($input["type"] == "email" && !self::checkEmail($data[$name]) ){
-                $result[] = $input["error"];
+                $result[$name][] = $input["error"];
             }
 
             if($input["type"] == "password" && empty($input["confirm"]) && !self::checkPassword($data[$name]) ){
-                $result[] = $input["error"];
+                $result[$name][] = $input["error"];
             }
 
             if(!empty($input["confirm"]) && $data[$name] != $data[$input["confirm"]]){
-                $result[] = $input["error"];
+                $result[$name][] = $input["error"];
+            }
+
+            if(isset($input['enum']) ){
+                $valid = false;
+                foreach($input['enum'] as $key => $value) {
+                    if($data[$name] == $value) {
+                        $valid = true;
+                    }
+                }
+                if(!$valid) {
+                    $result[$name][] = "Cette police n'existe pas";
+                }
             }
 
 
@@ -65,8 +77,7 @@ class Verificator
         return strlen($password)>=8
             && preg_match("/[0-9]/", $password, $match)
             && preg_match("/[a-z]/", $password, $match)
-            && preg_match("/[A-Z]/", $password, $match)
-            ;
+            && preg_match("/[A-Z]/", $password, $match);
     }
 }
 

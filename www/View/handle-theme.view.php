@@ -1,9 +1,12 @@
 <div class="grid p-9 xs-p-6 col a-center g-8">
     <h1 class="h1"><?= isset($id) ? "Modifier le thème : " . $theme->getName() : "Ajouter un nouveau thème"; ?></h1>
 
-    <?php $this->partialInclude("form", $theme->getThemeForm($id ?? null)) ?>
-
-    <button class="link link-danger" onclick="displayPopUp(0)">Supprimer</button>    
+    <?php 
+        $form = $theme->getThemeForm($id ?? null);
+        $form['error'] = $error??[];
+        $this->partialInclude("form", $form) 
+    ?>
+    <button class="link link-danger" onclick="displayPopUp(0)">Supprimer</button>  
 <div>
 
 <div id="pop-up" class="cont-popup grid">

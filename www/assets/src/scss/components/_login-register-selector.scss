@@ -32,6 +32,9 @@
     background: transparent;
     position: fixed;
     opacity: 0.8;
+    @include breakpoint(tablet) {
+        display: none;
+    }
 }
 
 .bulle-1 {

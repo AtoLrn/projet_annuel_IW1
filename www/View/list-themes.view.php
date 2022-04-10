@@ -3,7 +3,7 @@
 
     <section class="grid row g-9">     
         <?php  foreach($themes as $key => $theme): ?>
-            <article class="grid col card p-6 g-3 w-em-4 xs-w-per-20">
+            <article class="grid col card p-6 g-3 w-em-5 xs-w-per-20">
                 <div class="row j-bet a-center">
                     <h1 class="h2 mb-2"><?= $theme['theme_name'] ?></h1>
                     <a href="/theme?id=<?= $theme['theme_id'] ?>">

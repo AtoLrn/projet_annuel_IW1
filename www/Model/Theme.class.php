@@ -166,8 +166,10 @@ class Theme extends Sql
                     "required" => true,
                     "class" => "input input-pink",
                     "id" => "fontFamilyForm",
-                    "error" => "type de texte incorrect",
-                    "value" => $this->getFontFamily()
+                    "error" => "police invalide",
+                    "value" => $this->getFontFamily(),
+                    "enum" => ["Open Sans", "Roboto", "Lato", "Montserrat", "Poppins"]
+
                 ],
                 "bgColor" => [
                     "type" => "color",
