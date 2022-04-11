@@ -6,12 +6,32 @@ use App\Core\Verificator;
 use App\Core\Sql;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
+use App\Core\Server;
 
 use App\Model\Session;
 use App\Model\Image;
 use App\Model\User as UserModel;
 class Article
 {
+    public function handleArticle()
+    {
+        $article = new ArticleModel();
+
+        if (Server::ensureHttpMethod('POST') && !empty($_POST)) {
+
+            $result = Verificator::checkForm($article->getArticleForm(), $_POST);
+            print_r($result);
+            if (empty($result)) {
+                $article->setTitle($_POST['title']);
+                $article->setContent($_POST['content']);
+                $article->save();
+            }
+        }
+
+        $view = new View("handle-article");
+        $view->assign("article", $article);
+    }
+
     public function getArticle()
     {
         if (empty($_GET['id'])) {

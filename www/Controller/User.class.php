@@ -100,7 +100,7 @@ class User
         $errorMessage = null;
         $view = new View("register-login", 'front');
 
-        if (!empty($_POST) ) {
+        if (Server::ensureHttpMethod('POST') && !empty($_POST) ) {
             if ($_GET["formType"] !== null) {
                 if ($_GET["formType"] === "login") {
                     $response = $this->login($user, $_POST);

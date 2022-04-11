@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\View;
 use App\Model\Theme as ThemeModel;
 use App\Core\Verificator;
+use App\Core\Server;
 
 
 class Theme
@@ -22,7 +23,7 @@ class Theme
         }
         $view->assign("theme", $theme);
     
-        if(!empty($_POST)) {
+        if(Server::ensureHttpMethod('POST') && !empty($_POST)) {
             $msg = $this->saveTheme($theme);
             if(is_numeric($msg)) {
                 header('Location: /list-themes?success=add');
