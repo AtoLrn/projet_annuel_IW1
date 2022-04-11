@@ -6,6 +6,7 @@ use App\Core\Verificator;
 use App\Core\Sql;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
+use App\Core\Server;
 
 class Article
 {
@@ -13,7 +14,7 @@ class Article
     {
         $article = new ArticleModel();
 
-        if (!empty($_POST)) {
+        if (Server::ensureHttpMethod('POST') && !empty($_POST)) {
 
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
             print_r($result);

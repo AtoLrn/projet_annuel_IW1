@@ -44,7 +44,7 @@ class Verificator
                     }
                 }
                 if(!$valid) {
-                    $result[$name][] = "Cette police n'existe pas";
+                    $result[$name][] = "élément non répertorié: attention à la syntaxe";
                 }
             }
 
