@@ -121,6 +121,26 @@ ALTER TABLE `esgi_certification`
 ALTER TABLE `esgi_certification`
     ADD CONSTRAINT `fk_certification_user` FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`);
 
+    
+
+CREATE TABLE `esgi_theme` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `fontFamily` varchar(255) NOT NULL,
+  `bgColor` char(7) NOT NULL,
+  `textColor` char(7) NOT NULL,
+  `btnColor` char(7) NOT NULL,
+  `btnColorLight` char(7) NOT NULL,
+  `phColor` char(7) NOT NULL,
+  `shadowColor` char(9) NOT NULL,
+  `selected` BOOLEAN NOT NULL DEFAULT FALSE,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+
+
+
 
 INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'ananas', 'MA', 'ananas@gmail.com', "test1234", "");
 INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'peche', 'PE', 'peche@gmail.com', "test1234", "");

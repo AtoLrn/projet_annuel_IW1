@@ -1,20 +1,36 @@
 <main class="grid col login-register-bg min-h-20 a-center j-center">
-    <?php if ($isCreated): ?>
+    <?php if (isset($isCreated)): ?>
         <h1>Votre compte à bien été créé!</h1>
         <h2>Un mail vous a été envoyé afin de confirmer votre adresse</h2>
     <?php else: ?>
-        <div class="col card bg-white w-mobile a-center">
+         <div class="col card bg-white w-mobile a-center" style="width: 400px">
             <div class="row j-center g-0">
                 <button id="loginButton" class="col-lg-6 btn selector-button login" >Connexion</button>
                 <button id="registerButton" class="col-lg-6 btn selector-button register" >S'inscrire</button>
             </div>
-            <div class="g-5 col a-center">
+            <div class="g-5 col a-center w-per-20">
                 <?php $this->partialInclude("form", $user->getLoginForm()) ?>
-                <?php $this->partialInclude("form", $user->getRegisterForm()) ?>
+                <?php 
+                $registerForm = $user->getRegisterForm();
+                $registerForm['error'] = $errorMessage??[];
+                $this->partialInclude("form", $registerForm);
+                ?>
             </div>
-            <?php if ($errorMessage !== null): ?>
-                <p><?= $errorMessage ?></p>
+            <?php if (isset($errorMessage) && isset($errorMessage['server']) && $errorMessage['server'] == 'form invalid'): ?>
+                <p><?= "Une erreur est survenue" ?></p>
             <?php endif; ?>
         </div>
-    <?php endIf ?>
+    <?php endif; ?>
+    <svg class="bulle-1" width="337" height="340" viewBox="0 0 337 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="168.5" cy="170" rx="168.5" ry="170" style="fill: #FFB1C9"/>
+    </svg>
+    <svg class="bulle-2" width="337" height="340" viewBox="0 0 337 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="168.5" cy="170" rx="168.5" ry="170" style="fill: #FFB1C9"/>
+    </svg>
+    <svg class="bulle-3" width="337" height="340" viewBox="0 0 337 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="168.5" cy="170" rx="168.5" ry="170" style="fill: #FFB1C9"/>
+    </svg>
+    <svg class="bulle-4" width="337" height="340" viewBox="0 0 337 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="168.5" cy="170" rx="168.5" ry="170" style="fill: #FFB1C9"/>
+    </svg>
 </main>

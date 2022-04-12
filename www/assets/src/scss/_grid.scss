@@ -16,9 +16,13 @@
 
 .grid {
     width: 100%;
-    .col {
+    .col {     
         display: flex;
         flex-direction: column;
+        
+        &.reverse {
+            flex-direction: column-reverse;
+        }
         &.a-start {
             align-items: flex-start;
         }
@@ -41,9 +45,18 @@
             justify-content: flex-end;
         }
 
+        .a-self-end {
+            align-self: flex-end;
+        }
+
+
         @for $i from 1 through $col-nb {
             .row-lg-#{$i} {
                 @include grid-container-col($i);
+            }
+
+            .order-#{$i} {
+                order: calc($i - 2);
             }
         }
 
@@ -70,6 +83,9 @@
         align-items: center;
         gap: $gutter-width;
 
+        &.reverse {
+            flex-direction: row-reverse;
+        }
         &.a-start {
             align-items: flex-start;
         }

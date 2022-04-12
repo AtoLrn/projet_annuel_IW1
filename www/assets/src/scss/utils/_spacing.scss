@@ -87,8 +87,8 @@
         padding-bottom: calc($i * 4px);
     }
     .px-#{$i} {
-        padding-left: calc($i * 4px) !important;
-        padding-right: calc($i * 4px) !important;
+        padding-left: calc($i * 4px);
+        padding-right: calc($i * 4px);
     }
     .pt-#{$i} {
         padding-top: calc($i * 4px);
@@ -106,27 +106,27 @@
     @include breakpoint(tablet) {
         .xs-p-#{$i} {
             // all
-            padding: calc($i * 4px);
+            padding: calc($i * 4px) !important;
         }
         .xs-py-#{$i} {
-            padding-top: calc($i * 4px);
-            padding-bottom: calc($i * 4px);
+            padding-top: calc($i * 4px) !important;
+            padding-bottom: calc($i * 4px) !important;
         }
         .xs-px-#{$i} {
             padding-left: calc($i * 4px) !important;
             padding-right: calc($i * 4px) !important;
         }
         .xs-pt-#{$i} {
-            padding-top: calc($i * 4px);
+            padding-top: calc($i * 4px) !important;
         }
         .xs-pb-#{$i} {
-            padding-bottom: calc($i * 4px);
+            padding-bottom: calc($i * 4px) !important;
         }
         .xs-pl-#{$i} {
-            padding-left: calc($i * 4px);
+            padding-left: calc($i * 4px) !important;
         }
         .xs-pr-#{$i} {
-            padding-right: calc($i * 4px);
+            padding-right: calc($i * 4px) !important;
         }
     }
 

@@ -55,7 +55,6 @@ abstract class Sql
         }
         // DEBUG
         // echo $sql;
-
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($columns);
         return $this->pdo->lastInsertId();
