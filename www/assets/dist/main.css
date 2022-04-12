@@ -5398,8 +5398,9 @@ input::placeholder {
   text-align: justify;
 }
 
-.img {
-  border-radius: 50%;
+.px-20 {
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 .pr-20 {

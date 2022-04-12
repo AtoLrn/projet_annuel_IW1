@@ -139,6 +139,9 @@ CREATE TABLE `esgi_theme` (
 );
 
 
+
+
+
 INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'ananas', 'MA', 'ananas@gmail.com', "test1234", "");
 INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'peche', 'PE', 'peche@gmail.com', "test1234", "");
 INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'kiwi', 'KI', 'kiwi@gmail.com', "test1234", "");
