@@ -23,7 +23,7 @@ class Theme
         }
         $view->assign("theme", $theme);
     
-        if(Server::ensureHttpMethod('POST') && !empty($_POST)) {
+        if(Server::booleanHttpMethod('POST') && !empty($_POST)) {
             $msg = $this->saveTheme($theme);
             if(is_numeric($msg)) {
                 header('Location: /list-themes?success=add');

@@ -17,7 +17,7 @@ class Article
     {
         $article = new ArticleModel();
 
-        if (Server::ensureHttpMethod('POST') && !empty($_POST)) {
+        if (!empty($_POST)) {
 
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
             print_r($result);
