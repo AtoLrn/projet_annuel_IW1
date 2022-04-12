@@ -40,6 +40,11 @@ class Article
 
         $article = new ArticleModel();
         $article = $article->setId($_GET['id']);
+
+        if (!$article) {
+            header("Location: /not-found");
+        }
+        
         $image = new Image();
         $images = $image->select([
             "image" => [
@@ -50,9 +55,7 @@ class Article
             ]
         ]);
 
-        if (!$article) {
-            header("Location: /not-found");
-        }
+        
 
 
         $view = new View("article");
