@@ -28,6 +28,9 @@ CREATE TABLE `esgi_category` (
   PRIMARY KEY (`id`)
 );
 
+INSERT INTO esgi_category (name)  VALUES('antouane');
+
+
 CREATE TABLE `esgi_ingredient` (
   `id`  int(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL ,
@@ -139,7 +142,30 @@ CREATE TABLE `esgi_theme` (
 );
 
 
-
+INSERT INTO esgi_theme (name, fontFamily, bgColor, textColor, btnColor, btnColorLight, phColor, shadowColor, selected) 
+   VALUES( 
+            "Classic",
+            "Open Sans",
+            "#ffffff",
+            "#04172f",
+            "#ff5e84",
+            "#e77280",
+            "#e2e2e2",
+            "#000000",
+            1
+);
+INSERT INTO esgi_theme (name, fontFamily, bgColor, textColor, btnColor, btnColorLight, phColor, shadowColor, selected) 
+   VALUES( 
+            "Sombre",
+            "Poppins",
+            "#242424",
+            "#ffffff",
+            "#0084ff",
+            "#81a6fe",
+            "#e2e2e2",
+            "#ededed",
+            0
+);
 
 
 INSERT INTO esgi_user (firstname, lastname, email, password, mailToken)  VALUES( 'ananas', 'MA', 'ananas@gmail.com', "test1234", "");

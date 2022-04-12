@@ -23,7 +23,7 @@ class Theme
         }
         $view->assign("theme", $theme);
     
-        if(Server::booleanHttpMethod('POST') && !empty($_POST)) {
+        if(!empty($_POST)) {
             $msg = $this->saveTheme($theme);
             if(is_numeric($msg)) {
                 header('Location: /list-themes?success=add');
@@ -62,9 +62,12 @@ class Theme
                     "params" => ['selected' => 1] 
                 ]
             ]);
-            $theme = $theme->setId($themeSelected[0]['theme_id']);
-            $theme->setSelected(0);
-            $theme->save();
+            print_r($themeSelected);
+            if(!empty($themesSeleted)) {
+                $theme = $theme->setId($themeSelected[0]['theme_id']);
+                $theme->setSelected(0);
+                $theme->save();
+            }
             $theme = $theme->setId($_POST['idTheme']);
             $theme->setSelected(1);
             $theme->save();
