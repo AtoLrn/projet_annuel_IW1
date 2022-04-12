@@ -50,8 +50,6 @@ class Article
             ]
         ]);
 
-        print_r($images);
-
         if (!$article) {
             header("Location: /not-found");
         }
