@@ -9,15 +9,16 @@
                 <button id="registerButton" class="col-lg-6 btn selector-button register" >S'inscrire</button>
             </div>
             <div class="g-5 col a-center w-per-20">
-                <?php $this->partialInclude("form", $user->getLoginForm()) ?>
+                <?php $this->partialInclude("form", $user->getLoginForm()); ?>
                 <?php 
                 $registerForm = $user->getRegisterForm();
                 $registerForm['error'] = $errorMessage??[];
                 $this->partialInclude("form", $registerForm);
                 ?>
             </div>
-            <?php if (isset($errorMessage) && isset($errorMessage['server']) && $errorMessage['server'] == 'form invalid'): ?>
-                <p><?= "Une erreur est survenue" ?></p>
+            <p>c'est la street</p>
+            <?php if (isset($errorMessage) && (isset($errorMessage['server']) || isset($errorMessage['login']))): ?>
+                <p class="c-light-pink p-3"><?= $errorMessage['login'] . "login error"??"Une erreur est survenue" ?></p>
             <?php endif; ?>
         </div>
     <?php endif; ?>

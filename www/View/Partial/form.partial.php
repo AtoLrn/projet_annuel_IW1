@@ -38,6 +38,16 @@
         <?php endif; ?>
     </div>
     <?php endforeach;?>
-
-    <input class="<?= $data['config']['classSubmit'] ?? 'btn btn-pink my-4 w-per-16' ?>" type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
+    
+    <input type="hidden" name="recaptcha" id="recaptcha">
+    <input 
+        class="<?= $data['config']['classSubmit'] ?? 'btn btn-pink my-4 w-per-16' ?>" 
+        type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
 </form>
+<script>
+    grecaptcha.ready(() => {
+        grecaptcha.execute( <?= KEY_SITE_RECAPTCHA ?>, { action: 'register-login' }).then(token => {
+            document.querySelector('#recaptcha').value = token;
+        });
+    });
+</script>

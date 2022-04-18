@@ -18,8 +18,6 @@ class User
     public function login(UserModel $user, array $post): ?string
     {
         if (!empty($post)) {
-            /*$result = Verificator::checkForm($user->getLoginForm(), $_POST);
-            if (empty($result)){*/
             $loggedUser = $user->select(
                 [
                     "user" => [
@@ -101,10 +99,13 @@ class User
         $view = new View("register-login", 'front');
 
         if (!empty($_POST) ) {
-            if ($_GET["formType"] !== null) {
+            $validRecaptcha = Verificator::checkRecaptcha($_POST['recaptcha']);
+            if ($validRecaptcha && $_GET["formType"] !== null) {
                 if ($_GET["formType"] === "login") {
                     $response = $this->login($user, $_POST);
-                    $errorMessage = $response ?? null;
+                    if (!empty($response)) {
+                        $view->assign('errorMessage', ['login' => $response]);
+                    }
                 } else if ($_GET["formType"] === "register") {
                     $response = $this->register($user, $_POST);
                     if (!empty($response)) {
@@ -114,6 +115,9 @@ class User
                         $view->assign('isCreated', $isCreated);
                     }
                 }
+            }
+            if(!$validRecaptcha) {
+                $view->assign("errorMessage", ['server']);
             }
         }
 

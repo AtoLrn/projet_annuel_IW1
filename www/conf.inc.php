@@ -15,3 +15,6 @@ define("WEBSITEURL", 'localhost');
 
 define("MAILUSERNAME", "didiermatoutest@gmail.com");
 define("MAILPASSWORD", "yjxukwpukectwoxr");
+
+define("KEY_SECRET_RECAPTCHA", "6LcEYYEfAAAAAPA4UDMLnwqWtND8cppT0hlW06gX");
+define("KEY_SITE_RECAPTCHA", "6LcEYYEfAAAAAPjm6tOrK_27AYOQE0VEnCZfnqAX");
