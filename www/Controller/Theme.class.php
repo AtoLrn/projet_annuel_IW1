@@ -62,7 +62,6 @@ class Theme
                     "params" => ['selected' => 1] 
                 ]
             ]);
-            print_r($themeSelected);
             if(!empty($themesSeleted)) {
                 $theme = $theme->setId($themeSelected[0]['theme_id']);
                 $theme->setSelected(0);
