@@ -62,15 +62,18 @@ class Theme
                     "params" => ['selected' => 1] 
                 ]
             ]);
-            if(!empty($themesSeleted)) {
+          
+            if(!empty($themeSelected)) {
                 $theme = $theme->setId($themeSelected[0]['theme_id']);
                 $theme->setSelected(0);
                 $theme->save();
+                
             }
             $theme = $theme->setId($_POST['idTheme']);
             $theme->setSelected(1);
             $theme->save();
         }
+
         $themes = $theme->select([
             "theme" => [
                 "args" => [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"],
