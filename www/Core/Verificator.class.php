@@ -16,7 +16,7 @@ class Verificator
         });
 
         if( count($data) != (count($config['inputs']) - count($images))){
-            die("Tentative de hack !!!!");
+            die("something go wrong in form.");
         }
 
         foreach ($config['inputs'] as $name => $input){

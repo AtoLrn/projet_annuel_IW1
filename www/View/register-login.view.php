@@ -16,9 +16,8 @@
                 $this->partialInclude("form", $registerForm);
                 ?>
             </div>
-            <p>c'est la street</p>
             <?php if (isset($errorMessage) && (isset($errorMessage['server']) || isset($errorMessage['login']))): ?>
-                <p class="c-light-pink p-3"><?= $errorMessage['login'] . "login error"??"Une erreur est survenue" ?></p>
+                <p class="c-light-pink pb-4"><?= $errorMessage['login']??$errorMessage['server'] ?></p>
             <?php endif; ?>
         </div>
     <?php endif; ?>

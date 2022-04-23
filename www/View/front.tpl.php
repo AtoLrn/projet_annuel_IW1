@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assets/dist/main.css">
     <script type="text/javascript" src="../assets/dist/main.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=<?= KEY_SITE_RECAPTCHA ?>"></script>
 </head>
 
 <body class="grid">
@@ -22,8 +21,8 @@
                 <li>Vos Abonnements</li>
             </ul>
             <section>
-            <a class="link" href="/register-login?formType=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
-            <a class="link" href="/register-login?formType=register"> <?php include "assets/img/logo/users.php"; ?> S'inscrire</a>
+            <a class="link" href="/register-login?form=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
+            <a class="link" href="/register-login?form=register"> <?php include "assets/img/logo/users.php"; ?> S'inscrire</a>
             </section>
         </nav>
     </header>

@@ -27,27 +27,28 @@ class User
                 ]
             );
             if (!empty($loggedUser)) {
-                if ($loggedUser[0]['user_isVerified']) {
+                if ($loggedUser[0]['user_isVerified'] != 1) {
+                    return 'Ce mail n\'est pas vérifié';
+                }
 
-                    if (password_verify($_POST['password'], $loggedUser[0]['user_password'])) {
+                if (password_verify($_POST['password'], $loggedUser[0]['user_password'])) {
 
-                        $user = $user->setId($loggedUser[0]['user_id']);
+                    $user = $user->setId($loggedUser[0]['user_id']);
 
-                        $session = new Session();
-                        $session->generateToken();
-                        $session->setUserId($user->getId());
-                        $session->save();
+                    $session = new Session();
+                    $session->generateToken();
+                    $session->setUserId($user->getId());
+                    $session->save();
 
-                        if ($_GET["uri"]) {
-                            header("Location: " . $_GET["uri"]);
-                        } else {
-                            header("Location: /");
-                        }
+                    if ($_GET["uri"]) {
+                        header("Location: " . $_GET["uri"]);
+                    } else {
+                        header("Location: /");
                     }
                 }
-                return 'Ce mail n\'est pas vérifié';
+                    
             }
-            return 'identifient incorrect';
+            return 'identifiants incorrects';
         }
         return "formulaire absent";
     }
@@ -85,7 +86,6 @@ class User
 
                 $mail = Mail::getInstance();
                 $mail->mailValidation($post['email'], $post['firstname'], $post['lastname'], $user->getMailToken());
-                return [];
             }
             return $result;
         }
@@ -97,16 +97,17 @@ class User
         $isCreated = false;
         $errorMessage = null;
         $view = new View("register-login", 'front');
+        $view->assign("user", $user);
 
         if (!empty($_POST) ) {
             $validRecaptcha = Verificator::checkRecaptcha($_POST['recaptcha']);
-            if ($validRecaptcha && $_GET["formType"] !== null) {
-                if ($_GET["formType"] === "login") {
+            if ($validRecaptcha && $_GET["form"] !== null) {
+                if ($_GET["form"] == "login") {
                     $response = $this->login($user, $_POST);
                     if (!empty($response)) {
                         $view->assign('errorMessage', ['login' => $response]);
                     }
-                } else if ($_GET["formType"] === "register") {
+                } else if ($_GET["form"] == "register") {
                     $response = $this->register($user, $_POST);
                     if (!empty($response)) {
                         $view->assign('errorMessage', $response);
@@ -117,11 +118,9 @@ class User
                 }
             }
             if(!$validRecaptcha) {
-                $view->assign("errorMessage", ['server']);
+                $view->assign("errorMessage", ['server' => 'une erreur est survenu.']);
             }
         }
-
-        $view->assign("user", $user);
     }
 
     public function mailValidation()
