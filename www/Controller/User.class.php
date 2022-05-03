@@ -187,14 +187,14 @@ class User
 
     public function getUsers()
     {
-        
         Server::ensureHttpMethod('GET');
+        $getParams = isset($_GET['params']) ? json_decode($_GET['params']) : null;
         $user = new UserModel();
         $result = $user->select(
             [
                 "user" => [
-                    "args" => ["id", "email", "lastname", "firstname", "status"],
-                    "params" => [],
+                    "args" => ["id", "email", "lastname", "firstname", "status", "createdAt"],
+                    "params" => is_array($getParams) ? [$getParams[0] => ['value' => $getParams[1], 'operator' => $getParams[2]]] : []
                 ]
             ]
         );

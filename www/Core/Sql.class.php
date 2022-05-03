@@ -85,7 +85,9 @@ abstract class Sql
 
         $params = [];
         foreach ($tables as $key => $val) {
-            $params = array_merge($params, $val['params']);
+            foreach ($val['params'] as $keyParam => $param) {
+                $params[$keyParam] = is_array($param) ? $param['value'] : $param;
+            }
         }
 
         return $this->dbFetchAll($sql, $params);
@@ -108,7 +110,11 @@ abstract class Sql
         $args = [];
         foreach ($tables as $keyTable => $values) {
             foreach ($values['args'] as $key => $vals) {
-                array_push($args, DBPREFIXE . $keyTable . "." . $vals . " AS " . $keyTable . "_" . $vals);
+                if (strpbrk($vals, "COUNT")) {
+                    $args[] = $vals;
+                } else {
+                    $args[] = DBPREFIXE . $keyTable . "." . $vals . " AS " . $keyTable . "_" . $vals;
+                }
             }
         }
 
@@ -134,7 +140,7 @@ abstract class Sql
 
         foreach ($tables as $key => $values) {
             foreach ($values[$separator] as $val) {
-                array_push($joins, " " . $separators[$separator] . " " . DBPREFIXE . $val . " ON " . DBPREFIXE . $key . ".id = " . DBPREFIXE . $val . "." . $key . "Id");
+                $joins[] = " " . $separators[$separator] . " " . DBPREFIXE . $val . " ON " . DBPREFIXE . $key . ".id = " . DBPREFIXE . $val . "." . $key . "Id";
             }
         }
 
@@ -147,7 +153,12 @@ abstract class Sql
         $where = [];
         foreach ($tables as $key => $table) {
             foreach ($table['params'] as $keyParams => $param) {
-                array_push($where, DBPREFIXE . $key . "." . $keyParams . " = :" . $keyParams);
+                $operator = is_string($param) ? "=" : $param["operator"] ?? "=";
+                if (!preg_match('/=|<|>|<=|>=/', $operator)) {
+                    $operator = "=";
+                }
+                $where[] = DBPREFIXE . $key . "." . $keyParams . " " .$operator. " :" . $keyParams;
+
             }
         }
 

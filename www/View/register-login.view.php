@@ -5,8 +5,8 @@
     <?php else: ?>
          <div class="col card bg-white w-mobile a-center" style="width: 400px">
             <div class="row j-center g-0">
-                <button id="loginButton" class="col-lg-6 btn selector-button login" >Connexion</button>
-                <button id="registerButton" class="col-lg-6 btn selector-button register" >S'inscrire</button>
+                <button id="loginButton" class="col-lg-6 btn selector-button left" >Connexion</button>
+                <button id="registerButton" class="col-lg-6 btn selector-button right" >S'inscrire</button>
             </div>
             <div class="g-5 col a-center w-per-20">
                 <?php $this->partialInclude("form", $user->getLoginForm()); ?>

@@ -8,11 +8,12 @@
     height: 68px;
     background-color: white;
     z-index: 2;
-    &.login {
+
+    &.left {
         border-radius: 12px 0 0 0;
     }
 
-    &.register {
+    &.right {
         border-radius: 0 12px 0 0;
     }
 
