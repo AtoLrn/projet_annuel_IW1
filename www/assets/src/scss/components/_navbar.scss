@@ -78,33 +78,35 @@
         }
     }
     @include breakpoint(tablet) {
-        height: 100vh;
-        padding: 0 20px;
-        position: absolute;
-        transform: translateX(100vw); 
-        flex-direction: column;
+        padding: 12px 24px;
+        flex-direction: column;  
+        justify-content: flex-start; 
+        align-items: flex-start;
         nav {
-            div {
-                border-bottom: 1px solid;
-                width: 100%;
-                img {
-                    height: 78px;
-                }
-            }
-            flex-direction: column;
-            align-items: flex-start  !important;
             ul {
-                border-bottom: 1px solid;
-                width: 100% !important;
-                flex-direction: column;
-                gap: 2em;
-                padding-bottom: 1em;
+                display: none;
+            }
+        }
+        section {
+            padding-right: 48px;
+        }
+
+        & > ul {
+            opacity: 0;
+            transition: .3s;
+            padding: 56px 0;
+
+            li {
+                margin-bottom: 24px;
             }
         }
  
     }
     &.open {
-        transform: translateX(0vw); 
+        height: 100vh;
+        & > ul {
+            opacity: 1;
+        }
         
     }
 }

@@ -48,6 +48,10 @@ p, .p {
     font-weight: normal;
 }
 
+.big-h1 {
+    font-size: 40px;
+}
+
 h1,
 .h1 {
     font-size: 32px;
@@ -65,6 +69,9 @@ h3,
 
 // responsive size
 @include breakpoint(tablet) {
+    .big-h1 {
+        font-size: 32px;
+    }
     h1,
     .h1 {
         font-size: 24px;
@@ -78,19 +85,6 @@ h3,
     h3,
     .h3 {
         font-size: 18px;
-    }
-}
-
-.mobile {
-    display: none;
-    @include breakpoint(tablet) {
-        display: flex;
-    }
-}
-
-.desktop {
-    @include breakpoint(tablet) {
-        display: none;
     }
 }
 

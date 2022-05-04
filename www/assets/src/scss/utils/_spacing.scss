@@ -1,5 +1,14 @@
 // GLOBALS SPACING / HEIGHT / WIDTH
 
+.container {
+    max-width: 1150px;
+    margin: 0 auto;
+    @include breakpoint(tablet) {
+        padding: 24px;
+    }
+}
+
+
 @for $i from 0 to 21 {
     //gap (only for flex / grid)
 

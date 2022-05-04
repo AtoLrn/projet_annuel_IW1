@@ -114,3 +114,7 @@
     controller: theme
     action: deleteThemeById
 
+/settings:
+  controller: admin
+  action: settings
+

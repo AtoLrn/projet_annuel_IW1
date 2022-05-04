@@ -27,4 +27,9 @@ class Admin
         $view->assign("table", $value);
     }
 
+    public function settings(): void
+    {
+        $view = new View("settings", "back");
+    }
+
 }
