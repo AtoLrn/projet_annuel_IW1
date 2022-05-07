@@ -20,8 +20,20 @@
                 <li><a href="#">Vos Abonnements</a></li>
             </ul>
             <section>
-            <a class="link" href="/register-login?form=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
-            <a class="link" href="/register-login?form=register"> <?php include "assets/img/logo/users.php"; ?> S'inscrire</a>
+            <?php
+            use App\Model\Session;
+            $session = null;
+            if (isset($_SESSION['token'])) {
+                $session = Session::getByToken($_SESSION['token']);
+            }
+                        
+            if(!is_null($session)): ?>
+                <a class="link" href="/profile"> <?php include "assets/img/logo/users.php"; ?>Mon Profil </a>
+                <a class="link" href="/logout"> <?php include "assets/img/logo/logout.php"; ?>Se deconnecter</a>
+            <?php else: ?>
+                <a class="link" href="/register-login?form=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
+                <a class="link" href="/register-login?form=register"> <?php include "assets/img/logo/users-outline.php"; ?> S'inscrire</a>
+            <?php endif; ?>
             </section>
         </nav>
         <ul class="col a-start mobile">
