@@ -1071,7 +1071,6 @@ input::placeholder {
 }
 .navbar-front section a {
   font-size: 16px;
-  width: 140px;
   display: flex;
   align-items: center;
   padding: 0.2em;
