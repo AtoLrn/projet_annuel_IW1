@@ -214,11 +214,12 @@ class User extends Sql
     {
         return [
             "config" => [
-                "id" => "registerForm",
+                "id" => "register-form",
                 "method" => "POST",
-                "action" => "/register-login?formType=register",
+                "action" => "/register-login?form=register",
                 "submit" => "S'inscrire",
-                "class" => "col a-center py-4 w-per-20 px-8 g-5"
+                "class" => "col a-center py-4 w-per-20 px-8 g-5",
+                "recaptcha" => true
             ],
             'inputs' => [
                 "email" => [
@@ -228,9 +229,9 @@ class User extends Sql
                     "class" => "input input-pink",
                     "id" => "emailForm",
                     "label" => "Email",
-                    "error" => "Email incorrect",
+                    "error" => "Email incorrecte",
                     "unicity" => "true",
-                    "errorUnicity" => "Email déjà en bdd",
+                    "errorUnicity" => "Email déjà utilisé",
                 ],
                 "password" => [
                     "type" => "password",
@@ -271,6 +272,11 @@ class User extends Sql
                     "max" => 100,
                     "error" => "Nom incorrect"
                 ],
+                "recaptcha" => [
+                    "type" => "hidden",
+                    "id" => "recaptcha-register-form",
+                    "value" => KEY_SITE_RECAPTCHA
+                ]
             ]
         ];
     }
@@ -279,11 +285,12 @@ class User extends Sql
     {
         return [
             "config" => [
-                "id" => "loginForm",
+                "id" => "login-form",
                 "method" => "POST",
-                "action" => "/register-login?formType=login",
+                "action" => "/register-login?form=login",
                 "submit" => "Se connecter",
-                "class" => "col a-center py-4 w-per-20 px-8 g-5"
+                "class" => "col a-center py-4 w-per-20 px-8 g-5",
+                "recaptcha" => true
             ],
             'inputs' => [
                 "email" => [
@@ -291,7 +298,7 @@ class User extends Sql
                     "placeholder" => "Votre email ...",
                     "required" => true,
                     "class" => "input input-pink",
-                    "id" => "emailForm",
+                    "id" => "emailLogin",
                     "label" => "Email",
                     "error" => "Email incorrect"
                 ],
@@ -300,8 +307,13 @@ class User extends Sql
                     "placeholder" => "Votre mot de passe ...",
                     "required" => true,
                     "class" => "input input-pink",
-                    "id" => "pwdForm",
+                    "id" => "pwdLogin",
                     "label" => "Mot de passe"
+                ],
+                "recaptcha" => [
+                    "type" => "hidden",
+                    "id" => "recaptcha-login-form",
+                    "value" => KEY_SITE_RECAPTCHA
                 ]
             ]
         ];

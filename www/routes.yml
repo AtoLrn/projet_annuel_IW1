@@ -6,10 +6,6 @@
     controller: main
     action: contact
 
-/login:
-    controller: user
-    action: login
-
 /logout:
     controller: user
     action: logout
@@ -40,10 +36,6 @@
 /modify-certification-status:
   controller: certification
   action: modifyCertificationStatus
-
-/register:
-    controller: user
-    action: register
 
 /forget:
     controller: user
@@ -94,13 +86,22 @@
     security:
         - user
 
-/dashboard:
-    controller: admin
-    action: dashboard
-    security:
-        - admin
-        - user
+/ingredient-request:
+  controller: ingredient
+  action: ingredientRequest
 
+/get-ingredients:
+  controller: ingredient
+  action: getIngredients
+
+/get-ingredient:
+  controller: ingredient
+  action: getIngredientById
+
+/modify-ingredient-status:
+  controller: ingredient
+  action: modifyIngredientStatus
+  
 /theme:
     controller: theme
     action: handleTheme
@@ -112,4 +113,8 @@
 /delete-theme:
     controller: theme
     action: deleteThemeById
+
+/settings:
+  controller: admin
+  action: settings
 

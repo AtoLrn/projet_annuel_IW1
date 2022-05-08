@@ -46,5 +46,19 @@
     </div>
     <?php endforeach;?>
 
-    <input class="<?= $data['config']['classSubmit'] ?? 'btn btn-pink my-4 w-per-16' ?>" type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
+    <input 
+        class="<?= $data['config']['classSubmit'] ?? 'btn btn-pink my-4 w-per-16' ?>" 
+        type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
 </form>
+
+<?php if(isset($data['config']['recaptcha'])): ?>
+<script src="https://www.google.com/recaptcha/api.js?render=<?= KEY_SITE_RECAPTCHA ?>"></script>
+<script>
+    grecaptcha.ready(() => {
+        grecaptcha.execute( <?= json_encode(KEY_SITE_RECAPTCHA) ?>, { action: 'user' }).then(token => {
+            document.querySelector('#recaptcha-<?= $data["config"]["id"] ?>').value = token;
+        });
+    });
+</script>
+
+<?php endif; ?>

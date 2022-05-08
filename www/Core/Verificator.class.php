@@ -16,7 +16,7 @@ class Verificator
         });
 
         if( count($data) != (count($config['inputs']) - count($images))){
-            die("Tentative de hack !!!!");
+            die("something go wrong in form.");
         }
 
         foreach ($config['inputs'] as $name => $input){
@@ -78,6 +78,22 @@ class Verificator
             && preg_match("/[0-9]/", $password, $match)
             && preg_match("/[a-z]/", $password, $match)
             && preg_match("/[A-Z]/", $password, $match);
+    }
+
+    public static function checkRecaptcha(string $key): bool
+    {
+        $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+        $recaptchaSecret = KEY_SECRET_RECAPTCHA;
+        $recaptcha = $key;
+
+        // Make and decode POST request:
+        $recaptcha = file_get_contents($recaptchaUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptcha);
+        $recaptcha = json_decode($recaptcha);
+        
+        if(isset($recaptcha->score) && $recaptcha->score >= 0.5) {
+            return true;
+        }
+        return false;
     }
 }
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Template FRONT</title>
+    <title> Crom Miam </title>
     <meta name="description" content="Description de ma page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assets/dist/main.css">
@@ -13,18 +13,22 @@
 <body class="grid">
     <header class="navbar-front grid h-px-20 mb-5">
         <nav class="row j-bet">
-            <div><img height="52px" src="assets/img/logo/croc-miam.svg" alt=""></div>
-            
+            <div><img height="52px" src="assets/img/logo/croc-miam.svg" alt=""></div>         
             <ul>
-                <li>Nos Recettes</li>
-                <li>Les Cuisiniers</li>
-                <li>Vos Abonnements</li>
+                <li><a href="#">Nos Recettes</a></li>
+                <li><a href="#">Les Cuisiniers</a></li>
+                <li><a href="#">Vos Abonnements</a></li>
             </ul>
             <section>
-            <a class="link" href="/register-login?formType=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
-            <a class="link" href="/register-login?formType=register"> <?php include "assets/img/logo/users.php"; ?> S'inscrire</a>
+            <a class="link" href="/register-login?form=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
+            <a class="link" href="/register-login?form=register"> <?php include "assets/img/logo/users.php"; ?> S'inscrire</a>
             </section>
         </nav>
+        <ul class="col a-start mobile">
+        <li><a href="#">Nos Recettes</a></li>
+        <li><a href="#">Les Cuisiniers</a></li>
+        <li><a href="#">Vos Abonnements</a></li>
+        </ul>
     </header>
     <?php include "assets/img/logo/burger-menu.php"; ?>
     <?php include "View/" . $this->view . ".view.php"; ?>
@@ -52,7 +56,9 @@
         --ph-color: <?= $theme->getPhColor(); ?>;
         --text-color: <?= $theme->getTextColor(); ?>;
         --shadow-color: <?= $theme->getShadowColor() . "30"; ?>;
+        --shadow-color-hover: <?= $theme->getShadowColor() . "40"; ?>;
         --btn-color: <?= $theme->getBtnColor(); ?>;
+        --btn-outline: <?= $theme->getBtnColor() . "40"; ?>;
         --btn-color-shadow: <?= $theme->getBtnColor() . "5"; ?>;
         --btn-color-light: <?= $theme->getBtnColorLight(); ?>;
         --font-family: <?= $theme->getFontFamily(); ?>;
@@ -89,15 +95,28 @@
         box-shadow: 0px 4px 16px 2px var(--shadow-color);
     }
 
-    .btn:not(.selector-button) {
+    .card.hover-up:hover {
+        box-shadow: 2px 4px 16px 3px var(--shadow-color-hover);
+    }
+
+    .btn-pink {
         border: 1px solid var(--btn-color);
         background-color: var(--btn-color) !important;
         color: var(--bg-color);
 
     }
-    .btn:not(.selector-button):hover {
+    .btn-pink {
         background-color: var(--bg-color) !important; 
         color: var(--btn-color); 
+    }
+
+    .btn-outline-pink {
+        border: 1px solid var(--btn-color);
+        background-color: var(--background-color) !important;
+        color: var(--btn-color);
+    }
+    .btn-outline-pink:hover {
+        background: var(--btn-outline) !important;
     }
 
     .selector-button {

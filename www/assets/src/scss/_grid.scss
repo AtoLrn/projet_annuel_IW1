@@ -48,6 +48,9 @@
         .a-self-end {
             align-self: flex-end;
         }
+        .a-self-start {
+            align-self: flex-start;
+        }
 
 
         @for $i from 1 through $col-nb {
@@ -125,5 +128,19 @@
                 }
             }
         }
+    }
+}
+
+
+.mobile {
+    display: none !important;
+    @include breakpoint(tablet) {
+        display: flex !important;
+    }
+}
+
+.desktop {
+    @include breakpoint(tablet) {
+        display: none;
     }
 }

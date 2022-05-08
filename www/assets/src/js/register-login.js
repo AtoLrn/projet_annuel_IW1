@@ -1,10 +1,10 @@
 $(document).ready(() => {
     let registerButton = $('#registerButton')
-    let registerForm = $('#registerForm')
+    let registerForm = $('#register-form')
     let loginButton = $('#loginButton')
-    let loginForm = $('#loginForm')
+    let loginForm = $('#login-form')
     let params = (new URL(document.location)).searchParams
-    let formType = params.get('formType')
+    let formType = params.get('form')
 
     if (formType === 'register') {
         registerButton.addClass('selected')

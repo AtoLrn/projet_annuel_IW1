@@ -32,12 +32,20 @@ INSERT INTO esgi_category (name)  VALUES('antouane');
 
 
 CREATE TABLE `esgi_ingredient` (
-  `id`  int(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL ,
-  PRIMARY KEY (`id`)
-);
+   `id` int(11) NOT NULL AUTO_INCREMENT,
+   `name` varchar(255) NOT NULL,
+   `path` varchar(2048) NOT NULL,
+   `status` enum('inDemand','enabled','refused','disabled') NOT NULL,
+   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `userId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `esgi_ingredient`
+    ADD PRIMARY KEY (`id`),
+    ADD KEY `fk_ingredient_user` (`userId`);
 
+ALTER TABLE `esgi_ingredient`
+    ADD CONSTRAINT `fk_ingredient_user` FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`);
 
 CREATE TABLE `esgi_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
