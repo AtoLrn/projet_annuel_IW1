@@ -14,6 +14,14 @@
     height: calc((($i / ($col-nb)) * 100%) - $gutter-width);
 }
 
+#userChart {
+    height: 300px;
+}
+
+#articleChart {
+    height: 300px;
+}
+
 .grid {
     width: 100%;
     .col {     
@@ -40,6 +48,9 @@
         }
         &.j-bet {
             justify-content: space-between;
+        }
+        &.j-arr {
+            justify-content: space-around;
         }
         &.j-end {
             justify-content: flex-end;
@@ -84,6 +95,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
+        flex-direction: row;
         gap: $gutter-width;
 
         &.reverse {
@@ -103,6 +115,9 @@
         }
         &.j-center {
             justify-content: center;
+        }
+        &.j-arr {
+            justify-content: space-around;
         }
         &.j-end {
             justify-content: flex-end;

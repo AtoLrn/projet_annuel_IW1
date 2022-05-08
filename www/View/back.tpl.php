@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="../assets/dist/main.css">
     <script type="text/javascript" src="../assets/dist/main.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js">
-    </script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 </head>
 
 <body>
-    <div class="grid">
         <header class="navbar p-6 grid">
             <div class="col g-5">
                 <a href=""><img src="../assets/img/logo/croc-miam.svg" alt=""></a>
@@ -49,7 +50,6 @@
         <main class="grid main">
             <?php include "View/" . $this->view . ".view.php"; ?>
         </main>
-    </div>
 </body>
 
 </html>
