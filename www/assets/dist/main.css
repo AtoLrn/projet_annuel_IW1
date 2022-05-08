@@ -1025,12 +1025,6 @@ input::placeholder {
     left: -100vw;
     width: 100vw;
   }
-  .navbar > div .burger-menu {
-    display: block;
-    position: fixed;
-    top: 30px;
-    right: 24px;
-  }
   .navbar.open {
     left: 0px;
   }
@@ -1049,10 +1043,6 @@ input::placeholder {
   transition: 0.5s ease;
   z-index: 10;
   background-color: #fff;
-}
-.navbar-front .burger-menu {
-  cursor: pointer;
-  display: none;
 }
 .navbar-front nav ul {
   font-weight: 500;
@@ -1079,6 +1069,7 @@ input::placeholder {
 }
 @media (max-width: 900px) {
   .navbar-front {
+    overflow: hidden;
     padding: 12px 24px;
     flex-direction: column;
     justify-content: flex-start;
@@ -1116,7 +1107,7 @@ input::placeholder {
     display: block;
     position: fixed;
     top: 30px;
-    right: 24px;
+    right: 32px;
   }
 }
 
@@ -1275,6 +1266,7 @@ input::placeholder {
 }
 @media (max-width: 900px) {
   .table-container .aside-info {
+    overflow: hidden;
     opacity: 1;
     position: fixed;
     width: calc(100vw - 48px);
@@ -1580,8 +1572,8 @@ input::placeholder {
 }
 .search > section:last-child {
   border-bottom: none;
+}
 
-  
 .container {
   max-width: 1150px;
   margin: 0 auto;

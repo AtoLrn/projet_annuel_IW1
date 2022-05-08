@@ -64,6 +64,11 @@
   action: list
   security:
 
+/categories:
+  controller: admin
+  action: categories
+  security:
+
 
 /get-user:
   controller: user

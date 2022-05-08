@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Model\Category;
 use App\Model\User as UserModel;
 use App\Model\Article as ArticleModel;
 use App\Model\Certification as CertificationModel;
@@ -141,6 +142,20 @@ class Admin
         $view = new View("list", "back");
         $view->assign("listTpl", $listTpl);
         $view->assign("table", $value);
+    }
+
+    public function categories(): void
+    {
+        $categories = new Category();
+
+        $view = new View("categories", "back");
+        $view->assign("categories", $categories->select([
+            "category" => [
+                "args" => ["id", "name"],
+                "params" => []
+            ]
+        ]));
+
     }
 
     public function settings(): void
