@@ -1,6 +1,6 @@
-<section class="p-12 grid h-per-20 list">
+<section class="p-12 xs-p-6 grid h-per-20 list">
     <h1 class="h1 mb-12 xs-ml-6">  <?= $listTpl['title'] ?> </h1> 
-    <div class="mb-7 xs-ml-6">
+    <div class="mb-7 xs-ml-0">
         <p class="mb-2" > <?= $listTpl['search'] ?> </p>
         <input id="search" type="text" class="input input-search" placeholder="rechercher ...">
     </div>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Template BACK</title>
+    <title>Backoffice - Croc Miam</title>
     <meta name="description" content="Description de ma page">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../assets/dist/main.css">
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <div class="grid" >
         <header class="navbar p-6 grid">
             <div class="col g-5">
                 <a href=""><img src="../assets/img/logo/croc-miam.svg" alt=""></a>
@@ -29,6 +30,10 @@
                         <li class="row g-3">
                             <?php include "assets/img/logo/articles.php"; ?>
                             <a href="/list?q=articles" class="link-black">Articles</a> 
+                        </li>
+                        <li class="row g-3">
+                            <?php include "assets/img/logo/category.php"; ?>
+                            <a href="/categories" class="link-black">Catégories</a> 
                         </li>
                         <li class="row g-3"> 
                             <?php include "assets/img/logo/comments.php"; ?>
@@ -44,9 +49,10 @@
                         </li>
                     </ul>
                 </nav>
-                <img class="burger-menu" src="../assets/img/logo/burger-menu.svg" alt="">
             </div>
+            <?php include "assets/img/logo/burger-menu.php"; ?>
         </header>
+        
         <main class="grid main">
             <?php include "View/" . $this->view . ".view.php"; ?>
         </main>
