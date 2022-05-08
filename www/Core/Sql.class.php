@@ -110,7 +110,7 @@ abstract class Sql
         $args = [];
         foreach ($tables as $keyTable => $values) {
             foreach ($values['args'] as $key => $vals) {
-                if (strpbrk($vals, "COUNT")) {
+                if (strstr($vals, "COUNT")) {
                     $args[] = $vals;
                 } else {
                     $args[] = DBPREFIXE . $keyTable . "." . $vals . " AS " . $keyTable . "_" . $vals;
