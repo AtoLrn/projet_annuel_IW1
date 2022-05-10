@@ -65,8 +65,13 @@
   security:
 
 /categories:
-  controller: admin
+  controller: category
   action: categories
+  security:
+
+/delete-category:
+  controller: category
+  action: deleteCategoryById
   security:
 
 

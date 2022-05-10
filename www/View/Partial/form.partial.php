@@ -2,7 +2,7 @@
 
     <?php foreach ($data["inputs"] as $name=>$input) :?>
 
-    <div class="grid">   
+    <div class="<?= $data["config"]["container-inputs"]??"grid" ?>">   
         <div class="<?= $data["config"]["classContInputs"] ?? "col j-bet g-2 w-per-20" ?>">
 
             <?php if(isset($input['label'])): ?>

@@ -414,6 +414,9 @@ h3,
 .grid .row.a-start {
   align-items: flex-start;
 }
+.grid .row.a-s {
+  align-items: stretch;
+}
 .grid .row.a-end {
   align-items: flex-end;
 }
@@ -1582,6 +1585,10 @@ input::placeholder {
   .container {
     padding: 24px;
   }
+}
+
+.w-auto {
+  width: auto !important;
 }
 
 .g-0 {

@@ -144,20 +144,6 @@ class Admin
         $view->assign("table", $value);
     }
 
-    public function categories(): void
-    {
-        $categories = new Category();
-
-        $view = new View("categories", "back");
-        $view->assign("categories", $categories->select([
-            "category" => [
-                "args" => ["id", "name"],
-                "params" => []
-            ]
-        ]));
-
-    }
-
     public function settings(): void
     {
         $view = new View("settings", "back");
