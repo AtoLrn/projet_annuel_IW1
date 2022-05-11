@@ -23,13 +23,36 @@ class Category extends Sql {
         $this->name = strtolower(trim($name));
     }
 
+    public function checkExist(): ?array
+    {
+        if(!is_null($this->getId())) {
+            return $this->select([
+                "category" => [
+                    "args" => ["id"],
+                    "params" => [
+                        "name" => [ "value" => $this->getName(), "operator" => "="],
+                        "id" => [ "value" => $this->getId(), "operator" => "!="]
+                        ]
+                ]
+            ]);
+        }
+
+        return  $this->select([
+            "category" => [
+                "args" => ["id"],
+                "params" => ["name" => $this->getName()]
+            ]
+        ]);
+        
+    }
+
     public function getForm(?int $id = null): array
     {
         return [
             "config" => [
                 "id" => "categoryForm",
                 "method" => "POST",
-                "action" => "/categories" . (!is_null($id) ? "?id=" . $id : "") ,
+                "action" => "/categories",
                 "submit" => (!is_null($id) ? "Modifier" : "Ajouter"),
                 "class" => "grid row a-s",
                 "classContInputs" => "",
@@ -50,6 +73,11 @@ class Category extends Sql {
                     "value" => $this->getName(),
                     "maxLength" => 32
                 ],
+                "editId" => [
+                    "value" => $id,
+                    "type" => "hidden"
+                ],
+
              ]
         ];
     }

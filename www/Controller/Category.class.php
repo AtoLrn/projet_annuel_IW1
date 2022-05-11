@@ -11,17 +11,29 @@ class Category
     public function categories(): void
     {
         $categories = new CategoryModel();
+        $view = new View("categories", "back");
 
         if(!empty($_POST['name'])) {
-            $categories->setName($_POST['name']);
-            $categories->save();
-        }
 
+            if(is_numeric($_POST['editId'])) {
+                $categories = $categories->setId($_POST['editId']);   
+            }
+            $categories->setName($_POST['name']);
+
+            $result = $categories->checkExist();
+            if(is_null($result) || empty($result)) {
+                unset($_GET['edit']);
+                $categories->save();
+            }else {
+                $view->assign("error", "Cette catégorie existe deja !");
+            }
+            $categories = new CategoryModel();
+        }
+        
         if(!empty($_GET['edit']) && is_numeric($_GET['edit'])) {
             $categories = $categories->setId($_GET['edit']);
         }
 
-        $view = new View("categories", "back");
         $view->assign("categories", $categories);
         $view->assign("categoriesList", $categories->select([
             "category" => [
