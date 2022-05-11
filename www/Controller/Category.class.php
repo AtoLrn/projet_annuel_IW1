@@ -48,8 +48,6 @@ class Category
     {
         $categories = new CategoryModel();
 
-        print_r($_GET['id']);
-
         if(!empty($_GET['id']) && is_numeric($_GET['id'])) {
             $categories = $categories->setId($_GET['id']);
             $categories->delete();
