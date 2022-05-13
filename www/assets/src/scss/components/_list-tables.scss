@@ -52,6 +52,7 @@
         }
     
         @include breakpoint(tablet) {
+            overflow: hidden;
             opacity: 1;
             position: fixed;
             width: calc(100vw - 48px);

@@ -64,6 +64,16 @@
   action: list
   security:
 
+/categories:
+  controller: category
+  action: categories
+  security:
+
+/delete-category:
+  controller: category
+  action: deleteCategoryById
+  security:
+
 
 /get-user:
   controller: user

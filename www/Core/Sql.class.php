@@ -154,7 +154,7 @@ abstract class Sql
         foreach ($tables as $key => $table) {
             foreach ($table['params'] as $keyParams => $param) {
                 $operator = is_string($param) ? "=" : $param["operator"] ?? "=";
-                if (!preg_match('/=|<|>|<=|>=/', $operator)) {
+                if (!preg_match('/=|<|>|<=|>=|!=/', $operator)) {
                     $operator = "=";
                 }
                 $where[] = DBPREFIXE . $key . "." . $keyParams . " " .$operator. " :" . $keyParams;

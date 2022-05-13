@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Model\Category;
 use App\Model\User as UserModel;
 use App\Model\Article as ArticleModel;
 use App\Model\Certification as CertificationModel;

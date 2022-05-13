@@ -8,6 +8,10 @@
     }
 }
 
+.w-auto {
+    width: auto !important;
+}
+
 
 @for $i from 0 to 21 {
     //gap (only for flex / grid)
