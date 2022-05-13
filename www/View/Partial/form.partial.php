@@ -16,7 +16,14 @@
                     "id" => $input["id"] ?? ""
                 ]) ?>
             <?php } elseif ($input["type"] === "select") { ?>
-                <span>Not implemented</span>
+                <?php $this->partialInclude("select", 
+                [
+                    "class" => $input["class"] ?? "", 
+                    "name" => $name,
+                    "placeholder" =>  $input["placeholder"] ?? "",
+                    "options" =>  $input["options"],
+                    "id" => $input["id"] ?? ""
+                ]) ?>
             <?php } else { ?>
 
                 <input

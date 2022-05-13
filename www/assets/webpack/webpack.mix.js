@@ -23,11 +23,13 @@ mix.babel([
  '../src/js/editor-js-list.js',
  '../src/js/user.js',
  '../src/js/list.js',
+ '../src/js/select.js',
  '../src/js/register-login.js',
  '../src/js/article.js',
  '../src/js/navbar.js',
  '../src//js/certification.js',
- '../src/js/ingredient.js'
+ '../src/js/ingredient.js',
+ '../src/js/dashboard.js'
 ], '../dist/main.js');
 
 //mix.minify('../web/dist/main.js');

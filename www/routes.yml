@@ -86,6 +86,10 @@
     security:
         - user
 
+/get-articles:
+  controller: article
+  action: getArticles
+
 /ingredient-request:
   controller: ingredient
   action: ingredientRequest

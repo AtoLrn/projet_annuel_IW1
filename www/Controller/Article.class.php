@@ -102,5 +102,28 @@ class Article
         $view = new View("article-creation", "front");
         $view->assign("article", $article);
 
-    }    
+    }
+
+    public function getArticles()
+    {
+        Server::ensureHttpMethod('GET');
+        $getParams = isset($_GET['params']) ? json_decode($_GET['params']) : null;
+        $article = new ArticleModel();
+        $result = $article->select(
+            [
+                "article" => [
+                    "args" => ["id", "userId", "categoryId", "title", "description", "content", "createdAt"],
+                    "params" => is_array($getParams) ? [$getParams[0] => ['value' => $getParams[1], 'operator' => $getParams[2]]] : []
+                ]
+            ]
+        );
+        if($result) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result);
+            http_response_code(200);
+        }else {
+            http_response_code(500);
+        }
+
+    }
 }
