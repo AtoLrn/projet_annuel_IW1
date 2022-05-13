@@ -150,7 +150,8 @@ class User
 
     public function logout()
     {
-        echo "Se déco";
+        session_destroy();     
+        header('location: /');
     }
 
 

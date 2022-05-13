@@ -1,11 +1,6 @@
 <section class="pt-20 grid container">
     <h1 class="big-h1 py-8">Accueil</h1>
 
-    <?php if (key_exists('firstname', $this->data)):?>
-
-        <h2>Bienvenu <?php echo $this->data['firstname'] ?></h2>
-
-    <?php endif; ?>
 
     <section class="grid mb-12">
         <h1 class="h2 pb-6">Nos dernières recettes</h1>
