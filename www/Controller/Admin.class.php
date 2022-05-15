@@ -42,14 +42,12 @@ class Admin
         $totalArticle = $article->select([
             "article" => [
                 "args" => ["COUNT(*)"],
-                "params" => []
             ]
         ]);
 
         $totalCertificationDemand = $certification->select([
             "certification" => [
                 "args" => ["COUNT(*)"],
-                "params" => []
             ]
         ]);
 

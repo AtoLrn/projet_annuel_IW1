@@ -6,15 +6,17 @@
         <h1 class="h2 pb-6">Nos dernières recettes</h1>
         <div class="list-articles">
 
-            <?php for($i = 0; $i < 6; $i++): ?>
+        
+
+            <?php foreach($articles as $article): ?>
             <article class="card card-article hover-up br-6 ">
-                <div class="img-article" style="background-image: url(assets/img/articles/article-pate.svg)"></div>
+                <div class="img-article" style="background-image: url(<?= $article['image_path'] ?>)"></div>
                 <div class="p-6">
-                    <h1 class="h3">nom de l'article</h1>
-                    <p>ceci est la description de l'article</p>
+                    <h1 class="h3"> <?= $article['article_title'] ?> </h1>
+                    <p> <?= $article['article_description'] ?> </p>
                 </div>
             </article>         
-            <?php endfor; ?>     
+            <?php endforeach; ?>     
         </div>
     </section>
 

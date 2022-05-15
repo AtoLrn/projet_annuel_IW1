@@ -73,7 +73,7 @@ class Article
             $user = new UserModel();
             $session = Session::getByToken($_SESSION['token']);
             $user = $user->setId($session->getUserId());
-            if (empty($result)) {
+            if (!empty($result)) {
                 $article->setTitle($_POST['title']);
                 $article->setDescription($_POST['description']);
                 $article->setContent($_POST['article']);

@@ -38,7 +38,6 @@ class Category
         $view->assign("categoriesList", $categories->select([
             "category" => [
                 "args" => ["id", "name"],
-                "params" => []
             ]
         ]));
 

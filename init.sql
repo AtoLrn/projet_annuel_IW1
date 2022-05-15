@@ -94,6 +94,7 @@ CREATE TABLE `esgi_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `articleId` INT(11) NOT NULL,
   `path` VARCHAR(2048) NOT NULL,
+  `main` BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
