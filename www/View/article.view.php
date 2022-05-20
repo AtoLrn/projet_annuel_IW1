@@ -62,6 +62,18 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <?php $this->partialInclude("form", $comment->getCommentCreationForm()) ?>
+    </div>
+
+    <div>
+        <?php foreach ($comments as $comment) :?>
+            <p><?= $comment['user_firstname'] ?></p>
+            <p><?= $comment['comment_content'] ?></p>
+            <p><?= $comment['comment_createdAt'] ?></p>
+        <?php endforeach; ?>
+    </div>
 </main>
 
 

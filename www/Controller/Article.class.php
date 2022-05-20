@@ -10,7 +10,7 @@ use App\Model\Star as StarModel;
 
 use App\Core\Server;
 
-
+use App\Model\Comment as CommentModel;
 use App\Model\Session;
 use App\Model\Image;
 use App\Model\User as UserModel;
@@ -35,6 +35,25 @@ class Article
         $view->assign("article", $article);
     }
 
+    public function getCommentsByArticle(int $articleId): ?array
+    {
+        $comment = new CommentModel();
+        return $comment->select([
+            "user" => [
+                "args" => [ "firstname" ],
+                "params" => [],
+                "ij" => ["comment"]
+            ],
+            "comment" => [
+                "args" => [ "content", "createdAt" ],
+                "params" => [
+                    "articleId" => $articleId,
+                    "status" => "approved"
+                ],
+            ]
+        ]);
+    }
+
     public function getArticle()
     {
         if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -42,6 +61,7 @@ class Article
         }
 
         $article = new ArticleModel();
+        $comment = new CommentModel();
         $article = $article->setId($_GET['id']);
 
         if (!$article) {
@@ -66,11 +86,14 @@ class Article
             ]
         ]);
 
+        $comments = $this->getCommentsByArticle($article->getId());
+
         $view = new View("article");
         $view->assign("article", $article);
         $view->assign("images", $images);
         $view->assign("score", $score[0]);
-
+        $view->assign("comment", $comment);
+        $view->assign("comments", $comments);
     }
 
     public function create()

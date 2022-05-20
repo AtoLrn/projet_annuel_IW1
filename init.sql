@@ -66,6 +66,7 @@ CREATE TABLE `esgi_comment` (
   `userId` int(11) NOT NULL,
   `articleId` INT(11) NOT NULL,
   `content` TEXT NOT NULL,
+  `status` enum('inDemand','approved','refused') NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
   FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
