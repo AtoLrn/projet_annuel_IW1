@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View;
+use App\Model\Article as ArticleModel;
 use App\Model\Session;
 use App\Model\User as UserModel;
 
@@ -12,16 +13,20 @@ class Main
     public function home()
     {
         $view = new View('home', 'front');
-        if (!empty($_SESSION['token'])) {
-            $user = new UserModel();
+        $lastArticle = new ArticleModel();
+        $lastArticle = $lastArticle->select([
+            "article" => [
+                "args" => ["title", "description"],
+                "lf" => ["image"]
+            ],
+            "image" => [
+                "args" => ['path'],
+                "params" => ['main' => 1]
+            ]
+            ], 6, "createdAt", "DESC");
 
-            $session = Session::getByToken($_SESSION['token']);
-
-            if ($session !== null) {
-                $user = $user->setId($session->getUserId());
-                $view->assign('firstname', $user->getFirstname());
-            }
-        }
+        $view->assign("articles", $lastArticle);
+        
     }
 
     public function contact()

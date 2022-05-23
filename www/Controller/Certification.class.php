@@ -82,12 +82,10 @@ class Certification
         $result = $certifications->select([
             "user" => [
                 "args" => ["email"],
-                "params" => [],
                 "ij" => ["certification"]
                 ],
             "certification" => [
                 "args" => ["id", "status", "createdAt"],
-                "params" => []
             ]
         ]);
         if($result) {
@@ -112,7 +110,6 @@ class Certification
             [
                 "user" => [
                     "args" => ["id", "email", "firstname", "lastname"],
-                    "params" => [],
                     "ij" => ["certification"]
                 ],
                 "certification" => [

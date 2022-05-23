@@ -77,7 +77,6 @@ class Theme
         $themes = $theme->select([
             "theme" => [
                 "args" => [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"],
-                "params" => []
             ]
         ]);
         usort($themes, function($a, $b){
