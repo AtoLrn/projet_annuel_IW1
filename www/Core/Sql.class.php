@@ -89,7 +89,7 @@ abstract class Sql
                 $params[$keyParam] = is_array($param) ? $param['value'] : $param;
             }
         }
-
+        // echo $sql;
         return $this->dbFetchAll($sql, $params);
     }
 

@@ -29,7 +29,7 @@
                         </li>
                         <li class="row g-3">
                             <?php include "assets/img/logo/articles.php"; ?>
-                            <a href="/list?q=articles" class="link-black">Articles</a> 
+                            <a href="/list?q=article" class="link-black">Articles</a> 
                         </li>
                         <li class="row g-3">
                             <?php include "assets/img/logo/category.php"; ?>
