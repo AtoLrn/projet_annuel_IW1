@@ -29,7 +29,8 @@ mix.babel([
  '../src/js/navbar.js',
  '../src//js/certification.js',
  '../src/js/ingredient.js',
- '../src/js/dashboard.js'
+ '../src/js/dashboard.js',
+ '../src/js/star.js'
 ], '../dist/main.js');
 
 //mix.minify('../web/dist/main.js');
