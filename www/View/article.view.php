@@ -2,8 +2,8 @@
     <div class="grid" >
         <div class="row">
             <div class="col-lg-4 g-0">
-                <h1 class="h1" style="font-size: 56px"><?= $title ?></h1>
-                <span class="c-light-pink pb-5" style="font-size: 24px"><?= $description ?></span>
+                <h1 class="h1" style="font-size: 56px"><?= $article->getTitle() ?></h1>
+                <span class="c-light-pink pb-5" style="font-size: 24px"><?= $article->getDescription() ?></span>
                 <div class="row mt-4">
                     <div class="col-lg-1">
                         <img height="32px" src="assets/img/users/antoine.svg" alt="">
@@ -14,7 +14,24 @@
                 </div>
                 <div class="row mt-4">
                     <span>Notes: </span>
-                        <span class="c-pink" style="font-size: 18px">4.8/5</span>
+                        <?php if($score['AVG(score)'] == ""): ?>
+                            <span class="c-pink" style="font-size: 18px"> pas encore noté  </span>
+                        <?php else: ?>
+                            <span class="c-pink" style="font-size: 18px"><?= number_format($score['AVG(score)'], 1, ',', "") . " / 5 sur " . $score['COUNT(*)'] . " " . ($score['COUNT(*)'] == 1 ? "note" : "notes"); ?>   </span>
+                        <?php endif; ?>
+                </div>
+                <div class="row mt-4">
+                    <?php for($i = 1; $i <= 5; $i++): ?>
+                        <form action="/set-score" method="POST">
+                            <input type="hidden" name="score" value="<?= $i ?>">
+                            <input type="hidden" name="articleId" value="<?= $article->getId() ?>">
+                            <button class="link">
+                                <svg id="star_<?= $i ?>" colorValue="<?= $i <= $score['AVG(score)'] ? '#FFC300' : '#feff98' ?>" class="stars" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer">
+                                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" style="fill: <?= $i <= $score['AVG(score)'] ? '#FFC300' : '#feff98' ?>"/>
+                                </svg>
+                            </button>
+                        </form>
+                    <?php endfor; ?>
                 </div>
             </div>
             <aside class="col-lg-8">
@@ -31,7 +48,7 @@
     <div class="grid">
         <div class="row mt-10 a-start reverse">
             <div class="col-lg-6 p-8 card">
-                <?php $this->partialInclude("wysiwyg", ["data" => $content]) ?>
+                <?php $this->partialInclude("wysiwyg", ["data" => $article->getContent()]) ?>
             </div>
             <div class="col-lg-6 pl-5">
                 <h2 style="font-size: 36px">Ingredients</h2>

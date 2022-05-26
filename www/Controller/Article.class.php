@@ -6,7 +6,10 @@ use App\Core\Verificator;
 use App\Core\Sql;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
+use App\Model\Star as StarModel;
+
 use App\Core\Server;
+
 
 use App\Model\Session;
 use App\Model\Image;
@@ -34,7 +37,7 @@ class Article
 
     public function getArticle()
     {
-        if (empty($_GET['id'])) {
+        if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
             header("Location: /not-found");
         }
 
@@ -54,15 +57,20 @@ class Article
                 ]
             ]
         ]);
-
-        
-
+        $score = $article->select([
+            "star" => [
+                "args" => ["COUNT(*)", "AVG(score)"],
+                "params" => [
+                    "articleId" => $article->getId()
+                ]
+            ]
+        ]);
 
         $view = new View("article");
-        $view->assign("title", $article->getTitle());
-        $view->assign("description", $article->getDescription());
-        $view->assign("content", $article->getContent());
+        $view->assign("article", $article);
         $view->assign("images", $images);
+        $view->assign("score", $score[0]);
+
     }
     public function create()
     {
@@ -71,7 +79,7 @@ class Article
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
 
             $user = new UserModel();
-            $session = Session::getByToken($_SESSION['token']);
+            $session = Session::getByToken();
             $user = $user->setId($session->getUserId());
             if (!empty($result)) {
                 $article->setTitle($_POST['title']);
@@ -126,4 +134,41 @@ class Article
         }
 
     }
+
+    public function setArticleScore(): void
+    {
+        $session = Session::getByToken();
+        if(is_null($session->getUserId())) {
+            http_response_code(401);
+            header('location: /register-login');
+            die();
+        }
+
+        if(!isset($_POST['articleId']) || !is_numeric($_POST['articleId']) || !isset($_POST['score']) || !in_array($_POST['score'], [1,2,3,4,5])) {
+            http_response_code(405);
+            header("location: /");
+            die(); 
+        }   
+        
+        $star = new StarModel();
+        $result = $star->select([
+            "star" => [
+                "args" => ["id"],
+                "params" => ["articleId" => $_POST['articleId'], "userId" => $session->getUserId()]
+            ]
+        ]);
+
+        if(isset($result[0])) {
+            $star = $star->setId($result[0]['star_id']);
+        }else {
+            $star->setUserId($session->getUserId());
+            $star->setArticleId($_POST['articleId']);
+        }    
+        
+        $star->setScore($_POST['score']);
+        $echo = $star->save();
+
+        header("location: /recette?id=" . $_POST['articleId'] );
+    }
+    
 }

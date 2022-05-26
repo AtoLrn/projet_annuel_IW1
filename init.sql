@@ -71,8 +71,9 @@ CREATE TABLE `esgi_comment` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `esgi_like` (
+CREATE TABLE `esgi_star` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `score` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `articleId` INT(11) NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,

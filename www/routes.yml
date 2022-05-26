@@ -45,6 +45,14 @@
     controller: article
     action: getArticle
 
+/set-score:
+    controller: article
+    action: setArticleScore
+    security:
+      - user
+      - chief
+
+
 /create-recette:
     controller: article
     action: create

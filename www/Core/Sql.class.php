@@ -39,7 +39,6 @@ abstract class Sql
 
     public function save(): int
     {
-
         $columns = get_object_vars($this);
         $columns = array_diff_key($columns, get_class_vars(get_class()));
 
@@ -55,6 +54,7 @@ abstract class Sql
         }
         // DEBUG
         // echo $sql;
+
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($columns);
         return $this->pdo->lastInsertId();
@@ -105,10 +105,6 @@ abstract class Sql
         return $this->dbFetchAll($sql, $params);
     }
 
-
-
-
-
     private function dbFetchAll($sql, $params): ?array
     {
         $queryPrepared = $this->pdo->prepare($sql);
@@ -122,7 +118,7 @@ abstract class Sql
         $args = [];
         foreach ($tables as $keyTable => $values) {
             foreach ($values['args'] as $key => $vals) {
-                if (strstr($vals, "COUNT")) {
+                if (strstr($vals, "COUNT") || strstr($vals, "AVG")) {
                     $args[] = $vals;
                 } else {
                     $args[] = DBPREFIXE . $keyTable . "." . $vals . " AS " . $keyTable . "_" . $vals;
