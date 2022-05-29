@@ -27,7 +27,7 @@
             use App\Model\Session;
             $session = null;
             if (isset($_SESSION['token'])) {
-                $session = Session::getByToken($_SESSION['token']);
+                $session = Session::getByToken();
             }
                         
             if(!is_null($session)): ?>

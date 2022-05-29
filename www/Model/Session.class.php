@@ -60,13 +60,13 @@ class Session extends Sql
         $this->userId = $userId;
     }
 
-    public static function getByToken(string $token): ?Session
+    public static function getByToken(): ?Session
     {
         $session = new Session();
         $res = $session->select([
             "session" => [
                 "args" => ["id", "token", "expiration", "userId"],
-                "params" => ["token" => $token]
+                "params" => ["token" => $_SESSION['token']]
 
             ]
         ]);
