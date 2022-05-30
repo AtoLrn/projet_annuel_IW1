@@ -46,3 +46,77 @@ const hideImage = () => {
         }
     })
 }
+
+const getArticles = (tab) => {
+    fetch('http://localhost/get-articles', {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'GET',
+    }).then((r) => {
+        return r.json();
+    }).then((data) => {
+        setTableArticle(data, tab);     
+    }).catch((error) => {
+        console.log('Erreur : ' + error);
+    });
+}
+
+const setTableArticle = (data, tab) => {
+    tab.clear();
+    for(const row of data) {
+        let cols = []
+        for(const col in row) {
+            if(col != 'article_id') {
+                cols.push(row[col])
+            }
+        }
+        let rowNode = tab
+        .row.add( cols )
+        .draw()
+        .node();
+        $(rowNode).click(function() {
+            getArticleById(row['article_id'])
+        });
+    }
+}
+
+const setAsideArticleInfo = (data) => {
+    $('.aside-info').removeClass("show");
+    let info = $('#infos');
+    info.html("");
+    info.append( `<p>${data.article.article_title}</p>` );
+    info.append( `<span>${data.article.article_description}</span>` );
+    info.append( `<p>Nombre de Commentaire: ${data.comments}</p>` );
+    info.append( `<p>Note: ${data.like}</p>` );
+
+    let btns = $('#btns');
+    btns.html("");
+    btns.append( `<a href="/recette?id=${data.article.article_id}"> <button class='btn btn-pink little'> Voir</button> </a> ` );
+    btns.append( `<a href="/recette?id=${data.article.article_id}&modify"><button class='btn btn-danger little'>  Modifier   </button></a>` );
+    
+
+    $('.aside-info').addClass("show");
+}
+
+const getArticleById = (articleId) => {
+    const form = Object.assign({}, {
+        id: articleId
+    })
+    fetch('http://localhost/get-article', {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(form),
+    }).then((r) => {
+        return r.json();
+    }).then((data) => {
+        console.log(data)
+        setAsideArticleInfo(data);
+    }).catch((error) => {
+        console.log('Erreur : ' + error);
+    });
+}

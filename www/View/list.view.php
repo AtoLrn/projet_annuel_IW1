@@ -49,6 +49,8 @@
                         $this->partialInclude("certification-infos", []);
                     } elseif ($_GET['q'] === 'ingredient') {
                         $this->partialInclude("ingredient-infos", []);
+                    } elseif ($_GET['q'] === 'article') {
+                        
                     } else {
                         $this->partialInclude("users-articles", []);
                     }

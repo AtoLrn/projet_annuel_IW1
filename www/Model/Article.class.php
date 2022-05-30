@@ -73,6 +73,27 @@ class Article extends Sql
         $this->categoryId = $categoryId;
     }
 
+    public function formatList(): array
+    {
+        return [
+            "title" => "Les Articles",
+            "search" => "Rechercher un article",
+            "columns" => ["Titre" , "Description", "Créer le"]
+              
+        ];
+    }
+
+    public function formatArticleById(int $id): array
+    {
+        return [          
+            "article" => [
+                "args" => ["id", "title", "description"],
+                "params" => ["id" => $id],
+            ],
+                            
+        ];
+    }
+
     public function getArticleForm(): array
     {
         return [

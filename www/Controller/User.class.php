@@ -196,7 +196,8 @@ class User
                 "user" => [
                     "args" => ["id", "email", "lastname", "firstname", "status", "createdAt"],
                     "params" => is_array($getParams) ? [$getParams[0] => ['value' => $getParams[1], 'operator' => $getParams[2]]] : []
-                ]
+                ],
+                
             ]
         );
         if($result) {       

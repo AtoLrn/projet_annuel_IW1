@@ -72,6 +72,7 @@ class Article
         $view->assign("score", $score[0]);
 
     }
+
     public function create()
     {
         $article = new ArticleModel();
@@ -117,14 +118,19 @@ class Article
         Server::ensureHttpMethod('GET');
         $getParams = isset($_GET['params']) ? json_decode($_GET['params']) : null;
         $article = new ArticleModel();
+        
+        
         $result = $article->select(
             [
                 "article" => [
-                    "args" => ["id", "userId", "categoryId", "title", "description", "content", "createdAt"],
-                    "params" => is_array($getParams) ? [$getParams[0] => ['value' => $getParams[1], 'operator' => $getParams[2]]] : []
-                ]
+                    "args" => ["id", "title", "description", "createdAt"],
+                    "params" => is_array($getParams) ? [$getParams[0] => ['value' => $getParams[1], 'operator' => $getParams[2]]] : [],
+                ],
+
             ]
         );
+
+
         if($result) {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($result);
@@ -133,6 +139,45 @@ class Article
             http_response_code(500);
         }
 
+    }
+
+
+    public function getArticleById()
+    {
+        $content = file_get_contents('php://input');
+        $_POST = json_decode($content, true);
+        Server::ensureHttpMethod('POST');
+
+        $id = $_POST['id'] ?? null;
+        $article = new ArticleModel();
+
+        $listTpl = $article->formatArticleById($id);
+
+        $result["article"] = $article->select($listTpl)[0];
+
+        $result["comments"] = $article->select([          
+            "comment" => [
+                "args" => ["COUNT(*)"],
+                "params" => ["articleId" => $id]
+            ]                
+        ])[0]["COUNT(*)"];
+
+        $result["like"] = $article->select([          
+            "like" => [
+                "args" => ["COUNT(*)"],
+                "params" => ["articleId" => $id]
+            ]                
+        ])[0]["COUNT(*)"];
+
+        if($result) {
+            http_response_code(200);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result);
+        }else {
+            http_response_code(500);
+        }
+
+        
     }
 
     public function setArticleScore(): void
@@ -170,5 +215,4 @@ class Article
 
         header("location: /recette?id=" . $_POST['articleId'] );
     }
-    
 }

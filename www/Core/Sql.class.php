@@ -101,7 +101,7 @@ abstract class Sql
                 }
             }
         }
-
+        // echo $sql;
         return $this->dbFetchAll($sql, $params);
     }
 
