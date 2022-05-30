@@ -150,17 +150,14 @@ class User extends Sql
             ],
             "article" => [
                 "args" => ["id", "title", "description"],
-                "params" => [],
                 "lf" => ["like", "comment"]
             ],
             "like" => [
                 "args" => ["id"],
-                "params" => [],
             ],
 
             "comment" => [
                 "args" => ["id"],
-                "params" => [],
             ]                 
         ];
     }

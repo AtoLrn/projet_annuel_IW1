@@ -76,12 +76,10 @@ class Ingredient
         $result = $ingredients->select([
             "user" => [
                 "args" => ["email"],
-                "params" => [],
                 "ij" => ["ingredient"]
             ],
             "ingredient" => [
                 "args" => ["id", "name", "status", "createdAt"],
-                "params" => []
             ]
         ]);
         if($result) {
@@ -104,7 +102,6 @@ class Ingredient
         $result = $ingredients->select([
             "user" => [
                 "args" => ["id", "email", "firstname", "lastname"],
-                "params" => [],
                 "ij" => ["ingredient"]
             ],
             "ingredient" => [

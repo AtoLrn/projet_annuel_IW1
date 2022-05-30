@@ -15,9 +15,9 @@ use App\Model\Session;
 
 class User
 {
-    public function login(UserModel $user, array $post): ?string
+    public function login(UserModel $user): ?string
     {
-        if (!empty($post)) {
+        if (!empty($_POST)) {
             $loggedUser = $user->select(
                 [
                     "user" => [
@@ -53,16 +53,16 @@ class User
         return "formulaire absent";
     }
 
-    public function register(UserModel $user, array $post): array
+    public function register(UserModel $user): array
     {
-        if (!empty($post)) {
+        if (!empty($_POST)) {
 
-            $result = Verificator::checkForm($user->getRegisterForm(), $post);
+            $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
             if ($user->select(
                 [
                     "user" => [
 
-                        "args" => ["id", "password"], "params" => ["email" => $post['email']]
+                        "args" => ["id", "password"], "params" => ["email" => $_POST['email']]
                     ]
                 ]
             )) {
@@ -70,10 +70,10 @@ class User
             }
             if (empty($result)) {
 
-                $user->setFirstname($post['firstname']);
-                $user->setLastname($post['lastname']);
-                $user->setEmail($post['email']);
-                $user->setPassword($post['password']);
+                $user->setFirstname($_POST['firstname']);
+                $user->setLastname($_POST['lastname']);
+                $user->setEmail($_POST['email']);
+                $user->setPassword($_POST['password']);
                 $user->generateMailToken();
                 $id = $user->save();
 
@@ -85,7 +85,7 @@ class User
                 $session->save();
 
                 $mail = Mail::getInstance();
-                $mail->mailValidation($post['email'], $post['firstname'], $post['lastname'], $user->getMailToken());
+                $mail->mailValidation($_POST['email'], $_POST['firstname'], $_POST['lastname'], $user->getMailToken());
             }
             return $result;
         }

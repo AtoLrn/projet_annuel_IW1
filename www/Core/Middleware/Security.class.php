@@ -14,9 +14,9 @@ class Security
         $authorized = False;
         if (!empty($rights)) {
             if (isset($_SESSION['token'])) {
-                $session = Session::getByToken($_SESSION['token']);
+                $session = Session::getByToken();
                 if (!$session) {
-                    $authorized = False;
+                    $authorized = false;
                 } else {
                     $session->generateToken();
                     $session->save();
@@ -27,29 +27,29 @@ class Security
                     switch ($status) {
                         case 'user':
                             if (in_array("user", $rights)) {
-                                $authorized = True;
+                                $authorized = true;
                             }
 
                         case 'chief':
                             if (in_array("chief", $rights)) {
-                                    $authorized = True;
+                                    $authorized = true;
                             }
 
                         case 'admin':
                             if (in_array("admin", $rights)) {
-                                $authorized = True;
+                                $authorized = true;
                             }
                             break;
                         default:
-                            $authorized = False;
+                            $authorized = false;
                             break;
                     }
                 }
             } else {
-                $authorized = False;
+                $authorized = false;
             }
         } else {
-            $authorized = True;
+            $authorized = true;
         }
         if (!$authorized) {
             header("Location: /register-login?url=" . $_SERVER["REQUEST_URI"]);

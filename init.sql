@@ -71,8 +71,9 @@ CREATE TABLE `esgi_comment` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `esgi_like` (
+CREATE TABLE `esgi_star` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `score` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `articleId` INT(11) NOT NULL,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
@@ -94,6 +95,7 @@ CREATE TABLE `esgi_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `articleId` INT(11) NOT NULL,
   `path` VARCHAR(2048) NOT NULL,
+  `main` BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );

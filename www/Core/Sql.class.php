@@ -39,7 +39,6 @@ abstract class Sql
 
     public function save(): int
     {
-
         $columns = get_object_vars($this);
         $columns = array_diff_key($columns, get_class_vars(get_class()));
 
@@ -55,6 +54,7 @@ abstract class Sql
         }
         // DEBUG
         // echo $sql;
+
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($columns);
         return $this->pdo->lastInsertId();
@@ -68,7 +68,7 @@ abstract class Sql
         return $queryPrepared;
     }
 
-    public function select(array $tables): ?array
+    public function select(array $tables, ?int $limit = null, ?string $orderBy = null, $order = "ASC"): ?array
     {
         $calledClassExploded = explode("\\", get_called_class());
         /*$table = strtolower(end($calledClassExploded));*/
@@ -83,19 +83,27 @@ abstract class Sql
             $sql .= " WHERE " . $where;
         }
 
+        if(!is_null($orderBy)) {
+            // ex: article.createAt OR createdAt works here
+            $checkedOrderBy = strstr($orderBy, ".") ? DBPREFIXE . $orderBy : $orderBy;
+            $sql .= " ORDER BY " . $checkedOrderBy . " " . $order;
+        }
+
+        if(!is_null($limit)) {
+            $sql .= " LIMIT " . $limit;
+        }
+
         $params = [];
         foreach ($tables as $key => $val) {
-            foreach ($val['params'] as $keyParam => $param) {
-                $params[$keyParam] = is_array($param) ? $param['value'] : $param;
+            if(isset($val['params'])) {
+                foreach ($val['params'] as $keyParam => $param) {
+                    $params[$keyParam] = is_array($param) ? $param['value'] : $param;
+                }
             }
         }
         // echo $sql;
         return $this->dbFetchAll($sql, $params);
     }
-
-
-
-
 
     private function dbFetchAll($sql, $params): ?array
     {
@@ -110,7 +118,7 @@ abstract class Sql
         $args = [];
         foreach ($tables as $keyTable => $values) {
             foreach ($values['args'] as $key => $vals) {
-                if (strstr($vals, "COUNT")) {
+                if (strstr($vals, "COUNT") || strstr($vals, "AVG")) {
                     $args[] = $vals;
                 } else {
                     $args[] = DBPREFIXE . $keyTable . "." . $vals . " AS " . $keyTable . "_" . $vals;
@@ -152,13 +160,15 @@ abstract class Sql
 
         $where = [];
         foreach ($tables as $key => $table) {
-            foreach ($table['params'] as $keyParams => $param) {
-                $operator = is_string($param) ? "=" : $param["operator"] ?? "=";
-                if (!preg_match('/=|<|>|<=|>=|!=/', $operator)) {
-                    $operator = "=";
-                }
-                $where[] = DBPREFIXE . $key . "." . $keyParams . " " .$operator. " :" . $keyParams;
+            if(isset($table['params'])) {
+                foreach ($table['params'] as $keyParams => $param) {
+                    $operator = is_string($param) ? "=" : $param["operator"] ?? "=";
+                    if (!preg_match('/=|<|>|<=|>=|!=/', $operator)) {
+                        $operator = "=";
+                    }
+                    $where[] = DBPREFIXE . $key . "." . $keyParams . " " .$operator. " :" . $keyParams;
 
+                }
             }
         }
 
