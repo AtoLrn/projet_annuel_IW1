@@ -31,7 +31,7 @@
             }
                         
             if(!is_null($session)): ?>
-                <a class="link" href="/profile"> <?php include "assets/img/logo/users.php"; ?>Mon Profil </a>
+                <a class="link" href=<?= "/profile?userId=" . $session->getUserId() ?>> <?php include "assets/img/logo/users.php"; ?>Mon Profil </a>
                 <a class="link" href="/logout"> <?php include "assets/img/logo/logout.php"; ?>Se deconnecter</a>
             <?php else: ?>
                 <a class="link" href="/register-login?form=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>

@@ -14,6 +14,7 @@ class User extends Sql
     protected $password;
     protected $isVerified = 0;
     protected $mailToken = null;
+    protected $profilePicture = null;
 
     public function __construct()
     {
@@ -129,6 +130,21 @@ class User extends Sql
         $this->token = substr(bin2hex(random_bytes(128)), 0, 255);
     }
 
+    /**
+     * @return null|string
+     */
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * @param string $profilePicture
+     */
+    public function setProfilePicture(string $profilePicture): void
+    {
+        $this->profilePicture = $profilePicture;
+    }
 
     public function formatList(): array
     {
