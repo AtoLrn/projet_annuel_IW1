@@ -144,3 +144,18 @@
   controller: admin
   action: settings
 
+/create-comment:
+  controller: comment
+  action: createComment
+
+/get-comments:
+  controller: comment
+  action: getComments
+
+/get-comment:
+  controller: comment
+  action: getCommentById
+
+/modify-comment-status:
+  controller: comment
+  action: modifyCommentStatus

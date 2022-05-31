@@ -51,6 +51,8 @@
                         $this->partialInclude("ingredient-infos", []);
                     } elseif ($_GET['q'] === 'article') {
                         
+                    } elseif ($_GET['q'] === 'comment') {
+                        $this->partialInclude("comment-infos", []);
                     } else {
                         $this->partialInclude("users-articles", []);
                     }

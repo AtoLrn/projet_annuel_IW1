@@ -30,7 +30,8 @@ mix.babel([
  '../src//js/certification.js',
  '../src/js/ingredient.js',
  '../src/js/dashboard.js',
- '../src/js/star.js'
+ '../src/js/star.js',
+ '../src/js/comment.js'
 ], '../dist/main.js');
 
 //mix.minify('../web/dist/main.js');
