@@ -56,34 +56,29 @@ class Theme
     {
         $theme = new ThemeModel();
         if(isset($_POST['idTheme'])) {
-            $themeSelected = $theme->select([
-                "theme" => [
-                    "args" => ["id"],
-                    "params" => ['selected' => 1] 
-                ]
-            ]);
-          
-            if(!empty($themeSelected)) {
-                $theme = $theme->setId($themeSelected[0]['theme_id']);
+            $theme = $theme->select2("theme", ["*"])
+                ->where('selected', 1)
+                ->fetch();
+      
+            if(!is_null($theme)) {
                 $theme->setSelected(0);
-                $theme->save();
-                
+                $theme->save();           
             }
+
             $theme = $theme->setId($_POST['idTheme']);
             $theme->setSelected(1);
             $theme->save();
         }
 
-        $themes = $theme->select([
-            "theme" => [
-                "args" => [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"],
-            ]
-        ]);
+        $themes = $theme
+            ->select2("theme", [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"])
+            ->fetchAll();
+
         usort($themes, function($a, $b){
-            if ($a['theme_selected'] == true) {
+            if ($a->getSelected() == true) {
                 return -1;
             }
-            if ($b['theme_selected'] == true) {
+            if ($b->getSelected() == true) {
                 return 1;
             }
 

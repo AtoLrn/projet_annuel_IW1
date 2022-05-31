@@ -10,10 +10,10 @@
 
             <?php foreach($articles as $article): ?>
             <article class="card card-article hover-up br-6 ">
-                <div class="img-article" style="background-image: url(<?= $article['image_path'] ?>)"></div>
+                <div class="img-article" style="background-image: url(<?= $article->path ?>)"></div>
                 <div class="p-6">
-                    <h1 class="h3"> <?= $article['article_title'] ?> </h1>
-                    <p> <?= $article['article_description'] ?> </p>
+                    <h1 class="h3"> <?= $article->getTitle() ?> </h1>
+                    <p> <?= $article->getDescription() ?> </p>
                 </div>
             </article>         
             <?php endforeach; ?>     

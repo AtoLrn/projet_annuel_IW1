@@ -13,6 +13,8 @@ function myAutoloader($class)
     $class = str_replace("\\", "/", $class);
     if (file_exists($class . ".class.php")) {
         include $class . ".class.php";
+    }else if (file_exists($class . ".php")) {
+        include $class . ".php";
     }
 }
 
