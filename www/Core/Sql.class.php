@@ -6,7 +6,7 @@ use App\Core\Connection;
 use PDO;
 use PDOStatement;
 
-abstract class Sql
+abstract class Sql extends MysqlBuilder
 {
     private $pdo;
     private $table;
@@ -104,6 +104,25 @@ abstract class Sql
         // echo $sql;
         return $this->dbFetchAll($sql, $params);
     }
+
+
+    public function fetchAll()
+    {
+        $queryPrepared = $this->pdo->prepare($this->get());
+        $queryPrepared->execute($this->getParams());
+
+        return $queryPrepared->fetchAll(PDO::FETCH_CLASS, get_called_class());
+    }
+
+    public function fetch()
+    {
+        $queryPrepared = $this->pdo->prepare($this->get());
+        $queryPrepared->execute($this->getParams());
+        $queryPrepared->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        return $queryPrepared->fetch();
+    }
+
 
     private function dbFetchAll($sql, $params): ?array
     {

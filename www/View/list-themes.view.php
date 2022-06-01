@@ -5,62 +5,62 @@
         <?php  foreach($themes as $key => $theme): ?>
             <article class="grid col card p-6 g-3 w-em-5 xs-w-per-20">
                 <div class="row j-bet a-center">
-                    <h1 class="h2 mb-2"><?= $theme['theme_name'] ?></h1>
-                    <a href="/theme?id=<?= $theme['theme_id'] ?>">
+                    <h1 class="h2 mb-2"><?= $theme->getName() ?></h1>
+                    <a href="/theme?id=<?= $theme->getId() ?>">
                     <?php include "assets/img/logo/edit.php"; ?>
                     </a>
                 </div>
 
                 <div>
-                    <p><strong>Police :</strong><span class="ml-2"><?= $theme['theme_fontFamily'] ?></span></p>
+                    <p><strong>Police :</strong><span class="ml-2"><?= $theme->getFontFamily() ?></span></p>
                 </div>
                 <div class="grid">
                     <strong >Couleur de fond :</strong> <br>
                     <div class="row g-3 a-center mt-1">
-                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme['theme_bgColor'] ?>"></div>
-                        <?= $theme['theme_bgColor'] ?>
+                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme->getBgColor() ?>"></div>
+                        <?= $theme->getBgColor() ?>
                     </div>
                 </div>
                 <div class="grid">
                     <strong >Couleur des placeholders :</strong> <br>
                     <div class="row g-3 a-center mt-1">
-                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme['theme_phColor'] ?>"></div>
-                        <?= $theme['theme_phColor'] ?>
+                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme->getPhColor() ?>"></div>
+                        <?= $theme->getPhColor() ?>
                     </div>
                 </div>
                 <div class="grid">
                     <strong >Couleur du texte :</strong> <br>
                     <div class="row g-3 a-center mt-1">
-                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme['theme_textColor'] ?>"></div>
-                        <?= $theme['theme_textColor'] ?>
+                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme->getTextColor() ?>"></div>
+                        <?= $theme->getTextColor() ?>
                     </div>
                 </div>
                 <div class="grid">
                     <strong >Couleur vive (boutons) :</strong> <br>
                     <div class="row g-3 a-center mt-1">
-                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme['theme_btnColor'] ?>"></div>
-                        <?= $theme['theme_btnColor'] ?>
+                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme->getBtnColor() ?>"></div>
+                        <?= $theme->getBtnColor() ?>
                     </div>
                 </div>
                 <div class="grid">
                     <strong >Couleur allégé (boutons) :</strong> <br>
                     <div class="row g-3 a-center mt-1">
-                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme['theme_bgColorLight'] ?>"></div>
-                        <?= $theme['theme_btnColorLight'] ?>
+                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme->getBtnColorLight() ?>"></div>
+                        <?= $theme->getBtnColorLight() ?>
                     </div>
                 </div>
                 <div class="grid">
                     <strong >Couleur des ombres :</strong> <br>
                     <div class="row g-3 a-center mt-1">
-                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme['theme_shadowColor'] ?>"></div>
-                        <?= $theme['theme_shadowColor'] ?>
+                        <div class="h-px-6 w-px-6 bd-1" style="background-color: <?= $theme->getShadowColor() ?>"></div>
+                        <?= $theme->getShadowColor() ?>
                     </div>
                 </div>
 
-                <?php if($theme['theme_selected'] == false): ?>
+                <?php if($theme->getSelected() == false): ?>
                 
                 <form class="col" action="/list-themes" method="POST">
-                    <input type="hidden" name="idTheme" value="<?= $theme['theme_id'] ?>">
+                    <input type="hidden" name="idTheme" value="<?= $theme->getId() ?>">
                     <input class="btn btn-pink p-2 a-self-end"  type="submit" value="Selectionner">
                 </form> 
 
