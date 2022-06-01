@@ -43,5 +43,15 @@ class Image extends Sql
         $this->path = $path;
     }
 
+    public function getMain(): ?int
+    {
+        return $this->main;
+    }
+
+    public function setMain(?int $main): void
+    {
+        $this->main = $main;
+    }
+
 
 }

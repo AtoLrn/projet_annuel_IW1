@@ -23,7 +23,7 @@ abstract class Sql
 
         //Si l'id n'est pas null alors on fait un update sinon on fait un insert
         $calledClassExploded = explode("\\", get_called_class());
-        $this->table = strtolower(DBPREFIXE . end($calledClassExploded));
+        $this->table = DBPREFIXE.($this->tableSpecialName ?? strtolower(end($calledClassExploded)));
     }
 
     /**
@@ -41,6 +41,10 @@ abstract class Sql
     {
         $columns = get_object_vars($this);
         $columns = array_diff_key($columns, get_class_vars(get_class()));
+
+        $columns = array_filter($columns, function($key) {
+            return $key != "tableSpecialName";
+        }, ARRAY_FILTER_USE_KEY);
 
         if ($this->getId() == null) {
             $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") 
@@ -63,6 +67,7 @@ abstract class Sql
     public function delete(): PDOStatement
     {
         $sql = "DELETE FROM " . $this->table . " WHERE id=" . $this->getId();
+        print_r($sql);
         $queryPrepared = $this->pdo->query($sql);
 
         return $queryPrepared;

@@ -15,7 +15,14 @@ class Verificator
             return $input["type"] === "file";
         });
 
-        if( count($data) != (count($config['inputs']) - count($images))){
+
+
+        if( count($data) != ((count($config['inputs']) - count($images)) + count(array_filter($config['inputs'], 
+        function($value) {
+            return $value["type"] === "file";
+        }
+        ))
+        )){
             die("something go wrong in form.");
         }
 

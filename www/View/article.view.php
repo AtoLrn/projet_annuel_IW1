@@ -6,7 +6,7 @@
                 <span class="c-light-pink pb-5" style="font-size: 24px"><?= $article->getDescription() ?></span>
                 <div class="row mt-4">
                     <div class="col-lg-1">
-                        <img height="32px" src="assets/img/users/antoine.svg" alt="">
+                        <img height="32px" src="/assets/img/users/antoine.svg" alt="">
                     </div>
                     <div class="col-lg-11">
                         <span class="c-light-gray" >Philipe Etchbest</span>
@@ -20,6 +20,7 @@
                             <span class="c-pink" style="font-size: 18px"><?= number_format($score['AVG(score)'], 1, ',', "") . " / 5 sur " . $score['COUNT(*)'] . " " . ($score['COUNT(*)'] == 1 ? "note" : "notes"); ?>   </span>
                         <?php endif; ?>
                 </div>
+                
                 <div class="row mt-4">
                     <?php for($i = 1; $i <= 5; $i++): ?>
                         <form action="/set-score" method="POST">
@@ -33,11 +34,14 @@
                         </form>
                     <?php endfor; ?>
                 </div>
+                <?php if ($isUserOrAdmin) { ?>
+                     <a href="/recette/edit?id=<?= $article->getId() ?>"><button id="delete" class="btn btn-danger col-lg-4">Modifier</button></a>  
+                <?php } ?>
             </div>
             <aside class="col-lg-8">
                 <article id="recette-container" class="pl-5 recette-container" data-index="0">
                     <?php foreach ($images as $image) {?>
-                        <div class="recette-img shadow selected"><img height="32px" src="<?php echo $image["image_path"] ?>" alt=""></div>
+                        <div class="recette-img shadow selected"><img height="32px" src="/<?php echo $image["image_path"] ?>" alt=""></div>
                     <?php } ?>
                 </article>
                 <div class="controller"><img id="left"  height="32px" src="assets/img/logo/left-arrow.svg" alt=""><img id="right" height="32px" src="assets/img/logo/right-arrow.svg" alt=""></div>
@@ -46,18 +50,18 @@
     </div>
 
     <div class="grid">
-        <div class="row mt-10 a-start reverse">
+        <div class="row mt-10 a-start">
             <div class="col-lg-6 p-8 card">
                 <?php $this->partialInclude("wysiwyg", ["data" => $article->getContent()]) ?>
             </div>
             <div class="col-lg-6 pl-5">
                 <h2 style="font-size: 36px">Ingredients</h2>
                 <article class="row">
-                    <div class="ingredient-img shadow"><img height="32px" src="assets/img/public/noodle.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="assets/img/public/egg.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="assets/img/public/porc.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="assets/img/public/cebette.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="assets/img/public/bouillon.jpeg" alt=""></div>
+                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/noodle.jpg" alt=""></div>
+                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/egg.jpg" alt=""></div>
+                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/porc.jpg" alt=""></div>
+                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/cebette.jpg" alt=""></div>
+                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/bouillon.jpeg" alt=""></div>
                 </article>
             </div>
         </div>

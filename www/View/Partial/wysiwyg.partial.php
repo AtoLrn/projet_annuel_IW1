@@ -32,10 +32,11 @@ const editor = new EditorJS({
         delimiter: Delimiter,
         // ...
     },
-    readOnly: <?= isset($data['data']) ? "true" : "false" ?>,
+    readOnly: <?= isset($data['readOnly']) ? $data['readOnly'] : (isset($data['data']) ? "true" : "false") ?>,
     data: <?= isset($data['data']) ? $data["data"] : "{}" ?>,  
     onChange: async () => {
         $("#<?= $id ?>").val(JSON.stringify(await editor.save()));
     }
+    // $("#<?= $id ?>").val(JSON.stringify(<?= isset($data['data']) ? $data["data"] : "{}" ?>));
 })
 </script>

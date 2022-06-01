@@ -6,5 +6,5 @@
 </div>
 
 <script>
-    new Select("<?= $data["name"] ?>", "#<?= $id ?>", "<?= $data["placeholder"] ?>", <?= $data["options"] ?>)
+    new Select("<?= $data["name"] ?>", "#<?= $id ?>", "<?= $data["placeholder"] ?>", <?= $data["options"] ?>, "<?= $data["value"] ?>")
 </script>

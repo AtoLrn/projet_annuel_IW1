@@ -45,6 +45,13 @@
     controller: article
     action: getArticle
 
+/recette/edit:
+    controller: article
+    action: editArticle
+    security:
+      - user
+      - chief
+
 /set-score:
     controller: article
     action: setArticleScore
