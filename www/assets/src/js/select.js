@@ -1,13 +1,24 @@
 class Select {
-    constructor(name, selector, placeholder, options) {
+    constructor(name, selector, placeholder, options, defaultValue = "") {
         this.selector = selector;
         this.name = name;
+        
         this.options = options || [];
         this.placeholder = placeholder;
         this.selection = [] 
         this.search = ""
 
+        
+
         this.init();
+        if (defaultValue) {
+            console.log("AAA")
+
+            this.selection = defaultValue.split(',')
+            console.log(this.selection)
+            this.reRender()
+        }
+        
     }
     
     init() {

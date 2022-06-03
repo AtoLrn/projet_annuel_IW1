@@ -55,7 +55,7 @@ class Article extends Sql
 
     public function getUserId(): ?string
     {
-        return $this->content;
+        return $this->userId;
     }
 
     public function setUserId(?string $userId): void
@@ -94,20 +94,52 @@ class Article extends Sql
         ];
     }
 
-    public function getArticleForm(): array
+    public function getArticleForm(?bool $edit = false): array
     {
+        $ingredients = new Ingredient();
+        $enabledIngredients = $ingredients->select([
+            "ingredient" => [
+                "args" => ["name"],
+                "params" => ["status" => 'enabled']
+            ]
+        ]);        
+
+        $options = array_map(function($elem) {
+            return '\''.$elem["ingredient_name"].'\'';
+        },$enabledIngredients);
+
+        $options = '['.implode(',', $options).']';
+
+        if ($edit) {
+            $ingredients = $ingredients->select([
+                "ingredient" => [
+                    "args" => ["name"],
+                    "lf" => ["ingredient_article"]
+                ],
+                "ingredient_article" => [
+                    "args" => ["id"],
+                    "params" => ["articleId" => $this->getId()],
+                
+                ]
+            ]); 
+            $defaultSelected =  implode(",", array_map(function($v) {
+                return $v["ingredient_name"];
+            },$ingredients)); 
+        }
+
         return [
             "config" => [
                 "id" => "articleForm",
                 "method" => "POST",
-                "action" => "/create-recette",
-                "submit" => "Publier",
+                "action" => $edit ? "/recette/edit?id=$this->id" : "/create-recette",
+                "submit" => $edit ? "Mettre à Jour" : "Publier",
                 "class" => "col a-center py-4 w-per-20 px-8",
                 "enctype" => "multipart/form-data",
 
             ],
             'inputs' => [
                 "title" => [
+                    "value" => $this->title ?? "",
                     "type" => "text",
                     "placeholder" => "Votre Titre",
                     "required" => true,
@@ -117,6 +149,7 @@ class Article extends Sql
                     "error" => "Mauvais Titre"
                 ],
                 "description" => [
+                    "value" => $this->description ?? "",
                     "type" => "text",
                     "placeholder" => "Description de votre recette",
                     "required" => true,
@@ -131,18 +164,24 @@ class Article extends Sql
                     "class" => "input input-pink",
                     "id" => "ingredient",
                     "label" => "Ingredients",
-                    "options" => "['Salade', 'Tomate', 'Oignons']"
+                    "options" => $options,
+                    "value" => $defaultSelected
                 ],
                 "photo[]" => [
                     "type" => "file",
+                    "accept" => 'accept=image/*',
                     "multiple" => true,
                     "placeholder" => "Vos Photos",
                     "required" => true,
                     "class" => "input input-pink",
                     "id" => "photo",
                     "label" => "Photos",
+                    "preview" => true,
+                    "selectable" => true
                 ],
                 "article" => [
+                    "value" => $this->content ?? null,
+                    "readOnly" => "false",
                     "type" => "wysiwyg",
                     "required" => true,
                     "id" => "article",
