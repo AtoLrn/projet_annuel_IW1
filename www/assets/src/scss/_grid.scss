@@ -126,6 +126,13 @@
             justify-content: flex-end;
         }
 
+        .a-self-end {
+            align-self: flex-end;
+        }
+        .a-self-start {
+            align-self: flex-start;
+        }
+
         @for $i from 1 through $col-nb {
             .col-lg-#{$i} {
                 @include grid-container-row($i);

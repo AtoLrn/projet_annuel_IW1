@@ -6,3 +6,18 @@
     opacity: 1;
   }
 }
+
+@keyframes apparition {
+  from {
+    transform: translateY(-64px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.apparition {
+  animation: apparition .4s ease-in-out forwards;
+}

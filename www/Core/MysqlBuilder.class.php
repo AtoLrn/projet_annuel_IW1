@@ -22,14 +22,22 @@ class MysqlBuilder implements QueryBuilder
         public function select2(string $table, array $columns): QueryBuilder
         {
             $this->reset();
+            $columns = array_map(
+                function($column) {
+                    return strstr($column, ".") ? DBPREFIXE . $column : $column;
+                },
+                $columns);
+            
             $this->query->base = "SELECT " . implode(", ", $columns) . " FROM " . DBPREFIXE . $table;
             return $this;
         }
 
-        public function where(string $column, string $value, string $operator = "="): QueryBuilder
+        public function where(string $column, ?string $value, string $operator = "="): QueryBuilder
         {
-            $this->query->where[] = $column . $operator .  ":" . $column;
-            $this->params[$column] = $value;
+            if(!is_null($value)) {
+                $this->query->where[] = $column . $operator .  ":" . $column;
+                $this->params[$column] = $value;
+            }
             return $this;
         }
 
@@ -57,6 +65,12 @@ class MysqlBuilder implements QueryBuilder
             return $this;
         }
 
+        public function groupBy(array $columns): QueryBuilder
+        {
+            $this->query->groupBy = " GROUP BY " . implode(',', $columns);
+            return $this;
+        }
+
         public function orderBy(string $column, string $direction = "ASC"): QueryBuilder
         {
             $this->query->order = " ORDER BY " . $column . " " . $direction;
@@ -75,6 +89,10 @@ class MysqlBuilder implements QueryBuilder
 
             if (!empty($query->where)) {
                 $sql .= " WHERE " . implode(' AND ', $query->where);
+            }
+
+            if (!empty($query->groupBy)) {
+                $sql .= $query->groupBy;
             }
 
             if(!empty($query->order)) {

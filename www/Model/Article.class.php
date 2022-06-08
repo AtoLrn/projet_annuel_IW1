@@ -94,6 +94,18 @@ class Article extends Sql
         ];
     }
 
+    public function getOrderType(string $key): array
+    {
+        $orders = [
+            'date_desc' => ['val' => 'createdAt', 'order' => 'DESC'],
+            'date_asc' => ['val' => 'createdAt', 'order' => 'ASC'],
+            'like_desc' => ['val' => 'note', 'order' => 'DESC'],
+            'like_asc' => ['val' => 'note', 'order' => 'ASC']
+        ];
+
+        return $orders[$key] ?? $orders['date_desc'];
+    }
+
     public function getArticleForm(?bool $edit = false): array
     {
         $ingredients = new Ingredient();

@@ -1,6 +1,9 @@
 /:
     controller: main
     action: home
+/rechercher:
+    controller: main
+    action: search
 
 /contact:
     controller: main

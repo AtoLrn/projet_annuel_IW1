@@ -1,34 +1,23 @@
-<section class="pt-20 grid container">
+<section class="pt-20 grid container apparition">
     <h1 class="big-h1 py-8">Accueil</h1>
 
 
     <section class="grid mb-12">
         <h1 class="h2 pb-6">Nos dernières recettes</h1>
         <div class="list-articles">
-
-        
-
-            <?php foreach($articles as $article): ?>
-            <article class="card card-article hover-up br-6 ">
-                <div class="img-article" style="background-image: url(<?= $article->path ?>)"></div>
-                <div class="p-6">
-                    <h1 class="h3"> <?= $article->getTitle() ?> </h1>
-                    <p> <?= $article->getDescription() ?> </p>
-                </div>
-            </article>         
-            <?php endforeach; ?>     
+            <?php foreach($lastArticles as $lastArticle) {
+                $this->partialInclude("article-card", $lastArticle);
+            } ?>  
         </div>
     </section>
 
     <section class="grid mb-12">
         <h1 class="h2 pb-6">Nos catégories</h1>
-        <div class="row g-6">
-
-                
+        <div class="row g-6"> 
+            <a href="/rechercher" class="btn btn-outline-pink br-12"> Tout voir </a>       
             <?php
-            $categories = ['Français', 'Vietnamien', 'Chinois', 'Japonais', 'algérienne'];
             foreach($categories as $category): ?>
-            <a href="#" class="btn btn-outline-pink br-12"> <?= $category ?> </a>         
+            <a href="/rechercher?category=<?= $category->getName(); ?>" class="btn btn-outline-pink br-12"> <?= $category->getName() ?> </a>         
             <?php endforeach; ?>          
         </div>
     </section>
@@ -36,18 +25,9 @@
     <section class="grid pb-12">
         <h1 class="h2 pb-6">Nos recettes les plus aimés</h1>
         <div class="list-articles">
-
-            <?php for($i = 0; $i < 6; $i++): ?>
-            <article class="card card-article hover-up br-6 ">
-                <div class="img-article" style="background-image: url(assets/img/articles/article-pate.svg)"></div>
-                <div class="p-6">
-                    <h1 class="h3">nom de l'article</h1>
-                    <p>ceci est la description de l'article</p>
-                </div>
-            </article>
-            
-            <?php endfor; ?>
-            
+            <?php foreach($bestArticles as $bestArticle) {
+                $this->partialInclude("article-card", $bestArticle);
+            } ?>         
         </div>
     </section>
 
