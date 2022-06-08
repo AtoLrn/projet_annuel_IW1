@@ -8,7 +8,6 @@ use App\Model\Article as ArticleModel;
 use App\Model\Session;
 use App\Model\Category as CategoryModel;
 
-
 class Main
 {
 
@@ -39,11 +38,6 @@ class Main
             ->select2('category', ['name'])
             ->orderBy('name')
             ->fetchAll();
-
-
-        // echo '<pre>';
-        // print_r($categories);
-        // exit;
         
         $view->assign("lastArticles", $lastArticles);
         $view->assign("bestArticles", $bestArticles);
@@ -64,8 +58,7 @@ class Main
         $category = isset($_GET['category']) && in_array($_GET['category'], $categories) ? $_GET['category'] : null;
         $q = !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : null;
         $order = !empty($_GET['order']) ? htmlspecialchars($_GET['order']) : "date_desc";
-
-        
+  
 
         $view = new View('search');
         $articles = new ArticleModel();
@@ -79,20 +72,13 @@ class Main
             ->where('title', "%" . $q . "%", " LIKE ")
             ->groupBy(['idArticle', 'title', 'description', 'path', 'createdAt', 'name'])
             ->orderBy($orderBy['val'], $orderBy['order'])
-            ->limit(0, 6)
             ->fetchAll();
-
-        // echo '<pre>';
-        // print_r($articles);
-        // exit;
         
         $view->assign("articles", $articles);
         $view->assign("categories", $categories);
         $view->assign("categoryName", $category);
         $view->assign("q", $q);
         $view->assign("order", $order);
-
-
     }
 
     public function contact()

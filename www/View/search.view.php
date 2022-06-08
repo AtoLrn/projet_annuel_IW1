@@ -37,8 +37,6 @@
         
         <?php endif; ?>
     </section>
-
-
 </section>
 
 
