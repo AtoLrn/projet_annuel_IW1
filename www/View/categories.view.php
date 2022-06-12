@@ -1,4 +1,4 @@
-<div class="grid p-12 xs-p-6">
+<div class="grid p-12 xs-p-6 apparition">
     <h1 class="h1 mb-10">Les Catégories</h1>
 
     <div class="w-em-5 xs-w-per-20 mb-3">

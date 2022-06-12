@@ -16,9 +16,9 @@
 <body class="grid">
     <header class="navbar-front grid h-px-20 mb-5">
         <nav class="row j-bet">
-            <div><img height="52px" src="assets/img/logo/croc-miam.svg" alt=""></div>         
+            <a href="/" class="link"><img height="52px" src="assets/img/logo/croc-miam.svg" alt="logo"></a>         
             <ul>
-                <li><a href="#">Nos Recettes</a></li>
+                <li><a href="/rechercher">Nos Recettes</a></li>
                 <li><a href="#">Les Cuisiniers</a></li>
                 <li><a href="#">Vos Abonnements</a></li>
             </ul>
@@ -120,7 +120,7 @@
         color: var(--bg-color);
 
     }
-    .btn-pink {
+    .btn-pink:hover {
         background-color: var(--bg-color) !important; 
         color: var(--btn-color); 
     }

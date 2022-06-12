@@ -1,4 +1,4 @@
-<div class="grid p-10 xs-p-6 col a-start">
+<div class="grid p-10 xs-p-6 col a-start apparition">
     <h1 class="h1 mb-9">Mes Thèmes</h1>
 
     <section class="grid row g-9">     
