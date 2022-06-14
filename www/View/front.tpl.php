@@ -101,6 +101,10 @@
         fill: var(--text-color) !important;
     }
 
+    .c-pink {
+        color: var(--btn-color) !important;
+    }
+
     .input-pink:focus {
         border: 1px solid var(--btn-color);
         background-color: var(--btn-color-shadow);
