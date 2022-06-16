@@ -37,7 +37,7 @@
                         </li>
                         <li class="row g-3"> 
                             <?php include "assets/img/logo/comments.php"; ?>
-                            <a href="/list?q=comments" class="link-black">Commentaires</a>
+                            <a href="/list?q=comment" class="link-black">Commentaires</a>
                         </li>
                         <li class="row g-3"> 
                             <?php include "assets/img/logo/themes.php"; ?>
