@@ -34,7 +34,7 @@ const closeMenu = () => {
 }
 
 const getList = (tab) => {
-    for(const i of ['user', 'article', 'comment', 'certification', 'ingredient']){
+    for(const i of ['user', 'article', 'comment', 'certification', 'ingredient', 'page']){
         if($('#list-table').hasClass(i)) {
             window["get" + i[0].toUpperCase() + i.substring(1) + "s"](tab);
         }
@@ -42,11 +42,11 @@ const getList = (tab) => {
 
 }
 
-const displayPopUp = (id) => {
+const displayPopUp = (table, id) => {
     $('#pop-up').addClass('show');
     $('#delete').click( function() {
         closePopUp();
-        deleteUserById(id);        
+        window["delete" + table + "ById"](id)
     });
     $('#cancel').click(closePopUp)
 }

@@ -91,7 +91,7 @@ const setAsideUserInfo = (data) => {
     let btns = $('#btns');
     btns.html("");
     btns.append( "<button class='btn btn-pink little'> Changer status </button>" );
-    btns.append( `<button class='btn btn-danger little' onclick='displayPopUp(${data.id})'> Supprimer </button>` );
+    btns.append( `<button class='btn btn-danger little' onclick='displayPopUp("User", ${data.id})'> Supprimer </button>` );
     
 
     $('.aside-info').addClass("show");

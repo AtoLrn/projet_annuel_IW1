@@ -231,3 +231,32 @@
   controller: main
   action: notFound
   
+/create-page:
+  controller: page
+  action: createPage
+  security:
+    - admin
+
+/get-pages:
+  controller: page
+  action: getPages
+  security:
+    - admin
+
+/get-page:
+  controller: page
+  action: getPageById
+  security:
+    - admin
+
+/delete-page:
+  controller: page
+  action: deletePageById
+  security:
+    - admin
+
+/page/edit:
+  controller: page
+  action: editPage
+  security:
+    - admin
