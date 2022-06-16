@@ -160,6 +160,55 @@ class User
         echo "Mot de passe oublié";
     }
 
+    public function profile()
+    {
+        $user = new UserModel();
+        $view = new View("profile", "front");
+        if (key_exists('userId', $_GET)) {
+            $userId = $_GET['userId'];
+            if (!empty($_SESSION["token"])) {
+                $session = Session::getByToken($_SESSION["token"]);
+                if ($session !== null) {
+                    $isMyProfile = $session->getUserId() === $userId;
+                    $userId = $isMyProfile ? $session->getUserId() : $userId;
+                    $userInfos = $user->select([
+                        "user" => [
+                            "args" => [
+                                "lastname",
+                                "firstname",
+                                "email",
+                                "status",
+                                "createdAt",
+                                "profilePicture"
+                            ],
+                            "params" => ["id" => $userId],
+                        ]
+                    ]);
+                    $userArticles = $user->select(([
+                        "article" => [
+                            "args" => [
+                                "id",
+                                "categoryId",
+                                "title",
+                                "description",
+                                "createdAt",
+                            ],
+                            "params" => ["userId" => $userId],
+                            "ij" => ['image']
+                        ],
+                        "image" => [
+                            "args" => ["path"]
+                        ]
+                    ]));
+
+                    $view->assign("userInfos", $userInfos[0]);
+                    $view->assign("userArticles", $userArticles);
+                    $view->assign("isMyProfile", $isMyProfile);
+                }
+            }
+        }
+    }
+
 
     // -------------- API calls ------------- //
 
@@ -234,6 +283,30 @@ class User
             http_response_code(200);
         }else {
             http_response_code(500);
+        }
+    }
+
+    public function modifyProfilePicture()
+    {
+        Server::ensureHttpMethod('POST');
+
+        $user = new UserModel();
+        $uploadsDir = 'assets/img/users/';
+        $file = $_FILES['file'];
+        if (!empty($_SESSION["token"])) {
+            $session = Session::getByToken($_SESSION["token"]);
+            if ($session !== null) {
+                $user = $user->setId($session->getUserId());
+                if ($file['error'] === UPLOAD_ERR_OK) {
+                    $type = explode('.', basename($file['name']));
+                    $type = end($type);
+                    $fileName = $user->getLastname() . "_" . $user->getId() . "." . $type;
+                    move_uploaded_file($file['tmp_name'], $uploadsDir . $fileName);
+                    $user->setProfilePicture($uploadsDir . $fileName);
+                    $user->save();
+                    echo $uploadsDir . $fileName;
+                }
+            }
         }
     }
 

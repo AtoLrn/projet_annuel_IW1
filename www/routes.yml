@@ -157,6 +157,10 @@
 /create-comment:
   controller: comment
   action: createComment
+  
+/profile:
+  controller: user
+  action: profile
 
 /get-comments:
   controller: comment
@@ -169,3 +173,7 @@
 /modify-comment-status:
   controller: comment
   action: modifyCommentStatus
+
+/modify-profile-picture:
+  controller: user
+  action: modifyProfilePicture

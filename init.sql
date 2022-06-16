@@ -7,6 +7,7 @@ CREATE TABLE `esgi_user` (
   `isVerified` BOOLEAN NOT NULL DEFAULT FALSE,
   `password` varchar(255) NOT NULL,
   `mailToken` varchar(255) NOT NULL,
+  `profilePicture` varchar(2048) DEFAULT NULL,
 
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
