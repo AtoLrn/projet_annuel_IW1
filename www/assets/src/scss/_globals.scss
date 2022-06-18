@@ -1,7 +1,9 @@
 // globals init css
 * {
     box-sizing: border-box;
-    color: $black;
+    color: var(--text-color);
+    font-family: var(--font-family),  sans-serif;
+    background-color: var(--bg-color);  
 }
 
 a {
@@ -14,8 +16,7 @@ ul {
     margin: 0;
 }
 
-body,
-html {
+body, html {
     margin: 0px;
     width: 100vw;
     max-width: 100vw;
@@ -97,4 +98,16 @@ h3,
 
 .br {
     border-radius: 15px;
+}
+
+.bulle-1 ellipse, .bulle-3 ellipse{
+    fill: var(--btn-color) !important;
+}
+
+.bulle-2 ellipse, .bulle-4 ellipse {
+    fill: var(--btn-color-light) !important;
+}
+
+.text-color {
+    fill: var(--text-color) !important;
 }

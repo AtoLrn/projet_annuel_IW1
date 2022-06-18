@@ -65,7 +65,6 @@
         ]);
         $theme = $theme->setId($themeSelected[0]['theme_id']);
     ?>
-
     html {
         --bg-color: <?= $theme->getBgColor(); ?>;
         --ph-color: <?= $theme->getPhColor(); ?>;
@@ -78,80 +77,6 @@
         --btn-color-light: <?= $theme->getBtnColorLight(); ?>;
         --font-family: <?= $theme->getFontFamily(); ?>;
     }
-    
-    *:not(div), .navbar-front {
-        background-color: var(--bg-color);
-    }
-
-    *, .input {
-        color: var(--text-color);
-        font-family: var(--font-family),  sans-serif;
-    }
-
-
-    .bulle-1 ellipse, .bulle-3 ellipse{
-        fill: var(--btn-color) !important;
-    }
-
-    .bulle-2 ellipse, .bulle-4 ellipse {
-        fill: var(--btn-color-light) !important;
-    }
-
-    .text-color {
-        fill: var(--text-color) !important;
-    }
-
-    .c-pink {
-        color: var(--btn-color) !important;
-    }
-
-    .input-pink:focus {
-        border: 1px solid var(--btn-color);
-        background-color: var(--btn-color-shadow);
-    }
-
-    .card, .navbar-front {
-        box-shadow: 0px 4px 16px 2px var(--shadow-color);
-    }
-
-    .card.hover-up:hover {
-        box-shadow: 2px 4px 16px 3px var(--shadow-color-hover);
-    }
-
-    .btn-pink {
-        border: 1px solid var(--btn-color);
-        background-color: var(--btn-color) !important;
-        color: var(--bg-color);
-
-    }
-    .btn-pink:hover {
-        background-color: var(--bg-color) !important; 
-        color: var(--btn-color); 
-    }
-
-    .btn-outline-pink {
-        border: 1px solid var(--btn-color);
-        background-color: var(--background-color) !important;
-        color: var(--btn-color);
-    }
-    .btn-outline-pink:hover {
-        background: var(--btn-outline) !important;
-    }
-
-    .selector-button {
-        background-color: var(--bg-color);    
-        border: 1px solid var(--text-color);
-        color: var(--text-color);
-    }
-    .selector-button.selected {
-        background-color: var(--bg-color); 
-        border: 1px solid var(--btn-color);
-        color: var(--btn-color); 
-    } 
-
-   
-
-    
 
 </style>
 

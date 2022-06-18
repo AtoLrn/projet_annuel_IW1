@@ -8,18 +8,18 @@
         font-weight: bold;
     }
     &-black {
-        color: $black;
+        color: var(--text-color);
         border-bottom: 1px solid transparent;
 
         &:hover {
-            border-bottom: 1px solid $black;
+            border-bottom: 1px solid var(--text-color);
         }
     }
     &-danger {
-        color: $light-pink;
+        color: var(--btn-color-light);
 
         &:hover {
-            border-bottom: 1px solid $light-pink;
+            border-bottom: 1px solid var(--btn-color-light);
         }
     }
 }

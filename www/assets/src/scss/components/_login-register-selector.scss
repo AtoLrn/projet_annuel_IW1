@@ -1,12 +1,12 @@
 .selector-button {
     font-weight: 800;
-    color: black;
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
     border: solid 1px $light-gray;
     height: 68px;
-    background-color: white;
+    background-color: var(--bg-color);
     z-index: 2;
 
     &.left {
@@ -18,8 +18,8 @@
     }
 
     &.selected {
-        color: $pink;
-        border: solid 1px $pink;
+        color: var(--btn-color);
+        border: solid 1px var(--btn-color);
         z-index: 2;
     }
 }

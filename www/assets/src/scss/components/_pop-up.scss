@@ -13,7 +13,7 @@
     }
 
     .pop-up {
-        background: $white;
+        background: var(--bg-color);
         position: absolute;
         width: 400px;
         top: calc(35%);
