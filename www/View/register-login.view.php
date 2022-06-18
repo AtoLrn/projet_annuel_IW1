@@ -3,7 +3,7 @@
         <h1>Votre compte à bien été créé!</h1>
         <h2>Un mail vous a été envoyé afin de confirmer votre adresse</h2>
     <?php else: ?>
-         <div class="col card bg-white w-mobile a-center" style="width: 400px">
+         <div class="col card w-mobile a-center" style="width: 400px">
             <div class="row j-center g-0">
                 <button id="loginButton" class="col-lg-6 btn selector-button left" >Connexion</button>
                 <button id="registerButton" class="col-lg-6 btn selector-button right" >S'inscrire</button>
@@ -17,7 +17,7 @@
                 ?>
             </div>
             <?php if (isset($errorMessage) && (isset($errorMessage['server']) || isset($errorMessage['login']))): ?>
-                <p class="c-light-pink pb-4"><?= $errorMessage['login']??$errorMessage['server'] ?></p>
+                <p class="c-error pb-4"><?= $errorMessage['login']??$errorMessage['server'] ?></p>
             <?php endif; ?>
         </div>
     <?php endif; ?>

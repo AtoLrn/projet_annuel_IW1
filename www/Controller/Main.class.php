@@ -70,7 +70,7 @@ class Main
             ->where('title', "%" . $q . "%", " LIKE ")
             ->fetch();
 
-        $articlePerPage = 2;  
+        $articlePerPage = 6;  
         if( $count->total / $articlePerPage < $page && $count->total / $articlePerPage >= 0) {
             header('location: /rechercher');
             die();

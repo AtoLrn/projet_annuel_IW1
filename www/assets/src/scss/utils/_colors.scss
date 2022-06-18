@@ -1,19 +1,19 @@
 // background
 .bg {
     &-black {
-        background-color: $black;
+        background-color: var(--text-color);
     }
     &-white {
-        background-color: $white;
+        background-color: var(--bg-color);
     }
     &-light-gray {
         background-color: $light-gray;
     }
     &-pink {
-        background-color: $pink;
+        background-color: var(--btn-color);
     }
     &-light-pink {
-        background-color: $light-pink;
+        background-color: var(--btn-color-light);
     }
 
     &-img {
@@ -25,22 +25,25 @@
 //text color
 .c {
     &-black {
-        color: $black;
+        color: var(--text-color);
     }
     &-white {
-        color: $white;
+        color: var(--bg-color);
     }
     &-light-gray {
         color: $light-gray;
     }
     &-pink {
-        color: $pink;
+        color: var(--btn-color);
     }
     &-light-pink {
-        color: $light-pink;
+        color: var(--btn-color-light);
     }
     &-success {
         color: $green-success;
+    }
+    &-error {
+        color: $error;
     }
 }
 
@@ -48,21 +51,21 @@
 
 .bd {
     &-black {
-        border-color: $black !important;
+        border-color: var(--text-color);
     }
     &-white {
-        border-color: $white !important;
+        border-color: var(--bg-color);
     }
     &-light-gray {
-        border-color: $light-gray !important;
+        border-color: $light-gray;
     }
     &-pink {
-        border-color: $pink !important;
+        border-color: var(--btn-color);
     }
     &-light-pink {
-        border-color: $light-pink !important;
+        border-color: var(--btn-color-light);
     }
     &-success {
-        border-color: $green-success !important;
+        border-color: $green-success;
     }
 }

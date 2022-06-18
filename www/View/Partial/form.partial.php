@@ -57,7 +57,7 @@
 
         </div>
         <?php if(isset($data['error'][$name])): ?>
-            <span class="small c-light-pink"> <?= implode( ", ", $data['error'][$name]) ?> </span>
+            <span class="small c-error"> <?= implode( ", ", $data['error'][$name]) ?> </span>
         <?php endif; ?>
     </div>
     <?php endforeach;?>

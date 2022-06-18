@@ -76,8 +76,8 @@
     .paginate_button {
         padding: 4px 8px !important;
         border-radius: 5px !important;
-        border: 1px solid #D4D4D4 !important;
-        background-color: $white !important;
+        border: 1px solid $light-gray !important;
+        background-color: var(--bg-color) !important;
         min-width: 28px;
         margin-left: 4px !important;
     }
