@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title> Crom Miam </title>
+    <title> <?= WEBSITENAME ?> </title>
     <meta name="description" content="Description de ma page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assets/dist/main.css">
