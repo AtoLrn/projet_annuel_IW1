@@ -1,21 +1,17 @@
-
-// a revoir trop spécifique et a mettre sous forme de classe
 .input {
-
     outline: none;
-    border: 1px solid #E2E2E2;
+    border: 1px solid var(--ph-color);
     border-radius: 10px;
     padding:  .65em .8em ;
     line-height:.65em;
     font-size: 16px;
-    color: #04172F;
+    color: var(--text-color);
     transition: .2s ease;
 
     &-pink {
         &:focus {
-            border: 1px solid #FF409C;
-            background-color: rgba(191, 15, 121, 0.03);
-    
+            border: 1px solid var(--btn-color);
+            background-color: var(--btn-color-shadow);
         }
     }
 
@@ -34,12 +30,12 @@
     }
 
     &.error {
-        border: 1px solid #E77280;
+        border: 1px solid $error;
     }
 
     
 }
 
 input::placeholder {
-    color: #E2E2E2;
+    color: var(--ph-color);
 }

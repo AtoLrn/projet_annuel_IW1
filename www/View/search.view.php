@@ -37,6 +37,29 @@
         
         <?php endif; ?>
     </section>
+    
+    <?php if($nbPages > 1): ?>
+    <section class="row j-center">
+        <?php 
+        if($currentPage != 0):
+            $query['page'] = $currentPage - 1; ?>
+            <a class="py-1 px-2 btn btn-outline-pink" href="/rechercher<?= !empty($query) ? '?' . http_build_query($query) : '' ?>" > précedent</a>
+        <?php 
+        endif;
+        for($i = 0 ; $i < $nbPages ; $i++):
+            $query['page'] = $i;
+         ?>
+            <a class="py-1 px-3 btn btn-outline-pink <?= $i == $currentPage ? '' : 'bd-0' ?>" href="/rechercher<?= !empty($query) ? '?' . http_build_query($query) : '' ?>">
+                <?= $i + 1; ?>
+            </a>
+        <?php endfor; ?>
+        <?php  
+        if($currentPage < $nbPages - 1):
+            $query['page'] = $currentPage + 1; ?>
+            <a class="py-1 px-2 btn btn-outline-pink" href="/rechercher<?= !empty($query) ? '?' . http_build_query($query) : '' ?>" > suivant </a>
+        <?php endif; ?>
+    </section>
+    <?php endif; ?>
 </section>
 
 

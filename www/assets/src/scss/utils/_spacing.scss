@@ -149,19 +149,19 @@
 
     //border
     .bd-#{$i} {
-        border: calc($i * 1px) solid $black;
+        border: calc($i * 1px) solid var(--text-color);
     }
     .bd-t-#{$i} {
-        border-top: calc($i * 1px) solid $black;
+        border-top: calc($i * 1px) solid var(--text-color);
     }
     .bd-b-#{$i} {
-        border-bottom: calc($i * 1px) solid $black !important;
+        border-bottom: calc($i * 1px) solid var(--text-color);
     }
     .bd-l-#{$i} {
-        border-right: calc($i * 1px) solid $black;
+        border-right: calc($i * 1px) solid var(--text-color);
     }
     .bd-r-#{$i} {
-        border-left: calc($i * 1px) solid $black;
+        border-left: calc($i * 1px) solid var(--text-color);
     }
 
     .br-#{$i} {

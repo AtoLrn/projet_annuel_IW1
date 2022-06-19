@@ -55,15 +55,29 @@ class Main
             ->fetchAll()
         );
 
+        // query GET
         $category = isset($_GET['category']) && in_array($_GET['category'], $categories) ? $_GET['category'] : null;
         $q = !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : null;
         $order = !empty($_GET['order']) ? htmlspecialchars($_GET['order']) : "date_desc";
-  
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 0 ? $_GET['page'] : 0;
+        
+        $article = new ArticleModel();
+        
+        // get count articles for pagination
+        $count = $article->select2('article', ['COUNT(*) AS total'])
+            ->innerJoin('category', 'article.categoryId', 'category.id')
+            ->where('name', $category)
+            ->where('title', "%" . $q . "%", " LIKE ")
+            ->fetch();
 
-        $view = new View('search');
-        $articles = new ArticleModel();
-        $orderBy = $articles->getOrderType($order);
-        $articles = $articles->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
+        $articlePerPage = 6;  
+        if( $count->total / $articlePerPage < $page && $count->total / $articlePerPage >= 0) {
+            header('location: /rechercher');
+            die();
+        }        
+        // search articles
+        $orderBy = $article->getOrderType($order);
+        $articles = $article->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
             ->leftJoin('image', 'article.id', 'image.articleId')
             ->leftJoin('star', 'article.id', 'star.articleId')
             ->innerJoin('category', 'article.categoryId', 'category.id')
@@ -72,13 +86,20 @@ class Main
             ->where('title', "%" . $q . "%", " LIKE ")
             ->groupBy(['idArticle', 'title', 'description', 'path', 'createdAt', 'name'])
             ->orderBy($orderBy['val'], $orderBy['order'])
+            ->limit($page * $articlePerPage, $articlePerPage)
             ->fetchAll();
+
         
+        //view data
+        $view = new View('search');
         $view->assign("articles", $articles);
         $view->assign("categories", $categories);
         $view->assign("categoryName", $category);
         $view->assign("q", $q);
         $view->assign("order", $order);
+        $view->assign("nbPages", $count->total / $articlePerPage);
+        $view->assign("query", $_GET);
+        $view->assign("currentPage", $page);
     }
 
     public function contact()

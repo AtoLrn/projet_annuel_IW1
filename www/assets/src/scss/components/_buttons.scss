@@ -1,7 +1,7 @@
 // a revoir trop spécifique
 
 .btn {
-    color: white;
+    color: var(--bg-color);
     font-weight: 500;
     text-decoration: none;
     font-size: 16px;
@@ -16,31 +16,31 @@
 
     &-pink {
 
-        border: 1px solid $pink;
-        background-color: $pink;
+        border: 1px solid var(--btn-color);
+        background-color: var(--btn-color);
         &:hover {
             background-color: transparent;
-            color: $pink;
+            color: var(--btn-color);
         }
     }
 
     &-danger {
 
-        border: 1px solid $light-pink;
-        background-color: $light-pink;
+        border: 1px solid var(--btn-color-light);
+        background-color: var(--btn-color-light);
         &:hover {
             background-color: transparent;
-            color: $light-pink;
+            color: var(--btn-color-light);
         }
     }
 
     &-outline-pink {
 
-        border: 1px solid $pink;
-        background-color: $white;
-        color: $pink;
+        border: 1px solid var(--btn-color);
+        background-color: var(--bg-color);
+        color: var(--btn-color);
         &:hover {
-            background: lighten($pink, 26%);
+            background-color: var(--btn-outline);
         }
     }
 

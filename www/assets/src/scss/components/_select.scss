@@ -28,13 +28,13 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: (--text-color);
     z-index: 2;
     max-height: 350px;
     border-radius: 5px;
     margin-top: .5em;
     overflow-y: auto;
-    border: 1px solid #ff5e84;
+    border: 1px solid var(--btn-color);
     top: 100%;
     width: 100%;
     > section {
@@ -44,12 +44,12 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid #ff5e8475;
+        border-bottom: 1px solid var(--btn-color-shadow);
         > span {
             .valid {
                 font-weight: bold;
 
-                color: green
+                color: $green-success;
             }
         }
         &:hover {

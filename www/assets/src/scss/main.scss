@@ -5,9 +5,6 @@
 @import "grid";
 @import "font";
 
-// import utils
-@import "utils/colors";
-@import "utils/animation";
 
 
 // import components
@@ -25,7 +22,11 @@
 @import "components/select";
 @import "components/profile-picture";
 
+// import utils
+@import "utils/animation";
 @import "utils/spacing";
+@import "utils/colors";
+
 
 
 
