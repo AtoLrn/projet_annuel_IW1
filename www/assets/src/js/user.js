@@ -45,7 +45,6 @@ const getUserById = (userId) => {
     }).then((r) => {
         return r.json();
     }).then((data) => {
-        data = data[0]
         setAsideUserInfo(data);
     }).catch((error) => {
         console.log('Erreur : ' + error);
@@ -77,15 +76,15 @@ const setAsideUserInfo = (data) => {
     $('.aside-info').removeClass("show");
     let info = $('#infos');
     info.html("");
-    info.append( `<p>${data.user_lastname}</p>` );
-    info.append( `<p>${data.user_firstname}</p>` );
-    info.append( `<p>${data.user_email}</p>` );
-    info.append( `<p>${statusUser[data.user_status] }</p>` );
+    info.append( `<p>${data.lastname}</p>` );
+    info.append( `<p>${data.firstname}</p>` );
+    info.append( `<p>${data.email}</p>` );
+    info.append( `<p>${statusUser[data.status] }</p>` );
 
     let btns = $('#btns');
     btns.html("");
     btns.append( "<button class='btn btn-pink little'> Changer status </button>" );
-    btns.append( `<button class='btn btn-danger little' onclick='displayPopUp(${data.user_id})'> Supprimer </button>` );
+    btns.append( `<button class='btn btn-danger little' onclick='displayPopUp(${data.id})'> Supprimer </button>` );
     
 
     $('.aside-info').addClass("show");

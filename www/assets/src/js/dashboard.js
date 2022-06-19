@@ -18,7 +18,7 @@ const getUserChartInfos = () => {
     }).then((data) => {
         let userTab = []
         data.forEach(elem => {
-            let date = elem["user_createdAt"].split(' ')
+            let date = elem.createdAt.split(' ')
             if (userTab[date[0]]) {
                 userTab[date[0]].value++
             } else {

@@ -156,27 +156,6 @@ class User extends Sql
         ];
     }
 
-    public function formatUserById(): array
-    {
-        return [          
-            "user" => [
-                "args" => ["id", "email", "firstname", "lastname", "status"],
-                "params" => ["id" => ""],
-                "lf" => ["article"]
-            ],
-            "article" => [
-                "args" => ["id", "title", "description"],
-                "lf" => ["like", "comment"]
-            ],
-            "like" => [
-                "args" => ["id"],
-            ],
-
-            "comment" => [
-                "args" => ["id"],
-            ]                 
-        ];
-    }
 
     /**
      * @param string $isVerified

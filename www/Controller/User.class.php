@@ -18,26 +18,19 @@ class User
     public function login(UserModel $user): ?string
     {
         if (!empty($_POST)) {
-            $loggedUser = $user->select(
-                [
-                    "user" => [
-                        "args" => ["id", "password", "isVerified"],
-                        "params" => ["email" => $_POST['email']],
-                    ]
-                ]
-            );
+            $loggedUser = $user->select2('user', ["*"])
+                ->where('email', $_POST['email'])
+                ->fetch();
             if (!empty($loggedUser)) {
-                if ($loggedUser[0]['user_isVerified'] != 1) {
+                if ($loggedUser->getIsVerified() != 1) {
                     return 'Ce mail n\'est pas vérifié';
                 }
 
-                if (password_verify($_POST['password'], $loggedUser[0]['user_password'])) {
-
-                    $user = $user->setId($loggedUser[0]['user_id']);
+                if (password_verify($_POST['password'], $loggedUser->getPassword())) {
 
                     $session = new Session();
                     $session->generateToken();
-                    $session->setUserId($user->getId());
+                    $session->setUserId($loggedUser->getId());
                     $session->save();
 
                     if ($_GET["uri"]) {
@@ -58,14 +51,10 @@ class User
         if (!empty($_POST)) {
 
             $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
-            if ($user->select(
-                [
-                    "user" => [
-
-                        "args" => ["id", "password"], "params" => ["email" => $_POST['email']]
-                    ]
-                ]
-            )) {
+            if ($user->select2('user', ["id", "password"])
+                    ->where('email', $_POST['email'])
+                    ->fetch()
+               ) {
                 $result["email"][] = 'Ce mail est deja utilisé';
             }
             if (empty($result)) {
@@ -128,16 +117,10 @@ class User
         $user = new UserModel();
         $view = new View("mail-validation", 'front');
         if ($_GET['token']) { // Faire une sécu ic!!!!!!!!!
-            $tokenIsExist = $user->select(
-                [
-                    "user" => [
-                        "args" => ["id"],
-                        "params" => ["mailToken" => $_GET['token']]
-                    ]
-                ]
-            );
-            if (!empty($tokenIsExist)) {
-                $user = $user->setId($tokenIsExist[0]['user_id']);
+            $user = $user->select2('user', ["*"])
+                ->where('mailToken', $_GET['token'])
+                ->fetch();
+            if (!empty($user)) {
                 $user->setIsVerified(1);
                 $user->save();
                 $view->assign('validationStatus', true);
@@ -220,13 +203,14 @@ class User
 
         $id = $_POST['id'] ?? null;
         $user = new UserModel();
-        $listTpl = $user->formatUserById();
-        $listTpl['user']['params']['id'] = $id;
-        $result = $user->select($listTpl);
-        if($result) {
+        $user = $user->select2('user', ["id", "email", "firstname", "lastname", "status", "isVerified", "mailToken"])
+            ->where('id', $id)
+            ->fetch();
+
+        if($user) {
             http_response_code(200);
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode($result);
+            echo json_encode($user);
         }else {
             http_response_code(500);
         }
@@ -239,19 +223,14 @@ class User
     {
         Server::ensureHttpMethod('GET');
         $getParams = isset($_GET['params']) ? json_decode($_GET['params']) : null;
-        $user = new UserModel();
-        $result = $user->select(
-            [
-                "user" => [
-                    "args" => ["id", "email", "lastname", "firstname", "status", "createdAt"],
-                    "params" => is_array($getParams) ? [$getParams[0] => ['value' => $getParams[1], 'operator' => $getParams[2]]] : []
-                ],
-                
-            ]
-        );
-        if($result) {       
+        $users = new UserModel();
+        $users = $users->select2('user', ["id", "email", "lastname", "firstname", "status", "createdAt"])
+            ->where($getParams[0]??"",$getParams[1]??null,$getParams[2]??"=")
+            ->fetchAll();
+     
+        if($users) {       
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode($result);
+            echo json_encode($users);
             http_response_code(200);
         }else {
             http_response_code(500);
@@ -262,8 +241,6 @@ class User
 
     public function deleteUserById()
     {
-        $content = file_get_contents('php://input');
-        $_POST = json_decode($content, true);
         Server::ensureHttpMethod('DELETE');
 
         $id = $_GET['id'] ?? null;

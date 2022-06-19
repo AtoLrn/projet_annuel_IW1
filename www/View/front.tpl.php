@@ -47,23 +47,15 @@
     </header>
     <?php include "assets/img/logo/burger-menu.php"; ?>
     <?php include "View/" . $this->view . ".view.php"; ?>
-    
-
 </body>
-
-
 
 <style>
      <?php
-        use App\Model\Theme; 
+     use App\Model\Theme;
         $theme = new Theme();
-        $themeSelected = $theme->select([
-            "theme" => [
-                "args" => ["id"],
-                "params" => ['selected' => 1] 
-            ]
-        ]);
-        $theme = $theme->setId($themeSelected[0]['theme_id']);
+        $theme = $theme->select2('theme', ['*'])
+            ->where('selected', 1)
+            ->fetch();
     ?>
     html {
         --bg-color: <?= $theme->getBgColor(); ?>;

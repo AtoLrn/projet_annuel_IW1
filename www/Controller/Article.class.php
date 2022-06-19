@@ -101,7 +101,7 @@ class Article
 
         $view = new View("article");
 
-        $view->assign("isUserOrAdmin", $article->getUserId() == $session->getUserId());
+        $view->assign("isUserOrAdmin", is_null($session) ? false : $article->getUserId() == $session->getUserId());
         $view->assign("article", $article);
         $view->assign("images", $images);
         $view->assign("score", $score[0]);

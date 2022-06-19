@@ -14,6 +14,7 @@
     action: logout
     security:
         - user
+        - chief
         - admin
 
 /register-login:
@@ -27,18 +28,26 @@
 /certification-request:
   controller: certification
   action: certificationRequest
+  security:
+      - user
 
 /get-certifications:
   controller: certification
   action: getCertifications
+  security:
+      - admin
 
 /get-certification:
   controller: certification
   action: getCertificationById
+  security:
+      - admin
 
 /modify-certification-status:
   controller: certification
   action: modifyCertificationStatus
+  security:
+      - admin
 
 /forget:
     controller: user
@@ -52,7 +61,6 @@
     controller: article
     action: editArticle
     security:
-      - user
       - chief
 
 /set-score:
@@ -61,6 +69,7 @@
     security:
       - user
       - chief
+      - admin
 
 
 /create-recette:
@@ -75,88 +84,118 @@
   action: dashboard
   security:
     - admin
-    - user
 
 /list:
   controller: admin
   action: list
   security:
+    - admin
 
 /categories:
   controller: category
   action: categories
   security:
+    - admin
 
 /delete-category:
   controller: category
   action: deleteCategoryById
   security:
+    - admin
 
 
 /get-user:
   controller: user
   action: getUserById
   security:
+    - admin
 
 
 /get-users:
   controller: user
   action: getUsers
+  security:
+    - admin
 
 /delete-user:
   controller: user
   action: deleteUserById
   security:
+    - admin
   
 /article-creation:
     controller: article
     action: create
     security:
-        - user
+      - chief
+      - admin
 
 /get-articles:
   controller: article
   action: getArticles
+  security:
+    - admin
 
 /get-article:
   controller: article
   action: getArticleById
+  security:
+    - admin
 
 /ingredient-request:
   controller: ingredient
   action: ingredientRequest
+  security:
+      - chief
+      - admin
 
 /get-ingredients:
   controller: ingredient
   action: getIngredients
+  security:
+    - admin
 
 /get-ingredient:
   controller: ingredient
   action: getIngredientById
+  security:
+    - admin
 
 /modify-ingredient-status:
   controller: ingredient
   action: modifyIngredientStatus
+  security:
+    - admin
   
 /theme:
     controller: theme
     action: handleTheme
+    security:
+      - admin
 
 /list-themes:
     controller: theme
     action: listThemes
+    security:
+      - admin
 
 /delete-theme:
     controller: theme
     action: deleteThemeById
+    security:
+      - admin
 
 /settings:
   controller: admin
   action: settings
+  security:
+    - admin
 
 /create-comment:
   controller: comment
   action: createComment
+  security:
+      - user
   
 /profile:
   controller: user
@@ -165,15 +204,23 @@
 /get-comments:
   controller: comment
   action: getComments
+  security:
+    - admin
 
 /get-comment:
   controller: comment
   action: getCommentById
+  security:
+    - admin
 
 /modify-comment-status:
   controller: comment
   action: modifyCommentStatus
+  security:
+    - admin
 
 /modify-profile-picture:
   controller: user
   action: modifyProfilePicture
+  security:
+      - user
