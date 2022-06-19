@@ -40,6 +40,14 @@
                             <a href="/list?q=comment" class="link-black">Commentaires</a>
                         </li>
                         <li class="row g-3"> 
+                            <?php include "assets/img/logo/ingredients.php"; ?>
+                            <a href="/list?q=ingredient" class="link-black">Ingrédients</a>
+                        </li>
+                        <li class="row g-3"> 
+                            <?php include "assets/img/logo/certifications.php"; ?>
+                            <a href="/list?q=ingredient" class="link-black">Certifications</a>
+                        </li>
+                        <li class="row g-3"> 
                             <?php include "assets/img/logo/themes.php"; ?>
                             <a href="/list-themes" class="link-black">Mon thème</a>
                         </li>

@@ -53,11 +53,7 @@
                         
                     } elseif ($_GET['q'] === 'comment') {
                         $this->partialInclude("comment-infos", []);
-                    } else {
-                        $this->partialInclude("users-articles", []);
-                    }
-                } else {
-                    $this->partialInclude("users-articles", []);
+                    } 
                 }
                 ?>
             </div>

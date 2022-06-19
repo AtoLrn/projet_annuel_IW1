@@ -38,11 +38,11 @@ CREATE TABLE `esgi_ingredient` (
    `path` varchar(2048) NOT NULL,
    `status` enum('inDemand','enabled','refused','disabled') NOT NULL,
    `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   `userId` int(11) NOT NULL
+   `userId` int(11) NOT NULL,
+   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-ALTER TABLE `esgi_ingredient`
-    ADD PRIMARY KEY (`id`),
+ALTER TABLE `esgi_ingredient` 
     ADD KEY `fk_ingredient_user` (`userId`);
 
 ALTER TABLE `esgi_ingredient`
@@ -68,6 +68,8 @@ CREATE TABLE `esgi_comment` (
   `articleId` INT(11) NOT NULL,
   `content` TEXT NOT NULL,
   `status` enum('inDemand','approved','refused') NOT NULL,
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
   FOREIGN KEY (`articleId`) REFERENCES `esgi_article` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
@@ -126,11 +128,11 @@ CREATE TABLE `esgi_certification` (
   `officialDocumentPath` varchar(2048) NOT NULL,
   `status` enum('inDemand','approved','refused') NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `userId` int(11) NOT NULL
+  `userId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `esgi_certification`
-    ADD PRIMARY KEY (`id`),
     ADD KEY `fk_certification_user` (`userId`);
 
 ALTER TABLE `esgi_certification`

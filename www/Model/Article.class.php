@@ -122,6 +122,8 @@ class Article extends Sql
 
         $options = '['.implode(',', $options).']';
 
+        $defaultSelected = "";
+
         if ($edit) {
             $ingredients = $ingredients->select([
                 "ingredient" => [

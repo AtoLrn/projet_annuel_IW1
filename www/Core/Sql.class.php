@@ -3,10 +3,11 @@
 namespace App\Core;
 
 use App\Core\Connection;
+use JsonSerializable;
 use PDO;
 use PDOStatement;
 
-abstract class Sql extends MysqlBuilder
+abstract class Sql extends MysqlBuilder implements JsonSerializable
 {
     private $pdo;
     private $table;
@@ -124,7 +125,6 @@ abstract class Sql extends MysqlBuilder
         $queryPrepared = $this->pdo->prepare($this->get());
         $queryPrepared->execute($this->getParams());
         $queryPrepared->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-
         return $queryPrepared->fetch();
     }
 
@@ -197,5 +197,12 @@ abstract class Sql extends MysqlBuilder
         }
 
         return implode(" AND ", $where);
+    }
+
+    public function jsonSerialize()
+    {
+        $columns = get_object_vars($this);
+        $columns = array_diff_key($columns, get_class_vars(get_class()));
+        return $columns;
     }
 }
