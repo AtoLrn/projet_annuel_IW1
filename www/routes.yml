@@ -274,3 +274,7 @@
   action: editPage
   security:
     - admin
+  
+/setup:
+  controller: admin
+  action: setup

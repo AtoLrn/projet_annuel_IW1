@@ -8,7 +8,7 @@ use App\Core\Decorator\UrlDecorator;
 
 
 session_start();
-require "conf.inc.php";
+
 // require "Core/Middleware/Security.php";
 
 function myAutoloader($class)
@@ -86,6 +86,21 @@ $objectController = new $controller();
 
 if (!method_exists($objectController, $action)) {
     die("L'action " . $action . " n'existe pas");
+}
+
+
+if (!file_exists("conf.inc.json")) {
+    if ($uri != "/setup"){ header("Location: /setup");}
+
+    $objectController->$action();
+    exit();
+}
+
+// DEFINE ENV VAR 
+// include "conf.inc.php";
+$ENV_VAR = json_decode(file_get_contents("conf.inc.json"));
+foreach($ENV_VAR as $key => $value) {
+    define($key, $value);
 }
 
 //Call MiddleWare

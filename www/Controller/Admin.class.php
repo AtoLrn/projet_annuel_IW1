@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Core\View;
-use App\Model\Category;
+use App\Core\Verificator;
 use App\Model\User as UserModel;
 use App\Model\Article as ArticleModel;
 use App\Model\Certification as CertificationModel;
 use App\Model\Ingredient as IngredientModel;
 
+use PDO;
+use PDOException;
 class Admin
 {
 
@@ -145,6 +147,149 @@ class Admin
     public function settings(): void
     {
         $view = new View("settings", "back");
+    }
+
+    public function setup(): void 
+    {
+        if (file_exists("conf.inc.json")) header("Location: /list");
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            Verificator::checkForm($this->getSetupForm(), $_POST);
+
+            try {
+                $conn = new \PDO("mysql:host=" . $_POST['dbHost'] . ";port=" . $_POST['dbPort'] . ";dbname=" . $_POST['dbName'],
+                $_POST['dbUser'],
+                $_POST['dbPassword'],
+                    [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
+                );
+
+                $env = json_encode([
+                    "DBUSER" => $_POST['dbUser'],
+                    "DBPWD" => $_POST['dbPassword'],
+                    "DBHOST" => $_POST['dbHost'],
+                    "DBNAME" => $_POST['dbName'],
+                    "DBPORT" => $_POST['dbPort'],
+                    "DBDRIVER" => "mysql",
+                    "DBPREFIXE" => $_POST['dbPrefixe'],
+                    "FIRSTNAME" => $_POST['emailFirstname'],
+                    "LASTNAME" => $_POST['emailLastname'],
+                    "WEBSITENAME" => $_POST['websiteName'],
+                    "WEBSITEURL" => $_POST['websiteUrl'],
+                    "MAILUSERNAME" => $_POST['emailUsername'],
+                    "MAILPASSWORD" => $_POST['emailPassword'],
+                    "KEY_SECRET_RECAPTCHA" => "6LcEYYEfAAAAAPA4UDMLnwqWtND8cppT0hlW06gX",
+                    "KEY_SITE_RECAPTCHA" => "6LcEYYEfAAAAAPjm6tOrK_27AYOQE0VEnCZfnqAX"
+                ]);
+
+                $init = file_get_contents("init.sql");
+                $init = str_replace('CUSTOM_PREFIX_',  $_POST['dbPrefixe'], $init);
+                
+                $conn->exec($init);
+
+                file_put_contents("conf.inc.json", $env);
+
+                header("Location: /list");
+            } catch(PDOException $ex) {
+                print_r("Cannot connect");
+            }
+            
+
+            
+
+            exit();
+            
+        }
+
+        $view = new View("setup", "setup");
+        $view->assign("form", $this->getSetupForm());
+    }
+
+    public function getSetupForm(): array
+    {
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/setup",
+                "enctype" => "multipart/form-data",
+                "submit" => "Enregistrer"
+            ],
+            "inputs" => [
+                "dbName" => [
+                    "type" => "text",
+                    "placeholder" => "Database Name",
+                    "required" => true,
+                    "label" => "Database Name"
+                ],
+                "dbUser" => [
+                    "type" => "text",
+                    "placeholder" => "Database Username",
+                    "required" => true,
+                    "label" => "Database Username"
+                ],
+                "dbPassword" => [
+                    "type" => "text",
+                    "placeholder" => "Database Password",
+                    "required" => true,
+                    "label" => "Database Password"
+                ],
+                "dbHost" => [
+                    "type" => "text",
+                    "placeholder" => "Database Hostname",
+                    "required" => true,
+                    "label" => "Database Hostname"
+                ],
+                "dbPort" => [
+                    "type" => "text",
+                    "placeholder" => "Database Port",
+                    "required" => true,
+                    "label" => "Database Port"
+                ],
+                "dbPrefixe" => [
+                    "type" => "text",
+                    "placeholder" => "Database Prefixe",
+                    "required" => true,
+                    "label" => "Database Prefixe"
+                ],
+                "emailFirstname" => [
+                    "type" => "text",
+                    "placeholder" => "Email Firstname",
+                    "required" => true,
+                    "label" => "Email Firstname"
+                ],
+                "emailLastname" => [
+                    "type" => "text",
+                    "placeholder" => "Email Lastname",
+                    "required" => true,
+                    "label" => "Email Lastname"
+                ],
+                "emailUsername" => [
+                    "type" => "email",
+                    "placeholder" => "your.email@gmail.com",
+                    "required" => true,
+                    "label" => "Your email"
+                ],
+                "emailPassword" => [
+                    "type" => "text",
+                    "placeholder" => "Your email's password",
+                    "required" => true,
+                    "label" => "Email Password"
+                ],
+                "websiteName" => [
+                    "type" => "text",
+                    "placeholder" => "Your website's Name",
+                    "required" => true,
+                    "label" => "Website's Name"
+                ],
+                "websiteUrl" => [
+                    "type" => "text",
+                    "placeholder" => "Your website's URL",
+                    "required" => true,
+                    "label" => "Website's URL"
+                ],
+
+                
+            ]
+        ];
     }
 
 }
