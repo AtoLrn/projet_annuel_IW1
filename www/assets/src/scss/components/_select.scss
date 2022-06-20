@@ -11,7 +11,8 @@
         cursor: pointer;
         transition: ease .2s;
         > span {
-            color: white;
+            color: white !important;
+            background-color: transparent !important;
             &.remove {
                 font-weight: bold;
                 margin-left: .5em;
