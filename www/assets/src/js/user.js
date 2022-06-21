@@ -51,14 +51,12 @@ const getUserById = (userId) => {
     });
 }
 
-const setTableUser = (data, tab) => {
-  
+const setTableUser = (data, tab) => {  
     tab.clear();
     for(const row of data) {
         let cols = []
-        for(const col in row) {
-            
-            if(col != 'user_id') {
+        for(const col in row) {        
+            if(col != 'id') {
                 cols.push(row[col])
             }
         }
@@ -67,7 +65,7 @@ const setTableUser = (data, tab) => {
         .draw()
         .node();
         $(rowNode).click(function() {
-            getUserById(row['user_id'])
+            getUserById(row['id'])
         });
     }
 }
