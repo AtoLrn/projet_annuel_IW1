@@ -7,10 +7,10 @@ use App\Core\Sql;
 class User extends Sql
 {
     protected $id = null;
-    protected $firstname = null;
-    protected $lastname = null;
-    protected $status = "user";
     protected $email;
+    protected $lastname = null;
+    protected $firstname = null;
+    protected $status = "user";
     protected $password;
     protected $isVerified = 0;
     protected $mailToken = null;
