@@ -65,6 +65,7 @@ class Article
 
         $article = new ArticleModel();
         $comment = new CommentModel();
+        $ingredients = new Ingredient();
         $article = $article->setId($_GET['id']);
 
         if (!$article) {
@@ -91,6 +92,12 @@ class Article
             ]
         ]);
 
+        $ingredients = $ingredients->select2('ingredient_article', ['name', 'path'])
+            ->leftJoin('ingredient', 'ingredient_article.ingredientId', 'ingredient.id')
+            ->where('articleId', $article->getId())
+            ->fetchAll();
+        
+
         $comments = $this->getCommentsByArticle($article->getId());
         
 
@@ -105,6 +112,7 @@ class Article
         $view->assign("article", $article);
         $view->assign("images", $images);
         $view->assign("score", $score[0]);
+        $view->assign("ingredients", $ingredients);
         $view->assign("comment", $comment);
         $view->assign("comments", $comments);
     }
