@@ -224,3 +224,10 @@
   action: modifyProfilePicture
   security:
       - user
+      - chief
+      - admin
+
+/404:
+  controller: main
+  action: notFound
+  

@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Core\CleanWords;
 use App\Core\Mail;
 use App\Core\Verificator;
-use App\Core\Sql;
 use App\Core\View;
 use App\Core\Server;
-use App\Model\Certification as CertificationModel;
 use App\Model\User as UserModel;
+use App\Model\Article as ArticleModel;
 use App\Model\Session;
 
 
@@ -146,50 +144,37 @@ class User
     public function profile()
     {
         $user = new UserModel();
-        $view = new View("profile", "front");
-        if (key_exists('userId', $_GET)) {
-            $userId = $_GET['userId'];
-            if (!empty($_SESSION["token"])) {
-                $session = Session::getByToken($_SESSION["token"]);
-                if ($session !== null) {
-                    $isMyProfile = $session->getUserId() === $userId;
-                    $userId = $isMyProfile ? $session->getUserId() : $userId;
-                    $userInfos = $user->select([
-                        "user" => [
-                            "args" => [
-                                "lastname",
-                                "firstname",
-                                "email",
-                                "status",
-                                "createdAt",
-                                "profilePicture"
-                            ],
-                            "params" => ["id" => $userId],
-                        ]
-                    ]);
-                    $userArticles = $user->select(([
-                        "article" => [
-                            "args" => [
-                                "id",
-                                "categoryId",
-                                "title",
-                                "description",
-                                "createdAt",
-                            ],
-                            "params" => ["userId" => $userId],
-                            "ij" => ['image']
-                        ],
-                        "image" => [
-                            "args" => ["path"]
-                        ]
-                    ]));
-
-                    $view->assign("userInfos", $userInfos[0]);
-                    $view->assign("userArticles", $userArticles);
-                    $view->assign("isMyProfile", $isMyProfile);
-                }
-            }
+        if (!isset($_GET['userId']) || !is_numeric($_GET['userId'])) {
+            header('location: /404');
+            die();
         }
+
+        $userId = $_GET['userId'];
+
+        $session = !empty($_SESSION["token"]) ? Session::getByToken($_SESSION["token"]) : null;
+
+        $isMyProfile = $session->getUserId() == $userId;
+        $userId = $isMyProfile ? $session->getUserId() : $userId;
+        $userInfos = $user->select2('user', ['*'])
+            ->where('id', $userId)
+            ->fetch();
+        
+        $articles = new ArticleModel();
+        $articles = $articles->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
+        ->leftJoin('image', 'article.id', 'image.articleId')
+        ->leftJoin('star', 'article.id', 'star.articleId')
+        ->innerJoin('category', 'article.categoryId', 'category.id')
+        ->where('main', 1)
+        ->groupBy(['idArticle', 'title', 'description', 'path', 'createdAt', 'name'])
+        ->orderBy('createdAt', 'DESC')
+        ->limit(0, 6)
+        ->fetchAll();
+
+
+        $view = new View("profile", "front");
+        $view->assign("userInfos", $userInfos);
+        $view->assign("articles", $articles);
+        $view->assign("isMyProfile", $isMyProfile);      
     }
 
 
@@ -203,7 +188,7 @@ class User
 
         $id = $_POST['id'] ?? null;
         $user = new UserModel();
-        $user = $user->select2('user', ["id", "email", "firstname", "lastname", "status", "isVerified", "mailToken"])
+        $user = $user->select2('user', ["id", "email", "firstname", "lastname", "status", "isVerified", "mailToken", "profilePicture"])
             ->where('id', $id)
             ->fetch();
 

@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Core\MysqlBuilder as Query;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
-use App\Model\Session;
 use App\Model\Category as CategoryModel;
 
 class Main
@@ -102,8 +100,8 @@ class Main
         $view->assign("currentPage", $page);
     }
 
-    public function contact()
+    public function notFound()
     {
-        $view = new View("contact");
+        $view = new View("not-found");
     }
 }

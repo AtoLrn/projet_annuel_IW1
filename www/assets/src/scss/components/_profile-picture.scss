@@ -13,7 +13,7 @@
 
 $circleSize: 165px;
 $radius: 100px;
-$shadow: 0 0 10px 0 rgba(255,255,255,.35);
+$shadow: 0 0 10px 0 var(--shadow-color);
 $fontColor: rgb(250,250,250);
 
 .profile-pic {
@@ -37,18 +37,20 @@ $fontColor: rgb(250,250,250);
     z-index: 0;
   }
 
-  .-label {
+  .label-img {
     cursor: pointer;
     height: $circleSize;
     width: $circleSize;
+    opacity: 0;
   }
 
   &:hover {
-    .-label {
+    .label-img {
+      opacity: 1;
       @include object-center;
-      background-color: rgba(0,0,0,.8);
       z-index: 10000;
-      color: $fontColor;
+      color: white;
+      font-size: 18px;
       transition: background-color .2s ease-in-out;
       border-radius: $radius;
       margin-bottom: 0;
