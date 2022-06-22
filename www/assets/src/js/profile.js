@@ -19,6 +19,8 @@ $(document).ready(() => {
                 image.src = php_script_response
 
             }*/
-        })
+        }).then((r) => {
+            location.reload();
+            })
     })
 })

@@ -79,6 +79,15 @@ const setAsideUserInfo = (data) => {
     info.append( `<p>${data.email}</p>` );
     info.append( `<p>${statusUser[data.status] }</p>` );
 
+    let figure = $('#img-user')
+    figure.html("")
+    if(data.profilePicture != null) {
+        console.log(data);
+        figure.append( `<img src="${data.profilePicture}" alt="" height="72" width="72">`)
+    }else {
+        figure.append( `<img src="assets/img/users/default_user.jpg" alt="" height="72" width="72">`)
+    }
+
     let btns = $('#btns');
     btns.html("");
     btns.append( "<button class='btn btn-pink little'> Changer status </button>" );

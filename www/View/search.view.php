@@ -39,7 +39,7 @@
     </section>
     
     <?php if($nbPages > 1): ?>
-    <section class="row j-center">
+    <section class="row j-center pb-12">
         <?php 
         if($currentPage != 0):
             $query['page'] = $currentPage - 1; ?>

@@ -5,8 +5,12 @@
     font-family: var(--font-family),  sans-serif;
 }
 
-*:not(div) {
+* {
     background-color: var(--bg-color);  
+}
+
+div, section, canvas {
+    background-color: transparent;
 }
 
 a {

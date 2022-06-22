@@ -23,3 +23,9 @@
         font-size: calc($i * 4px);;
     }
 }
+
+.breakword {
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -30,13 +30,16 @@
                         <p class="link"> X </p>
                     </div>
                     <div class="row j-bet grid a-start">
-                        <div id="infos" class="col h-per-20 g-3">
+                        <div id="infos" class="col h-per-20 g-3 col-lg-5">
                             <p>nom</p>
                             <p>prénom</p>
                             <p>email</p>
                             <p>status</p>
                         </div>
-                        <img src="assets/img/users/antoine.svg" alt="" height="72" width="72">
+                        <figure id="img-user" class="col-lg-1">
+                            <img src="assets/img/users/default_user.jpg" alt="" height="72" width="72">
+                        </figure>
+                        
                     </div>
                     <div class="bd-t-1 bd-light-gray"></div>
                     <div id="btns" class="row j-end">

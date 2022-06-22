@@ -38,9 +38,9 @@
 
 .list-articles {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 32px;
+    gap: 110px;
+    row-gap: 48px;
     article {
         width: 100%;
         max-width: 310px;
@@ -48,6 +48,7 @@
 
     @include breakpoint(lg) {
         padding: 0 24px;
+        justify-content: center;
     }
 
     @include breakpoint(tablet) {
