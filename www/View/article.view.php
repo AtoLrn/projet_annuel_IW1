@@ -57,11 +57,14 @@
             <div class="col-lg-6 pl-5">
                 <h2 style="font-size: 36px">Ingredients</h2>
                 <article class="row">
-                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/noodle.jpg" alt=""></div>
+                <?php foreach ($ingredients as $ingredient) {?>
+                        <div class="ingredient-img shadow selected"><img height="32px" src="/<?= $ingredient->getPath() ?>" alt="<?= $ingredient->getName() ?>"></div>
+                    <?php } ?>
+                    <!-- <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/noodle.jpg" alt=""></div>
                     <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/egg.jpg" alt=""></div>
                     <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/porc.jpg" alt=""></div>
                     <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/cebette.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/bouillon.jpeg" alt=""></div>
+                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/bouillon.jpeg" alt=""></div> -->
                 </article>
             </div>
         </div>
