@@ -33,8 +33,8 @@ class User
                     $session->setUserId($loggedUser->getId());
                     $session->save();
 
-                    if ($_GET["uri"]) {
-                        header("Location: " . $_GET["uri"]);
+                    if ($_GET["url"]) {
+                        header("Location: " . $_GET["url"]);
                     } else {
                         header("Location: /");
                     }
@@ -105,6 +105,7 @@ class User
                         $view->assign('isCreated', $isCreated);
                     }
                 }
+                
             }
             if(!$validRecaptcha) {
                 $view->assign("errorMessage", ['server' => 'une erreur est survenu.']);
