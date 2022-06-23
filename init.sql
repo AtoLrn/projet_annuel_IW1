@@ -113,13 +113,13 @@ CREATE TABLE `esgi_subscription` (
 );
 
 CREATE TABLE `esgi_page` (
- `id` int(11) NOT NULL,
+ `id` int(11) NOT NULL AUTO_INCREMENT,
  `userId` int(11) NOT NULL,
  `title` varchar(2048) NOT NULL,
  `content` text NOT NULL,
  `path` varchar(128) NOT NULL,
  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
- `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+ `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
