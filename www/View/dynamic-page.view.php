@@ -3,7 +3,6 @@
     <?php $this->partialInclude("wysiwyg",
         [
             "class" => "p-8 card",
-            "id" => "",
             "data" => $page->getContent(),
             "readOnly" => "true"
         ]) ?>
