@@ -1,9 +1,13 @@
 /:
     controller: main
     action: home
-/rechercher:
+/recettes:
     controller: main
-    action: search
+    action: searchArticles
+
+/cuisiniers:
+    controller: main
+    action: searchChiefs
 
 /contact:
     controller: main

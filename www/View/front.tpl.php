@@ -18,9 +18,9 @@
         <nav class="row j-bet">
             <a href="/" class="link"><img height="52px" src="assets/img/logo/croc-miam.svg" alt="logo"></a>         
             <ul>
-                <li><a href="/rechercher">Nos Recettes</a></li>
-                <li><a href="#">Les Cuisiniers</a></li>
-                <li><a href="#">Vos Abonnements</a></li>
+                <li><a href="/recettes" class="link-black">Nos Recettes</a></li>
+                <li><a href="/cuisiniers" class="link-black">Nos Cuisiniers</a></li>
+                <li><a href="#" class="link-black">Vos Abonnements</a></li>
             </ul>
             <section>
             <?php
