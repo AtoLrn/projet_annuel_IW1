@@ -21,7 +21,8 @@ mix.babel([
  '../src/js/dashboard.js',
  '../src/js/star.js',
  '../src/js/comment.js',
- '../src/js/profile.js'
+ '../src/js/profile.js',
+ '../src/js/page.js'
 ], '../dist/main.js');
 
 //mix.minify('../web/dist/main.js');

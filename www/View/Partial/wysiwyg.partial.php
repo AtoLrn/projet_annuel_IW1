@@ -8,7 +8,7 @@
 <input style="display:none" id="<?= $id ?>" name="<?= $data["name"] ?>" />
 
 <script>
-$("#<?= $id ?>").val(<?= isset($data['data']) ? $data["data"] : "{}" ?>)
+$("#<?= $id ?>").val(JSON.stringify(<?= isset($data['data']) ? $data["data"] : "{}" ?>))
 const editor = new EditorJS({
     holder: '<?= $id."-editor" ?>',
     tools: {

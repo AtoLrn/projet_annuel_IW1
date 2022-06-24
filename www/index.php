@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Model\Page as PageModel;
+use App\Core\Middleware\PageControl;
 session_start();
 require "conf.inc.php";
 // require "Core/Middleware/Security.php";
@@ -34,12 +36,23 @@ $uri = strtok($uri, "?");
 
 $routes = yaml_parse_file($routeFile);
 
+$page = PageControl::isExist($uri);
+
+/*$page = new PageModel();
+$pageId = $page->select2('page', ['id'])
+    ->where('path', substr($uri, 1))
+    ->fetchAll();*/
+
 if (empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($routes[$uri]["action"])) {
-    die("Erreur 404");
+    if (!$page) {
+        die("Erreur 404");
+    }
 }
 
-$controller = ucfirst(strtolower($routes[$uri]["controller"]));
-$action = strtolower($routes[$uri]["action"]);
+/*$page = $pageId ? $page->setId($pageId[0]->getId()) : null;*/
+
+$controller = !$page ? ucfirst(strtolower($routes[$uri]["controller"])) : 'Page';
+$action = !$page ? strtolower($routes[$uri]["action"]) : 'getPage';
 $rights = $routes[$uri]["security"] ?? [];
 
 
@@ -64,6 +77,7 @@ $controller = "App\\Controller\\" . $controller;
 if (!class_exists($controller)) {
     die("La classe " . $controller . " n'existe pas");
 }
+
 // $controller = User ou $controller = Global
 $objectController = new $controller();
 
@@ -76,7 +90,7 @@ use App\Core\Middleware\Security;
 
 Security::Auth($rights);
 
-$objectController->$action();
+!$page ? $objectController->$action() : $objectController->$action($page);
 
 // //DEBUG FOR CREATING A SESSION
 // $session = new Session();

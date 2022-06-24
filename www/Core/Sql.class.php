@@ -28,7 +28,8 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
+     * @return object|null
      */
     public function setId(?int $id): ?object
     {

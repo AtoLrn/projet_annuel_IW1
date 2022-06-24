@@ -1,8 +1,16 @@
 <section class="p-12 xs-p-6 grid h-per-20 list apparition">
     <h1 class="h1 mb-12 xs-ml-6">  <?= $listTpl['title'] ?> </h1> 
-    <div class="mb-7 xs-ml-0">
-        <p class="mb-2" > <?= $listTpl['search'] ?> </p>
-        <input id="search" type="text" class="input input-search" placeholder="rechercher ...">
+    <div class="mb-7 xs-ml-0 row j-bet w-per-15">
+        <div>
+            <p class="mb-2" > <?= $listTpl['search'] ?> </p>
+            <input id="search" type="text" class="input input-search" placeholder="rechercher ...">
+        </div>
+        <?php
+            if (isset($_GET['q']) && $_GET['q'] === 'page')
+            {
+                echo "<a href='/create-page' class='btn btn-pink xs-ml-0'>Créer une page</a>";
+            }
+        ?>
     </div>
     <section class="table-container">
         <div class="table card p-6">     
