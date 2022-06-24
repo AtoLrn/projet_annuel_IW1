@@ -14,10 +14,10 @@
     <section class="grid mb-12">
         <h1 class="h2 pb-6">Nos catégories</h1>
         <div class="row g-6"> 
-            <a href="/rechercher" class="btn btn-outline-pink br-12"> Tout voir </a>       
+            <a href="/recettes" class="btn btn-outline-pink br-12"> Tout voir </a>       
             <?php
             foreach($categories as $category): ?>
-            <a href="/rechercher?category=<?= $category->getName(); ?>" class="btn btn-outline-pink br-12"> <?= $category->getName() ?> </a>         
+            <a href="/recettes?category=<?= $category->getName(); ?>" class="btn btn-outline-pink br-12"> <?= $category->getName() ?> </a>         
             <?php endforeach; ?>          
         </div>
     </section>

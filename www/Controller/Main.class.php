@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
 use App\Model\Category as CategoryModel;
+use App\Model\User as UserModel;
 
 class Main
 {
@@ -43,7 +44,7 @@ class Main
         
     }
 
-    public function search(): void 
+    public function searchArticles(): void 
     {
         $categories = new CategoryModel();
         $categories = array_map(
@@ -70,7 +71,7 @@ class Main
 
         $articlePerPage = 6;  
         if( $count->total / $articlePerPage < $page && $count->total / $articlePerPage >= 0) {
-            header('location: /rechercher');
+            header('location: /recettes');
             die();
         }        
         // search articles
@@ -89,15 +90,65 @@ class Main
 
         
         //view data
-        $view = new View('search');
+        $view = new View('search-articles');
         $view->assign("articles", $articles);
         $view->assign("categories", $categories);
         $view->assign("categoryName", $category);
+        $view->assign("order", $order);
+        $view->assign("q", $q);
+
+        $view->assign("pagination", [
+            "nbPages" => $count->total / $articlePerPage,
+            "query"=> $_GET,
+            "currentPage" => $page,
+            "redirect" => "/recettes"
+        ]);
+    }
+
+    public function searchChiefs(): void 
+    {     
+        // query GET
+        $q = !empty($_GET['q']) ? htmlspecialchars($_GET['q']) : null;
+        $order = !empty($_GET['order']) ? htmlspecialchars($_GET['order']) : "date_desc";
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 0 ? $_GET['page'] : 0;
+     
+        $chiefs = new UserModel();
+        
+        // get count chiefs for pagination
+        $count = $chiefs->select2('user', ['COUNT(*) AS total'])
+            ->where('status', 'chief')
+            ->whereOr('firstname', "%" . $q . "%", " LIKE ")
+            ->whereOr('lastname', "%" . $q . "%", " LIKE ")
+            ->fetch();
+         
+
+        $articlePerPage = 6;  
+        if( $count->total / $articlePerPage < $page && $count->total / $articlePerPage >= 0) {
+            header('location: /cuisiniers');
+            die();
+        }        
+        // search chiefs
+        $orderBy = $chiefs->getOrderType($order);
+        $chiefs = $chiefs->select2('user', ['id', 'firstname', 'lastname', 'profilePicture'])
+            ->where('status', 'chief')
+            ->whereOr('firstname', "%" . $q . "%", " LIKE ")
+            ->whereOr('lastname', "%" . $q . "%", " LIKE ")
+            ->orderBy($orderBy['val'], $orderBy['order'])
+            ->limit($page * $articlePerPage, $articlePerPage)
+            ->fetchAll();
+        
+        // view data
+        $view = new View('search-chiefs');
+        $view->assign("chiefs", $chiefs);
         $view->assign("q", $q);
         $view->assign("order", $order);
-        $view->assign("nbPages", $count->total / $articlePerPage);
-        $view->assign("query", $_GET);
-        $view->assign("currentPage", $page);
+
+        $view->assign("pagination", [
+            "nbPages" => $count->total / $articlePerPage,
+            "query"=> $_GET,
+            "currentPage" => $page,
+            "redirect" => "/chiefs"
+        ]);
     }
 
     public function notFound()

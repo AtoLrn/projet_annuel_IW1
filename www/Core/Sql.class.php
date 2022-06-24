@@ -69,7 +69,6 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
     public function delete(): PDOStatement
     {
         $sql = "DELETE FROM " . $this->table . " WHERE id=" . $this->getId();
-        print_r($sql);
         $queryPrepared = $this->pdo->query($sql);
 
         return $queryPrepared;
@@ -126,6 +125,7 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
         $queryPrepared = $this->pdo->prepare($this->get());
         $queryPrepared->execute($this->getParams());
         $queryPrepared->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        
         return $queryPrepared->fetch();
     }
 

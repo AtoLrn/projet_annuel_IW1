@@ -202,6 +202,16 @@ class User extends Sql
         return $this->isVerified;
     }
 
+    public function getOrderType(string $key): array
+    {
+        $orders = [
+            'date_desc' => ['val' => 'createdAt', 'order' => 'DESC'],
+            'date_asc' => ['val' => 'createdAt', 'order' => 'ASC']
+        ];
+
+        return $orders[$key] ?? $orders['date_desc'];
+    }
+
     public function getRegisterForm(): array
     {
         return [

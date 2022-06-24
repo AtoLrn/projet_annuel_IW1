@@ -7,6 +7,8 @@ interface QueryBuilder
 
     public function where(string $column, ?string $value, string $operator = "="): QueryBuilder;
 
+    public function whereOr(string $column, ?string $value, string $operator = "="): QueryBuilder;
+
     public function leftJoin(string $table, string $fk, string $pk): QueryBuilder;
 
     public function innerJoin(string $table, string $fk, string $pk): QueryBuilder;

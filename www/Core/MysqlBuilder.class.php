@@ -41,6 +41,15 @@ class MysqlBuilder implements QueryBuilder
             return $this;
         }
 
+        public function whereOr(string $column, ?string $value, string $operator = "="): QueryBuilder
+        {
+            if(!is_null($value)) {
+                $this->query->whereOr[] = $column . $operator .  ":" . $column . "_or";
+                $this->params[$column . "_or"] = $value;
+            }
+            return $this;
+        }
+
         public function leftJoin(string $table, string $fk, string $pk): QueryBuilder 
         {
             $this->query->join[] = " LEFT JOIN " . DBPREFIXE . $table . " ON " . DBPREFIXE . $pk . " = " . DBPREFIXE . $fk;
@@ -90,6 +99,12 @@ class MysqlBuilder implements QueryBuilder
             if (!empty($query->where)) {
                 $sql .= " WHERE " . implode(' AND ', $query->where);
             }
+
+            if (!empty($query->whereOr)) {
+                $where = empty($query->where);
+                $sql .= ($where ? " WHERE ": " AND (") . implode(' OR ', $query->whereOr) . ($where ? "" : ")");
+            }
+
 
             if (!empty($query->groupBy)) {
                 $sql .= $query->groupBy;
