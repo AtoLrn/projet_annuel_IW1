@@ -42,15 +42,4 @@ const getList = (tab) => {
 
 }
 
-const displayPopUp = (table, id) => {
-    $('#pop-up').addClass('show');
-    $('#delete').click( function() {
-        closePopUp();
-        window["delete" + table + "ById"](id)
-    });
-    $('#cancel').click(closePopUp)
-}
 
-const closePopUp = () => {
-    $('#pop-up').removeClass('show');
-}

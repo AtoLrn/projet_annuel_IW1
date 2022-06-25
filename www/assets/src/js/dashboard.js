@@ -3,8 +3,6 @@ const getUserChartInfos = () => {
     let today = new Date()
     let lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 14)
     lastWeek = lastWeek.toISOString().split('T')[0]
-    console.log(lastWeek)
-
     let params = ['createdAt', lastWeek, '>']
 
      fetch(`http://localhost/get-users?params=${encodeURIComponent(JSON.stringify(params))}`, {
@@ -85,11 +83,6 @@ const buildChart = (data, divId) => {
         b = new Date(b.date)
         return a - b
     })
-
-    for (const key in data) {
-        console.log(data[key])
-    }
-
 
     let chart = root.container.children.push(am5xy.XYChart.new(root, {
         panX: false,

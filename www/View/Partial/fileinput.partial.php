@@ -32,8 +32,6 @@
                         $(elem).css("border", "none")
                     })
                     newImg.css("border", "2px solid black")
-
-                    console.log(i)
                     $('#<?= $id ?>-selected').val(i)
                 })
             }

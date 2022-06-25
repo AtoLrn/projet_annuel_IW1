@@ -15,7 +15,6 @@ const getPages = (tab) => {
 }
 
 const deletePageById = (id) => {
-    console.log('here')
     fetch( `http://localhost/delete-page?id=${id}`, {
         method: 'DELETE',
     }).then(r => {
@@ -69,7 +68,7 @@ const setAsidePageInfo = (data) => {
     btns.html("");
     const path = `/page/edit?id=${data.id}`
     btns.append( "<a href=" + path + " class='btn btn-pink little'> Éditer </a>" );
-    btns.append( `<button class='btn btn-danger little' onclick='displayPopUp("Page", ${data.id})'> Supprimer </button>` );
+    btns.append( `<button class='btn btn-danger little' onclick='displayPopUp("deletePageById", ${data.id}, deletePopUp())'> Supprimer </button>` );
 
 
     $('.aside-info').addClass("show");

@@ -1,20 +1,10 @@
 const statusUser = {
     user: "Utilisateur",
-    admin: "Adminnistrateur",
+    admin: "Administrateur",
     chief: "Cuisinier"
 }
 
-
-const deleteUserById = (id) => {
-    fetch( `http://localhost/delete-user?id=${id}`, {
-        method: 'DELETE',
-    }).then(r => {
-        tab = $('#list-table').DataTable();
-        getList(tab);
-    });
-}
-
-
+// CALL AJAX
 const getUsers = (tab) => {
     fetch('http://localhost/get-users', {
         headers: {
@@ -51,6 +41,55 @@ const getUserById = (userId) => {
     });
 }
 
+const deleteUserById = (id) => {
+    fetch( `http://localhost/delete-user?id=${id}`, {
+        method: 'DELETE',
+    }).then(r => {
+        tab = $('#list-table').DataTable();
+        $('.aside-info').removeClass("show");
+        getList(tab);
+    });
+}
+
+const updateActiveUser = (id) => {
+    fetch( `http://localhost/active-user`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({id: id}),
+    })
+    .then((r) => r.json())
+    .then(data => {
+        setAsideUserInfo(data);
+    }).catch((error) => {
+        console.log('Erreur : ' + error);
+    });
+}
+
+const updateStatusUser = (status, id) => {
+    fetch( `http://localhost/status-user`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({id: id, status: status}),
+    })
+    .then((r) => r.json())
+    .then(data => {
+        setAsideUserInfo(data);
+    }).catch((error) => {
+        console.log('Erreur : ' + error);
+    });
+}
+
+
+// HTML update and display data
+
 const setTableUser = (data, tab) => {  
     tab.clear();
     for(const row of data) {
@@ -78,11 +117,11 @@ const setAsideUserInfo = (data) => {
     info.append( `<p>${data.firstname}</p>` );
     info.append( `<p>${data.email}</p>` );
     info.append( `<p>${statusUser[data.status] }</p>` );
+    info.append( `<p>${data.isVerified == 1 ? '<strong class="c-success"> Activé </strong>' : '<strong class="c-error"> Désactivé </strong>'}</p>` );
 
     let figure = $('#img-user')
     figure.html("")
     if(data.profilePicture != null) {
-        console.log(data);
         figure.append( `<img src="${data.profilePicture}" alt="" height="72" width="72">`)
     }else {
         figure.append( `<img src="assets/img/users/default_user.jpg" alt="" height="72" width="72">`)
@@ -90,10 +129,16 @@ const setAsideUserInfo = (data) => {
 
     let btns = $('#btns');
     btns.html("");
-    btns.append( "<button class='btn btn-pink little'> Changer status </button>" );
-    btns.append( `<button class='btn btn-danger little' onclick='displayPopUp("User", ${data.id})'> Supprimer </button>` );
     
-
+    btns.append(`<button class='btn btn-pink little'
+    onclick='displayPopUpStatus(${data.id})'
+    > Changer status </button>`);
+    btns.append(`<button class='btn ${data.isVerified == 1 ? 'btn-danger' : 'btn-success'} little'
+         onclick='displayPopUp("updateActiveUser", ${data.id}, activePopUp(${data.isVerified == 0}))'
+         > ${data.isVerified == 1 ? 'Désactiver' : 'Activer'} </button>`
+    );
+    btns.append(`<button class='btn btn-danger little' onclick='displayPopUp("deleteUserById", ${data.id}, deletePopUp())'> Supprimer </button>`);
+    
     $('.aside-info').addClass("show");
 }
 

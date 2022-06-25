@@ -97,7 +97,6 @@ const modifyCertificationStatus = (certificationId, certificationStatus, userId)
         certification_status: certificationStatus,
         user_id: userId
     })
-    console.log(form)
     fetch( `http://localhost/modify-certification-status`, {
         headers: {
             'Accept': 'application/json',
