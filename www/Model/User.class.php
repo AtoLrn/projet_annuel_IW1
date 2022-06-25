@@ -160,9 +160,9 @@ class User extends Sql
     /**
      * @param string $isVerified
      */
-    public function setIsVerified(string $isVerified): void
+    public function reverseIsVerified(): void
     {
-        $this->isVerified = $isVerified;
+        $this->isVerified = ($this->isVerified == 1 ? 0 : 1);
     }
 
     /**
@@ -184,9 +184,9 @@ class User extends Sql
     /**
      * @param string $isVerify
      */
-    public function setIsVerify(string $isVerify): void
+    public function setIsVerified(int $isVerified): void
     {
-        $this->isVerify = $isVerify;
+        $this->isVerified = $isVerified;
     }
 
     /**

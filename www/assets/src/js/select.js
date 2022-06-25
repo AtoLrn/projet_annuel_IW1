@@ -12,10 +12,7 @@ class Select {
 
         this.init();
         if (defaultValue) {
-            console.log("AAA")
-
             this.selection = defaultValue.split(',')
-            console.log(this.selection)
             this.reRender()
         }
         

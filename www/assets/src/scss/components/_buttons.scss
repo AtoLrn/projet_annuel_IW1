@@ -34,6 +34,16 @@
         }
     }
 
+    &-success {
+
+        border: 1px solid $green-success;
+        background-color: $green-success;
+        &:hover {
+            background-color: transparent;
+            color: $green-success;
+        }
+    }
+
     &-outline-pink {
 
         border: 1px solid var(--btn-color);

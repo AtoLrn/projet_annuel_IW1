@@ -181,30 +181,6 @@ class User
 
     // -------------- API calls ------------- //
 
-    public function getUserById()
-    {
-        $content = file_get_contents('php://input');
-        $_POST = json_decode($content, true);
-        Server::ensureHttpMethod('POST');
-
-        $id = $_POST['id'] ?? null;
-        $user = new UserModel();
-        $user = $user->select2('user', ["id", "email", "firstname", "lastname", "status", "isVerified", "mailToken", "profilePicture"])
-            ->where('id', $id)
-            ->fetch();
-
-        if($user) {
-            http_response_code(200);
-            header('Content-Type: application/json; charset=utf-8');
-            echo json_encode($user);
-        }else {
-            http_response_code(500);
-        }
-
-        
-    }
-
-
     public function getUsers()
     {
         Server::ensureHttpMethod('GET');
@@ -222,6 +198,86 @@ class User
             http_response_code(500);
         }
     
+    }
+
+    public function getUserById()
+    {
+        $content = file_get_contents('php://input');
+        $_POST = json_decode($content, true);
+        Server::ensureHttpMethod('POST');
+
+        $id = $_POST['id'] ?? null;
+        if(is_null($id)) {
+            http_response_code(400);
+            die();
+        }
+        $user = new UserModel();
+        $user = $user->select2('user', ["id", "email", "firstname", "lastname", "status", "isVerified", "mailToken", "profilePicture"])
+            ->where('id', $id)
+            ->fetch();
+
+        if($user) {
+            http_response_code(200);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($user);
+        }else {
+            http_response_code(500);
+        }
+
+        
+    }
+
+    public function updateActiveUser()
+    {
+        $content = file_get_contents('php://input');
+        $_POST = json_decode($content, true);
+        Server::ensureHttpMethod('POST');
+
+        $id = $_POST['id'] ?? null;
+        if(is_null($id)) {
+            http_response_code(400);
+            die();
+        }
+        $user = new UserModel();
+        $user = $user->setId($id);
+        if($user) {
+            http_response_code(200);
+            header('Content-Type: application/json; charset=utf-8');
+            $user->reverseIsVerified();
+            $user->save();
+            echo json_encode($user);
+        }else {
+            http_response_code(500);
+        }
+
+        
+    }
+
+    public function updateStatusUser()
+    {
+        $content = file_get_contents('php://input');
+        $_POST = json_decode($content, true);
+        Server::ensureHttpMethod('POST');
+
+        $id = $_POST['id'] ?? null;
+        $status =  isset($_POST['status']) && in_array($_POST['status'], ['chief', 'user', 'admin']) ? $_POST['status'] : null;
+        if(is_null($id) || is_null($status)) {
+            http_response_code(400);
+            die();
+        }
+        $user = new UserModel();
+        $user = $user->setId($id);
+        if($user) {
+            http_response_code(200);
+            header('Content-Type: application/json; charset=utf-8');
+            $user->setStatus($status);
+            $user->save();
+            echo json_encode($user);
+        }else {
+            http_response_code(500);
+        }
+
+        
     }
 
 

@@ -6,6 +6,8 @@
     }
     width: 100%;
 }
+
+
 .table-container {
     
     @include flex;
@@ -15,18 +17,24 @@
         flex-grow: 1;
         width: auto;
 
-        table {
+        #list-table {
             width: 100%; 
+            
             td {
                 padding: 12px;
             }
-            tbody td{
-                border-top: 1px solid $light-gray;
-                cursor: pointer;
-                @include breakpoint(tablet) {
-                    &:nth-child(n+3) {
-                        display: none;
+            tbody {
+                td {
+                    border-top: 1px solid $light-gray;
+                    cursor: pointer;
+                    @include breakpoint(tablet) {
+                        &:nth-child(n+3) {
+                            display: none;
+                        }
                     }
+                }
+                tr:hover {
+                    background-color: rgb(241, 241, 241);
                 }
             }
 

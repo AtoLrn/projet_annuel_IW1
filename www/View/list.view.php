@@ -39,15 +39,11 @@
                     </div>
                     <div class="row j-bet grid a-start">
                         <div id="infos" class="col h-per-20 g-3 col-lg-5">
-                            <p>nom</p>
-                            <p>prénom</p>
-                            <p>email</p>
-                            <p>status</p>
                         </div>
+
                         <figure id="img-user" class="col-lg-1">
                             <img src="assets/img/users/default_user.jpg" alt="" height="72" width="72">
-                        </figure>
-                        
+                        </figure>           
                     </div>
                     <div class="bd-t-1 bd-light-gray"></div>
                     <div id="btns" class="row j-end">
@@ -72,14 +68,3 @@
     </section>
 
 </section>
-
-<div id="pop-up" class="cont-popup grid">
-    <section class="pop-up card grid p-6 col g-10">
-        <p class="h2">Confirmer-vous la suppression ?</p>
-        <p class="c-light-gray"> Si vous confirmez l'element sera supprimez définitivement</p>
-        <div class="row j-bet g-6">
-            <button id="delete" class="btn btn-danger col-lg-4"> Supprimer </button>
-            <button id="cancel" class="btn btn-outline-pink col-lg-4"> Annuler </button>         
-        </div>
-    </section>
-</div>

@@ -114,7 +114,6 @@ const getArticleById = (articleId) => {
     }).then((r) => {
         return r.json();
     }).then((data) => {
-        console.log(data)
         setAsideArticleInfo(data);
     }).catch((error) => {
         console.log('Erreur : ' + error);

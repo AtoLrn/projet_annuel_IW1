@@ -9,9 +9,6 @@
     controller: main
     action: searchChiefs
 
-/contact:
-    controller: main
-    action: contact
 
 /logout:
     controller: user
@@ -126,6 +123,19 @@
   action: deleteUserById
   security:
     - admin
+
+/active-user:
+  controller: user
+  action: updateActiveUser
+  security:
+    - admin
+
+/status-user:
+  controller: user
+  action: updateStatusUser
+  security:
+    - admin
+
   
 /article-creation:
     controller: article
