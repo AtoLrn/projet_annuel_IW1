@@ -4,6 +4,9 @@ namespace App;
 
 use App\Model\Page as PageModel;
 use App\Core\Middleware\PageControl;
+use App\Core\Decorator\UrlDecorator;
+
+
 session_start();
 require "conf.inc.php";
 // require "Core/Middleware/Security.php";
@@ -37,7 +40,10 @@ $uri = strtok($uri, "?");
 $routes = yaml_parse_file($routeFile);
 
 $page = PageControl::isExist($uri);
-
+if ($page) {
+    $page = explode('\\', str_replace('Model', 'Controller', get_class($page)));
+    $page = end($page);
+}
 /*$page = new PageModel();
 $pageId = $page->select2('page', ['id'])
     ->where('path', substr($uri, 1))
@@ -51,8 +57,8 @@ if (empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($rout
 
 /*$page = $pageId ? $page->setId($pageId[0]->getId()) : null;*/
 
-$controller = !$page ? ucfirst(strtolower($routes[$uri]["controller"])) : 'Page';
-$action = !$page ? strtolower($routes[$uri]["action"]) : 'getPage';
+$controller = $page ?? ucfirst(strtolower($routes[$uri]["controller"]));
+$action = !$page ? strtolower($routes[$uri]["action"]) : 'getBySlug';
 $rights = $routes[$uri]["security"] ?? [];
 
 
@@ -90,11 +96,7 @@ use App\Core\Middleware\Security;
 
 Security::Auth($rights);
 
-!$page ? $objectController->$action() : $objectController->$action($page);
+if ($page)
+$objectController = new UrlDecorator($objectController);
 
-// //DEBUG FOR CREATING A SESSION
-// $session = new Session();
-// $session->generateToken();
-// $session->setUserId(1);
-// // $session->setExpiration(time() + 3600);
-// $session->save();
+!$page ? $objectController->$action() : $objectController->$action();

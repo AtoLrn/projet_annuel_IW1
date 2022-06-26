@@ -11,8 +11,13 @@ use App\Model\User as UserModel;
 
 class Page
 {
-    public function getPage(PageModel $page)
+    public function getBySlug(string $slug)
     {
+        $page = new PageModel();
+        $page = $page->select2('page', ['id','userId', 'title', 'content', 'path'])
+            ->where('path', substr($slug, 1))
+            ->fetch();
+
         $view = new View("dynamic-page", "front");
         $view->assign("page", $page);
     }
