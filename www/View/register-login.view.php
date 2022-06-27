@@ -15,6 +15,7 @@
                 $registerForm['error'] = $errorMessage??[];
                 $this->partialInclude("form", $registerForm);
                 ?>
+                <a id="pwdForgetLink" href="/pwd-forget">Mot de passe oublié</a>
             </div>
             <?php if (isset($errorMessage) && (isset($errorMessage['server']) || isset($errorMessage['login']))): ?>
                 <p class="c-error pb-4"><?= $errorMessage['login']??$errorMessage['server'] ?></p>

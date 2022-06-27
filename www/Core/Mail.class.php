@@ -95,4 +95,24 @@ class Mail
         }
     }
 
+    /**
+     * @throws Exception
+     */
+    public function passwordForget(string $userMail, string $firstName, string $lastName, string $token)
+    {
+        try {
+            $this->mail->addAddress($userMail, $firstName . ' ' . $lastName);
+            $this->mail->isHTML(true);                                  //Set email format to HTML
+            $this->mail->Subject = 'Demande de changement de mot de passe sur ' . WEBSITENAME;
+            $this->mail->Body = '<div style="display: flex; flex-direction: column; justify-content: center">
+                                    <p>Afin de modifier votre mot de passe, veuillez cliquer sur le lien ci-dessous</p>
+                                    <a href="' . WEBSITEURL . '/modify-password?token=' . $token . '">ICI</a>
+                                    <span>Si vous n\'êtes pas à l\'origine de cette demande veuillez ignorer ce mail</span>
+                                </div>';
+            $this->mail->send();
+        }catch (Exception $error){
+            echo $error;
+        }
+    }
+
 }

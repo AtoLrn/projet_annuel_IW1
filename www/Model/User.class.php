@@ -14,6 +14,7 @@ class User extends Sql
     protected $password;
     protected $isVerified = 0;
     protected $mailToken = null;
+    protected $passwordToken = null;
     protected $profilePicture = null;
 
     public function __construct()
@@ -146,6 +147,22 @@ class User extends Sql
         $this->profilePicture = $profilePicture;
     }
 
+    /**
+     * @return string
+     */
+    public function getPasswordToken(): ?string
+    {
+        return $this->passwordToken;
+    }
+
+    /**
+     * @param string $passwordToken
+     */
+    public function setPasswordToken(string $passwordToken): void
+    {
+        $this->passwordToken = $passwordToken;
+    }
+
     public function formatList(): array
     {
         return [
@@ -173,12 +190,14 @@ class User extends Sql
         return $this->mailToken;
     }
 
-    /**
-     * length : 255
-     */
     public function generateMailToken(): void
     {
         $this->mailToken = substr(bin2hex(random_bytes(128)), 0, 255);
+    }
+
+    public function generatePasswordToken(): void
+    {
+        $this->passwordToken = substr(bin2hex(random_bytes(128)), 0, 255);
     }
 
     /**
@@ -316,6 +335,64 @@ class User extends Sql
                     "type" => "hidden",
                     "id" => "recaptcha-login-form",
                     "value" => KEY_SITE_RECAPTCHA
+                ]
+            ]
+        ];
+    }
+
+    public function getPwdForgetForm (): array
+    {
+        return [
+            "config" => [
+                "id" => "pwd_forget_form",
+                "method" => "POST",
+                "action" => "/pwd-forget",
+                "submit" => "Envoyer",
+                "class" => "col a-center py-4 w-per-20 px-8 g-5",
+            ],
+            'inputs' => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "Votre email ...",
+                    "required" => true,
+                    "class" => "input input-pink",
+                    "id" => "emailLogin",
+                    "label" => "Email",
+                    "error" => "Email incorrect"
+                ],
+            ]
+        ];
+    }
+
+    public function getModifyPasswordForm ($token): array
+    {
+        return [
+            "config" => [
+                "id" => "modify_password_form",
+                "method" => "POST",
+                "action" => "/modify-password?token=" . $token,
+                "submit" => "Envoyer",
+                "class" => "col a-center py-4 w-per-20 px-8 g-5",
+            ],
+            'inputs' => [
+                "password" => [
+                    "type" => "password",
+                    "placeholder" => "Votre mot de passe ...",
+                    "required" => true,
+                    "class" => "input input-pink",
+                    "id" => "pwdForm",
+                    "label" => "Mot de passe",
+                    "error" => "Votre mot de passe doit faire au min 8 caractères avec majuscule, minuscules et des chiffres",
+                ],
+                "passwordConfirm" => [
+                    "type" => "password",
+                    "placeholder" => "Confirmation ...",
+                    "required" => true,
+                    "class" => "input input-pink",
+                    "id" => "pwdConfirmForm",
+                    "label" => "Confirmez votre mot de passe",
+                    "confirm" => "password",
+                    "error" => "Votre mot de passe de confirmation ne correspond pas",
                 ]
             ]
         ];

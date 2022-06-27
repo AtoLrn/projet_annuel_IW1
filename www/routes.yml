@@ -278,3 +278,12 @@
 /setup:
   controller: admin
   action: setup
+
+
+/pwd-forget:
+  controller: user
+  action: pwdforget
+
+/modify-password:
+  controller: user
+  action: modifyPassword
