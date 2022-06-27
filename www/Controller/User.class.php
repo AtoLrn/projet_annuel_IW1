@@ -139,7 +139,63 @@ class User
 
     public function pwdforget()
     {
-        echo "Mot de passe oublié";
+        $user = new UserModel();
+        $view = new View("pwd-forget", 'front');
+        $error = null;
+        $view->assign("user", $user);
+        if (!empty($_POST)) {
+            $result = Verificator::checkForm($user->getPwdForgetForm(), $_POST);
+            if (empty($result)) {
+                $user = $user->select2('user', ["*"])
+                    ->where('email', $_POST['email'])
+                    ->fetch();
+
+                if ($user) {
+                    $user->generatePasswordToken();
+                    $user->save();
+
+                    $mail = Mail::getInstance();
+                    $mail->passwordForget($user->getEmail(), $user->getFirstName(), $user->getFirstname(), $user->getPasswordToken());
+                    $view->assign("isSent", true);
+                    return;
+                }
+            }
+            $error = $result;
+        }
+        $view->assign("error", $error);
+        $view->assign("isSent", false);
+    }
+
+    public function modifyPassword()
+    {
+        $view = new View("modify-password", 'front');
+        $error = null;
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            $user = new UserModel();
+            $user = $user->select2('user', ["*"])
+                ->where('passwordToken', $token)
+                ->fetch();
+            if ($user) {
+                $view->assign("tokenError", false);
+                $view->assign("user", $user);
+                if (!empty($_POST)) {
+                    $result = Verificator::checkForm($user->getModifyPasswordForm($token), $_POST);
+                    if (empty($result)) {
+
+                        $user->setPassword($_POST['password']);
+                        $user->save();
+
+                        header("Location: /");
+                    }
+                    $error = $result;
+                }
+                $view->assign("error", $error);
+                $view->assign("token", $token);
+                return;
+            }
+        }
+        $view->assign("tokenError", true);
     }
 
     public function profile()
