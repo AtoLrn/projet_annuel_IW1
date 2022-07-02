@@ -32,6 +32,27 @@ class MysqlBuilder implements QueryBuilder
             return $this;
         }
 
+        public function insert(string $table, array $columns): QueryBuilder
+        {
+            $this->reset();
+            
+            $this->query->base = "INSERT INTO " . DBPREFIXE . $table . " (" . implode(",", array_keys($columns)) . ") 
+            VALUES ( :" . implode(",:", array_keys($columns)) . ")";
+            return $this;
+        }
+
+        public function update(string $table, array $columns): QueryBuilder
+        {
+            $this->reset();
+            
+            $update = [];
+            foreach ($columns as $column => $value) {
+                $update[] = $column . "=:" . $column;
+            }
+            $this->query->base = "UPDATE " . DBPREFIXE . $table . " SET " . implode(",", $update);
+            return $this;
+        }
+
         public function where(string $column, ?string $value, string $operator = "="): QueryBuilder
         {
             if(!is_null($value)) {

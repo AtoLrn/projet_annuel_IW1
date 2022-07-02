@@ -15,7 +15,7 @@ class Page
     {
         $page = new PageModel();
         $page = $page->select2('page', ['id','userId', 'title', 'content', 'path'])
-            ->where('path', substr($slug, 1))
+            ->where('path', $slug)
             ->fetch();
 
         $view = new View("dynamic-page", "front");
@@ -38,7 +38,9 @@ class Page
                     $page->setContent($_POST['content']);
                     $page->setUserId($user->getId());
                     $page->setPath($path);
-                    $page->save();
+                    $id = $page->save();
+
+                    header('location: /page/edit?id=' . $id);
                 }
             }
         }
@@ -58,7 +60,7 @@ class Page
         $page = $page->setId($_GET['id']);
 
         if (!$page) {
-            header("Location: /not-found");
+            header("Location: /404");
             exit();
         }
 
@@ -88,15 +90,6 @@ class Page
     {
         Server::ensureHttpMethod('GET');
         $pages = New PageModel();
-        /*$result = $pages->select([
-            "user" => [
-                "args" => ["email"],
-                "ij" => ["certification"]
-            ],
-            "certification" => [
-                "args" => ["id", "status", "createdAt"],
-            ]
-        ]);*/
 
         $result = $pages->select2('page', ['page.id AS id', 'title', 'path', 'email'])
             ->leftJoin('user', 'page.userId', 'user.id')
