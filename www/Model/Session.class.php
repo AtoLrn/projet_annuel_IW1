@@ -63,16 +63,13 @@ class Session extends Sql
     public static function getByToken(): ?Session
     {
         $session = new Session();
-        $res = $session->select([
-            "session" => [
-                "args" => ["id", "token", "expiration", "userId"],
-                "params" => ["token" => $_SESSION['token']]
-
-            ]
-        ]);
-
-        if (!empty($res)) {
-            return $session->setId($res[0]['session_id']);
+        $token = $_SESSION['token']??"";
+        $res = $session->select2('session', ["id", "token", "expiration", "userId"])
+            ->where('token', $token)
+            ->fetch();
+        
+        if (!empty($res->id)) {
+            return $res;
         }
         return null;
     }

@@ -166,20 +166,22 @@ const displayChart = (userChartButton, userChartDiv, articleChartButton, article
 }
 
 $(document).ready(() => {
-    getUserChartInfos()
     let homeContainer = $('#homeContainer')
-    homeContainer.css("width", 'auto')
-
     let userChartButton = $('#userChartButton')
     let userChartDiv = $('#userChart')
     let articleChartButton = $('#articleChartButton')
     let articleChartDiv = $('#articleChart')
 
-    userChartButton.click(function () {
-        displayForm(userChartButton, userChartDiv, articleChartButton, articleChartDiv)
-    })
+    if(articleChartButton[0]) {
+        getUserChartInfos()
+        homeContainer.css("width", 'auto')
+        userChartButton.click(function () {
+            displayForm(userChartButton, userChartDiv, articleChartButton, articleChartDiv)
+        })
+        articleChartButton.click(function () {
+            displayForm(userChartButton, userChartDiv, articleChartButton, articleChartDiv)
+        })
+    }
 
-    articleChartButton.click(function () {
-        displayForm(userChartButton, userChartDiv, articleChartButton, articleChartDiv)
-    })
+    
 })

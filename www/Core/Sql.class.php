@@ -14,17 +14,15 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
 
     public function __construct()
     {
-        //Se connecter à la bdd
-        //il faudra mettre en place le singleton
+
         try {
             $this->pdo = Connection::getInstance();
         } catch (\Exception $e) {
             die("Erreur SQL : " . $e->getMessage());
         }
 
-        //Si l'id n'est pas null alors on fait un update sinon on fait un insert
         $calledClassExploded = explode("\\", get_called_class());
-        $this->table = DBPREFIXE.($this->tableSpecialName ?? strtolower(end($calledClassExploded)));
+        $this->table = ($this->tableSpecialName ?? strtolower(end($calledClassExploded)));
     }
 
     /**
@@ -33,9 +31,9 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
      */
     public function setId(?int $id): ?object
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE id=" . $id;
-        $query = $this->pdo->query($sql);
-        $obj = $query->fetchObject(get_called_class());
+        $obj = $this->select2($this->table, ["*"])
+            ->where('id', $id)
+            ->fetch();
         return $obj ? $obj : null;
     }
 
@@ -49,26 +47,20 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
         }, ARRAY_FILTER_USE_KEY);
 
         if ($this->getId() == null) {
-            $sql = "INSERT INTO " . $this->table . " (" . implode(",", array_keys($columns)) . ") 
-            VALUES ( :" . implode(",:", array_keys($columns)) . ")";
+            $this->insert($this->table, $columns);
         } else {
-            $update = [];
-            foreach ($columns as $column => $value) {
-                $update[] = $column . "=:" . $column;
-            }
-            $sql = "UPDATE " . $this->table . " SET " . implode(",", $update) . " WHERE id=" . $this->getId();
-        }
-        // DEBUG
-        // echo $sql;
+            $this->update($this->table, $columns)->where('id', $this->getId());
 
-        $queryPrepared = $this->pdo->prepare($sql);
+        }
+
+        $queryPrepared = $this->pdo->prepare($this->get());
         $queryPrepared->execute($columns);
         return $this->pdo->lastInsertId();
     }
 
     public function delete(): PDOStatement
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE id=" . $this->getId();
+        $sql = "DELETE FROM " . DBPREFIXE . $this->table . " WHERE id=" . $this->getId();
         $queryPrepared = $this->pdo->query($sql);
 
         return $queryPrepared;
@@ -128,7 +120,6 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
         
         return $queryPrepared->fetch();
     }
-
 
     private function dbFetchAll($sql, $params): ?array
     {

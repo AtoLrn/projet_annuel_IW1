@@ -1,8 +1,8 @@
 <section class="pt-20 grid container apparition">
-    <h1 class="my-8"><?= $page->getTitle() ?></h1>
+    <h1 class="my-10 pl-10"><?= $page->getTitle() ?></h1>
     <?php $this->partialInclude("wysiwyg",
         [
-            "class" => "p-8 card",
+            "class" => "",
             "data" => $page->getContent(),
             "readOnly" => "true"
         ]) ?>

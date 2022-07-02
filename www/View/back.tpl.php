@@ -35,6 +35,10 @@
                             <?php include "assets/img/logo/category.php"; ?>
                             <a href="/categories" class="link-black">Catégories</a> 
                         </li>
+                        <li class="row g-3">
+                            <?php include "assets/img/logo/pages.php"; ?>
+                            <a href="/list?q=page" class="link-black">Pages</a> 
+                        </li>
                         <li class="row g-3"> 
                             <?php include "assets/img/logo/comments.php"; ?>
                             <a href="/list?q=comment" class="link-black">Commentaires</a>

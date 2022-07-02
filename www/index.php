@@ -39,19 +39,16 @@ $uri = strtok($uri, "?");
 
 $routes = yaml_parse_file($routeFile);
 
-$page = PageControl::isExist($uri);
-if ($page) {
-    $page = explode('\\', str_replace('Model', 'Controller', get_class($page)));
-    $page = end($page);
-}
-/*$page = new PageModel();
-$pageId = $page->select2('page', ['id'])
-    ->where('path', substr($uri, 1))
-    ->fetchAll();*/
-
+$page = null;
 if (empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($routes[$uri]["action"])) {
+    $page = PageControl::isExist($uri);
+    if ($page) {
+        $page = explode('\\', str_replace('Model', 'Controller', get_class($page)));
+        $page = end($page);
+    }
     if (!$page) {
-        die("Erreur 404");
+        header('location: /404');
+        die();
     }
 }
 
