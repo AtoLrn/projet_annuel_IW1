@@ -18,7 +18,9 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
         try {
             $this->pdo = Connection::getInstance();
         } catch (\Exception $e) {
-            die("Erreur SQL : " . $e->getMessage());
+            $error = $e->getMessage();
+            Logger::writeErrorLog("Error with DB Connection, $error");
+            die("Erreur SQL : " . $error);
         }
 
         $calledClassExploded = explode("\\", get_called_class());

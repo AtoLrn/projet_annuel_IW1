@@ -9,6 +9,7 @@ use App\Model\Page as PageModel;
 use App\Model\Session;
 use App\Model\User as UserModel;
 
+use App\Core\Logger;
 class Page
 {
     public function getBySlug(string $slug)
@@ -98,6 +99,7 @@ class Page
         if($result) {
             http_response_code(200);
         }else {
+            Logger::writeErrorLog("Error while fetching Pages.");
             http_response_code(500);
         }
 
@@ -122,6 +124,7 @@ class Page
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($page);
         }else {
+            Logger::writeErrorLog("Error while retrieving page with id $id.");
             http_response_code(500);
         }
     }
@@ -146,6 +149,7 @@ class Page
         if($result) {
             http_response_code(200);
         }else {
+            Logger::writeErrorLog("Error while deleting pages with id: $id.");
             http_response_code(500);
         }
     }

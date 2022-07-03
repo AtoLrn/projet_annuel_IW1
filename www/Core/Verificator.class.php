@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-
 class Verificator
 {
 
@@ -23,6 +22,7 @@ class Verificator
         }
         ))
         )){
+            Logger::writeErrorLog("Error parsing form data.");
             die("something go wrong in form.");
         }
 
@@ -100,6 +100,8 @@ class Verificator
         if(isset($recaptcha->score) && $recaptcha->score >= 0.5) {
             return true;
         }
+
+        Logger::writeErrorLog("An Bot has been detected.");
         return false;
     }
 }

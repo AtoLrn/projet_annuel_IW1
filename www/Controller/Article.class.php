@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Logger;
 use App\Core\Verificator;
 use App\Core\Sql;
 use App\Core\View;
@@ -301,6 +302,7 @@ class Article
             echo json_encode($result);
             http_response_code(200);
         }else {
+            Logger::writeErrorLog("Error while fetching articles.");
             http_response_code(500);
         }
 
@@ -339,6 +341,7 @@ class Article
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($result);
         }else {
+            Logger::writeErrorLog("Error while fetching article with id: $id.");
             http_response_code(500);
         }
 

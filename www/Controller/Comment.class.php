@@ -7,6 +7,7 @@ use App\Model\Comment as CommentModel;
 use App\Model\Session;
 use App\Model\User as UserModel;
 
+use App\Core\Logger;
 class Comment {
 
     public function createComment()
@@ -48,6 +49,7 @@ class Comment {
         if($result) {
             http_response_code(200);
         }else {
+            Logger::writeErrorLog("Error while fetching comments.");
             http_response_code(500);
         }
 
@@ -81,6 +83,7 @@ class Comment {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($result);
         }else {
+            Logger::writeErrorLog("Error while fetching comment with id: $id.");
             http_response_code(500);
         }
     }
@@ -106,6 +109,7 @@ class Comment {
             $comment->save();
             http_response_code(200);
         } catch (\Exception $e) {
+            Logger::writeErrorLog("Error while updating comment status.");
             http_response_code(500);
         }
     }
