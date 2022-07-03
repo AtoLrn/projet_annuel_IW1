@@ -9,6 +9,7 @@ use App\Model\Certification as CertificationModel;
 use App\Model\Session;
 use App\Model\User as UserModel;
 
+use App\Core\Logger;
 class Certification
 {
     private function sendCertificationRequest($certificationDemand, $user)
@@ -91,6 +92,7 @@ class Certification
         if($result) {
             http_response_code(200);
         }else {
+            Logger::writeErrorLog("Error while fetching certifications.");
             http_response_code(500);
         }
 
@@ -123,6 +125,7 @@ class Certification
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode($result);
         }else {
+            Logger::writeErrorLog("Error while fetching certifications id: $id.");
             http_response_code(500);
         }
     }
@@ -155,6 +158,7 @@ class Certification
             $mail->certificationValidation($user->getEmail(), $user->getFirstname(), $user->getLastname(), $certificationStatus);
             http_response_code(200);
         }catch (\Exception $e) {
+            Logger::writeErrorLog("Error while updating status of user with id: $userId.");
             http_response_code(500);
         }
     }
