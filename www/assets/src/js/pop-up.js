@@ -4,7 +4,7 @@ const closePopUp = () => {
 
 const displayPopUp = (fonctionName, id, data) => {
 
-    const html = `<div id="pop-up" class="cont-popup grid show">
+    const html = `<div id="pop-up" class="cont-popup grid show apparition">
                 <section class="pop-up card grid p-6 col g-10">
                     <p class="h2">${data.title}</p>
                     <p class="c-light-gray"> ${data.subTitle} </p>
@@ -25,7 +25,7 @@ const displayPopUp = (fonctionName, id, data) => {
 
 const displayPopUpStatus = (id) => {
 
-    const html = `<div id="pop-up" class="cont-popup grid show">
+    const html = `<div id="pop-up" class="cont-popup grid show apparition">
                     <section class="pop-up card grid p-6 col g-10">
                         <p class="h2">Selectionner un nouveau statut</p>
                         <div class="row j-bet g-7">

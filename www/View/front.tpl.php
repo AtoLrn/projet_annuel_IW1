@@ -20,18 +20,16 @@
             <ul>
                 <li><a href="/recettes" class="link-black">Nos Recettes</a></li>
                 <li><a href="/cuisiniers" class="link-black">Nos Cuisiniers</a></li>
-                <li><a href="#" class="link-black">Vos Abonnements</a></li>
+                <?php if($userStatus === "admin"): ?>
+                    <li><a href="/dashboard" class="link-black">Backoffice</a></li>
+                <?php else: ?>
+                    <li><a href="#" class="link-black">Vos Abonnements <?= $userStatus ?></a></li>
+                <?php endif; ?>
             </ul>
-            <section>
-            <?php
-            use App\Model\Session;
-            $session = null;
-            if (isset($_SESSION['token'])) {
-                $session = Session::getByToken();
-            }
-                        
-            if(!is_null($session)): ?>
-                <a class="link" href=<?= "/profile?userId=" . $session->getUserId() ?>> <?php include "assets/img/logo/users.php"; ?>Mon Profil </a>
+            <section>     
+            <?php           
+            if(!is_null($userSession)): ?>
+                <a class="link" href=<?= "/profile?userId=" . $userSession->getUserId() ?>> <?php include "assets/img/logo/users.php"; ?>Mon Profil </a>
                 <a class="link" href="/logout"> <?php include "assets/img/logo/logout.php"; ?>Se deconnecter</a>
             <?php else: ?>
                 <a class="link" href="/register-login?form=login"> <?php include "assets/img/logo/users.php"; ?>Se Connecter</a>
@@ -40,9 +38,13 @@
             </section>
         </nav>
         <ul class="col a-start mobile">
-        <li><a href="#">Nos Recettes</a></li>
-        <li><a href="#">Les Cuisiniers</a></li>
-        <li><a href="#">Vos Abonnements</a></li>
+        <li><a href="/recettes">Nos Recettes</a></li>
+        <li><a href="/cuisiniers">Les Cuisiniers</a></li>
+        <?php if($userStatus === "admin"): ?>
+            <li><a href="/dashboard" class="link-black">Backoffice</a></li>
+        <?php else: ?>
+            <li><a href="#" class="link-black">Vos Abonnements <?= $userStatus ?></a></li>
+        <?php endif; ?>
         </ul>
     </header>
     <?php include "assets/img/logo/burger-menu.php"; ?>

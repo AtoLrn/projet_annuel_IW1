@@ -2,6 +2,9 @@
 
 namespace App\Core;
 
+use App\Model\Session;
+use App\Model\User;
+
 class View
 {
     private $view;
@@ -48,6 +51,17 @@ class View
     public function __destruct()
     {
         //array("pseudo"=>"Prof") ---> $pseudo = "Prof";
+        $this->data['userSession'] = null;
+        $this->data['userStatus'] = null;
+        if (isset($_SESSION['token'])) {
+            $this->data['userSession'] = Session::getByToken();
+            if($this->data['userSession']->getUserId()) {
+                $user = new User();
+                $user = $user->setId($this->data['userSession']->getUserId());
+                $this->data['userStatus'] = $user->getStatus();
+            }
+
+        }
         extract($this->data);
         include "View/" . $this->template . ".tpl.php";
     }
