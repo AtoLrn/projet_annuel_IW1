@@ -141,6 +141,8 @@ class MysqlBuilder implements QueryBuilder
 
             $sql .= ";";
 
+            $this->reset();
+
             return $sql;
             
         }

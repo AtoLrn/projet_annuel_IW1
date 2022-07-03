@@ -22,7 +22,11 @@
                 <a href=""><img src="../assets/img/logo/croc-miam.svg" alt=""></a>
                 <div class="bd-t-1 bd-light-gray mb-11"></div>
                 <nav class="grid">
-                    <ul class="col g-9 grid">
+                    <ul class="col g-8 grid">
+                        <li class="row g-3"> 
+                            <?php include "assets/img/logo/home.php"; ?> 
+                            <a href="/" class="link-black">Mon site</a> 
+                        </li>
                         <li class="row g-3"> 
                             <?php include "assets/img/logo/users.php"; ?> 
                             <a href="/list" class="link-black">Utilisateurs</a> 
@@ -49,7 +53,7 @@
                         </li>
                         <li class="row g-3"> 
                             <?php include "assets/img/logo/certifications.php"; ?>
-                            <a href="/list?q=ingredient" class="link-black">Certifications</a>
+                            <a href="/list?q=certification" class="link-black">Certifications</a>
                         </li>
                         <li class="row g-3"> 
                             <?php include "assets/img/logo/themes.php"; ?>
