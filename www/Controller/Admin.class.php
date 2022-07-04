@@ -147,6 +147,8 @@ class Admin
     public function settings(): void
     {
         $view = new View("settings", "back");
+        $view->assign("form", $this->getSetupFormUpdate());
+
     }
 
     public function setup(): void 
@@ -204,6 +206,45 @@ class Admin
         $view->assign("form", $this->getSetupForm());
     }
 
+    public function update(): void 
+    {
+        $errors = [];
+        
+        $update_params = array_filter($_POST, function($value, $key) {
+            if ($value == "") return false;
+            $default_env = get_defined_constants();
+            return $value != $default_env[$key];
+        },  ARRAY_FILTER_USE_BOTH);
+
+        $default_env = json_decode(file_get_contents("conf.inc.json"), true);
+        foreach ($update_params as $key => $value) {
+            $default_env[$key] = $value;
+        }
+
+        if ($default_env['DBPORT'] && !is_numeric($default_env['DBPORT'])) $errors[] = "Wrong Port Number";
+        
+        if ($default_env['WEBSITEURL'] && filter_var($default_env['WEBSITEURL'], FILTER_VALIDATE_URL)) $errors[] = "Wrong URL Format";
+
+        $logo = $_FILES['WEBSITELOGO'] ?? null;
+        if ($logo) {
+            $target_file = "assets/img/logo/" . bin2hex(random_bytes(20))."-".$logo['name'];
+            if (move_uploaded_file($logo['tmp_name'], $target_file)) {
+                $default_env["LOGOPATH"] = $target_file;
+            }
+        }
+        
+
+        if (count($errors) == 0) {
+            file_put_contents("conf.inc.json", json_encode($default_env));
+            header("Location: /settings");
+        }
+
+
+        $view = new View("settings", "back");
+        $view->assign("errors",  $errors);
+        $view->assign("form", $this->getSetupFormUpdate());
+    }
+
     public function getSetupForm(): array
     {
         return [
@@ -218,76 +259,196 @@ class Admin
                     "type" => "text",
                     "placeholder" => "Database Name",
                     "required" => true,
-                    "label" => "Database Name"
+                    "label" => "Database Name",
+                    "class" => "input input-search"
                 ],
                 "dbUser" => [
                     "type" => "text",
                     "placeholder" => "Database Username",
                     "required" => true,
-                    "label" => "Database Username"
+                    "label" => "Database Username",
+                    "class" => "input input-search"
                 ],
                 "dbPassword" => [
-                    "type" => "text",
+                    "type" => "password",
                     "placeholder" => "Database Password",
                     "required" => true,
-                    "label" => "Database Password"
+                    "label" => "Database Password",
+                    "class" => "input input-search"
                 ],
                 "dbHost" => [
                     "type" => "text",
                     "placeholder" => "Database Hostname",
                     "required" => true,
-                    "label" => "Database Hostname"
+                    "label" => "Database Hostname",
+                    "class" => "input input-search"
                 ],
                 "dbPort" => [
                     "type" => "text",
                     "placeholder" => "Database Port",
                     "required" => true,
-                    "label" => "Database Port"
+                    "label" => "Database Port",
+                    "class" => "input input-search"
                 ],
                 "dbPrefixe" => [
                     "type" => "text",
                     "placeholder" => "Database Prefixe",
                     "required" => true,
-                    "label" => "Database Prefixe"
+                    "label" => "Database Prefixe",
+                    "class" => "input input-search"
                 ],
                 "emailFirstname" => [
                     "type" => "text",
                     "placeholder" => "Email Firstname",
                     "required" => true,
-                    "label" => "Email Firstname"
+                    "label" => "Email Firstname",
+                    "class" => "input input-search"
                 ],
                 "emailLastname" => [
                     "type" => "text",
                     "placeholder" => "Email Lastname",
                     "required" => true,
-                    "label" => "Email Lastname"
+                    "label" => "Email Lastname",
+                    "class" => "input input-search"
                 ],
                 "emailUsername" => [
                     "type" => "email",
                     "placeholder" => "your.email@gmail.com",
                     "required" => true,
-                    "label" => "Your email"
+                    "label" => "Your email",
+                    "class" => "input input-search"
                 ],
                 "emailPassword" => [
-                    "type" => "text",
+                    "type" => "password",
                     "placeholder" => "Your email's password",
                     "required" => true,
-                    "label" => "Email Password"
+                    "label" => "Email Password",
+                    "class" => "input input-search"
                 ],
                 "websiteName" => [
                     "type" => "text",
                     "placeholder" => "Your website's Name",
                     "required" => true,
-                    "label" => "Website's Name"
+                    "label" => "Website's Name",
+                    "class" => "input input-search"
                 ],
                 "websiteUrl" => [
                     "type" => "text",
                     "placeholder" => "Your website's URL",
                     "required" => true,
-                    "label" => "Website's URL"
+                    "label" => "Website's URL",
+                    "class" => "input input-search"
                 ],
 
                 
+            ]
+        ];
+    }
+
+    public function getSetupFormUpdate(): array
+    {
+
+
+
+        return [
+            "config" => [
+                "method" => "POST",
+                "action" => "/update",
+                "enctype" => "multipart/form-data",
+                "submit" => "Mettre à Jour",
+                "class" => "update-form",
+                "container-inputs" => "input-wrapper"
+            ],
+            "inputs" => [
+                "DBNAME" => [
+                    "type" => "text",
+                    "placeholder" => "Database Name",
+                    "label" => "Database Name",
+                    "class" => "input input-search",
+                    "value" => DBNAME
+                ],
+                "DBUSER" => [
+                    "type" => "text",
+                    "placeholder" => "Database Username",
+                    "label" => "Database Username",
+                    "class" => "input input-search",
+                    "value" => DBUSER
+                ],
+                "DBPASSWORD" => [
+                    "type" => "password",
+                    "placeholder" => "Database Mot de Passe",
+                    "label" => "Database Mot de Passe",
+                    "class" => "input input-search"
+                ],
+                "DBHOST" => [
+                    "type" => "text",
+                    "placeholder" => "Database Hostname",
+                    "label" => "Database Hostname",
+                    "class" => "input input-search",
+                    "value" => DBHOST
+                ],
+                "DBPORT" => [
+                    "type" => "text",
+                    "placeholder" => "Database Port",
+                    "label" => "Database Port",
+                    "class" => "input input-search",
+                    "value" => DBPORT
+                ],
+                "DBPREFIXE" => [
+                    "type" => "text",
+                    "placeholder" => "Database Prefixe",
+                    "label" => "Database Prefixe",
+                    "class" => "input input-search",
+                    "value" => DBPREFIXE
+                ],
+                "FIRSTNAME" => [
+                    "type" => "text",
+                    "placeholder" => "Prénom de l'email",
+                    "label" => "Prénom de l'email",
+                    "class" => "input input-search",
+                    "value" => FIRSTNAME
+                ],
+                "LASTNAME" => [
+                    "type" => "text",
+                    "placeholder" => "Nom de l'email",
+                    "label" => "Nom de l'email",
+                    "class" => "input input-search",
+                    "value" => LASTNAME
+                ],
+                "MAILUSERNAME" => [
+                    "type" => "email",
+                    "placeholder" => "your.email@gmail.com",
+                    "label" => "Your email",
+                    "class" => "input input-search",
+                    "value" => MAILUSERNAME
+                ],
+                "MAILPASSWORD" => [
+                    "type" => "password",
+                    "placeholder" => "Your email's password",
+                    "label" => "Email Password",
+                    "class" => "input input-search"
+                ],
+                "WEBSITENAME" => [
+                    "type" => "text",
+                    "placeholder" => "Nom du site",
+                    "label" => "Nom du site",
+                    "class" => "input input-search",
+                    "value" => WEBSITENAME
+                ],
+                "WEBSITEURL" => [
+                    "type" => "text",
+                    "placeholder" => "URL du site",
+                    "label" => "URL du site",
+                    "class" => "input input-search",
+                    "value" => WEBSITEURL
+                ],
+                "WEBSITELOGO" => [
+                    "type" => "file",
+                    "placeholder" => "Website Logo",
+                    "label" => "Logo du website",
+                    "class" => "input input-search",
+                    "value" => WEBSITEURL
+                ],
             ]
         ];
     }

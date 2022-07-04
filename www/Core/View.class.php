@@ -62,6 +62,9 @@ class View
             }
 
         }
+
+        $this->data['website_logo'] = "../".LOGOPATH;
+
         extract($this->data);
         include "View/" . $this->template . ".tpl.php";
     }

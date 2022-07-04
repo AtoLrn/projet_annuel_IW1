@@ -1,0 +1,17 @@
+.update-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .input-wrapper {
+        width: 50%;
+        .input {
+            width: 90%;
+        }
+    }
+    input[type=submit] {
+        width: 60%;
+        align-self: center;
+        margin: 1em auto;
+    }
+}

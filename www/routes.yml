@@ -281,6 +281,11 @@
   controller: admin
   action: setup
 
+/update:
+  controller: admin
+  action: update
+  security:
+    - admin
 
 /pwd-forget:
   controller: user
