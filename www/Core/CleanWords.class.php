@@ -6,6 +6,11 @@ namespace App\Core;
 class CleanWords
 {
 
+    public static function firstname($firstname): string
+    {
+        return ucfirst(strtolower(trim($firstname)));
+    }
+
     public static function lastname($lastname):string
     {
         return strtoupper(trim($lastname));

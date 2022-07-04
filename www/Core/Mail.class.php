@@ -115,4 +115,24 @@ class Mail
         }
     }
 
+    /**
+     * @throws Exception
+     */
+    public function newMailValidation(string $userMail, string $firstName, string $lastName, string $token)
+    {
+        try {
+            $this->mail->addAddress($userMail, $firstName . ' ' . $lastName);
+            $this->mail->isHTML(true);                                  //Set email format to HTML
+            $this->mail->Subject = 'Confirmation de modification de votre adresse mail sur ' . WEBSITENAME;
+            $this->mail->Body = '<div style="display: flex; flex-direction: column; justify-content: center">
+                                    <p>Afin de valider votre nouvel email, veuillez cliquer sur le lien ci-dessous</p>
+                                    <a href="' . WEBSITEURL . '/new-mail-validation?token=' . $token . '">ICI</a>
+                                    <span>Si vous n\'êtes pas à l\'origine de cette inscription veuillez ignorer ce mail</span>
+                                </div>';
+            $this->mail->send();
+        }catch (Exception $error){
+            echo $error;
+        }
+    }
+
 }

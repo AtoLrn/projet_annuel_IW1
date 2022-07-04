@@ -26,11 +26,31 @@ $status = [
        
         <div class="grid col g-2">
 
-            <p class="h2"><?= $userInfos->getFirstname() ?> <?= $userInfos->getLastname() ?></p>
-            <p class="h3"><?= $userInfos->getEmail() ?></p>
+            <div>
+                <div class="hidden" id="newFirstnameAndLastnameForm">
+                    <label for="newFirstname">Firstname</label><input id="newFirstname" type="text" value="<?= $userInfos->getFirstname() ?>">
+                    <label for="newLastname">Lastname</label><input id="newLastname" type="text" value="<?= $userInfos->getLastname() ?>">
+                    <button id="modifyNameButton" class="btn btn-pink little">Envoyer</button>
+                </div>
+                <p id="lastnameAndFirstname" class="h2"><?= $userInfos->getFirstname() ?> <?= $userInfos->getLastname() ?></p>
+                <?php if ($isMyProfile) : ?>
+                <button id="displayFormNameButton"><?php include "assets/img/logo/edit.php"; ?></button>
+                <?php endif; ?>
+            </div>
+            <div>
+                <div class="hidden" id="newEmailForm">
+                    <label for="newEmail">Email</label><input id="newEmail" type="email" value="<?= $userInfos->getEmail() ?>">
+                    <button id="modifyEmailButton" class="btn btn-pink little">Envoyer</button>
+                </div>
+                <p id="email" class="h3"><?= $userInfos->getEmail() ?></p>
+                <?php if ($isMyProfile) : ?>
+                <button id="displayFormEmailButton"><?php include "assets/img/logo/edit.php"; ?></button>
+                <?php endif; ?>
+            </div>
             <p class="h3 row a-center g-2">Statut: <?= $status[$userInfos->getStatus()] ?> <?php $userInfos->getStatus() == 'chief' ? include 'assets/img/logo/certifications.php' : ''?> </p>
             <?php $date = new DateTime($userInfos->createdAt); ?>
             <p class="h3">Utilisateur depuis le: <?= $date->format('d / m / Y') ?></p>
+            <a href="/modify-password" class="btn btn-pink little">Modifier mon mot de passe</a>
         </div>
 
     </section>

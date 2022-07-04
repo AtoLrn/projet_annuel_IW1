@@ -287,3 +287,23 @@
 /modify-password:
   controller: user
   action: modifyPassword
+
+/modify-firstname-lastname:
+  controller: user
+  action: modifyFirstnameLastname
+  security:
+    - admin
+    - user
+    - chief
+
+/modify-email:
+  controller: user
+  action: modifyEmail
+  security:
+    - admin
+    - user
+    - chief
+
+/new-mail-validation:
+  controller: user
+  action: newMailValidation
