@@ -320,19 +320,13 @@ class Article
 
         $result["article"] = $article->select($listTpl)[0];
 
-        $result["comments"] = $article->select([          
-            "comment" => [
-                "args" => ["COUNT(*)"],
-                "params" => ["articleId" => $id]
-            ]                
-        ])[0]["COUNT(*)"];
+        $result["comments"] = $article->select2('comment', ['id'])
+            ->where("articleId", $id)
+            ->count();
 
-        $result["like"] = $article->select([          
-            "like" => [
-                "args" => ["COUNT(*)"],
-                "params" => ["articleId" => $id]
-            ]                
-        ])[0]["COUNT(*)"];
+        $result["like"] = $article->select2('star', ['id'])
+            ->where("articleId", $id)
+            ->count();
 
         if($result) {
             http_response_code(200);

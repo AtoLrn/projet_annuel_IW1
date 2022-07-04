@@ -112,6 +112,14 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
         return $queryPrepared->fetchAll(PDO::FETCH_CLASS, get_called_class());
     }
 
+    public function count()
+    {
+        $queryPrepared = $this->pdo->prepare($this->get());
+        $queryPrepared->execute($this->getParams());
+
+        return $queryPrepared->rowCount();
+    }
+
     public function fetch()
     {
         $queryPrepared = $this->pdo->prepare($this->get());
