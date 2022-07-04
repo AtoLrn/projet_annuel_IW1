@@ -9,6 +9,7 @@ CREATE TABLE `CUSTOM_PREFIX_user` (
   `passwordToken` varchar(255) DEFAULT NULL,
   `mailToken` varchar(255) DEFAULT NULL,
   `profilePicture` varchar(2048) DEFAULT NULL,
+  `tmpEmail` varchar(998) DEFAULT NULL,
 
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

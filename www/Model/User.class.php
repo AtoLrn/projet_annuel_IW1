@@ -16,6 +16,7 @@ class User extends Sql
     protected $mailToken = null;
     protected $passwordToken = null;
     protected $profilePicture = null;
+    protected $tmpEmail = null;
 
     public function __construct()
     {
@@ -163,6 +164,22 @@ class User extends Sql
         $this->passwordToken = $passwordToken;
     }
 
+    /**
+     * @return string
+     */
+    public function getTmpEmail(): string
+    {
+        return $this->tmpEmail;
+    }
+
+    /**
+     * @param string|null $tmpEmail
+     */
+    public function setTmpEmail(?string $tmpEmail): void
+    {
+        $this->tmpEmail = strtolower(trim($tmpEmail));
+    }
+
     public function formatList(): array
     {
         return [
@@ -172,7 +189,6 @@ class User extends Sql
               
         ];
     }
-
 
     /**
      * @param string $isVerified
@@ -370,7 +386,7 @@ class User extends Sql
             "config" => [
                 "id" => "modify_password_form",
                 "method" => "POST",
-                "action" => "/modify-password?token=" . $token,
+                "action" => $token ? "/modify-password?token=" . $token : "/modify-password",
                 "submit" => "Envoyer",
                 "class" => "col a-center py-4 w-per-20 px-8 g-5",
             ],

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\CleanWords;
 use App\Core\Mail;
 use App\Core\Verificator;
 use App\Core\View;
@@ -130,6 +131,26 @@ class User
         $view->assign('validationStatus', false);
     }
 
+    public function newMailValidation()
+    {
+        $user = new UserModel();
+        $view = new View("mail-validation", 'front');
+        if ($_GET['token']) { // Faire une sécu ic!!!!!!!!!
+            $user = $user->select2('user', ["*"])
+                ->where('mailToken', $_GET['token'])
+                ->fetch();
+            if (!empty($user)) {
+                $user->setEmail($user->getTmpEmail());
+                $user->setTmpEmail(null);
+                $user->save();
+                $view->assign('validationStatus', true);
+                return;
+            }
+        }
+
+        $view->assign('validationStatus', false);
+    }
+
     public function logout()
     {
         session_destroy();     
@@ -170,32 +191,44 @@ class User
     {
         $view = new View("modify-password", 'front');
         $error = null;
+        $user = new UserModel();
         if (isset($_GET['token'])) {
             $token = $_GET['token'];
-            $user = new UserModel();
             $user = $user->select2('user', ["*"])
                 ->where('passwordToken', $token)
                 ->fetch();
-            if ($user) {
-                $view->assign("tokenError", false);
-                $view->assign("user", $user);
-                if (!empty($_POST)) {
-                    $result = Verificator::checkForm($user->getModifyPasswordForm($token), $_POST);
-                    if (empty($result)) {
-
-                        $user->setPassword($_POST['password']);
-                        $user->save();
-
-                        header("Location: /");
-                    }
-                    $error = $result;
-                }
-                $view->assign("error", $error);
-                $view->assign("token", $token);
+        } else if (isset($_SESSION['token'])) {
+            $session = Session::getByToken();
+            if ($session === null) {
+                $view->assign("tokenError", true);
                 return;
             }
+            $user = $user->setId($session->getUserId());
+        } else {
+            $view->assign("tokenError", true);
+            return;
         }
-        $view->assign("tokenError", true);
+
+        if (!$user) {
+            $view->assign("tokenError", true);
+            return;
+        }
+
+        $view->assign("tokenError", false);
+        $view->assign("user", $user);
+        if (!empty($_POST)) {
+            $result = Verificator::checkForm($user->getModifyPasswordForm($token), $_POST);
+            if (empty($result)) {
+
+                $user->setPassword($_POST['password']);
+                $user->save();
+
+                header("Location: /");
+            }
+            $error = $result;
+        }
+        $view->assign("error", $error);
+        $view->assign("token", $token ?? null);
     }
 
     public function profile()
@@ -210,7 +243,7 @@ class User
 
         $session = !empty($_SESSION["token"]) ? Session::getByToken($_SESSION["token"]) : null;
 
-        $isMyProfile = $session->getUserId() == $userId;
+        $isMyProfile = $session && $session->getUserId() == $userId;
         $userId = $isMyProfile ? $session->getUserId() : $userId;
         $userInfos = $user->select2('user', ['*'])
             ->where('id', $userId)
@@ -383,6 +416,75 @@ class User
                 }
             }
         }
+    }
+
+    public function modifyFirstnameLastname()
+    {
+        Server::ensureHttpMethod('POST');
+
+        $user = new UserModel();
+
+        $session = Session::getByToken();
+        if ($session === null) {
+            echo "aucun compte correspondant";
+            http_response_code(500);
+            return;
+        }
+
+        if (!isset($_POST['firstname']) || !isset($_POST['lastname'])) {
+            echo "Champs manquant";
+            http_response_code(500);
+            return;
+        }
+
+        $user = $user->setId($session->getUserId());
+        $user->setFirstname(CleanWords::firstname($_POST['firstname']));
+        $user->setLastname(CleanWords::lastname($_POST['lastname']));
+        $user->save();
+    }
+
+    public function modifyEmail()
+    {
+        Server::ensureHttpMethod('POST');
+
+        $user = new UserModel();
+
+        $session = Session::getByToken();
+        if ($session === null) {
+            echo "aucun compte correspondant";
+            http_response_code(500);
+            return;
+        }
+
+        if (!isset($_POST['email'])) {
+            echo "Champs manquant";
+            http_response_code(500);
+            return;
+        }
+
+        if (!Verificator::checkEmail($_POST['email'])) {
+            echo "Mail invalide";
+            http_response_code(500);
+            return;
+        }
+
+        $isEmailExist = $user->select2('user', ['id'])
+            ->where('email', $_POST['email'])
+            ->fetch();
+        if ($isEmailExist){
+            echo "Ce mail exist déjà";
+            http_response_code(500);
+            return;
+        }
+
+        $user = new UserModel();
+        $user = $user->setId($session->getUserId());
+        $user->setTmpEmail($_POST['email']);
+        $user->generateMailToken();
+        $user->save();
+
+        $mail = Mail::getInstance();
+        $mail->newMailValidation($_POST['email'], $user->getFirstname(), $user->getLastname(), $user->getMailToken());
     }
 
 }
