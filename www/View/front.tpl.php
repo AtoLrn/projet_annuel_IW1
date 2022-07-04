@@ -16,7 +16,7 @@
 <body class="grid">
     <header class="navbar-front grid h-px-20 mb-5">
         <nav class="row j-bet">
-            <a href="/" class="link"><img height="52px" src="assets/img/logo/croc-miam.svg" alt="logo"></a>         
+            <a href="/" class="link"><img height="60px" src=<?= $website_logo ?> alt="logo"></a>         
             <ul>
                 <li><a href="/recettes" class="link-black">Nos Recettes</a></li>
                 <li><a href="/cuisiniers" class="link-black">Nos Cuisiniers</a></li>
