@@ -6,7 +6,8 @@ CREATE TABLE `CUSTOM_PREFIX_user` (
   `status` enum('admin','user', 'chief') NOT NULL DEFAULT 'user',
   `isVerified` BOOLEAN NOT NULL DEFAULT FALSE,
   `password` varchar(255) NOT NULL,
-  `mailToken` varchar(255) NOT NULL,
+  `passwordToken` varchar(255) DEFAULT NULL,
+  `mailToken` varchar(255) DEFAULT NULL,
   `profilePicture` varchar(2048) DEFAULT NULL,
 
   `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
