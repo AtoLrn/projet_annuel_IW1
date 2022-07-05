@@ -12,6 +12,7 @@ class MysqlBuilder implements QueryBuilder
         private function reset()
         {
             $this->query = new \stdClass();
+            $this->params = [];
         }
 
         public function getParams(): ?array
@@ -140,9 +141,6 @@ class MysqlBuilder implements QueryBuilder
             }
 
             $sql .= ";";
-
-            $this->reset();
-
             return $sql;
             
         }
