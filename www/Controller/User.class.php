@@ -217,13 +217,13 @@ class User
         $view->assign("tokenError", false);
         $view->assign("user", $user);
         if (!empty($_POST)) {
-            $result = Verificator::checkForm($user->getModifyPasswordForm($token), $_POST);
+            $result = Verificator::checkForm($user->getModifyPasswordForm($token??null), $_POST);
             if (empty($result)) {
 
                 $user->setPassword($_POST['password']);
                 $user->save();
 
-                header("Location: /");
+                $view->assign("success", true);
             }
             $error = $result;
         }
@@ -241,7 +241,7 @@ class User
 
         $userId = $_GET['userId'];
 
-        $session = !empty($_SESSION["token"]) ? Session::getByToken($_SESSION["token"]) : null;
+        $session = !empty($_SESSION["token"]) ? Session::getByToken() : null;
 
         $isMyProfile = $session && $session->getUserId() == $userId;
         $userId = $isMyProfile ? $session->getUserId() : $userId;
@@ -402,7 +402,7 @@ class User
         $uploadsDir = 'assets/img/users/';
         $file = $_FILES['file'];
         if (!empty($_SESSION["token"])) {
-            $session = Session::getByToken($_SESSION["token"]);
+            $session = Session::getByToken();
             if ($session !== null) {
                 $user = $user->setId($session->getUserId());
                 if ($file['error'] === UPLOAD_ERR_OK) {

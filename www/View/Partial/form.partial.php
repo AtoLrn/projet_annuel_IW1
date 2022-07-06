@@ -6,7 +6,7 @@
         <div class="<?= $data["config"]["classContInputs"] ?? "col j-bet g-2 w-per-20" ?>">
 
             <?php if(isset($input['label'])): ?>
-                <label for="<?= $input["id"] ?? "" ?>"><?= $input["label"]?></label>
+                <label class="<?= $data["config"]["labels"]??"" ?>" for="<?= $input["id"] ?? "" ?>"><?= $input["label"]?></label>
             <?php endif; ?>
             <?php if ($input["type"] === "wysiwyg") { ?>
                 <?php $this->partialInclude("wysiwyg", 
@@ -39,11 +39,23 @@
                     "multiple" => empty($input["multiple"])?"":'multiple="multiple"',
                     "required" => empty($input["required"])?"":'required="required"'
                 ]) ?>
+            <?php } elseif ($input["type"] === "textarea") { ?>
+                <textarea
+                        name="<?= $name ?>"
+                        placeholder="<?= $input["placeholder"]??"" ?>"
+                        id="<?= $input["id"]??"" ?>"
+                        class="<?= $input["class"]??"" ?>"
+                        
+                    <?= empty($input["required"])?"":'required="required"' ?>
+                    <?= empty($input["rows"])?"":'rows="' . $input["rows"] . '"' ?>
+                    <?= empty($input["cols"])?"":'cols="' . $input["cols"] . '"' ?>
+                    <?= empty($input["maxLength"]) ? "" : 'maxLength="' . $input['maxLength'] . '"' ?>
+                ></textarea>
             <?php } else { ?>
 
                 <input
                         type="<?= $input["type"]??"text" ?>"
-                        name="<?= $name?>"
+                        name="<?= $name ?>"
                         placeholder="<?= $input["placeholder"]??"" ?>"
                         id="<?= $input["id"]??"" ?>"
                         class="<?= $input["class"]??"" ?>"
@@ -51,6 +63,8 @@
                         
                     <?= empty($input["required"])?"":'required="required"' ?>
                     <?= empty($input["multiple"])?"":'multiple="multiple"' ?>
+                    <?= empty($input["rows"])?"":'rows="' . $input["rows"] . '"' ?>
+                    <?= empty($input["cols"])?"":'cols="' . $input["cols"] . '"' ?>
                     <?= empty($input["maxLength"]) ? "" : 'maxLength="' . $input['maxLength'] . '"' ?>
                 />
             <?php } ?>

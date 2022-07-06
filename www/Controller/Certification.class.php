@@ -42,36 +42,34 @@ class Certification
         $view = new View("certification-request", "front");
         $demandAlreadyExist = 0;
         $isRequestCreated = 0;
-        if (!empty($_SESSION["token"])) {
-            $session = Session::getByToken($_SESSION["token"]);
-            if ($session !== null){
-                $view->assign("connectedUser", true);
-                $user = $user->setId($session->getUserId());
-                $certificationDemand = new CertificationModel();
-                $isDemandExist = $certificationDemand->select([
-                    "certification" => [
-                        "args" => ["id"],
-                        "params" => [
-                            "userId" => $user->getId(),
-                            "status" => 'inDemand'
-                        ]
+        $session = Session::getByToken();
+        if (!is_null($session)){
+            $view->assign("connectedUser", true);
+            $user = $user->setId($session->getUserId());
+            $certificationDemand = new CertificationModel();
+            $isDemandExist = $certificationDemand->select([
+                "certification" => [
+                    "args" => ["id"],
+                    "params" => [
+                        "userId" => $user->getId(),
+                        "status" => 'inDemand'
                     ]
-                ]);
-                if (empty($isDemandExist)) {
-                    $demandAlreadyExist = 1;
-                    $view->assign("demandAlreadyExist", $demandAlreadyExist);
-                    if (!empty($_POST)) {
-                        $isRequestCreated = $this->sendCertificationRequest($certificationDemand, $user);
-                    }
-                    $view->assign("isRequestCreated", $isRequestCreated);
-                    $view->assign("certification", $certificationDemand);
-                    return;
-                }
+                ]
+            ]);
+            if (empty($isDemandExist)) {
+                $demandAlreadyExist = 1;
                 $view->assign("demandAlreadyExist", $demandAlreadyExist);
+                if (!empty($_POST)) {
+                    $isRequestCreated = $this->sendCertificationRequest($certificationDemand, $user);
+                }
+                $view->assign("isRequestCreated", $isRequestCreated);
+                $view->assign("certification", $certificationDemand);
                 return;
             }
+            $view->assign("demandAlreadyExist", $demandAlreadyExist);
+            return;
         }
-        $view->assign("connectedUser", false);
+        
     }
 
     // -------------- API calls ------------- //

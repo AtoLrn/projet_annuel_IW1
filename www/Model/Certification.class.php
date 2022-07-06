@@ -113,16 +113,20 @@ class Certification extends Sql
                 "method" => "POST",
                 "action" => "",
                 "enctype" => "multipart/form-data",
-                "submit" => "Envoyer"
+                "submit" => "Envoyer",
+                "class" => "col g-6 a-center w-per-20",
+                "classContInputs" => "col j-bet g-1 w-per-20",
+                "labels" => "small"
             ],
             "inputs" => [
                 "description" => [
                     "type" => "textarea",
-                    "rows" => "30",
-                    "cols" => "20",
+                    "rows" => "10",
+                    "cols" => "10",
                     "placeholder" => "Décrivez nous votre demande (motivation, expérience, ect...)",
                     "required" => true,
-                    "label" => "Description de votre demande"
+                    "label" => "Description de votre demande",
+                    "class" => "input input-pink"
                 ],
                 "idDocument" => [
                     "type" => "file",

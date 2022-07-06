@@ -6,16 +6,16 @@
         $form['error'] = $error??[];
         $this->partialInclude("form", $form) 
     ?>
-    <button class="link link-danger" onclick="displayPopUp(0)">Supprimer</button>  
+    <button class="link link-danger" onclick="togglePopUpLink()">Supprimer</button>  
 <div>
 
-<div id="pop-up" class="cont-popup grid">
+<div id="pop-up" class="cont-popup grid apparition">
     <section class="pop-up card grid p-6 col g-10">
         <p class="h2">Confirmer-vous la suppression ?</p>
         <p class="c-light-gray"> Si vous confirmez l'element sera supprimez définitivement</p>
         <div class="row j-bet g-6">
             <a class="btn btn-danger col-lg-4" href="/delete-theme?id=<?= $theme->getId(); ?>"> Supprimer </a>
-            <button id="cancel" class="btn btn-outline-pink col-lg-4" onclick="closePopUp()"> Annuler </button>         
+            <button id="cancel" class="btn btn-outline-pink col-lg-4" onclick="togglePopUpLink()"> Annuler </button>         
         </div>
     </section>
 </div>

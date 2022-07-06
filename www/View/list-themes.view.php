@@ -66,7 +66,9 @@
 
                 <?php else:?>
                 
-                <p class="mt-5 c-pink" style="text-align: right;">Selectionné</p>
+                <div class="mt-5 c-pink row j-end g-3" >
+                    <p class="c-pink">Selectionné</p>
+                </div>
                 
                 <?php endif; ?>
             </article>
@@ -76,14 +78,9 @@
     <a href="/theme" class="btn btn-pink mt-9 xs-w-per-20">Ajouter un nouveau theme</a>
 
     <?php if(isset($_GET['success'])): ?>
-    <div class="p-3 mt-9 bd-1 bd-success c-success br-2 xs-w-per-20"> 
-        <?= $_GET['success'] == "add" ? "Thème ajouté avec succès." : "Thème supprimé avec succès." ?> 
-    </div>
+        <div class="success-msg mt-10"><?= $_GET['success'] == "add" ? "Thème mis à jour avec succès." : "Thème supprimé avec succès." ?></div>
+    <?php elseif(isset($_GET['error'])): ?>
+        <div class="error-msg mt-10"> <?= $_GET['error'] == 'add' ? "Une erreur est survenu lors de l'ajout du thème." : "Une erreur est survenu lors de la suppression du thème." ?></div>
     <?php endif; ?>
-
-    <?php if(isset($_GET['error'])): ?>
-    <div class="p-3 mt-9 bd-1 bd-light-pink c-light-pink br-2 xs-w-per-20"> 
-        <?= $_GET['error'] == 'add' ? "Une erreur est survenu lors de l'ajout du thème." : "Une erreur est survenu lors de la suppression du thème." ?> 
-    </div>
-    <?php endif; ?>
+    
 </div>

@@ -37,7 +37,7 @@ class Ingredient
         $view = new View("ingredient-request", "front");
         $isRequestCreated = false;
         if (!empty($_SESSION["token"])) {
-            $session = Session::getByToken($_SESSION["token"]);
+            $session = Session::getByToken();
             if ($session !== null){
                 $view->assign("connectedUser", true);
                 $user = $user->setId($session->getUserId());

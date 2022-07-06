@@ -1,0 +1,28 @@
+.success-msg {
+    box-shadow: 0px 0px 12px 2px var(--shadow-color);
+    padding: 12px 32px;
+    padding-left: 60px;
+    border: 1px solid $green-success;
+    border-radius: 12px;
+    background: url(../../assets/img/logo/logo-check-green.svg) no-repeat 20px 50%, var(--bg-color);
+    font-size: 14px;
+    line-height: 19px;
+    color: $green-success;
+    align-self: center;
+    max-width: 327px;
+    margin: 0 auto;
+}
+
+.error-msg {
+    box-shadow: 0px 0px 10px 1px var(--shadow-color);
+    padding: 12px 32px;
+    border: 1px solid $error;
+    border-radius: 12px;
+    background: var(--bg-color);
+    font-size: 14px;
+    line-height: 19px;
+    color: $error;
+    align-self: center;
+    max-width: 327px;
+    margin: 0 auto;
+}

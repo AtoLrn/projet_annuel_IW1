@@ -256,6 +256,7 @@ class User extends Sql
                 "action" => "/register-login?form=register",
                 "submit" => "S'inscrire",
                 "class" => "col a-center py-4 w-per-20 px-8 g-5",
+                "labels" => "small",
                 "recaptcha" => true
             ],
             'inputs' => [
@@ -327,6 +328,7 @@ class User extends Sql
                 "action" => "/register-login?form=login". (isset($_GET['url']) ? "&url=".$_GET['url'] : ""),
                 "submit" => "Se connecter",
                 "class" => "col a-center py-4 w-per-20 px-8 g-5",
+                "labels" => "small",
                 "recaptcha" => true
             ],
             'inputs' => [
@@ -364,7 +366,7 @@ class User extends Sql
                 "method" => "POST",
                 "action" => "/pwd-forget",
                 "submit" => "Envoyer",
-                "class" => "col a-center py-4 w-per-20 px-8 g-5",
+                "class" => "col a-center p-8 w-per-20 g-5 br-3",
             ],
             'inputs' => [
                 "email" => [
@@ -388,7 +390,7 @@ class User extends Sql
                 "method" => "POST",
                 "action" => $token ? "/modify-password?token=" . $token : "/modify-password",
                 "submit" => "Envoyer",
-                "class" => "col a-center py-4 w-per-20 px-8 g-5",
+                "class" => "col a-center px-8 pt-8 pb-4 w-per-20 g-5 br-3",
             ],
             'inputs' => [
                 "password" => [
