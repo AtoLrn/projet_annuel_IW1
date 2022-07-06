@@ -30,6 +30,13 @@ $(document).ready(() => {
     displayFormNameButton.click(function () {
         lastnameAndFirstname.toggleClass('hidden')
         newFirstnameAndLastnameForm.toggleClass('hidden')
+        displayFormNameButton.toggleClass('hidden')
+    })
+
+    $('#closeFormNameButton').click(function () {
+        lastnameAndFirstname.toggleClass('hidden')
+        newFirstnameAndLastnameForm.toggleClass('hidden')
+        displayFormNameButton.toggleClass('hidden')
     })
 
     let modifyNameButton = $('#modifyNameButton')
@@ -66,6 +73,13 @@ $(document).ready(() => {
     displayFormEmailButton.click(function () {
         email.toggleClass('hidden')
         newEmailForm.toggleClass('hidden')
+        displayFormEmailButton.toggleClass('hidden')
+    })
+
+    $('#closeFormEmailButton').click(function () {
+        email.toggleClass('hidden')
+        newEmailForm.toggleClass('hidden')
+        displayFormEmailButton.toggleClass('hidden')
     })
 
     let modifyEmailButton = $('#modifyEmailButton')

@@ -15,7 +15,7 @@ class Comment {
         $user = new UserModel();
         $comment = new CommentModel();
         if (!empty($_SESSION["token"])) {
-            $session = Session::getByToken($_SESSION["token"]);
+            $session = Session::getByToken();
             if ($session !== null) {
                 $user = $user->setId($session->getUserId());
                 if (!empty($_POST)) {

@@ -36,6 +36,10 @@
     
 }
 
+textarea {
+    line-height: 1.6em !important;
+}
+
 input::placeholder {
-    color: var(--ph-color);
+    color: var(--ph-color) !important;
 }

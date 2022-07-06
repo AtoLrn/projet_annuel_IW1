@@ -23,7 +23,7 @@
                 <?php if($userStatus === "admin"): ?>
                     <li><a href="/dashboard" class="link-black">Backoffice</a></li>
                 <?php else: ?>
-                    <li><a href="#" class="link-black">Vos Abonnements <?= $userStatus ?></a></li>
+                    <li><a href="#" class="link-black">Vos Abonnements</a></li>
                 <?php endif; ?>
             </ul>
             <section>     

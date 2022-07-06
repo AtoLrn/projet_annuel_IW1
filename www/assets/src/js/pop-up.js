@@ -64,3 +64,9 @@ const activePopUp = (val) => ({
     subTitle: "Vous pourrez toujour le changer à nouveau plus tard",
     action: val ? 'Activer' : 'Désactiver'
 })
+
+
+const togglePopUpLink = () => {
+    $('#pop-up').toggleClass('show')
+}
+
