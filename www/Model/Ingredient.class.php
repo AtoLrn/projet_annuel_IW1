@@ -106,7 +106,9 @@ class Ingredient extends Sql
                 "action" => "",
                 "enctype" => "multipart/form-data",
                 "submit" => "Envoyer",
-                "class" => "col a-center py-4 w-per-20 px-8"
+                "class" => "col g-6 a-center w-per-20",
+                "classContInputs" => "col j-bet g-1 w-per-20",
+                "labels" => "small"
             ],
             "inputs" => [
                 "ingredientName" => [
