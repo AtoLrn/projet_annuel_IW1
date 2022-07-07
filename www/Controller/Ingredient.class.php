@@ -10,7 +10,7 @@ use App\Model\Ingredient as IngredientModel;
 
 class Ingredient
 {
-    private function sendIngredientRequest(IngredientModel $ingredientDemand, UserModel $user)
+    private function sendIngredientRequest(IngredientModel $ingredientDemand, int $id)
     {
         $file = $_FILES['ingredientImage'];
         $uploadsDir = 'assets/img/ingredient-images/';
@@ -27,44 +27,34 @@ class Ingredient
         }
 
         $ingredientDemand->setName($ingredientName);
-        $ingredientDemand->setUserId($user->getId());
+        $ingredientDemand->setUserId($id);
 
         return $ingredientDemand->save();
     }
+
+    
     public function ingredientRequest()
     {
-        $user = new UserModel();
         $view = new View("ingredient-request", "front");
         $isRequestCreated = false;
-        if (!empty($_SESSION["token"])) {
-            $session = Session::getByToken();
-            if ($session !== null){
-                $view->assign("connectedUser", true);
-                $user = $user->setId($session->getUserId());
-                $ingredientDemand = new IngredientModel();
-                $isDemandExist = $ingredientDemand->select([
-                    "ingredient" => [
-                        "args" => ["id"],
-                        "params" => [
-                            "userId" => $user->getId(),
-                            "status" => 'inDemand'
-                        ]
-                    ]
-                ]);
-                if (empty($isDemandExist)) {
-                    $view->assign("demandAlreadyExist", true);
-                    if (!empty($_POST)) {
-                        $isRequestCreated = $this->sendIngredientRequest($ingredientDemand, $user);
-                    }
-                    $view->assign("isRequestCreated", $isRequestCreated);
-                    $view->assign("ingredient", $ingredientDemand);
-                    return;
-                }
-                $view->assign("demandAlreadyExist", false);
-                return;
+        $session = Session::getByToken();
+        $ingredientDemand = new IngredientModel();
+        $isDemandExist = $ingredientDemand->select2('ingredient', ['id'])
+            ->where('userId', $session->getUserId())
+            ->where('status', 'inDemand')
+            ->fetchAll();       
+        
+        if(count($isDemandExist) == 0) {
+
+            if (!empty($_POST)) {
+                $isRequestCreated = $this->sendIngredientRequest($ingredientDemand, $session->getUserId());
+                $view->assign("isRequestCreated", $isRequestCreated);
+
             }
-        }
-        $view->assign("connectedUser", false);
+            $view->assign("ingredient", $ingredientDemand);
+        }else {
+            $view->assign("demandAlreadyExist", true);
+        }   
     }
 
     // -------------- API calls ------------- //
