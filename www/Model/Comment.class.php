@@ -91,7 +91,8 @@ class Comment extends Sql
                 "method" => "POST",
                 "action" => "/create-comment",
                 "enctype" => "multipart/form-data",
-                "submit" => "Envoyer"
+                "submit" => "Envoyer",
+                "class" => "col a-center py-4 w-per-20 px-8 g-5"
             ],
             "inputs" => [
                 "description" => [
@@ -100,7 +101,8 @@ class Comment extends Sql
                     "cols" => "20",
                     "placeholder" => "Rentrez votre commentaire",
                     "required" => true,
-                    "label" => "Commentaire"
+                    "label" => "Commentaire",
+                    "class" => "input h-per-20"
                 ],
                 "articleId" => [
                     "type" => "hidden",
