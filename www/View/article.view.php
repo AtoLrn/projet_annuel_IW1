@@ -70,16 +70,23 @@
         </div>
     </div>
 
-    <div>
-        <?php $this->partialInclude("form", $comment->getCommentCreationForm()) ?>
-    </div>
+    <div class="grid">
+        <div class="col mt-10 a-center">
+            <div class="w-per-10">
+                <?php $this->partialInclude("form", $comment->getCommentCreationForm()) ?>
+            </div>
 
-    <div>
-        <?php foreach ($comments as $comment) :?>
-            <p><?= $comment['user_firstname'] ?></p>
-            <p><?= $comment['comment_content'] ?></p>
-            <p><?= $comment['comment_createdAt'] ?></p>
-        <?php endforeach; ?>
+            <div class="w-per-10 py-4 px-8">
+                <?php foreach ($comments as $comment) :?>
+                <div class="card p-4 mb-6 grid col a-start g-3">
+                    <a class="grid row a-center g-0" href="/profile?userId=<?= $comment->getUserId() ?>"><img height="32px" src="<?= $comment->profilePicture ?>" alt=""><?= $comment->firstname ?></a>
+                    <p class="ml-11"><?= $comment->getContent() ?></p>
+                    <?php $date = new DateTime($comment->createdAt); ?>
+                    <p class="a-self-end"><?= $date->format('d / m / Y H:m') ?></p>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
 </main>
 

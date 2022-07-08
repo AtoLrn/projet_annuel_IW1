@@ -77,7 +77,7 @@
     controller: article
     action: create
     security:
-    - user
+    - admin
     - chief
 
 /dashboard:
@@ -210,6 +210,8 @@
   action: createComment
   security:
       - user
+      - admin
+      - chief
   
 /profile:
   controller: user

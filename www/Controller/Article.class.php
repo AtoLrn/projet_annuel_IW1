@@ -41,20 +41,10 @@ class Article
     public function getCommentsByArticle(int $articleId): ?array
     {
         $comment = new CommentModel();
-        return $comment->select([
-            "user" => [
-                "args" => [ "firstname" ],
-                "params" => [],
-                "ij" => ["comment"]
-            ],
-            "comment" => [
-                "args" => [ "content", "createdAt" ],
-                "params" => [
-                    "articleId" => $articleId,
-                    "status" => "approved"
-                ],
-            ]
-        ]);
+        return $comment->select2('comment', [ 'content', 'comment.createdAt as createdAt', 'user.id as userId', 'firstname', 'profilePicture' ])
+            ->leftJoin('user', 'comment.userId', 'user.id')
+            ->where('articleId', $articleId)
+            ->fetchAll();
     }
 
     public function getArticle()
