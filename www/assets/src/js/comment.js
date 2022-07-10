@@ -75,6 +75,10 @@ const setAsideCommentInfo = (data) => {
     if (data.comment_status === 'inDemand') {
         btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.comment_id}, "approved")'> Aprouver </button>`);
         btns.append(`<button class='btn btn-danger little' onclick='modifyCommentStatus(${data.comment_id}, "refused")'> Refuser </button>`);
+    } else if (data.comment_status === 'approved') {
+        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.comment_id}, "refused")'> Désactiver </button>`)
+    } else if (data.comment_status === 'refused') {
+        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.comment_id}, "approved")'> Activer </button>`)
     }
 
     let commentContentArea = $('#commentContentArea');

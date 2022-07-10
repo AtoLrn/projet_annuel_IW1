@@ -43,5 +43,9 @@
             <p class="fs-4">Demande ingredient</p>
             <p class="fs-12 fc-pink mt-2 fw-b"><?= $totalIngredientDemand ?></p>
         </section>
+        <section class="col a-center my-7 ">
+            <p class="fs-4">Nouveaux Commentaires</p>
+            <p class="fs-12 fc-pink mt-2 fw-b"><?= $totalCommentDemand ?></p>
+        </section>
     </div>
 </div>
