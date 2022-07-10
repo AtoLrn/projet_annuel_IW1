@@ -6,3 +6,4 @@ www/assets/documents/certification-request
 www/assets/img/ingredient-images/*
 www/assets/img/users/*
 www/conf.inc.json
+www/errors.log

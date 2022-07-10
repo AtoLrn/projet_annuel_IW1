@@ -8,6 +8,7 @@ use App\Model\User as UserModel;
 use App\Model\Article as ArticleModel;
 use App\Model\Certification as CertificationModel;
 use App\Model\Ingredient as IngredientModel;
+use App\Model\Comment as CommentModel;
 
 use PDO;
 use PDOException;
@@ -20,6 +21,7 @@ class Admin
         $article = new ArticleModel();
         $certification = new CertificationModel();
         $ingredient = new IngredientModel();
+        $comment = new CommentModel();
 
         $totalUser = $user->select([
             "user" => [
@@ -47,11 +49,15 @@ class Admin
             ]
         ]);
 
-        $totalCertificationDemand = $certification->select([
+        /*$totalCertificationDemand = $certification->select([
             "certification" => [
                 "args" => ["COUNT(*)"],
             ]
-        ]);
+        ]);*/
+
+        $totalCertificationDemand = $certification->select2('certification', ['id'])
+            ->where("status", "inDemand")
+            ->count();
 
         $totalIngredientDemand = $ingredient->select([
             "ingredient" => [
@@ -62,10 +68,13 @@ class Admin
             ]
         ]);
 
+        $totalCommentDemand = $comment->select2('comment', ['id'])
+            ->where("status", "inDemand")
+            ->count();
+
         $totalUser = $totalUser[0]['COUNT(*)'];
         $totalChief = $totalChief[0]['COUNT(*)'];
         $totalArticle = $totalArticle[0]['COUNT(*)'];
-        $totalCertificationDemand = $totalCertificationDemand[0]['COUNT(*)'];
         $totalIngredientDemand = $totalIngredientDemand[0]['COUNT(*)'];
 
         $lastWeekDate = date('Y-m-d H:i:s', mktime(0,0,0,date('m'),date('d')-7,date('Y')));
@@ -115,6 +124,7 @@ class Admin
         $view->assign("totalArticle", $totalArticle);
         $view->assign("totalCertificationDemand", $totalCertificationDemand);
         $view->assign("totalIngredientDemand", $totalIngredientDemand);
+        $view->assign("totalCommentDemand", $totalCommentDemand);
         $view->assign("ratioNewOldUsers", $ratioNewOldUsers);
         $view->assign("ratioNewOldChiefs", $ratioNewOldChiefs);
         $view->assign("ratioNewOldArticles", $ratioNewOldArticles);
