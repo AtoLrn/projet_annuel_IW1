@@ -13,6 +13,8 @@ class Page extends Sql
     protected $path;
     protected $enable;
     protected $footer;
+    protected $createdAt;
+    protected $updatedAt;
 
     public function __construct()
     {
@@ -122,6 +124,38 @@ class Page extends Sql
     public function setPath(string $path): void
     {
         $this->path = $path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param string $createdAt
+     */
+    public function setCreatedAt(string $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): string
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param string $updatedAt
+     */
+    public function setUpdatedAt(string $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     public function getPageForm(?bool $edit = false): array

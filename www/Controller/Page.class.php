@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\CleanWords;
 use App\Core\Server;
+use App\Core\SiteMapGenerator;
 use App\Core\View;
 use App\Model\Page as PageModel;
 use App\Model\Session;
@@ -58,6 +59,8 @@ class Page
 
                     $id = $page->save();
 
+                    SiteMapGenerator::generateSiteMap();
+
                     header('location: /page/edit?id=' . $id);
                 }
             }
@@ -102,6 +105,8 @@ class Page
             $page->setDisplayOnFooter(isset($_POST["footer"]));
 
             $page->save();
+
+            SiteMapGenerator::generateSiteMap();
         }
 
         header("Location: /".$page->getPath());
@@ -168,6 +173,7 @@ class Page
             die();
         }
         $result = $page->delete();
+        SiteMapGenerator::generateSiteMap();
         if($result) {
             http_response_code(200);
         }else {
