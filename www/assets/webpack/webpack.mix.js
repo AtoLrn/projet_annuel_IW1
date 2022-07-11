@@ -23,7 +23,8 @@ mix.babel([
  '../src/js/star.js',
  '../src/js/comment.js',
  '../src/js/profile.js',
- '../src/js/page.js'
+ '../src/js/page.js',
+ '../src/js/follow.js'
 ], '../dist/main.js');
 
 //mix.minify('../web/dist/main.js');

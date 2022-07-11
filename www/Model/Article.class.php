@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Core\Sql;
+use App\Model\User;
 
 class Article extends Sql
 {
@@ -11,7 +12,9 @@ class Article extends Sql
     protected $content;
     protected $description;
     protected $categoryId = null;
-    protected $userId = null;
+    protected $userId = null;  
+    private $observerUsers = [];
+
 
     public function __construct()
     {
@@ -71,6 +74,23 @@ class Article extends Sql
     public function setCategoryId(?string $categoryId): void
     {
         $this->categoryId = $categoryId;
+    }
+
+    public function addObserver(User $user)
+    {
+        $this->observerUsers[$user->getId()] = $user;
+    }
+
+    public function removeObserver(User $user) {
+        unset($this->observerUsers[$user->id]);
+    }
+
+    public function notify() {
+        $chief = new User();
+        $chief = $chief->setId($this->getUserId());
+        foreach($this->observerUsers as $user) {
+            $user->sendEmailNotification($this, $chief);
+        }
     }
 
     public function formatList(): array

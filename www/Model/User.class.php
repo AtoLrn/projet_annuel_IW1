@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
+use App\Core\Mail;
 use App\Core\Sql;
+use App\Model\Article;
 
 class User extends Sql
 {
@@ -246,6 +248,13 @@ class User extends Sql
 
         return $orders[$key] ?? $orders['date_desc'];
     }
+
+    public function sendEmailNotification(Article $article, User $chief)
+    {
+        $email = Mail::getInstance();
+        $email->notification($article, $chief, $this);
+    }
+
 
     public function getRegisterForm(): array
     {

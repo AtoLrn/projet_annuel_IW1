@@ -52,11 +52,10 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
             $this->insert($this->table, $columns);
         } else {
             $this->update($this->table, $columns)->where('id', $this->getId());
-
         }
 
         $queryPrepared = $this->pdo->prepare($this->get());
-        $queryPrepared->execute($columns);
+        $queryPrepared->execute(array_merge($columns, $this->getParams()));
         return $this->pdo->lastInsertId();
     }
 

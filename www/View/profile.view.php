@@ -65,8 +65,14 @@ $status = [
             </div>
             <p class="h3 row a-center g-2">Statut: <?= $status[$userInfos->getStatus()] ?> <?php $userInfos->getStatus() == 'chief' ? include 'assets/img/logo/certifications.php' : ''?> </p>
             <?php $date = new DateTime($userInfos->createdAt); ?>
-            <p class="h3">Utilisateur depuis le: <?= $date->format('d / m / Y') ?></p>
-            <a href="/modify-password" class="btn btn-pink little a-self-start mt-3">Modifier mon mot de passe</a>
+            <p class="h3">Utilisateur depuis le: <?= $date->format('d / m / Y') ?></p>  
+            <?php if($isMyProfile): ?>
+                <a href="/modify-password" class="btn btn-pink little a-self-start mt-3">Modifier mon mot de passe</a>
+            <?php endif ?>
+            <?php if($userInfos->getStatus() == 'chief'): ?>
+                <div id="follow-container" class="row g-2 mt-3">
+                </div>
+            <?php endif ?>
         </div>
 
     </section>

@@ -8,6 +8,12 @@ class Category extends Sql {
     private $id = null;
     protected $name = "";
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
