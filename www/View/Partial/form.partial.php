@@ -62,6 +62,7 @@
                         value="<?= $input["value"] ?? "" ?>"
                         
                     <?= empty($input["required"])?"":'required="required"' ?>
+                    <?= empty($input["checked"])?"":'checked="checked"' ?>
                     <?= empty($input["multiple"])?"":'multiple="multiple"' ?>
                     <?= empty($input["rows"])?"":'rows="' . $input["rows"] . '"' ?>
                     <?= empty($input["cols"])?"":'cols="' . $input["cols"] . '"' ?>
