@@ -11,6 +11,7 @@ class Page extends Sql
     protected $title;
     protected $content;
     protected $path;
+    protected $enable;
 
     public function __construct()
     {
@@ -23,6 +24,23 @@ class Page extends Sql
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getEnabled(): bool
+    {
+        return $this->enable;
+    }
+
+    /**
+     * @param int $userId
+     */
+    public function setEnabled(bool $enable): void
+    {
+        $this->enable = $enable ? 1 : 0;
     }
 
     /**
@@ -119,6 +137,15 @@ class Page extends Sql
                     "id" => "slug",
                     "label" => "Page Slug",
                     "value" => $this->path ?? "",
+                    "error" => "Mauvais Titre"
+                ],
+                "enable" => [
+                    "type" => "checkbox",
+                    "placeholder" => "Activer la page",
+                    "class" => "input input-pink a-self-start",
+                    "id" => "slug",
+                    "label" => "Activer la page",
+                    "checked" => $this->enable ?? "false",
                     "error" => "Mauvais Titre"
                 ],
                 "content" => [

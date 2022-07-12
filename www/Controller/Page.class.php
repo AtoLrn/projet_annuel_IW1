@@ -17,9 +17,12 @@ class Page
     public function getBySlug(string $slug)
     {
         $page = new PageModel();
-        $page = $page->select2('page', ['id','userId', 'title', 'content', 'path'])
+        $page = $page->select2('page', ['id','userId', 'title', 'content', 'path', 'enable'])
             ->where('path', $slug)
             ->fetch();
+
+        if (!$page->getEnabled()) header("Location: /not-found");
+        
 
         $view = new View("dynamic-page", "front");
         $view->assign("page", $page);
@@ -96,6 +99,8 @@ class Page
             $page->setTitle($_POST['title']);
             $page->setContent($_POST['content']);
             $page->setPath($path);
+          
+            $page->setEnabled(isset($_POST["enable"]));
             $page->save();
         }
 
