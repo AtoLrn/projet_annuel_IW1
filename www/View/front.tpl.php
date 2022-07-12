@@ -53,6 +53,35 @@
     </header>
     <?php include "assets/img/logo/burger-menu.php"; ?>
     <?php include "View/" . $this->view . ".view.php"; ?>
+    <footer class="footer grid h-px-20 mt-5">
+        <?php 
+            use App\Model\Page;
+            $page = new Page();
+            $pages = $page->select2('page', ['*'])
+            ->where('footer', 1)
+            ->fetchAll();
+            
+        ?>
+            <div class="footer-inner">
+                Welcome To <h5><?= WEBSITENAME ?></h5>
+            </div>
+            <?php if (count($pages) != 0) {
+            ?>
+            <div class="footer-inner link-list">
+                <h5>Les liens utiles:</h5>
+                <?php 
+                    foreach($pages as $page) { ?>
+                        <a href="/<?= $page->getPath() ?>"><?= $page->getTitle() ?></a>
+                    <?php }
+                ?>
+            </div>
+            <?php } ?>
+            
+            <div class="footer-inner"> 
+                <h5>Powerade by CrocMiam CMS</h5> 
+            </div>
+       
+    </footer>
 </body>
 
 <style>

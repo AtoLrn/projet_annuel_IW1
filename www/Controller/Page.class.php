@@ -53,6 +53,9 @@ class Page
                     $page->setContent($_POST['content']);
                     $page->setUserId($user->getId());
                     $page->setPath($path);
+                    $page->setEnabled(isset($_POST["enable"]));
+                    $page->setDisplayOnFooter(isset($_POST["footer"]));
+
                     $id = $page->save();
 
                     header('location: /page/edit?id=' . $id);
@@ -99,8 +102,9 @@ class Page
             $page->setTitle($_POST['title']);
             $page->setContent($_POST['content']);
             $page->setPath($path);
-          
             $page->setEnabled(isset($_POST["enable"]));
+            $page->setDisplayOnFooter(isset($_POST["footer"]));
+
             $page->save();
         }
 

@@ -119,6 +119,7 @@ CREATE TABLE `esgi_page` (
  `content` text NOT NULL,
  `path` varchar(128) NOT NULL,
  `enable` BOOLEAN NOT NULL DEFAULT TRUE,
+ `footer` BOOLEAN NOT NULL DEFAULT FALSE,
  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
  `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`userId`) REFERENCES `esgi_user` (`id`) ON DELETE CASCADE,

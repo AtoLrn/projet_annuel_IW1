@@ -12,6 +12,7 @@ class Page extends Sql
     protected $content;
     protected $path;
     protected $enable;
+    protected $footer;
 
     public function __construct()
     {
@@ -41,6 +42,22 @@ class Page extends Sql
     public function setEnabled(bool $enable): void
     {
         $this->enable = $enable ? 1 : 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDisplayOnFooter(): bool
+    {
+        return $this->footer;
+    }
+
+    /**
+     * @param int $userId
+     */
+    public function setDisplayOnFooter(bool $footer): void
+    {
+        $this->footer = $footer ? 1 : 0;
     }
 
     /**
@@ -145,8 +162,15 @@ class Page extends Sql
                     "class" => "input input-pink a-self-start",
                     "id" => "slug",
                     "label" => "Activer la page",
-                    "checked" => $this->enable ?? "false",
-                    "error" => "Mauvais Titre"
+                    "checked" => $this->enable ?? "false"
+                ],
+                "footer" => [
+                    "type" => "checkbox",
+                    "placeholder" => "Afficher dans le Footer",
+                    "class" => "input input-pink a-self-start",
+                    "id" => "slug",
+                    "label" => "Afficher dans le Footer",
+                    "checked" => $this->footer ?? "false"
                 ],
                 "content" => [
                     "readOnly" => "false",

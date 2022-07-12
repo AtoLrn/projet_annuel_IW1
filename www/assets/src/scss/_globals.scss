@@ -29,6 +29,10 @@ body, html {
     min-height: 100vh;
 }
 
+body > section {
+    min-height: calc(100% - 220px);
+}
+
 textarea {
     resize: none;
 }

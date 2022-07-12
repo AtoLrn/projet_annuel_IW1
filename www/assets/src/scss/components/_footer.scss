@@ -1,0 +1,28 @@
+.footer {
+    position: relative;
+    background-color: var(--bg-color);
+    padding: 1em 80px;
+
+    min-height: 200px;
+
+    display: flex;
+    justify-content: space-between;
+
+
+    @include box-shadow;
+
+    .footer-inner {
+        width: 33%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h5 {
+            margin: 0;
+        }
+        &.link-list {
+            align-items: flex-start;
+
+        }
+    }
+}
