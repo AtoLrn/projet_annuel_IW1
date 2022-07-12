@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Controller\Admin;
 use App\Model\Page as PageModel;
 use App\Core\Middleware\PageControl;
 use App\Core\Decorator\UrlDecorator;
@@ -38,6 +39,23 @@ if (!file_exists($routeFile)) {
 $uri = strtok($uri, "?");
 
 $routes = yaml_parse_file($routeFile);
+
+
+if (!file_exists("conf.inc.json")) {
+    if ($uri != "/setup"){ header("Location: /setup");}
+
+    $controller = new Admin();
+    $controller->setup();
+    exit();
+}
+
+// DEFINE ENV VAR 
+// include "conf.inc.php";
+
+$ENV_VAR = json_decode(file_get_contents("conf.inc.json"));
+foreach($ENV_VAR as $key => $value) {
+    define($key, $value);
+}
 
 $page = null;
 if (empty($routes[$uri]) ||  empty($routes[$uri]["controller"])  ||  empty($routes[$uri]["action"])) {
@@ -86,21 +104,6 @@ $objectController = new $controller();
 
 if (!method_exists($objectController, $action)) {
     die("L'action " . $action . " n'existe pas");
-}
-
-
-if (!file_exists("conf.inc.json")) {
-    if ($uri != "/setup"){ header("Location: /setup");}
-
-    $objectController->$action();
-    exit();
-}
-
-// DEFINE ENV VAR 
-// include "conf.inc.php";
-$ENV_VAR = json_decode(file_get_contents("conf.inc.json"));
-foreach($ENV_VAR as $key => $value) {
-    define($key, $value);
 }
 
 //Call MiddleWare

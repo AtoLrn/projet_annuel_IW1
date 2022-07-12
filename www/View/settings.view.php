@@ -4,7 +4,7 @@
     <?php if (isset($errors) && $errors) 
         foreach($errors as $error) {
     ?>
-        <span style="color: red"><?= $error ?></span>
+        <span class="error-msg" style="margin-bottom: 1em;"><?= $error ?></span>
     <?php } ?>
     <?php $this->partialInclude("form", $form) ?>
     

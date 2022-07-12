@@ -50,20 +50,21 @@ class View
 
     public function __destruct()
     {
-        //array("pseudo"=>"Prof") ---> $pseudo = "Prof";
-        $this->data['userSession'] = null;
-        $this->data['userStatus'] = null;
-        if (isset($_SESSION['token'])) {
-            $this->data['userSession'] = Session::getByToken();
-            if($this->data['userSession'] && $this->data['userSession']->getUserId()) {
-                $user = new User();
-                $user = $user->setId($this->data['userSession']->getUserId());
-                $this->data['userStatus'] = $user->getStatus();
+        if (file_exists("conf.inc.json")) {
+            $this->data['userSession'] = null;
+            $this->data['userStatus'] = null;
+            if (isset($_SESSION['token'])) {
+                $this->data['userSession'] = Session::getByToken();
+                if($this->data['userSession'] && $this->data['userSession']->getUserId()) {
+                    $user = new User();
+                    $user = $user->setId($this->data['userSession']->getUserId());
+                    $this->data['userStatus'] = $user->getStatus();
+                }
+    
             }
-
+            $this->data['website_logo'] = "../".LOGOPATH;
         }
-
-        $this->data['website_logo'] = "../".LOGOPATH;
+        //array("pseudo"=>"Prof") ---> $pseudo = "Prof";
 
         extract($this->data);
         $_SESSION['csrf_token'] = uniqid();

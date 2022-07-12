@@ -30,20 +30,30 @@ class Page
         $page = new PageModel();
         if (!empty($_POST)) {
             Security::csrf();
-            $session = Session::getByToken();
-            if ($session !== null){
-                $user = new UserModel();
-                $user = $user->setId($session->getUserId());
+            if (!empty($_SESSION["token"])) {
+                $session = Session::getByToken();
+                if ($session !== null){
 
-                $path = CleanWords::formatePath($_POST['title']);
 
-                $page->setTitle($_POST['title']);
-                $page->setContent($_POST['content']);
-                $page->setUserId($user->getId());
-                $page->setPath($path);
-                $id = $page->save();
+                    $user = new UserModel();
+                    $user = $user->setId($session->getUserId());
 
-                header('location: /page/edit?id=' . $id);
+                    $path = CleanWords::formatePath($_POST['title']);
+
+                    $existingPage = $page->select2('page', ['path'])->where('path', $path)->count();
+
+                    if ($existingPage != 0) {
+                        $path = $path."-".bin2hex(random_bytes(8));
+                    }
+
+                    $page->setTitle($_POST['title']);
+                    $page->setContent($_POST['content']);
+                    $page->setUserId($user->getId());
+                    $page->setPath($path);
+                    $id = $page->save();
+
+                    header('location: /page/edit?id=' . $id);
+                }
             }
             
         }
@@ -77,8 +87,12 @@ class Page
         }
 
         if (!empty($_POST)) {
+<<<<<<< HEAD
             Security::csrf();
             $path = CleanWords::formatePath($_POST['title']);
+=======
+            $path = CleanWords::formatePath($_POST['slug'] != "" ? $_POST['slug'] : $_POST['title']);
+>>>>>>> e72401db... enh(slug): add selectable slug
             $page->setTitle($_POST['title']);
             $page->setContent($_POST['content']);
             $page->setPath($path);

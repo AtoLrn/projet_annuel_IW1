@@ -165,7 +165,6 @@ class Admin
     public function setup(): void 
     {
         if (file_exists("conf.inc.json")) header("Location: /list");
-
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             Security::csrf();
             Verificator::checkForm($this->getSetupForm(), $_POST);
@@ -212,7 +211,6 @@ class Admin
             exit();
             
         }
-
         $view = new View("setup", "setup");
         $view->assign("form", $this->getSetupForm());
     }
