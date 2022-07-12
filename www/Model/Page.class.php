@@ -112,6 +112,15 @@ class Page extends Sql
                     "value" => $this->title ?? "",
                     "error" => "Mauvais Titre"
                 ],
+                "slug" => [
+                    "type" => "text",
+                    "placeholder" => "Entrez votre titre",
+                    "class" => "input input-pink",
+                    "id" => "slug",
+                    "label" => "Page Slug",
+                    "value" => $this->path ?? "",
+                    "error" => "Mauvais Titre"
+                ],
                 "content" => [
                     "readOnly" => "false",
                     "type" => "wysiwyg",
