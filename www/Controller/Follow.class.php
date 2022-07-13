@@ -46,13 +46,14 @@ class Follow
         $content = file_get_contents('php://input');
         $_POST = json_decode($content, true);
         $id = (isset($_POST['id']) && is_numeric($_POST['id'])) ? $_POST['id'] : null;
-        if(is_null($id)) {
+
+        $session = Session::getByToken();
+        if(is_null($id) || $session->getUserId() == $id) {
             http_response_code(400);
             die();
         }
 
         $follows = new FollowModel();
-        $session = Session::getByToken();
         $follow = $follows->select2('follow', ['*'])
             ->where('isFollowed', $id)
             ->where('follower', $session->getUserId())
