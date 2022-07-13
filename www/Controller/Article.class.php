@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Core\Logger;
 use App\Core\Verificator;
-use App\Core\Sql;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
 use App\Model\Star as StarModel;
@@ -159,10 +158,18 @@ class Article
                     $i++;
                 }
 
+                $users = $user->select2('user', ['*'])
+                    ->innerJoin('follow', 'user.id', 'follow.follower')
+                    ->where('isFollowed', $user->getId())
+                    ->where('notification', 1)
+                    ->fetchAll();
                 
-
+                
+                foreach($users as $user) {
+                    $article->addObserver($user);
+                }
                 header("Location: /recette?id=$id");
-                
+                $article->notify();                
             }
         }
         

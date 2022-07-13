@@ -6,6 +6,7 @@ use App\Core\View;
 use App\Model\Article as ArticleModel;
 use App\Model\Category as CategoryModel;
 use App\Model\User as UserModel;
+use App\Model\Session;
 
 class Main
 {
@@ -113,23 +114,37 @@ class Main
         $page = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 0 ? $_GET['page'] : 0;
      
         $chiefs = new UserModel();
+
+        $idUser = null;
+
+        if(isset($_GET['sub'])) {
+            echo "oui";
+            $session = Session::getByToken();
+            if(!is_null($session)) {
+                $idUser = $session->getUserId();
+            }
+        }
         
         // get count chiefs for pagination
-        $count = $chiefs->select2('user', ['COUNT(*) AS total'])
+        $count = $chiefs->select2('user', ['user.id AS id'])
+            ->leftJoin('follow', 'user.id', 'follow.isFollowed')
+            ->where('follower', $idUser)
             ->where('status', 'chief')
             ->whereOr('firstname', "%" . $q . "%", " LIKE ")
             ->whereOr('lastname', "%" . $q . "%", " LIKE ")
-            ->fetch();
+            ->count();
          
 
         $articlePerPage = 6;  
-        if( $count->total / $articlePerPage < $page && $count->total / $articlePerPage >= 0) {
+        if( $count / $articlePerPage < $page && $count / $articlePerPage >= 0) {
             header('location: /cuisiniers');
             die();
         }        
         // search chiefs
         $orderBy = $chiefs->getOrderType($order);
-        $chiefs = $chiefs->select2('user', ['id', 'firstname', 'lastname', 'profilePicture'])
+        $chiefs = $chiefs->select2('user', ['user.id AS id', 'firstname', 'lastname', 'profilePicture'])
+            ->leftJoin('follow', 'user.id', 'follow.isFollowed')
+            ->where('follower', $idUser)
             ->where('status', 'chief')
             ->whereOr('firstname', "%" . $q . "%", " LIKE ")
             ->whereOr('lastname', "%" . $q . "%", " LIKE ")
@@ -142,9 +157,10 @@ class Main
         $view->assign("chiefs", $chiefs);
         $view->assign("q", $q);
         $view->assign("order", $order);
+        $view->assign("sub", $idUser);
 
         $view->assign("pagination", [
-            "nbPages" => $count->total / $articlePerPage,
+            "nbPages" => $count / $articlePerPage,
             "query"=> $_GET,
             "currentPage" => $page,
             "redirect" => "/chiefs"

@@ -314,3 +314,23 @@
 /new-mail-validation:
   controller: user
   action: newMailValidation
+
+/get-follows:
+  controller: follow
+  action: getFollows
+
+/toggle-follow:
+  controller: follow
+  action: toggleFollow
+  security: 
+    - user
+    - chief
+    - admin
+
+/toggle-notification:
+  controller: follow
+  action: toggleNotification
+  security: 
+    - user
+    - chief
+    - admin

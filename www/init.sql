@@ -25,6 +25,16 @@ CREATE TABLE `CUSTOM_PREFIX_session` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `CUSTOM_PREFIX_follow` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `isFollowed` int(11) NOT NULL,
+  `follower` int(11) NOT NULL,
+  `notification` BOOLEAN DEFAULT FALSE,
+  FOREIGN KEY (`isFollowed`) REFERENCES `CUSTOM_PREFIX_user` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`follower`) REFERENCES `CUSTOM_PREFIX_user` (`id`) ON DELETE CASCADE,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `CUSTOM_PREFIX_category` (
   `id`  int(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL ,

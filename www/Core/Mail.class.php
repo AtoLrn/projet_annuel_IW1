@@ -3,7 +3,11 @@
 namespace App\Core;
 
 use PHPMailer\PHPMailer\PHPMailer;
+use App\Model\User;
+use App\Model\Article;
 use PHPMailer\PHPMailer\Exception;
+use App\Core\Logger;
+
 
 require 'Libs/PHPMailer-master/src/Exception.php';
 require 'Libs/PHPMailer-master/src/PHPMailer.php';
@@ -31,7 +35,7 @@ class Mail
 
             $this->mail = $confMail;
         }catch (Exception $error){
-            echo $error;
+            Logger::writeErrorLog("Error Email: $error.");
         }
     }
 
@@ -60,7 +64,7 @@ class Mail
                                 </div>';
             $this->mail->send();
         }catch (Exception $error){
-            echo $error;
+            Logger::writeErrorLog("Error Email: $error.");
         }
     }
 
@@ -111,7 +115,7 @@ class Mail
                                 </div>';
             $this->mail->send();
         }catch (Exception $error){
-            echo $error;
+            Logger::writeErrorLog("Error Email: $error.");
         }
     }
 
@@ -131,7 +135,28 @@ class Mail
                                 </div>';
             $this->mail->send();
         }catch (Exception $error){
-            echo $error;
+            Logger::writeErrorLog("Error Email: $error.");
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function notification(Article $article, User $chief, User $user)
+    {
+        try {
+            $this->mail->addAddress($user->getEmail(), $user->getFirstname() . " " . $user->getLastname());
+            $this->mail->isHTML(true);                                  //Set email format to HTML
+            $this->mail->Subject = WEBSITENAME . ' - Une nouvelle recette a été publié';
+            $this->mail->Body = '<div>'
+                .'<p>Bonjour '. $user->getFirstname() . '</p>'
+                .'<p>Une nouvelle recette à été publié par ' . $chief->getFirstname() . ' ' .$chief->getLastname() . '</p>'
+                .'<p>' . $article->getTitle() . '</p>'
+                .'<p>' . $article->getDescription() . '</p>'
+            .'</div>';
+            $this->mail->send();
+        }catch (Exception $error){
+            Logger::writeErrorLog("Error Email: $error.");
         }
     }
 
