@@ -15,15 +15,17 @@
 
 <body class="grid">
     <header class="navbar-front grid h-px-20 mb-5">
-        <nav class="row j-bet">
+        <nav class="row j-bet nw">
             <a href="/" class="link"><img height="60px" src=<?= $website_logo ?> alt="logo"></a>         
             <ul>
                 <li><a href="/recettes" class="link-black">Nos Recettes</a></li>
                 <li><a href="/cuisiniers" class="link-black">Nos Cuisiniers</a></li>
+                <li><a href="/cuisiniers?sub=1" class="link-black">Vos Abonnements</a></li>
+
                 <?php if($userStatus === "admin"): ?>
                     <li><a href="/dashboard" class="link-black">Backoffice</a></li>
-                <?php else: ?>
-                    <li><a href="/cuisiniers?sub=1" class="link-black">Vos Abonnements</a></li>
+                <?php elseif($userStatus === "chief"): ?>
+                    <li><a href="/create-recette" class="link-black">Publier une recette</a></li>
                 <?php endif; ?>
             </ul>
             <section>     
@@ -40,10 +42,12 @@
         <ul class="col a-start mobile">
         <li><a href="/recettes">Nos Recettes</a></li>
         <li><a href="/cuisiniers">Les Cuisiniers</a></li>
+        <li><a href="/cuisiniers?sub=1" class="link-black">Vos Abonnements</a></li>
+
         <?php if($userStatus === "admin"): ?>
             <li><a href="/dashboard" class="link-black">Backoffice</a></li>
-        <?php else: ?>
-            <li><a href="#" class="link-black">Vos Abonnements <?= $userStatus ?></a></li>
+        <?php elseif($userStatus === "chief"): ?>
+            <li><a href="/create-recette" class="link-black">Publier une recette</a></li>
         <?php endif; ?>
         </ul>
     </header>

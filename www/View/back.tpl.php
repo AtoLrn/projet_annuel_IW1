@@ -19,7 +19,7 @@
     <div class="grid" >
         <header class="navbar p-6 grid">
             <div class="col g-5">
-                <a href=""><img src=<?= $website_logo ?> alt="" width="50px" height="50px"></a>
+                <a href="/dashboard"><img src=<?= $website_logo ?> alt="" width="50px" height="50px"></a>
                 <div class="bd-t-1 bd-light-gray mb-11"></div>
                 <nav class="grid">
                     <ul class="col g-8 grid">

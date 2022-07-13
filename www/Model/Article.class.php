@@ -167,8 +167,10 @@ class Article extends Sql
                 "method" => "POST",
                 "action" => $edit ? "/recette/edit?id=$this->id" : "/create-recette",
                 "submit" => $edit ? "Mettre à Jour" : "Publier",
-                "class" => "col a-center py-4 w-per-20 px-8",
+                "class" => "col a-center py-4 w-per-20 px-8 g-5",
+                "labels" => "small",
                 "enctype" => "multipart/form-data",
+                "classSubmit" => "btn btn-pink px-20",
 
             ],
             'inputs' => [
@@ -219,8 +221,8 @@ class Article extends Sql
                     "type" => "wysiwyg",
                     "required" => true,
                     "id" => "article",
-                    "class" => "p-8 card",
-                    "label" => "Article",
+                    "class" => "p-8 card writer",
+                    "label" => "Contenu de la recette",
                 ]
             ]
         ];
