@@ -97,7 +97,7 @@ class Comment extends Sql
             "inputs" => [
                 "description" => [
                     "type" => "textarea",
-                    "rows" => "30",
+                    "rows" => "10",
                     "cols" => "20",
                     "placeholder" => "Rentrez votre commentaire",
                     "required" => true,
