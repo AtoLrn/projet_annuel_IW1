@@ -1,6 +1,6 @@
 <section class="pt-20 grid container apparition">
-    <h1 class="big-h1 py-8">Nos cuisiniers</h1>
-    <form class="row xs-ml-0" method="GET" action="/cuisiniers" >
+    <h1 class="big-h1 py-8">Nos cuisiniers <?= isset($sub)? "que vous suivez" : "" ?></h1>
+    <form class="row xs-ml-0 a-s g-6" method="GET" action="/cuisiniers" >
         <input type="text" name="q" class="input input-search xs-w-per-20" placeholder="rechercher ...">
         <select name="order" id="" class="input col-lg-2" style="max-width: 150px">
             <option value="date_asc" <?= $order == 'date_asc' ? 'selected': '' ?>> anciens </option>
@@ -9,12 +9,12 @@
         <?php if(isset($sub)): ?>
         <input type="hidden" name="sub" value="1">
         <?php endif; ?>
-        <input type="submit" value="Rechercher" class="btn btn-pink a-self-end p-3">
+        <input type="submit" value="Rechercher" class="btn btn-pink a-self-end p-3 br-2">
     </form>
 
-    <p class="mt-4 mb-7 h3"><?= !is_null($q) ? "Recherche: " . $q : ""  ?></p>
+    <p class="mt-6 h3"><?= !is_null($q) ? "Recherche: " . $q : ""  ?></p>
 
-    <section class="grid mb-12">
+    <section class="grid mb-16 mt-12">
         <?php if(count($chiefs) > 0): ?>
             <div class="list-articles">
             <?php foreach($chiefs as $chief): ?>

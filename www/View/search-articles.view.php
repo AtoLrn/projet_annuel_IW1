@@ -1,17 +1,17 @@
 <section class="pt-20 grid container apparition">
     <h1 class="big-h1 py-8">Nos recettes</h1>
-    <form class="row xs-ml-0" method="GET" action="/recettes" >
+    <form class="row xs-ml-0 a-s g-6" method="GET" action="/recettes" >
         <input type="text" name="q" class="input input-search xs-w-per-20" placeholder="rechercher ...">
         <?php if(!is_null($categoryName)): ?>
         <input type="hidden" name="category" value="<?= $categoryName ?>" >
         <?php endif; ?>
-        <select name="order" id="" class="input col-lg-2" style="max-width: 150px">
+        <select name="order" id="" class="input col-lg-2" style="max-width: 200px">
             <option value="date_desc" <?= $order == 'date_desc' ? 'selected': '' ?>> plus récent </option>
             <option value="date_asc" <?= $order == 'date_asc' ? 'selected': '' ?>> moins récent </option>
             <option value="like_desc" <?= $order == 'like_desc' ? 'selected': '' ?>> plus aimé </option>
             <option value="like_asc" <?= $order == 'like_asc' ? 'selected': '' ?>> moins aimé </option>
         </select>
-        <input type="submit" value="Rechercher" class="btn btn-pink a-self-end p-3">
+        <input type="submit" value="Rechercher" class="btn btn-pink a-self-end p-3 br-2">
     </form>
     <div class="row g-6 py-9">   
         <a href="/recettes" class="btn btn-outline-pink br-12"> Tout voir </a>    

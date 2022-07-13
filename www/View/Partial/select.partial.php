@@ -2,7 +2,7 @@
 <?php 
     $id = $data["id"] ?? uniqid();
 ?>
-<div id="<?= $id ?>" class="col j-bet g-2 w-per-20" style="position: relative">
+<div id="<?= $id ?>" class="col j-bet w-per-20" style="position: relative">
 </div>
 
 <script>

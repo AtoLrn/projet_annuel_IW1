@@ -57,6 +57,8 @@ class Article
         $comment = new CommentModel();
         $ingredients = new Ingredient();
         $article = $article->setId($_GET['id']);
+        $chief = new UserModel();
+        $chief = $chief->setId($article->getUserId());
 
         if (!$article) {
             header("Location: /not-found");
@@ -100,6 +102,7 @@ class Article
 
         $view->assign("isUserOrAdmin", is_null($session) ? false : $article->getUserId() == $session->getUserId());
         $view->assign("article", $article);
+        $view->assign("chief", $chief);
         $view->assign("images", $images);
         $view->assign("score", $score[0]);
         $view->assign("ingredients", $ingredients);

@@ -9,7 +9,7 @@
                         <img height="32px" src="/assets/img/users/antoine.svg" alt="">
                     </div>
                     <div class="col-lg-11">
-                        <span class="c-light-gray" >Philipe Etchbest</span>
+                        <span class="c-light-gray" ><?= $chief->getFirstname() . " " . $chief->getLastname() ?></span>
                     </div>
                 </div>
                 <div class="row mt-4">

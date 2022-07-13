@@ -25,11 +25,11 @@ class Follow
         
         $session = Session::getByToken();
 
-        if(!is_null($session)) {
+        if(!is_null($session) && $session->getUserId() != $id) {
             $follow = $follow->select2('follow', ['*'])
                 ->where('follower', $session->getUserId())
                 ->fetch();
-            
+                        
             if($follow) {
                 $response['follow'] = true;
                 $response['notification'] = $follow->getNotification();
