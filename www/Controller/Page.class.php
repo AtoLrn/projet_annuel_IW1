@@ -10,6 +10,8 @@ use App\Model\Session;
 use App\Model\User as UserModel;
 
 use App\Core\Logger;
+use App\Core\Middleware\Security;
+
 class Page
 {
     public function getBySlug(string $slug)
@@ -27,23 +29,23 @@ class Page
     {
         $page = new PageModel();
         if (!empty($_POST)) {
-            if (!empty($_SESSION["token"])) {
-                $session = Session::getByToken();
-                if ($session !== null){
-                    $user = new UserModel();
-                    $user = $user->setId($session->getUserId());
+            Security::csrf();
+            $session = Session::getByToken();
+            if ($session !== null){
+                $user = new UserModel();
+                $user = $user->setId($session->getUserId());
 
-                    $path = CleanWords::formatePath($_POST['title']);
+                $path = CleanWords::formatePath($_POST['title']);
 
-                    $page->setTitle($_POST['title']);
-                    $page->setContent($_POST['content']);
-                    $page->setUserId($user->getId());
-                    $page->setPath($path);
-                    $id = $page->save();
+                $page->setTitle($_POST['title']);
+                $page->setContent($_POST['content']);
+                $page->setUserId($user->getId());
+                $page->setPath($path);
+                $id = $page->save();
 
-                    header('location: /page/edit?id=' . $id);
-                }
+                header('location: /page/edit?id=' . $id);
             }
+            
         }
 
         $view = new View("page-creation", "back");
@@ -75,6 +77,7 @@ class Page
         }
 
         if (!empty($_POST)) {
+            Security::csrf();
             $path = CleanWords::formatePath($_POST['title']);
             $page->setTitle($_POST['title']);
             $page->setContent($_POST['content']);
@@ -133,7 +136,7 @@ class Page
     {
         Server::ensureHttpMethod('DELETE');
 
-        $id = $_GET['id'] ?? null;
+        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : null;
         if($id === null) {
             http_response_code(400);
             die();

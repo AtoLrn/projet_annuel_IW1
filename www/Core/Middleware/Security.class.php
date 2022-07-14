@@ -2,6 +2,7 @@
 
 namespace App\Core\Middleware;
 
+use App\Core\Logger;
 use App\Model\Session;
 use App\Model\User;
 
@@ -52,8 +53,17 @@ class Security
             $authorized = true;
         }
         if (!$authorized) {
-            header("Location: /register-login?url=" . $_SERVER["REQUEST_URI"]);
-            exit();
+            header("Location: /register-login?url=" . htmlspecialchars($_SERVER["REQUEST_URI"]));
+            die();
+        }
+    }
+
+    public static function csrf(): void
+    {
+        if(empty($_SESSION['csrf_token']) || empty($_POST['csrf_token']) || $_SESSION['csrf_token'] != $_POST['csrf_token']) {
+            Logger::writeErrorLog("CSRF detected and cancelled");
+            header('location: /404');
+            die();
         }
     }
 }

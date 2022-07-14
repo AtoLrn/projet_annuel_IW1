@@ -6,7 +6,7 @@ const statusIngredient = {
 }
 
 const getIngredients = (tab) => {
-    fetch('http://localhost/get-ingredients', {
+    fetch('/get-ingredients', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ const getIngredientById = (ingredientId) => {
     const form = Object.assign({}, {
         id: ingredientId
     })
-    fetch('http://localhost/get-ingredient', {
+    fetch('/get-ingredient', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ const modifyIngredientStatus = (ingredientId, ingredientStatus) => {
         ingredient_id: ingredientId,
         ingredient_status: ingredientStatus,
     })
-    fetch( `http://localhost/modify-ingredient-status`, {
+    fetch( `/modify-ingredient-status`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

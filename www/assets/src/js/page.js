@@ -1,5 +1,5 @@
 const getPages = (tab) => {
-    fetch('http://localhost/get-pages', {
+    fetch('/get-pages', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ const getPages = (tab) => {
 }
 
 const deletePageById = (id) => {
-    fetch( `http://localhost/delete-page?id=${id}`, {
+    fetch( `/delete-page?id=${id}`, {
         method: 'DELETE',
     }).then(r => {
         tab = $('#list-table').DataTable();
@@ -41,7 +41,7 @@ const getPageById = (pageId) => {
     const form = Object.assign({}, {
         id: pageId
     })
-    fetch('http://localhost/get-page', {
+    fetch('/get-page', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

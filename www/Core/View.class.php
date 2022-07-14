@@ -66,6 +66,7 @@ class View
         $this->data['website_logo'] = "../".LOGOPATH;
 
         extract($this->data);
+        $_SESSION['csrf_token'] = uniqid();
         include "View/" . $this->template . ".tpl.php";
     }
 }

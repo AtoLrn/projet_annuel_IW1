@@ -48,7 +48,7 @@ const hideImage = () => {
 }
 
 const getArticles = (tab) => {
-    fetch('http://localhost/get-articles', {
+    fetch('/get-articles', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -66,12 +66,7 @@ const getArticles = (tab) => {
 const setTableArticle = (data, tab) => {
     tab.clear();
     for(const row of data) {
-        let cols = []
-        for(const col in row) {
-            if(col != 'article_id') {
-                cols.push(row[col])
-            }
-        }
+        let cols = [row.title, row.description, row.createdAt];
         let rowNode = tab
         .row.add( cols )
         .draw()
@@ -104,7 +99,7 @@ const getArticleById = (articleId) => {
     const form = Object.assign({}, {
         id: articleId
     })
-    fetch('http://localhost/get-article', {
+    fetch('/get-article', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

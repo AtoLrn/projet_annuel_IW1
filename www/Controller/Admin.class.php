@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Middleware\Security;
 use App\Core\View;
 use App\Core\Verificator;
 use App\Model\User as UserModel;
@@ -166,8 +167,8 @@ class Admin
         if (file_exists("conf.inc.json")) header("Location: /list");
 
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            Security::csrf();
             Verificator::checkForm($this->getSetupForm(), $_POST);
-
             try {
                 $conn = new \PDO("mysql:host=" . $_POST['dbHost'] . ";port=" . $_POST['dbPort'] . ";dbname=" . $_POST['dbName'],
                 $_POST['dbUser'],
@@ -233,7 +234,7 @@ class Admin
 
         if ($default_env['DBPORT'] && !is_numeric($default_env['DBPORT'])) $errors[] = "Wrong Port Number";
         
-        if ($default_env['WEBSITEURL'] && filter_var($default_env['WEBSITEURL'], FILTER_VALIDATE_URL)) $errors[] = "Wrong URL Format";
+        if ($default_env['WEBSITEURL'] && !filter_var($default_env['WEBSITEURL'], FILTER_VALIDATE_URL)) $errors[] = "Wrong URL Format";
 
         $logo = $_FILES['WEBSITELOGO'] ?? null;
         if ($logo) {

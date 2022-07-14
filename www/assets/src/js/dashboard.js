@@ -5,7 +5,7 @@ const getUserChartInfos = () => {
     lastWeek = lastWeek.toISOString().split('T')[0]
     let params = ['createdAt', lastWeek, '>']
 
-     fetch(`http://localhost/get-users?params=${encodeURIComponent(JSON.stringify(params))}`, {
+     fetch(`/get-users?params=${encodeURIComponent(JSON.stringify(params))}`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const getUserChartInfos = () => {
         console.log('Erreur : ' + error);
     });
 
-     fetch(`http://localhost/get-articles?params=${encodeURIComponent(JSON.stringify(params))}`, {
+     fetch(`/get-articles?params=${encodeURIComponent(JSON.stringify(params))}`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const getUserChartInfos = () => {
     }).then((data) => {
         let articleTab = []
         data.forEach(elem => {
-            let date = elem["article_createdAt"].split(' ')
+            let date = elem.createdAt.split(' ')
             if (articleTab[date[0]]) {
                 articleTab[date[0]].value++
             } else {

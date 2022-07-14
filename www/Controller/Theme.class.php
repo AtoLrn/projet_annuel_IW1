@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Middleware\Security;
 use App\Core\View;
 use App\Model\Theme as ThemeModel;
 use App\Core\Verificator;
@@ -24,6 +25,7 @@ class Theme
         $view->assign("theme", $theme);
     
         if(!empty($_POST)) {
+            Security::csrf();
             $msg = $this->saveTheme($theme);
             if(is_numeric($msg)) {
                 header('Location: /list-themes?success=add');
@@ -56,6 +58,7 @@ class Theme
     {
         $theme = new ThemeModel();
         if(isset($_POST['idTheme'])) {
+            Security::csrf();
             $theme = $theme->select2("theme", ["*"])
                 ->where('selected', 1)
                 ->fetch();

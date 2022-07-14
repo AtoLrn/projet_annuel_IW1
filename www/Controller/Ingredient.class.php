@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Middleware\Security;
 use App\Core\Server;
 use App\Core\View;
 use App\Model\Session;
@@ -47,6 +48,7 @@ class Ingredient
         if(count($isDemandExist) == 0) {
 
             if (!empty($_POST)) {
+                Security::csrf();
                 $isRequestCreated = $this->sendIngredientRequest($ingredientDemand, $session->getUserId());
                 $view->assign("isRequestCreated", $isRequestCreated);
 

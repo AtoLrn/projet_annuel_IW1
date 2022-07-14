@@ -6,7 +6,7 @@ const statusUser = {
 
 // CALL AJAX
 const getUsers = (tab) => {
-    fetch('http://localhost/get-users', {
+    fetch('/get-users', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ const getUserById = (userId) => {
     const form = Object.assign({}, {
         id: userId
     })
-    fetch('http://localhost/get-user', {
+    fetch('/get-user', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const getUserById = (userId) => {
 }
 
 const deleteUserById = (id) => {
-    fetch( `http://localhost/delete-user?id=${id}`, {
+    fetch( `/delete-user?id=${id}`, {
         method: 'DELETE',
     }).then(r => {
         tab = $('#list-table').DataTable();
@@ -52,7 +52,7 @@ const deleteUserById = (id) => {
 }
 
 const updateActiveUser = (id) => {
-    fetch( `http://localhost/active-user`, {
+    fetch( `/active-user`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -70,7 +70,7 @@ const updateActiveUser = (id) => {
 }
 
 const updateStatusUser = (status, id) => {
-    fetch( `http://localhost/status-user`, {
+    fetch( `/status-user`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

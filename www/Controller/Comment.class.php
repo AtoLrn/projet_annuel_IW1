@@ -8,6 +8,8 @@ use App\Model\Session;
 use App\Model\User as UserModel;
 
 use App\Core\Logger;
+use App\Core\Middleware\Security;
+
 class Comment {
 
     public function createComment()
@@ -19,6 +21,7 @@ class Comment {
             if ($session !== null) {
                 $user = $user->setId($session->getUserId());
                 if (!empty($_POST)) {
+                    Security::csrf();
                     $comment->setContent($_POST['description']);
                     $comment->setArticleId($_POST['articleId']);
                     $comment->setUserId($user->getId());
