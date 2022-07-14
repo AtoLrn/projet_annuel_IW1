@@ -5,7 +5,7 @@ const statusComment = {
 }
 
 const getComments = (tab) => {
-    fetch('http://localhost/get-comments', {
+    fetch('/get-comments', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ const getCommentById = (commentId) => {
     const form = Object.assign({}, {
         id: commentId
     })
-    fetch('http://localhost/get-comment', {
+    fetch('/get-comment', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ const modifyCommentStatus = (commentId, commentStatus) => {
         comment_id: commentId,
         comment_status: commentStatus,
     })
-    fetch( `http://localhost/modify-comment-status`, {
+    fetch( `/modify-comment-status`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

@@ -75,10 +75,11 @@
         <?php endif; ?>
     </div>
     <?php endforeach;?>
-
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
     <input 
         class="<?= $data['config']['classSubmit'] ?? 'btn btn-pink my-4 w-per-16' ?>" 
         type="submit" value="<?= $data["config"]["submit"]??"Valider" ?>">
+    
 </form>
 
 <?php if(isset($data['config']['recaptcha'])): ?>

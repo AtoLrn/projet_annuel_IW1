@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\CleanWords;
 use App\Core\Mail;
+use App\Core\Middleware\Security;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Core\Server;
@@ -17,6 +18,7 @@ class User
     public function login(UserModel $user): ?string
     {
         if (!empty($_POST)) {
+            Security::csrf();
             $loggedUser = $user->select2('user', ["*"])
                 ->where('email', $_POST['email'])
                 ->fetch();
@@ -32,8 +34,8 @@ class User
                     $session->setUserId($loggedUser->getId());
                     $session->save();
 
-                    if ($_GET["url"]) {
-                        header("Location: " . $_GET["url"]);
+                    if (isset($_GET["url"])) {
+                        header("Location: " . htmlspecialchars($_GET["url"]));
                     } else {
                         header("Location: /");
                     }
@@ -48,7 +50,7 @@ class User
     public function register(UserModel $user): array
     {
         if (!empty($_POST)) {
-
+            Security::csrf();
             $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
             if ($user->select2('user', ["id", "password"])
                     ->where('email', $_POST['email'])
@@ -86,8 +88,15 @@ class User
         $errorMessage = null;
         $view = new View("register-login", 'front');
         $view->assign("user", $user);
+        
+        if(isset($_GET["form"]) && !in_array($_GET["form"], ['login', 'register'])) {
+            header('location: /register-login');
+            die();
+        }
 
-        if (!empty($_POST) ) {
+        if (!empty($_POST)) {
+            
+            Security::csrf();
             $validRecaptcha = Verificator::checkRecaptcha($_POST['recaptcha']);
             if ($validRecaptcha && $_GET["form"] !== null) {
                 if ($_GET["form"] == "login") {
@@ -165,6 +174,7 @@ class User
         $error = null;
         $view->assign("user", $user);
         if (!empty($_POST)) {
+            Security::csrf();
             $result = Verificator::checkForm($user->getPwdForgetForm(), $_POST);
             if (empty($result)) {
                 $user = $user->select2('user', ["*"])
@@ -217,6 +227,7 @@ class User
         $view->assign("tokenError", false);
         $view->assign("user", $user);
         if (!empty($_POST)) {
+            Security::csrf();
             $result = Verificator::checkForm($user->getModifyPasswordForm($token??null), $_POST);
             if (empty($result)) {
 
@@ -273,11 +284,13 @@ class User
     public function getUsers()
     {
         Server::ensureHttpMethod('GET');
-        $getParams = isset($_GET['params']) ? json_decode($_GET['params']) : null;
+        $getParams = isset($_GET['params']) && is_array(json_decode($_GET['params'])) ? json_decode($_GET['params']) : null;
         $users = new UserModel();
-        $users = $users->select2('user', ["id", "email", "lastname", "firstname", "status", "createdAt"])
-            ->where($getParams[0]??"",$getParams[1]??null,$getParams[2]??"=")
-            ->fetchAll();
+        $users->select2('user', ["id", "email", "lastname", "firstname", "status", "createdAt"]);
+        if(!is_null($getParams)) {
+            $users->where($getParams[0]??"",$getParams[1]??null,$getParams[2]??"=");
+        }
+        $users = $users->fetchAll();
      
         if($users) {       
             header('Content-Type: application/json; charset=utf-8');
@@ -374,7 +387,7 @@ class User
     {
         Server::ensureHttpMethod('DELETE');
 
-        $id = $_GET['id'] ?? null;
+        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : null;
         if($id === null) {
             http_response_code(400);
             die();

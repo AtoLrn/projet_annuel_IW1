@@ -5,7 +5,7 @@ const statusCertification = {
 }
 
 const getCertifications = (tab) => {
-    fetch('http://localhost/get-certifications', {
+    fetch('/get-certifications', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ const getCertificationById = (certificationId) => {
     const form = Object.assign({}, {
         id: certificationId
     })
-    fetch('http://localhost/get-certification', {
+    fetch('/get-certification', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ const modifyCertificationStatus = (certificationId, certificationStatus, userId)
         certification_status: certificationStatus,
         user_id: userId
     })
-    fetch( `http://localhost/modify-certification-status`, {
+    fetch( `/modify-certification-status`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

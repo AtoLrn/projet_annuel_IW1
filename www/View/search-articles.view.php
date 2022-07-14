@@ -1,6 +1,7 @@
 <section class="pt-20 grid container apparition">
     <h1 class="big-h1 py-8">Nos recettes</h1>
     <form class="row xs-ml-0 a-s g-6" method="GET" action="/recettes" >
+        
         <input type="text" name="q" class="input input-search xs-w-per-20" placeholder="rechercher ...">
         <?php if(!is_null($categoryName)): ?>
         <input type="hidden" name="category" value="<?= $categoryName ?>" >

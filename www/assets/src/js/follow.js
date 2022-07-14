@@ -49,7 +49,7 @@ const getFollows = () => {
         return
     }
 
-    fetch(`http://localhost/get-follows?id=${params.userId}`, {
+    fetch(`/get-follows?id=${params.userId}`, {
         method: 'GET',
     }).then((r) => {
         return r.json();
@@ -71,7 +71,7 @@ const toggleFollow = () => {
     if(params.userId && isNaN(params.userId)) {
         return
     }
-    fetch(`http://localhost/toggle-follow`, {
+    fetch(`/toggle-follow`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -94,7 +94,7 @@ const toggleNotification = () => {
     if(params.userId && isNaN(params.userId)) {
         return
     }
-    fetch(`http://localhost/toggle-notification`, {
+    fetch(`/toggle-notification`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

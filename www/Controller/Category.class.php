@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\Middleware\Security;
 use App\Core\View;
 use App\Model\Category as CategoryModel;
 
@@ -14,7 +15,7 @@ class Category
         $view = new View("categories", "back");
 
         if(!empty($_POST['name'])) {
-
+            Security::csrf();
             if(is_numeric($_POST['editId'])) {
                 $categories = $categories->setId($_POST['editId']);   
             }

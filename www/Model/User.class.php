@@ -334,7 +334,7 @@ class User extends Sql
             "config" => [
                 "id" => "login-form",
                 "method" => "POST",
-                "action" => "/register-login?form=login". (isset($_GET['url']) ? "&url=".$_GET['url'] : ""),
+                "action" => "/register-login?form=login". (isset($_GET['url']) ? "&url=". htmlspecialchars($_GET['url']) : ""),
                 "submit" => "Se connecter",
                 "class" => "col a-center py-4 w-per-20 px-8 g-5",
                 "labels" => "small",

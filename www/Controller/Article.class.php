@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\Logger;
+use App\Core\Middleware\Security;
 use App\Core\Verificator;
 use App\Core\View;
 use App\Model\Article as ArticleModel;
@@ -23,7 +24,7 @@ class Article
         $article = new ArticleModel();
 
         if (!empty($_POST)) {
-
+            Security::csrf();
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
             print_r($result);
             if (empty($result)) {
@@ -114,8 +115,8 @@ class Article
     {
         $article = new ArticleModel();
         if (!empty($_POST)) {
+            Security::csrf();
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
-
             $user = new UserModel();
             $session = Session::getByToken();
             $user = $user->setId($session->getUserId());
@@ -206,8 +207,8 @@ class Article
             return;
         } 
         if (!empty($_POST)) {
+            Security::csrf();
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
-
             $user = new UserModel();
             $session = Session::getByToken();
             $user = $user->setId($session->getUserId());
@@ -282,19 +283,14 @@ class Article
     public function getArticles()
     {
         Server::ensureHttpMethod('GET');
-        $getParams = isset($_GET['params']) ? json_decode($_GET['params']) : null;
+        $getParams = isset($_GET['params']) && is_array(json_decode($_GET['params'])) ? json_decode($_GET['params']) : null;
         $article = new ArticleModel();
         
-        
-        $result = $article->select(
-            [
-                "article" => [
-                    "args" => ["id", "title", "description", "createdAt"],
-                    "params" => is_array($getParams) ? [$getParams[0] => ['value' => $getParams[1], 'operator' => $getParams[2]]] : [],
-                ],
-
-            ]
-        );
+        $article->select2("article", ["id", "title", "description", "createdAt"]);     
+        if(!is_null($getParams)) {
+            $article->where($getParams[0]??"", $getParams[1]??null, $getParams[2]??null);
+        }
+        $result = $article->fetchAll();
 
 
         if($result) {
@@ -344,16 +340,12 @@ class Article
 
     public function setArticleScore(): void
     {
+        Security::csrf();
         $session = Session::getByToken();
-        if(is_null($session->getUserId())) {
-            http_response_code(401);
-            header('location: /register-login');
-            die();
-        }
 
         if(!isset($_POST['articleId']) || !is_numeric($_POST['articleId']) || !isset($_POST['score']) || !in_array($_POST['score'], [1,2,3,4,5])) {
-            http_response_code(405);
-            header("location: /");
+            http_response_code(400);
+            header("location: /404");
             die(); 
         }   
         

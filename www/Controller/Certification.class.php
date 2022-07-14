@@ -10,6 +10,8 @@ use App\Model\Session;
 use App\Model\User as UserModel;
 
 use App\Core\Logger;
+use App\Core\Middleware\Security;
+
 class Certification
 {
     private function sendCertificationRequest($certificationDemand, $user)
@@ -60,6 +62,7 @@ class Certification
                 $demandAlreadyExist = 1;
                 $view->assign("demandAlreadyExist", $demandAlreadyExist);
                 if (!empty($_POST)) {
+                    Security::csrf();
                     $isRequestCreated = $this->sendCertificationRequest($certificationDemand, $user);
                 }
                 $view->assign("isRequestCreated", $isRequestCreated);

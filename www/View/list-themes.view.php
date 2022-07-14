@@ -60,6 +60,7 @@
                 <?php if($theme->getSelected() == false): ?>
                 
                 <form class="col" action="/list-themes" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     <input type="hidden" name="idTheme" value="<?= $theme->getId() ?>">
                     <input class="btn btn-pink p-2 a-self-end"  type="submit" value="Selectionner">
                 </form> 

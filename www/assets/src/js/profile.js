@@ -8,7 +8,7 @@ $(document).ready(() => {
         form_data.append('file', file_data);
         let filePath
         $.ajax({
-            url: 'http://localhost/modify-profile-picture',
+            url: '/modify-profile-picture',
             dataType: 'text',
             cache: false,
             contentType: false,
@@ -52,7 +52,7 @@ $(document).ready(() => {
         form_data.append('lastname', newLastname);
 
         $.ajax({
-            url: 'http://localhost/modify-firstname-lastname',
+            url: '/modify-firstname-lastname',
             dataType: 'text',
             cache: false,
             contentType: false,
@@ -92,7 +92,7 @@ $(document).ready(() => {
         form_data.append('email', newEmail);
 
         $.ajax({
-            url: 'http://localhost/modify-email',
+            url: '/modify-email',
             dataType: 'text',
             cache: false,
             contentType: false,
