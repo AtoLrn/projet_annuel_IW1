@@ -1,3 +1,33 @@
+.setup-div {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    > * {
+        width: 100%;
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        > div {
+            width: 50%;
+            input {
+                width: 90%;
+
+            }
+        }
+    }
+    input[type=submit] {
+        width: 60%;
+        align-self: center;
+        margin: 1em auto;
+    }
+}
+
 .update-form {
     width: 100%;
     display: flex;

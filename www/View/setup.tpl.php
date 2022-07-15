@@ -14,7 +14,7 @@
 <body>
 
         
-        <main class="grid main">
+        <main>
             <?php include "View/" . $this->view . ".view.php"; ?>
         </main>
 </body>
