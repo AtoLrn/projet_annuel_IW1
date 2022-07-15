@@ -14,7 +14,9 @@ class Verificator
             return $input["type"] === "file";
         });
 
-
+        $data = array_filter($data, function ($val) {
+            return $val !== "csrf_token";
+        },  ARRAY_FILTER_USE_KEY);
 
         if( count($data) != ((count($config['inputs']) - count($images)) + count(array_filter($config['inputs'], 
         function($value) {

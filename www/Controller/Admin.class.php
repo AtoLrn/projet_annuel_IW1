@@ -175,6 +175,14 @@ class Admin
                     [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING]
                 );
 
+                $logo = $_FILES['WEBSITELOGO'] ?? null;
+                $logoPath = "";
+                if ($logo) {
+                    $target_file = str_replace(' ', '', bin2hex(random_bytes(20))."-".$logo['name']);
+                    if (move_uploaded_file($logo['tmp_name'], $target_file)) {
+                        $logoPath = $target_file;
+                    }
+                }
                 $env = json_encode([
                     "DBUSER" => $_POST['dbUser'],
                     "DBPWD" => $_POST['dbPassword'],
@@ -189,6 +197,7 @@ class Admin
                     "WEBSITEURL" => $_POST['websiteUrl'],
                     "MAILUSERNAME" => $_POST['emailUsername'],
                     "MAILPASSWORD" => $_POST['emailPassword'],
+                    "LOGOPATH" => $logoPath,
                     "KEY_SECRET_RECAPTCHA" => "6LcEYYEfAAAAAPA4UDMLnwqWtND8cppT0hlW06gX",
                     "KEY_SITE_RECAPTCHA" => "6LcEYYEfAAAAAPjm6tOrK_27AYOQE0VEnCZfnqAX"
                 ]);
@@ -197,12 +206,18 @@ class Admin
                 $init = str_replace('CUSTOM_PREFIX_',  $_POST['dbPrefixe'], $init);
                 
                 $conn->exec($init);
+                $req = $conn->prepare("INSERT INTO ".$_POST['dbPrefixe']."user (firstname, lastname, email, password, mailToken, isVerified, status)  VALUES( 'Admin', 'Admin', ?, ?, '',  '1', 'admin')");
+                $req->execute([$_POST['rootUser'], password_hash($_POST['rootPassword'], PASSWORD_DEFAULT)]);
 
                 file_put_contents("conf.inc.json", $env);
 
                 header("Location: /list");
             } catch(PDOException $ex) {
-                print_r("Cannot connect");
+                $errors[] = "Cannot connect to database";
+                $view = new View("setup", "setup");
+                $view->assign("form", $this->getSetupForm($_POST));
+                $view->assign("errors",  $errors);
+
             }
             
 
@@ -212,7 +227,7 @@ class Admin
             
         }
         $view = new View("setup", "setup");
-        $view->assign("form", $this->getSetupForm());
+        $view->assign("form", $this->getSetupForm($_POST));
     }
 
     public function update(): void 
@@ -236,7 +251,7 @@ class Admin
 
         $logo = $_FILES['WEBSITELOGO'] ?? null;
         if ($logo) {
-            $target_file = "assets/img/logo/" . bin2hex(random_bytes(20))."-".$logo['name'];
+            $target_file = str_replace(' ', '', bin2hex(random_bytes(20))."-".$logo['name']);
             if (move_uploaded_file($logo['tmp_name'], $target_file)) {
                 $default_env["LOGOPATH"] = $target_file;
             }
@@ -254,14 +269,14 @@ class Admin
         $view->assign("form", $this->getSetupFormUpdate());
     }
 
-    public function getSetupForm(): array
+    public function getSetupForm(array $defaultValues = []): array
     {
         return [
             "config" => [
                 "method" => "POST",
                 "action" => "/setup",
                 "enctype" => "multipart/form-data",
-                "submit" => "Enregistrer"
+                "submit" => "Enregistrer",
             ],
             "inputs" => [
                 "dbName" => [
@@ -269,83 +284,124 @@ class Admin
                     "placeholder" => "Database Name",
                     "required" => true,
                     "label" => "Database Name",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["dbName"] ?? ""
                 ],
                 "dbUser" => [
                     "type" => "text",
                     "placeholder" => "Database Username",
                     "required" => true,
                     "label" => "Database Username",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["dbUser"] ?? ""
                 ],
                 "dbPassword" => [
                     "type" => "password",
                     "placeholder" => "Database Password",
                     "required" => true,
                     "label" => "Database Password",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "error" => "Password not valid",
+                    "value" => $defaultValues["dbPassword"] ?? ""
+
                 ],
                 "dbHost" => [
                     "type" => "text",
                     "placeholder" => "Database Hostname",
                     "required" => true,
                     "label" => "Database Hostname",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["dbHost"] ?? ""
+
                 ],
                 "dbPort" => [
                     "type" => "text",
                     "placeholder" => "Database Port",
                     "required" => true,
                     "label" => "Database Port",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["dbPort"] ?? ""
                 ],
                 "dbPrefixe" => [
                     "type" => "text",
                     "placeholder" => "Database Prefixe",
                     "required" => true,
                     "label" => "Database Prefixe",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["dbPrefixe"] ?? ""
                 ],
                 "emailFirstname" => [
                     "type" => "text",
                     "placeholder" => "Email Firstname",
                     "required" => true,
                     "label" => "Email Firstname",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["emailFirstname"] ?? ""
+
                 ],
                 "emailLastname" => [
                     "type" => "text",
                     "placeholder" => "Email Lastname",
                     "required" => true,
                     "label" => "Email Lastname",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["emailLastname"] ?? ""
                 ],
                 "emailUsername" => [
                     "type" => "email",
                     "placeholder" => "your.email@gmail.com",
                     "required" => true,
                     "label" => "Your email",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["emailUsername"] ?? ""
                 ],
                 "emailPassword" => [
                     "type" => "password",
                     "placeholder" => "Your email's password",
                     "required" => true,
                     "label" => "Email Password",
-                    "class" => "input input-search"
+                    "class" => "input input-search",                    
+                    "error" => "Password not valid",
+
+                    "value" => $defaultValues["emailPassword"] ?? ""
                 ],
                 "websiteName" => [
                     "type" => "text",
                     "placeholder" => "Your website's Name",
                     "required" => true,
                     "label" => "Website's Name",
-                    "class" => "input input-search"
+                    "class" => "input input-search",
+                    "value" => $defaultValues["websiteName"] ?? ""
                 ],
                 "websiteUrl" => [
                     "type" => "text",
                     "placeholder" => "Your website's URL",
                     "required" => true,
                     "label" => "Website's URL",
+                    "class" => "input input-search",
+                    "value" => $defaultValues["websiteUrl"] ?? ""
+                ],
+                "rootUser" => [
+                    "type" => "text",
+                    "placeholder" => "Admin's email",
+                    "required" => true,
+                    "label" => "Admin's email",
+                    "class" => "input input-search",
+                    "value" => $defaultValues["rootUser"] ?? ""
+                ],
+                "rootPassword" => [
+                    "type" => "password",
+                    "placeholder" => "Admin password",
+                    "required" => true,
+                    "label" => "Admin password",
+                    "class" => "input input-search",
+                    "error" => "Password not valid",
+                    "value" => $defaultValues["rootPassword"] ?? ""
+                ],
+                "WEBSITELOGO" => [
+                    "type" => "file",
+                    "placeholder" => "Website Logo",
+                    "label" => "Logo du website",
                     "class" => "input input-search"
                 ],
 
@@ -455,8 +511,7 @@ class Admin
                     "type" => "file",
                     "placeholder" => "Website Logo",
                     "label" => "Logo du website",
-                    "class" => "input input-search",
-                    "value" => WEBSITEURL
+                    "class" => "input input-search"
                 ],
             ]
         ];
