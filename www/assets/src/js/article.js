@@ -72,7 +72,7 @@ const setTableArticle = (data, tab) => {
         .draw()
         .node();
         $(rowNode).click(function() {
-            getArticleById(row['article_id'])
+            getArticleById(row.id)
         });
     }
 }
