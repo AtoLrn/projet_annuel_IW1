@@ -6,17 +6,27 @@ use App\Core\Connection;
 use JsonSerializable;
 use PDO;
 use PDOStatement;
+use App\Core\Interfaces\QueryBuilder;
 
-abstract class Sql extends MysqlBuilder implements JsonSerializable
+abstract class Sql implements JsonSerializable
 {
     private $pdo;
     private $table;
+    private $driver;
 
     public function __construct()
     {
 
+     
+
         try {
             $this->pdo = Connection::getInstance();
+            if (DBDRIVER == "mysql") {
+                $this->driver = new MysqlBuilder($this->pdo);
+            } else {
+                $this->driver = new PostGreBuilder($this->pdo);
+            }
+            
         } catch (\Exception $e) {
             $error = $e->getMessage();
             Logger::writeErrorLog("Error with DB Connection, $error");
@@ -33,9 +43,9 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
      */
     public function setId(?int $id): ?object
     {
-        $obj = $this->select2($this->table, ["*"])
+        $obj = $this->driver->select2($this->table, ["*"])
             ->where('id', $id)
-            ->fetch();
+            ->fetch(get_called_class());
         return $obj ? $obj : null;
     }
 
@@ -102,40 +112,6 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
         }
         // echo $sql;
         return $this->dbFetchAll($sql, $params);
-    }
-
-
-    public function fetchAll()
-    {
-        $queryPrepared = $this->pdo->prepare($this->get());
-        $queryPrepared->execute($this->getParams());
-
-        return $queryPrepared->fetchAll(PDO::FETCH_CLASS, get_called_class());
-    }
-
-    public function count()
-    {
-        $queryPrepared = $this->pdo->prepare($this->get());
-        $queryPrepared->execute($this->getParams());
-
-        return $queryPrepared->rowCount();
-    }
-
-    public function fetch()
-    {
-        $queryPrepared = $this->pdo->prepare($this->get());
-        $queryPrepared->execute($this->getParams());
-        $queryPrepared->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-        
-        return $queryPrepared->fetch();
-    }
-
-    private function dbFetchAll($sql, $params): ?array
-    {
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute($params);
-
-        return $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
     }
 
     private function getArgs(array $tables): string
@@ -205,5 +181,83 @@ abstract class Sql extends MysqlBuilder implements JsonSerializable
         $columns = get_object_vars($this);
         $columns = array_diff_key($columns, get_class_vars(get_class()));
         return $columns;
+    }
+
+    public function getParams(): ?array
+    {
+        return $this->driver->getParams();
+    }
+
+    public function select2(string $table, array $columns) {
+        $this->driver->select2($table, $columns);
+        return $this;
+    }
+
+    public function insert(string $table, array $columns) {
+        $this->driver->insert($table, $columns);
+        return $this;
+    }
+    public function update(string $table, array $columns) {
+        $this->driver->update($table, $columns);
+        return $this;
+    }
+    public function where(string $column, ?string $value, string $operator = "=") {
+        $this->driver->where($column,  $value, $operator);
+        return $this;
+    }
+    public function whereOr(string $column, ?string $value, string $operator = "=") {
+        $this->driver->whereOr($column, $value, $operator);
+        return $this;
+    }
+    public function leftJoin(string $table, string $fk, string $pk) {
+        $this->driver->leftJoin($table,  $fk, $pk);
+        return $this;
+    }
+    public function innerJoin(string $table, string $fk, string $pk) {
+        $this->driver->innerJoin($table,  $fk, $pk);
+        return $this;
+    }
+    public function rightJoin(string $table, string $fk, string $pk) {
+        $this->driver->rightJoin( $table,  $fk, $pk);
+        return $this;
+    }
+    public function groupBy(array $columns) {
+        $this->driver->groupBy($columns);
+        return $this;
+    }
+    public function orderBy(string $column, string $direction = "ASC") {
+        $this->driver->orderBy($column, $direction);
+        return $this;
+    }
+    public function limit(int $from, int $offset) {
+        $this->driver->limit( $from,  $offset);
+        return $this;
+    }
+    public function get() {
+        
+        return $this->driver->get();
+    }
+
+    public function count()
+    {
+        return $this->driver->count(get_called_class());
+    }
+
+    public function fetch()
+    {
+        return $this->driver->fetch(get_called_class());
+    }
+
+    public function fetchAll()
+    {
+        return $this->driver->fetchAll(get_called_class());
+    }
+
+    private function dbFetchAll($sql, $params): ?array
+    {
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute($params);
+
+        return $queryPrepared->fetchAll(PDO::FETCH_ASSOC);
     }
 }

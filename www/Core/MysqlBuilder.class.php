@@ -2,12 +2,16 @@
 
 namespace App\Core;
 use App\Core\Interfaces\QueryBuilder;
-
+use \PDO;
 class MysqlBuilder implements QueryBuilder
     {
         protected $query;
         protected $params;
+        protected $pdo;
 
+        function __construct(PDO $pdo) {
+            $this->pdo = $pdo;
+        }
 
         private function reset()
         {
@@ -144,4 +148,28 @@ class MysqlBuilder implements QueryBuilder
             return $sql;
             
         }
+        public function fetch(string $called_classes)
+        {
+            $queryPrepared = $this->pdo->prepare($this->get());
+            $queryPrepared->execute($this->getParams());
+            $queryPrepared->setFetchMode(PDO::FETCH_CLASS, $called_classes);
+            
+            return $queryPrepared->fetch();
+        }
+
+        public function fetchAll(string $called_classes)
+    {
+        $queryPrepared = $this->pdo->prepare($this->get());
+        $queryPrepared->execute($this->getParams());
+
+        return $queryPrepared->fetchAll(PDO::FETCH_CLASS, $called_classes);
+    }
+
+    public function count()
+    {
+        $queryPrepared = $this->pdo->prepare($this->get());
+        $queryPrepared->execute($this->getParams());
+
+        return $queryPrepared->rowCount();
+    }
     }

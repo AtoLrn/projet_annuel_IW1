@@ -17,6 +17,7 @@ class User
 {
     public function login(UserModel $user): ?string
     {
+      
         if (!empty($_POST)) {
             Security::csrf();
             $loggedUser = $user->select2('user', ["*"])
@@ -33,6 +34,8 @@ class User
                     $session->generateToken();
                     $session->setUserId($loggedUser->getId());
                     $session->save();
+
+                    
 
                     if (isset($_GET["url"])) {
                         header("Location: " . htmlspecialchars($_GET["url"]));
