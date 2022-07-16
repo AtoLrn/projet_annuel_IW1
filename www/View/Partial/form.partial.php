@@ -1,3 +1,9 @@
+<?php
+    if(empty($_SESSION['uniq_csrf'])) {
+        $_SESSION['csrf_token'] = uniqid();
+        $_SESSION['uniq_csrf'] = 1;
+    }
+ ?>
 <form id="<?= $data["config"]["id"]??"" ?>" class="<?= $data["config"]["class"]??"" ?>" method="<?= $data["config"]["method"]??"POST" ?>"  action="<?= $data["config"]["action"]??"" ?>" enctype="<?= $data["config"]["enctype"] ?? "" ?>">
 
     <?php foreach ($data["inputs"] as $name=>$input) :?>

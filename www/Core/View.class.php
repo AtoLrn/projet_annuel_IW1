@@ -67,7 +67,7 @@ class View
         //array("pseudo"=>"Prof") ---> $pseudo = "Prof";
 
         extract($this->data);
-        $_SESSION['csrf_token'] = uniqid();
         include "View/" . $this->template . ".tpl.php";
+        unset($_SESSION['uniq_csrf']);
     }
 }

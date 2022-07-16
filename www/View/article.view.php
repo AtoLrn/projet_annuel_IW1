@@ -1,3 +1,9 @@
+<?php
+    if(empty($_SESSION['uniq_csrf'])) {
+        $_SESSION['csrf_token'] = uniqid();
+        $_SESSION['uniq_csrf'] = 1;
+    }
+ ?>
 <main class="main-article pt-20">
     <div class="grid" >
         <div class="row">
