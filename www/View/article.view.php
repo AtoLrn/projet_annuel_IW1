@@ -4,22 +4,20 @@
         $_SESSION['uniq_csrf'] = 1;
     }
  ?>
-<main class="main-article pt-20">
+<main class="main-article pt-20 container">
     <div class="grid" >
-        <div class="row">
-            <div class="col-lg-4 g-0">
+        <div class="row grid mt-18 a-start">
+            <div class="col-lg-6 col g-2 grid j-start">
                 <h1 class="h1" style="font-size: 56px"><?= $article->getTitle() ?></h1>
-                <span class="c-light-pink pb-5" style="font-size: 24px"><?= $article->getDescription() ?></span>
-                <div class="row mt-4">
-                    <div class="col-lg-1">
-                        <img height="32px" src="/assets/img/users/antoine.svg" alt="">
+                <span class="c-light-pink" style="font-size: 24px"><?= $article->getDescription() ?></span>
+                <div class="row my-4">
+                    <div class="br-20 img-profile" style="background-image: url(<?= $chief->getProfilePicture() ?>)">
                     </div>
-                    <div class="col-lg-11">
+                    <div >
                         <span class="c-light-gray" ><?= $chief->getFirstname() . " " . $chief->getLastname() ?></span>
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <span>Notes: </span>
+                <div class="row">
                         <?php if($score['AVG(score)'] == ""): ?>
                             <span class="c-pink" style="font-size: 18px"> pas encore noté  </span>
                         <?php else: ?>
@@ -27,7 +25,7 @@
                         <?php endif; ?>
                 </div>
                 
-                <div class="row mt-4">
+                <div class="row">
                     <?php for($i = 1; $i <= 5; $i++): ?>
                         <form action="/set-score" method="POST">
                             <input type="hidden" name="score" value="<?= $i ?>">
@@ -42,37 +40,36 @@
                     <?php endfor; ?>
                 </div>
                 <?php if ($isUserOrAdmin) { ?>
-                     <a href="/recette/edit?id=<?= $article->getId() ?>"><button id="delete" class="btn btn-danger col-lg-4">Modifier</button></a>  
+                     <a href="/recette/edit?id=<?= $article->getId() ?>"><button id="delete" class="btn btn-danger little mt-6 col-lg-4">Modifier</button></a>  
                 <?php } ?>
             </div>
-            <aside class="col-lg-8">
+            <aside class="col-lg-6">
                 <article id="recette-container" class="pl-5 recette-container" data-index="0">
                     <?php foreach ($images as $image) {?>
                         <div class="recette-img shadow selected"><img height="32px" src="/<?php echo $image["image_path"] ?>" alt=""></div>
                     <?php } ?>
                 </article>
-                <div class="controller"><img id="left"  height="32px" src="assets/img/logo/left-arrow.svg" alt=""><img id="right" height="32px" src="assets/img/logo/right-arrow.svg" alt=""></div>
+                <div class="controller pl-6"><img id="left"  height="32px" src="assets/img/logo/left-arrow.svg" alt=""><img id="right" height="32px" src="assets/img/logo/right-arrow.svg" alt=""></div>
             </aside>
         </div>
     </div>
 
+    <div class="col-lg-6 mt-10 mb-20">
+        <h2 class="mb-6" style="font-size: 36px">Ingredients</h2>
+        <article class="row g-10 j-center">
+        <?php foreach ($ingredients as $ingredient) {?>
+                <div class="cont-ingredient">
+                    <div class="ingredient-img shadow selected" style="background: url(/<?= $ingredient->getPath() ?>)"></div>
+                    <p class="mt-4"><?= $ingredient->getName() ?></p>
+                </div>
+        <?php } ?>   
+        </article>
+    </div>
+
     <div class="grid">
         <div class="row mt-10 a-start">
-            <div class="col-lg-6 p-8 card">
+            <div class="col-lg-6 p-8 xs-p-0 card">
                 <?php $this->partialInclude("wysiwyg", ["data" => $article->getContent()]) ?>
-            </div>
-            <div class="col-lg-6 pl-5">
-                <h2 style="font-size: 36px">Ingredients</h2>
-                <article class="row">
-                <?php foreach ($ingredients as $ingredient) {?>
-                        <div class="ingredient-img shadow selected"><img height="32px" src="/<?= $ingredient->getPath() ?>" alt="<?= $ingredient->getName() ?>"></div>
-                    <?php } ?>
-                    <!-- <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/noodle.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/egg.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/porc.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/cebette.jpg" alt=""></div>
-                    <div class="ingredient-img shadow"><img height="32px" src="/assets/img/public/bouillon.jpeg" alt=""></div> -->
-                </article>
             </div>
         </div>
     </div>
@@ -90,7 +87,7 @@
                         <a class="grid row a-center g-0" href="/profile?userId=<?= $comment->getUserId() ?>"><img height="32px" src="<?= $comment->profilePicture ?>" alt=""><?= $comment->firstname ?></a>
                         <p class="ml-11"><?= $comment->getContent() ?></p>
                         <?php $date = new DateTime($comment->createdAt); ?>
-                        <p class="a-self-end"><?= $date->format('d / m / Y H:m') ?></p>
+                        <p class="a-self-end"><?= $date->format('d / m / Y à H:m') ?></p>
                     </div>
                     <?php endif; ?>
                 <?php endforeach; ?>

@@ -93,12 +93,8 @@ class Page
         }
 
         if (!empty($_POST)) {
-<<<<<<< HEAD
             Security::csrf();
-            $path = CleanWords::formatePath($_POST['title']);
-=======
             $path = CleanWords::formatePath($_POST['slug'] != "" ? $_POST['slug'] : $_POST['title']);
->>>>>>> e72401db... enh(slug): add selectable slug
             $page->setTitle($_POST['title']);
             $page->setContent($_POST['content']);
             $page->setPath($path);
