@@ -1,3 +1,9 @@
+<?php
+    if(empty($_SESSION['uniq_csrf'])) {
+        $_SESSION['csrf_token'] = uniqid();
+        $_SESSION['uniq_csrf'] = 1;
+    }
+ ?>
 <div class="grid p-10 xs-p-6 col a-start apparition">
     <h1 class="h1 mb-9">Mes Thèmes</h1>
 
