@@ -169,6 +169,19 @@ class Admin
             Security::csrf();
             Verificator::checkForm($this->getSetupForm(), $_POST);
             try {
+                if ($_POST['dbPort'] && !is_numeric($_POST['dbPort'])) $errors[] = "Wrong Port Number";
+
+                if ($_POST['dbDriver'] && !in_array($_POST['dbDriver'], ["mysql", "pgsql"])) $errors[] = "Unknown DB Driver";
+                
+                if ($_POST['websiteUrl'] && !filter_var($_POST['websiteUrl'], FILTER_VALIDATE_URL)) $errors[] = "Wrong URL Format";
+
+                if (count($errors)) {
+                    $view = new View("setup", "setup");
+                    $view->assign("form", $this->getSetupForm($_POST));
+                    $view->assign("errors",  $errors);
+                    exit();
+                }
+
                 $conn = new \PDO("mysql:host=" . $_POST['dbHost'] . ";port=" . $_POST['dbPort'] . ";dbname=" . $_POST['dbName'],
                 $_POST['dbUser'],
                 $_POST['dbPassword'],
@@ -179,7 +192,7 @@ class Admin
                 $logoPath = "";
                 if ($logo) {
                     $target_file = str_replace(' ', '', bin2hex(random_bytes(20))."-".$logo['name']);
-                    if (move_uploaded_file($logo['tmp_name'], $target_file)) {
+                    if (move_uploaded_file($logo['tmp_name'], 'assets/img/logo/'.$target_file)) {
                         $logoPath = $target_file;
                     }
                 }
@@ -189,7 +202,7 @@ class Admin
                     "DBHOST" => $_POST['dbHost'],
                     "DBNAME" => $_POST['dbName'],
                     "DBPORT" => $_POST['dbPort'],
-                    "DBDRIVER" => "mysql",
+                    "DBDRIVER" => $_POST['dbDriver'],
                     "DBPREFIXE" => $_POST['dbPrefixe'],
                     "FIRSTNAME" => $_POST['emailFirstname'],
                     "LASTNAME" => $_POST['emailLastname'],
@@ -246,13 +259,15 @@ class Admin
         }
 
         if ($default_env['DBPORT'] && !is_numeric($default_env['DBPORT'])) $errors[] = "Wrong Port Number";
+
+        if ($default_env['DBDRIVER'] && !in_array($default_env['DBDRIVER'], ["mysql", "pgsql"])) $errors[] = "Unknown DB Driver";
         
         if ($default_env['WEBSITEURL'] && !filter_var($default_env['WEBSITEURL'], FILTER_VALIDATE_URL)) $errors[] = "Wrong URL Format";
 
         $logo = $_FILES['WEBSITELOGO'] ?? null;
         if ($logo) {
             $target_file = str_replace(' ', '', bin2hex(random_bytes(20))."-".$logo['name']);
-            if (move_uploaded_file($logo['tmp_name'], $target_file)) {
+            if (move_uploaded_file($logo['tmp_name'], 'assets/img/logo/'.$target_file)) {
                 $default_env["LOGOPATH"] = $target_file;
             }
         }
@@ -279,6 +294,13 @@ class Admin
                 "submit" => "Enregistrer",
             ],
             "inputs" => [
+                "dbDriver" => [
+                    "type" => "text",
+                    "placeholder" => "Database Driver ('mysql' or 'pgsql')",
+                    "label" => "Database Driver",
+                    "class" => "input input-search",
+                    "value" => $defaultValues["dbDriver"] ?? ""
+                ],
                 "dbName" => [
                     "type" => "text",
                     "placeholder" => "Database Name",
@@ -425,6 +447,13 @@ class Admin
                 "container-inputs" => "input-wrapper"
             ],
             "inputs" => [
+                "DBDRIVER" => [
+                    "type" => "text",
+                    "placeholder" => "Database Driver ('mysql' or 'pgsql')",
+                    "label" => "Database Driver",
+                    "class" => "input input-search",
+                    "value" => DBDRIVER
+                ],
                 "DBNAME" => [
                     "type" => "text",
                     "placeholder" => "Database Name",
