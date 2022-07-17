@@ -85,13 +85,6 @@
 </body>
 
 <style>
-     <?php
-     use App\Model\Theme;
-        $theme = new Theme();
-        $theme = $theme->select2('theme', ['*'])
-            ->where('selected', 1)
-            ->fetch();
-    ?>
     html {
         --bg-color: <?= $theme->getBgColor(); ?>;
         --ph-color: <?= $theme->getPhColor(); ?>;

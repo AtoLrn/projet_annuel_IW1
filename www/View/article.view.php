@@ -11,7 +11,7 @@
                 <h1 class="h1" style="font-size: 56px"><?= $article->getTitle() ?></h1>
                 <span class="c-light-pink" style="font-size: 24px"><?= $article->getDescription() ?></span>
                 <div class="row my-4">
-                    <div class="br-20 img-profile" style="background-image: url(<?= $chief->getProfilePicture() ?>)">
+                    <div class="br-20 img-profile" style="background-image: url(<?= $chief->getProfilePicture() == "" ? "assets/img/users/default_user.jpg" : $chief->getProfilePicture() == "" ?>)">
                     </div>
                     <div >
                         <span class="c-light-gray" ><?= $chief->getFirstname() . " " . $chief->getLastname() ?></span>

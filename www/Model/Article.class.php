@@ -103,16 +103,6 @@ class Article extends Sql
         ];
     }
 
-    public function formatArticleById(int $id): array
-    {
-        return [          
-            "article" => [
-                "args" => ["id", "title", "description"],
-                "params" => ["id" => $id],
-            ],
-                            
-        ];
-    }
 
     public function getOrderType(string $key): array
     {

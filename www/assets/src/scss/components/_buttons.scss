@@ -26,11 +26,11 @@
 
     &-danger {
 
-        border: 1px solid var(--btn-color-light);
-        background-color: var(--btn-color-light);
+        border: 1px solid $error;
+        background-color: $error;
         &:hover {
             background-color: transparent;
-            color: var(--btn-color-light);
+            color: $error;
         }
     }
 
