@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Model\Session;
+use App\Model\Theme;
 use App\Model\User;
 
 class View
@@ -64,8 +65,12 @@ class View
             }
             $this->data['website_logo'] = "../assets/img/logo/".urlencode(LOGOPATH);
         }
-        //array("pseudo"=>"Prof") ---> $pseudo = "Prof";
         extract($this->data);
+
+        $theme = new Theme();
+        $theme = $theme->select2('theme', ['*'])
+            ->where('selected', 1)
+            ->fetch();
         include "View/" . $this->template . ".tpl.php";
         unset($_SESSION['uniq_csrf']);
     }

@@ -98,10 +98,15 @@ class Article
         array_unshift($images, array_pop($images));
 
         $session = Session::getByToken();
+        $user = new UserModel();
+        if(!is_null($session)) {
+            $user = $user->setId($session->getUserId());
+        }
+        
 
         $view = new View("article");
 
-        $view->assign("isUserOrAdmin", is_null($session) ? false : $article->getUserId() == $session->getUserId());
+        $view->assign("isUserOrAdmin", is_null($user->getId()) ? false : $article->getUserId() == $session->getUserId() || $user->getStatus() == "admin");
         $view->assign("article", $article);
         $view->assign("chief", $chief);
         $view->assign("images", $images);
@@ -314,17 +319,19 @@ class Article
         $id = $_POST['id'] ?? null;
         $article = new ArticleModel();
 
-        $listTpl = $article->formatArticleById($id);
-
-        $result["article"] = $article->select($listTpl)[0];
+        $result["article"] = $article->select2('article', ['id', 'title', 'description'])
+            ->where('id', $id)
+            ->fetch();
 
         $result["comments"] = $article->select2('comment', ['id'])
             ->where("articleId", $id)
             ->count();
 
-        $result["like"] = $article->select2('star', ['id'])
+        $result["note"] = $article->select2('star', ['AVG(score) AS avg'])
             ->where("articleId", $id)
-            ->count();
+            ->fetch();
+
+        $result["note"] = is_numeric($result["note"]->avg) ? number_format($result["note"]->avg, 1, ",", " ") . " / 5" : "pas de note";
 
         if($result) {
             http_response_code(200);
@@ -368,5 +375,40 @@ class Article
         $echo = $star->save();
 
         header("location: /recette?id=" . $_POST['articleId'] );
+    }
+
+    public function deleteArticleById()
+    {
+        //Server::ensureHttpMethod('DELETE');
+
+        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : null;
+        if($id === null) {
+            http_response_code(400);
+            die();
+        }
+
+        $user = new UserModel();
+        $session = Session::getByToken();
+        $user = $user->setId($session->getUserId());
+
+        $article = new ArticleModel();
+        $article = $article->setId($id);
+
+        if($article === null) {
+            http_response_code(404);
+            die();
+        }
+
+        if($user->getStatus() != 'admin' && !($user->getStatus() == 'chief' && $article->getUserId() == $user->getId())) {
+            http_response_code(401);
+            die();
+        }
+
+        $result = $article->delete();
+        if($result) {
+            http_response_code(200);
+        }else {
+            http_response_code(500);
+        }
     }
 }

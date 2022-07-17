@@ -63,6 +63,7 @@
     action: editArticle
     security:
       - chief
+      - admin
 
 /set-score:
     controller: article
@@ -155,6 +156,13 @@
   action: getArticleById
   security:
     - admin
+
+/delete-article:
+  controller: article
+  action: deleteArticleById
+  security:
+    - admin
+    - chief
 
 /ingredient-request:
   controller: ingredient

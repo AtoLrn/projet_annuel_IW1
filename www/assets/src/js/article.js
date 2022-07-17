@@ -81,15 +81,16 @@ const setAsideArticleInfo = (data) => {
     $('.aside-info').removeClass("show");
     let info = $('#infos');
     info.html("");
-    info.append( `<p>${data.article.article_title}</p>` );
-    info.append( `<span>${data.article.article_description}</span>` );
+    info.append( `<p>${data.article.title}</p>` );
+    info.append( `<span>${data.article.description}</span>` );
     info.append( `<p>Nombre de Commentaire: ${data.comments}</p>` );
-    info.append( `<p>Note: ${data.like}</p>` );
+    info.append( `<p>Note: ${data.note}</p>` );
 
     let btns = $('#btns');
     btns.html("");
-    btns.append( `<a href="/recette?id=${data.article.article_id}"> <button class='btn btn-pink little'> Voir</button> </a> ` );
-    btns.append( `<a href="/recette?id=${data.article.article_id}&modify"><button class='btn btn-danger little'>  Modifier   </button></a>` );
+    btns.append(`<button class='btn btn-danger little' onclick='displayPopUp("deleteArticleById", ${data.article.id}, deletePopUp())'> Supprimer </button>`);
+    btns.append( `<a href="/recette?id=${data.article.id}"> <button class='btn btn-pink little'> Voir</button> </a> ` );
+    btns.append( `<a href="/recette?id=${data.article.id}&modify"><button class='btn btn-success little'>  Modifier   </button></a>` );
     
 
     $('.aside-info').addClass("show");
@@ -112,5 +113,23 @@ const getArticleById = (articleId) => {
         setAsideArticleInfo(data);
     }).catch((error) => {
         console.log('Erreur : ' + error);
+    });
+}
+
+const deleteArticleById = (id) => {
+    fetch( `/delete-article?id=${id}`, {
+        method: 'DELETE',
+    }).then(r => {
+        tab = $('#list-table').DataTable();
+        $('.aside-info').removeClass("show");
+        getList(tab);
+    });
+}
+
+const deleteArticleChief = (id) => {
+    fetch( `/delete-article?id=${id}`, {
+        method: 'DELETE',
+    }).then(r => {
+        window.location.href = "/recettes"
     });
 }

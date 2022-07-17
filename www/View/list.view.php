@@ -40,10 +40,13 @@
                     <div class="row j-bet grid a-start">
                         <div id="infos" class="col h-per-20 g-3 col-lg-5">
                         </div>
-
+                        
+                        <?php if( !isset($_GET['q']) || $_GET['q'] == "user"): ?>
                         <figure id="img-user" class="col-lg-1">
                             <img src="assets/img/users/default_user.jpg" alt="" height="72" width="72">
-                        </figure>           
+                        </figure>     
+                        <?php endif; ?>
+      
                     </div>
                     <div class="bd-t-1 bd-light-gray"></div>
                     <div id="btns" class="row j-end">
