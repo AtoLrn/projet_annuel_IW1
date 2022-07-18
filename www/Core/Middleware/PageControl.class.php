@@ -11,14 +11,14 @@ class PageControl {
     {
         
         $page = new PageModel();
-        $page = $page->select2('page', ['id','userId', 'title', 'content', 'path'])
+        $page = $page->select('page', ['id','userId', 'title', 'content', 'path'])
             ->where('path', substr($uri, 1))
             ->fetch();
 
         if ($page) return $page;
 
         $article = new Article();
-        $article = $article->select2('article', ['id','userId', 'title', 'content'])
+        $article = $article->select('article', ['id','userId', 'title', 'content'])
             ->where('path', substr($uri, 1))
             ->fetch();
 

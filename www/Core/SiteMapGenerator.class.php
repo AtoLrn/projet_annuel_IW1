@@ -152,7 +152,7 @@ class SiteMapGenerator
             ';
         
         $pageModel = new PageModel();
-        $pages = $pageModel->select2('page', ['id', 'path', 'updatedAt'])
+        $pages = $pageModel->select('page', ['id', 'path', 'updatedAt'])
             ->fetchAll();
 
         foreach ($pages as $page) {

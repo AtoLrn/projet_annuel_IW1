@@ -20,7 +20,7 @@ class User
       
         if (!empty($_POST)) {
             Security::csrf();
-            $loggedUser = $user->select2('user', ["*"])
+            $loggedUser = $user->select('user', ["*"])
                 ->where('email', $_POST['email'])
                 ->fetch();
             if (!empty($loggedUser)) {
@@ -55,7 +55,7 @@ class User
         if (!empty($_POST)) {
             Security::csrf();
             $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
-            if ($user->select2('user', ["id", "password"])
+            if ($user->select('user', ["id", "password"])
                     ->where('email', $_POST['email'])
                     ->fetch()
                ) {
@@ -129,7 +129,7 @@ class User
         $user = new UserModel();
         $view = new View("mail-validation", 'front');
         if ($_GET['token']) { // Faire une sécu ic!!!!!!!!!
-            $user = $user->select2('user', ["*"])
+            $user = $user->select('user', ["*"])
                 ->where('mailToken', $_GET['token'])
                 ->fetch();
             if (!empty($user)) {
@@ -148,7 +148,7 @@ class User
         $user = new UserModel();
         $view = new View("mail-validation", 'front');
         if ($_GET['token']) { // Faire une sécu ic!!!!!!!!!
-            $user = $user->select2('user', ["*"])
+            $user = $user->select('user', ["*"])
                 ->where('mailToken', $_GET['token'])
                 ->fetch();
             if (!empty($user)) {
@@ -180,7 +180,7 @@ class User
             Security::csrf();
             $result = Verificator::checkForm($user->getPwdForgetForm(), $_POST);
             if (empty($result)) {
-                $user = $user->select2('user', ["*"])
+                $user = $user->select('user', ["*"])
                     ->where('email', $_POST['email'])
                     ->fetch();
 
@@ -207,7 +207,7 @@ class User
         $user = new UserModel();
         if (isset($_GET['token'])) {
             $token = $_GET['token'];
-            $user = $user->select2('user', ["*"])
+            $user = $user->select('user', ["*"])
                 ->where('passwordToken', $token)
                 ->fetch();
         } else if (isset($_SESSION['token'])) {
@@ -259,12 +259,12 @@ class User
 
         $isMyProfile = $session && $session->getUserId() == $userId;
         $userId = $isMyProfile ? $session->getUserId() : $userId;
-        $userInfos = $user->select2('user', ['*'])
+        $userInfos = $user->select('user', ['*'])
             ->where('id', $userId)
             ->fetch();
         
         $articles = new ArticleModel();
-        $articles = $articles->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
+        $articles = $articles->select('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
         ->leftJoin('image', 'article.id', 'image.articleId')
         ->leftJoin('star', 'article.id', 'star.articleId')
         ->innerJoin('category', 'article.categoryId', 'category.id')
@@ -290,7 +290,7 @@ class User
         Server::ensureHttpMethod('GET');
         $getParams = isset($_GET['params']) && is_array(json_decode($_GET['params'])) ? json_decode($_GET['params']) : null;
         $users = new UserModel();
-        $users->select2('user', ["id", "email", "lastname", "firstname", "status", "createdAt"]);
+        $users->select('user', ["id", "email", "lastname", "firstname", "status", "createdAt"]);
         if(!is_null($getParams)) {
             $users->where($getParams[0]??"",$getParams[1]??null,$getParams[2]??"=");
         }
@@ -318,7 +318,7 @@ class User
             die();
         }
         $user = new UserModel();
-        $user = $user->select2('user', ["id", "email", "firstname", "lastname", "status", "isVerified", "mailToken", "profilePicture"])
+        $user = $user->select('user', ["id", "email", "firstname", "lastname", "status", "isVerified", "mailToken", "profilePicture"])
             ->where('id', $id)
             ->fetch();
 
@@ -485,7 +485,7 @@ class User
             return;
         }
 
-        $isEmailExist = $user->select2('user', ['id'])
+        $isEmailExist = $user->select('user', ['id'])
             ->where('email', $_POST['email'])
             ->fetch();
         if ($isEmailExist){

@@ -59,7 +59,7 @@ class Theme
         $theme = new ThemeModel();
         if(isset($_POST['idTheme'])) {
             Security::csrf();
-            $theme = $theme->select2("theme", ["*"])
+            $theme = $theme->select("theme", ["*"])
                 ->where('selected', 1)
                 ->fetch();
       
@@ -74,7 +74,7 @@ class Theme
         }
 
         $themes = $theme
-            ->select2("theme", [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"])
+            ->select("theme", [ "id","name", "fontFamily", "bgColor", "textColor", "btnColor", "btnColorLight", "phColor", "shadowColor", "selected"])
             ->fetchAll();
 
         usort($themes, function($a, $b){

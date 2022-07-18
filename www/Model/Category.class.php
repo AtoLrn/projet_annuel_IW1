@@ -33,13 +33,13 @@ class Category extends Sql {
     {
         if(!is_null($this->getId())) {
 
-            return $this->select2('category', ['id'])
+            return $this->select('category', ['id'])
                 ->where('name', $this->getName())
                 ->where('id', $this->getId(), "!=")
                 ->fetch();
         }
 
-        return  $this->select2('category', ['id'])
+        return  $this->select('category', ['id'])
             ->where('name', $this->getName())
             ->fetch();
     }

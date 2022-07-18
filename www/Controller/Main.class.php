@@ -15,7 +15,7 @@ class Main
     {
         $view = new View('home', 'front');
         $articles = new ArticleModel();
-        $lastArticles = $articles->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'AVG(score) AS note'])
+        $lastArticles = $articles->select('article', ['article.id AS idArticle', 'title', 'description', 'path', 'AVG(score) AS note'])
             ->innerJoin('image', 'article.id', 'image.articleId')
             ->leftJoin('star', 'article.id', 'star.articleId')
             ->where('main', 1)
@@ -24,7 +24,7 @@ class Main
             ->limit(0, 6)
             ->fetchAll();
         
-        $bestArticles = $articles->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'AVG(score) AS note'])
+        $bestArticles = $articles->select('article', ['article.id AS idArticle', 'title', 'description', 'path', 'AVG(score) AS note'])
             ->innerJoin('image', 'article.id', 'image.articleId')
             ->leftJoin('star', 'article.id', 'star.articleId')
             ->where('main', 1)
@@ -35,7 +35,7 @@ class Main
         
         $categories = new CategoryModel();
         $categories = $categories
-            ->select2('category', ['name'])
+            ->select('category', ['name'])
             ->orderBy('name')
             ->fetchAll();
         
@@ -51,7 +51,7 @@ class Main
         $categories = array_map(
             function ($cat) { return $cat->getName(); } ,
             $categories
-            ->select2('category', ['id', 'name'])
+            ->select('category', ['id', 'name'])
             ->fetchAll()
         );
 
@@ -64,7 +64,7 @@ class Main
         $article = new ArticleModel();
         
         // get count articles for pagination
-        $count = $article->select2('article', ['COUNT(*) AS total'])
+        $count = $article->select('article', ['COUNT(*) AS total'])
             ->innerJoin('category', 'article.categoryId', 'category.id')
             ->where('name', $category)
             ->where('title', "%" . $q . "%", " LIKE ")
@@ -77,7 +77,7 @@ class Main
         }        
         // search articles
         $orderBy = $article->getOrderType($order);
-        $articles = $article->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
+        $articles = $article->select('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
             ->innerJoin('image', 'article.id', 'image.articleId')
             ->leftJoin('star', 'article.id', 'star.articleId')
             ->innerJoin('category', 'article.categoryId', 'category.id')
@@ -125,7 +125,7 @@ class Main
         }
         
         // get count chiefs for pagination
-        $count = $chiefs->select2('user', ['user.id AS id'])
+        $count = $chiefs->select('user', ['user.id AS id'])
             ->leftJoin('follow', 'user.id', 'follow.isFollowed')
             ->where('follower', $idUser)
             ->where('status', 'chief')
@@ -142,7 +142,7 @@ class Main
         }        
         // search chiefs
         $orderBy = $chiefs->getOrderType($order);
-        $chiefs = $chiefs->select2('user', ['user.id AS id', 'firstname', 'lastname', 'profilePicture'])
+        $chiefs = $chiefs->select('user', ['user.id AS id', 'firstname', 'lastname', 'profilePicture'])
             ->leftJoin('follow', 'user.id', 'follow.isFollowed')
             ->where('follower', $idUser)
             ->where('status', 'chief')

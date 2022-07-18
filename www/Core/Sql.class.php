@@ -43,7 +43,7 @@ abstract class Sql implements JsonSerializable
      */
     public function setId(?int $id): ?object
     {
-        $obj = $this->driver->select2($this->table, ["*"])
+        $obj = $this->driver->select($this->table, ["*"])
             ->where('id', $id)
             ->fetch(get_called_class());
         return $obj ? $obj : null;
@@ -89,8 +89,8 @@ abstract class Sql implements JsonSerializable
         return $this->driver->getParams();
     }
 
-    public function select2(string $table, array $columns) {
-        $this->driver->select2($table, $columns);
+    public function select(string $table, array $columns) {
+        $this->driver->select($table, $columns);
         return $this;
     }
 

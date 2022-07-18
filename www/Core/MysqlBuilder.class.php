@@ -24,7 +24,7 @@ class MysqlBuilder implements QueryBuilder
             return $this->params;
         }
 
-        public function select2(string $table, array $columns): QueryBuilder
+        public function select(string $table, array $columns): QueryBuilder
         {
             $this->reset();
             $columns = array_map(

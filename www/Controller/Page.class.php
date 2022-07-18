@@ -18,7 +18,7 @@ class Page
     public function getBySlug(string $slug)
     {
         $page = new PageModel();
-        $page = $page->select2('page', ['id','userId', 'title', 'content', 'path', 'enable'])
+        $page = $page->select('page', ['id','userId', 'title', 'content', 'path', 'enable'])
             ->where('path', $slug)
             ->fetch();
 
@@ -44,7 +44,7 @@ class Page
 
                     $path = CleanWords::formatePath($_POST['title']);
 
-                    $existingPage = $page->select2('page', ['path'])->where('path', $path)->count();
+                    $existingPage = $page->select('page', ['path'])->where('path', $path)->count();
 
                     if ($existingPage != 0) {
                         $path = $path."-".bin2hex(random_bytes(8));
@@ -119,7 +119,7 @@ class Page
         Server::ensureHttpMethod('GET');
         $pages = New PageModel();
 
-        $result = $pages->select2('page', ['page.id AS id', 'title', 'path', 'email'])
+        $result = $pages->select('page', ['page.id AS id', 'title', 'path', 'email'])
             ->leftJoin('user', 'page.userId', 'user.id')
             ->fetchAll();
 
@@ -142,7 +142,7 @@ class Page
 
         $id = $_POST['id'] ?? null;
         $page = new PageModel();
-        $page = $page->select2('page', ["id", "title", "path", "createdAt"])
+        $page = $page->select('page', ["id", "title", "path", "createdAt"])
             ->where('id', $id)
             ->fetch();
 

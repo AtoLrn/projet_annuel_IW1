@@ -24,7 +24,7 @@ class Theme extends Sql
 
     public function selectTheme(int $idTheme): void 
     {
-        $themeSelected = $this->select2('theme', ['id'])
+        $themeSelected = $this->select('theme', ['id'])
             ->where('selected', true)
             ->fetch();
 
