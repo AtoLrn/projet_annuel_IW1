@@ -239,6 +239,7 @@ class Admin
             exit();
             
         }
+
         $view = new View("setup", "setup");
         $view->assign("form", $this->getSetupForm($_POST));
     }

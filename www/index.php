@@ -40,9 +40,9 @@ $uri = strtok($uri, "?");
 
 $routes = yaml_parse_file($routeFile);
 
-
 if (!file_exists("conf.inc.json")) {
     if ($uri != "/setup"){ header("Location: /setup");}
+
 
     $controller = new Admin();
     $controller->setup();

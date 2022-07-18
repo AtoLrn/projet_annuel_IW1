@@ -64,13 +64,15 @@ class View
     
             }
             $this->data['website_logo'] = "../assets/img/logo/".urlencode(LOGOPATH);
+
+            $theme = new Theme();
+            $theme = $theme->select2('theme', ['*'])
+            ->where('selected', 1)
+            ->fetch();
         }
         extract($this->data);
 
-        $theme = new Theme();
-        $theme = $theme->select2('theme', ['*'])
-            ->where('selected', 1)
-            ->fetch();
+        
         include "View/" . $this->template . ".tpl.php";
         unset($_SESSION['uniq_csrf']);
     }
