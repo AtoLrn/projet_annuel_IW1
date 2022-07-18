@@ -118,7 +118,6 @@ class Main
         $idUser = null;
 
         if(isset($_GET['sub'])) {
-            echo "oui";
             $session = Session::getByToken();
             if(!is_null($session)) {
                 $idUser = $session->getUserId();
@@ -130,6 +129,7 @@ class Main
             ->leftJoin('follow', 'user.id', 'follow.isFollowed')
             ->where('follower', $idUser)
             ->where('status', 'chief')
+            ->groupBy(['id'])
             ->whereOr('firstname', "%" . $q . "%", " LIKE ")
             ->whereOr('lastname', "%" . $q . "%", " LIKE ")
             ->count();
@@ -148,6 +148,7 @@ class Main
             ->where('status', 'chief')
             ->whereOr('firstname', "%" . $q . "%", " LIKE ")
             ->whereOr('lastname', "%" . $q . "%", " LIKE ")
+            ->groupBy(['id', 'firstname', 'lastname', 'profilePicture'])
             ->orderBy($orderBy['val'], $orderBy['order'])
             ->limit($page * $articlePerPage, $articlePerPage)
             ->fetchAll();
