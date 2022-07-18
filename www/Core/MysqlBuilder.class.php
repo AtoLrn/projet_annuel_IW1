@@ -61,8 +61,16 @@ class MysqlBuilder implements QueryBuilder
         public function where(string $column, ?string $value, string $operator = "="): QueryBuilder
         {
             if(!is_null($value)) {
-                $this->query->where[] = $column . $operator .  ":" . $column;
-                $this->params[$column] = $value;
+                if(strstr($column, ".")) {
+                    $col = str_replace(".", "_", $column);
+                    $this->query->where[] = DBPREFIXE . $column . $operator .  ":" . $col;
+                    $this->params[$col] = $value;
+
+                }else {
+                    $this->query->where[] = $column . $operator .  ":" . $column;
+                    $this->params[$column] = $value;
+
+                }
             }
             return $this;
         }
