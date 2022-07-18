@@ -269,6 +269,7 @@ class User
         ->leftJoin('star', 'article.id', 'star.articleId')
         ->innerJoin('category', 'article.categoryId', 'category.id')
         ->where('main', 1)
+        ->where('article.userId', $userId)
         ->groupBy(['idArticle', 'title', 'description', 'path', 'createdAt', 'name'])
         ->orderBy('createdAt', 'DESC')
         ->limit(0, 6)
