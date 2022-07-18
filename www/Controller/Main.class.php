@@ -16,7 +16,7 @@ class Main
         $view = new View('home', 'front');
         $articles = new ArticleModel();
         $lastArticles = $articles->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'AVG(score) AS note'])
-            ->leftJoin('image', 'article.id', 'image.articleId')
+            ->innerJoin('image', 'article.id', 'image.articleId')
             ->leftJoin('star', 'article.id', 'star.articleId')
             ->where('main', 1)
             ->groupBy(['idArticle', 'title', 'description', 'path', 'createdAt'])
@@ -25,7 +25,7 @@ class Main
             ->fetchAll();
         
         $bestArticles = $articles->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'AVG(score) AS note'])
-            ->leftJoin('image', 'article.id', 'image.articleId')
+            ->innerJoin('image', 'article.id', 'image.articleId')
             ->leftJoin('star', 'article.id', 'star.articleId')
             ->where('main', 1)
             ->groupBy(['idArticle', 'title', 'description', 'path'])
@@ -78,7 +78,7 @@ class Main
         // search articles
         $orderBy = $article->getOrderType($order);
         $articles = $article->select2('article', ['article.id AS idArticle', 'title', 'description', 'path', 'name', 'AVG(score) AS note'])
-            ->leftJoin('image', 'article.id', 'image.articleId')
+            ->innerJoin('image', 'article.id', 'image.articleId')
             ->leftJoin('star', 'article.id', 'star.articleId')
             ->innerJoin('category', 'article.categoryId', 'category.id')
             ->where('main', 1)
