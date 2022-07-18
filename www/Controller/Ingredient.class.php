@@ -65,15 +65,11 @@ class Ingredient
     {
         Server::ensureHttpMethod('GET');
         $ingredients = new IngredientModel();
-        $result = $ingredients->select([
-            "user" => [
-                "args" => ["email"],
-                "ij" => ["ingredient"]
-            ],
-            "ingredient" => [
-                "args" => ["id", "name", "status", "createdAt"],
-            ]
-        ]);
+
+        $result = $ingredients->select2('ingredient', ['ingredient.id AS id', 'name', 'ingredient.status AS status', 'ingredient.createdAt as createdAt', 'email'])
+            ->innerJoin('user', 'user.id', 'ingredient.userId')
+            ->fetchAll();
+
         if($result) {
             http_response_code(200);
             header('Content-Type: application/json; charset=utf-8');
@@ -91,16 +87,13 @@ class Ingredient
 
         $id = $_POST['id'] ?? null;
         $ingredients = new IngredientModel();
-        $result = $ingredients->select([
-            "user" => [
-                "args" => ["id", "email", "firstname", "lastname"],
-                "ij" => ["ingredient"]
-            ],
-            "ingredient" => [
-                "args" => ["id", "name", "path", "status", "createdAt"],
-                "params" => ["id" => $id]
-            ]
-        ]);
+
+        $result = $ingredients->select2('ingredient', ['ingredient.id AS id', 'name', 'path', 'ingredient.status AS status', 'ingredient.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
+            ->innerJoin('user', 'user.id', 'ingredient.userId')
+            ->where('ingredient.id', $id)
+            ->fetch();
+
+
         if($result) {
             http_response_code(200);
             header('Content-Type: application/json; charset=utf-8');

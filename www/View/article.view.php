@@ -18,10 +18,10 @@
                     </div>
                 </div>
                 <div class="row">
-                        <?php if($score['AVG(score)'] == ""): ?>
+                        <?php if($score->avg == ""): ?>
                             <span class="c-pink" style="font-size: 18px"> pas encore noté  </span>
                         <?php else: ?>
-                            <span class="c-pink" style="font-size: 18px"><?= number_format($score['AVG(score)'], 1, ',', "") . " / 5 sur " . $score['COUNT(*)'] . " " . ($score['COUNT(*)'] == 1 ? "note" : "notes"); ?>   </span>
+                            <span class="c-pink" style="font-size: 18px"><?= number_format($score->avg, 1, ',', "") . " / 5 sur " . $score->total . " " . ($score->total == 1 ? "note" : "notes"); ?>   </span>
                         <?php endif; ?>
                 </div>
                 
@@ -32,8 +32,8 @@
                             <input type="hidden" name="articleId" value="<?= $article->getId() ?>">
                             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                             <button class="link">
-                                <svg id="star_<?= $i ?>" colorValue="<?= $i <= $score['AVG(score)'] ? '#FFC300' : '#feff98' ?>" class="stars" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer">
-                                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" style="fill: <?= $i <= $score['AVG(score)'] ? '#FFC300' : '#feff98' ?>"/>
+                                <svg id="star_<?= $i ?>" colorValue="<?= $i <= $score->avg ? '#FFC300' : '#feff98' ?>" class="stars" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer">
+                                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" style="fill: <?= $i <= $score->avg ? '#FFC300' : '#feff98' ?>"/>
                                 </svg>
                             </button>
                         </form>
@@ -46,7 +46,7 @@
             <aside class="col-lg-6">
                 <article id="recette-container" class="pl-5 recette-container" data-index="0">
                     <?php foreach ($images as $image) {?>
-                        <div class="recette-img shadow selected"><img height="32px" src="/<?php echo $image["image_path"] ?>" alt=""></div>
+                        <div class="recette-img shadow selected"><img height="32px" src="/<?php echo $image->getPath() ?>" alt=""></div>
                     <?php } ?>
                 </article>
                 <div class="controller pl-6"><img id="left"  height="32px" src="assets/img/logo/left-arrow.svg" alt=""><img id="right" height="32px" src="assets/img/logo/right-arrow.svg" alt=""></div>

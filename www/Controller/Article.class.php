@@ -67,23 +67,15 @@ class Article
         }
         
         $image = new Image();
-        $images = $image->select([
-            "image" => [
-                "args" => ["path", "main"],
-                "params" => [
-                    "articleId" => $article->getId()
-                ]
-            ]
-        ], null, "main");
 
-        $score = $article->select([
-            "star" => [
-                "args" => ["COUNT(*)", "AVG(score)"],
-                "params" => [
-                    "articleId" => $article->getId()
-                ]
-            ]
-        ]);
+        $images = $image->select2('image', ['path', 'main'])
+            ->where('articleId', $article->getId())
+            ->orderBy('main')
+            ->fetchAll();
+
+        $score = $article->select2('star', ['COUNT(*) as total', 'AVG(score) as avg'])
+            ->where('articleId', $article->getId())
+            ->fetch();
 
         $ingredients = $ingredients->select2('ingredient_article', ['name', 'path'])
             ->leftJoin('ingredient', 'ingredient_article.ingredientId', 'ingredient.id')
@@ -110,7 +102,7 @@ class Article
         $view->assign("article", $article);
         $view->assign("chief", $chief);
         $view->assign("images", $images);
-        $view->assign("score", $score[0]);
+        $view->assign("score", $score);
         $view->assign("ingredients", $ingredients);
         $view->assign("comment", $comment);
         $view->assign("comments", $comments);
@@ -140,17 +132,13 @@ class Article
 
                 foreach ($ingredients as $ingredient) {
                     $ingredientModel = new Ingredient();
-                    $ingredientId = $ingredientModel->select([
-                        "ingredient" => [
-                            "args" => ["id"],
-                            "params" => [
-                                "name" => $ingredient
-                            ]
-                        ]
-                    ])[0];
+
+                    $ingredientId = $ingredientModel->select2('ingredient', ['id'])
+                        ->where('name', $ingredient)
+                        ->fetch();
 
                     $assoc = new IngredientArticle();
-                    $assoc->setIngredientId($ingredientId["ingredient_id"]);
+                    $assoc->setIngredientId($ingredientId->getId());
                     $assoc->setArticleId($id);
                     $assoc->save();
                 }
@@ -232,37 +220,27 @@ class Article
                 $ingredients = explode(",",$_POST['ingredient'][0]);
 
                 $ingredientModel = new Ingredient();
-                $oldIngredients = $ingredientModel->select([
-                    "ingredient" => [
-                        "args" => ["name"],
-                        "lf" => ["ingredient_article"]
-                    ],
-                    "ingredient_article" => [
-                        "args" => ["id"],
-                        "params" => ["articleId" => $id],
-                    
-                    ]
-                ]); 
+
+                $oldIngredients = $ingredientModel->select2('ingredient', ['ingredient_article.id AS ingredientArticleId', 'name'])
+                    ->leftJoin('ingredient_article', 'ingredient_article.ingredientId', 'ingredient.id')
+                    ->where('ingredient_article.articleId', $id)
+                    ->fetchAll();
 
                 foreach ($oldIngredients as $ingredient) {
                     $assoc = new IngredientArticle();
-                    $assoc = $assoc->setId($ingredient["ingredient_article_id"]);
+                    $assoc = $assoc->setId($ingredient->ingredientArticleId);
                     $assoc->delete();
                 }
 
                 foreach ($ingredients as $ingredient) {
                     $ingredientModel = new Ingredient();
-                    $ingredientId = $ingredientModel->select([
-                        "ingredient" => [
-                            "args" => ["id"],
-                            "params" => [
-                                "name" => $ingredient
-                            ]
-                        ]
-                    ])[0];
+
+                    $ingredientId = $ingredientModel->select2('ingredient', ["id"])
+                        ->where('name', $ingredient)
+                        ->fetch();
 
                     $assoc = new IngredientArticle();
-                    $assoc->setIngredientId($ingredientId["ingredient_id"]);
+                    $assoc->setIngredientId($ingredientId->getId());
                     $assoc->setArticleId($id);
                     $assoc->save();
                 }
@@ -365,15 +343,14 @@ class Article
         }   
         
         $star = new StarModel();
-        $result = $star->select([
-            "star" => [
-                "args" => ["id"],
-                "params" => ["articleId" => $_POST['articleId'], "userId" => $session->getUserId()]
-            ]
-        ]);
 
-        if(isset($result[0])) {
-            $star = $star->setId($result[0]['star_id']);
+        $result = $star->select2('star', ["id"])
+            ->where('articleId', $_POST['articleId'])
+            ->where('userId', $session->getUserId())
+            ->fetch();
+
+        if(isset($result)) {
+            $star = $star->setId($result->getId());
         }else {
             $star->setUserId($session->getUserId());
             $star->setArticleId($_POST['articleId']);

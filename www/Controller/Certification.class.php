@@ -49,15 +49,12 @@ class Certification
             $view->assign("connectedUser", true);
             $user = $user->setId($session->getUserId());
             $certificationDemand = new CertificationModel();
-            $isDemandExist = $certificationDemand->select([
-                "certification" => [
-                    "args" => ["id"],
-                    "params" => [
-                        "userId" => $user->getId(),
-                        "status" => 'inDemand'
-                    ]
-                ]
-            ]);
+
+            $isDemandExist = $certificationDemand->select2('certification', ['id'])
+                ->where('userId', $user->getId())
+                ->where('status', 'inDemand')
+                ->fetchAll();
+
             if (empty($isDemandExist)) {
                 $demandAlreadyExist = 1;
                 $view->assign("demandAlreadyExist", $demandAlreadyExist);
@@ -81,15 +78,11 @@ class Certification
     {
         Server::ensureHttpMethod('GET');
         $certifications = New CertificationModel();
-        $result = $certifications->select([
-            "user" => [
-                "args" => ["email"],
-                "ij" => ["certification"]
-                ],
-            "certification" => [
-                "args" => ["id", "status", "createdAt"],
-            ]
-        ]);
+
+        $result = $certifications->select2('certification', ['certification.id AS id', 'certification.status as status', 'certification.createdAt as createdAt', 'user.email AS email'])
+            ->innerJoin('user', 'user.id', 'certification.userId')
+            ->fetchAll();
+
         if($result) {
             http_response_code(200);
         }else {
@@ -109,7 +102,7 @@ class Certification
 
         $id = $_POST['id'] ?? null;
         $certification = new CertificationModel();
-        $result = $certification->select(
+        /*$result = $certification->select(
             [
                 "user" => [
                     "args" => ["id", "email", "firstname", "lastname"],
@@ -120,7 +113,13 @@ class Certification
                     "params" => ["id" => $id]
                 ]
             ]
-        );
+        );*/
+
+        $result = $certification->select2('certification', ['certification.id as id', 'description', 'idDocumentPath', 'officialDocumentPath', 'certification.status AS status', 'certification.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
+            ->innerJoin('user', 'user.id', 'certification.userId')
+            ->where('certification.id', $id)
+            ->fetch();
+
         if($result) {
             http_response_code(200);
             header('Content-Type: application/json; charset=utf-8');
