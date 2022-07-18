@@ -267,6 +267,14 @@ class Article
                     $assoc->save();
                 }
 
+                $image = new Image();
+                $images = $image->select2("image", ["id"])->where("articleId", $id)->fetchAll();
+
+                foreach($images as $image) {
+                    $image->delete();
+                }
+
+
                 foreach ($_FILES["photo"]["tmp_name"] as $file) {
                     $target_file = "assets/img/articles/" . bin2hex(random_bytes(20));
                     if (move_uploaded_file($file, $target_file)) {
