@@ -38,26 +38,19 @@ class Comment {
     {
         Server::ensureHttpMethod('GET');
         $comment = New CommentModel();
-        $result = $comment->select([
-            "user" => [
-                "args" => ["email"],
-                "params" => [],
-                "ij" => ["comment"]
-            ],
-            "comment" => [
-                "args" => ["id", "status", "createdAt"],
-                "params" => []
-            ]
-        ]);
+
+        $result = $comment->select2('comment', ['comment.id AS id', 'comment.status AS status', 'comment.createdAt AS createdAt', 'email'])
+            ->innerJoin('user', 'user.id', 'comment.userId')
+            ->fetchAll();
+
         if($result) {
             http_response_code(200);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($result);
         }else {
             Logger::writeErrorLog("Error while fetching comments.");
             http_response_code(500);
         }
-
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($result);
     }
 
     public function getCommentById()
@@ -68,7 +61,7 @@ class Comment {
 
         $id = $_POST['id'] ?? null;
         $comment = new CommentModel();
-        $result = $comment->select(
+/*        $result = $comment->select(
             [
                 "user" => [
                     "args" => ["id", "email", "firstname", "lastname"],
@@ -80,7 +73,13 @@ class Comment {
                     "params" => ["id" => $id]
                 ]
             ]
-        );
+        );*/
+
+        $result = $comment->select2('comment', ['comment.id AS id', 'content', 'comment.status as status', 'comment.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
+            ->innerJoin('user', 'user.id', 'comment.userId')
+            ->where('comment.id', $id)
+            ->fetch();
+
         if($result) {
             http_response_code(200);
             header('Content-Type: application/json; charset=utf-8');

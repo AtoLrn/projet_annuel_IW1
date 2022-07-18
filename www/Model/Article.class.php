@@ -118,16 +118,14 @@ class Article extends Sql
 
     public function getArticleForm(?bool $edit = false): array
     {
-        $ingredients = new Ingredient();
-        $enabledIngredients = $ingredients->select([
-            "ingredient" => [
-                "args" => ["name"],
-                "params" => ["status" => 'enabled']
-            ]
-        ]);        
+        $ingredient = new Ingredient();
+
+        $enabledIngredients = $ingredient->select2('ingredient', ['name'])
+            ->where('status', 'enabled')
+            ->fetchAll();
 
         $options = array_map(function($elem) {
-            return '\''.$elem["ingredient_name"].'\'';
+            return '\''.$elem->getName().'\'';
         },$enabledIngredients);
 
         $options = '['.implode(',', $options).']';
@@ -135,19 +133,12 @@ class Article extends Sql
         $defaultSelected = "";
 
         if ($edit) {
-            $ingredients = $ingredients->select([
-                "ingredient" => [
-                    "args" => ["name"],
-                    "lf" => ["ingredient_article"]
-                ],
-                "ingredient_article" => [
-                    "args" => ["id"],
-                    "params" => ["articleId" => $this->getId()],
-                
-                ]
-            ]); 
+            $ingredients = $ingredient->select2('ingredient', ['ingredient_article.id', 'name'])
+                ->leftJoin('ingredient_article', 'ingredient_article.ingredientId', 'ingredient.id')
+                ->where('ingredient_article.articleId', $this->getId())
+                ->fetchAll();
             $defaultSelected =  implode(",", array_map(function($v) {
-                return $v["ingredient_name"];
+                return $v->getName();
             },$ingredients)); 
         }
 

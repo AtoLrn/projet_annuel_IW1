@@ -29,27 +29,19 @@ class Category extends Sql {
         $this->name = strtolower(trim($name));
     }
 
-    public function checkExist(): ?array
+    public function checkExist()
     {
         if(!is_null($this->getId())) {
-            return $this->select([
-                "category" => [
-                    "args" => ["id"],
-                    "params" => [
-                        "name" => [ "value" => $this->getName(), "operator" => "="],
-                        "id" => [ "value" => $this->getId(), "operator" => "!="]
-                        ]
-                ]
-            ]);
+
+            return $this->select2('category', ['id'])
+                ->where('name', $this->getName())
+                ->where('id', $this->getId(), "!=")
+                ->fetch();
         }
 
-        return  $this->select([
-            "category" => [
-                "args" => ["id"],
-                "params" => ["name" => $this->getName()]
-            ]
-        ]);
-        
+        return  $this->select2('category', ['id'])
+            ->where('name', $this->getName())
+            ->fetch();
     }
 
     public function getForm(?int $id = null): array

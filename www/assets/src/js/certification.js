@@ -23,19 +23,13 @@ const getCertifications = (tab) => {
 const setTableCertification = (data, tab) => {
     tab.clear();
     for(const row of data) {
-        let cols = []
-        for(const col in row) {
-
-            if(col != 'certification_id') {
-                cols.push(row[col])
-            }
-        }
+        let cols = [row.email, row.status, row.createdAt]
         let rowNode = tab
             .row.add( cols )
             .draw()
             .node();
         $(rowNode).click(function() {
-            getCertificationById(row['certification_id'])
+            getCertificationById(row['id'])
         });
     }
 }
@@ -54,7 +48,6 @@ const getCertificationById = (certificationId) => {
     }).then((r) => {
         return r.json();
     }).then((data) => {
-        data = data[0]
         setAsideCertificationInfo(data);
     }).catch((error) => {
         console.log('Erreur : ' + error);
@@ -65,28 +58,28 @@ const setAsideCertificationInfo = (data) => {
     $('.aside-info').removeClass("show");
     let info = $('#infos');
     info.html("");
-    info.append( `<p>${data.user_lastname}</p>` );
-    info.append( `<p>${data.user_firstname}</p>` );
-    info.append( `<p>${data.user_email}</p>` );
-    info.append( `<p>${statusCertification[data.certification_status] }</p>` );
+    info.append( `<p>${data.lastname}</p>` );
+    info.append( `<p>${data.firstname}</p>` );
+    info.append( `<p>${data.email}</p>` );
+    info.append( `<p>${statusCertification[data.status] }</p>` );
 
     let btns = $('#btns');
     btns.html("");
-    if (data.certification_status === 'inDemand') {
-        btns.append( `<button class='btn btn-pink little' onclick='modifyCertificationStatus(${data.certification_id}, "approved", ${data.user_id})'> Aprouver </button>` );
-        btns.append( `<button class='btn btn-danger little' onclick='modifyCertificationStatus(${data.certification_id}, "refused", ${data.user_id})'> Refuser </button>` );
+    if (data.status === 'inDemand') {
+        btns.append( `<button class='btn btn-pink little' onclick='modifyCertificationStatus(${data.id}, "approved", ${data.userId})'> Aprouver </button>` );
+        btns.append( `<button class='btn btn-danger little' onclick='modifyCertificationStatus(${data.id}, "refused", ${data.userId})'> Refuser </button>` );
     }
 
     let descriptionArea = $('#descriptionArea')
     descriptionArea.html("");
-    descriptionArea.append(`${data.certification_description}`)
+    descriptionArea.append(`${data.description}`)
 
     let idDocumentBtn = $('#idDocument')
     let officialDocumentBtn = $('#officialDocument')
-    idDocumentBtn.attr('href', data.certification_idDocumentPath)
-    idDocumentBtn.attr('download', `${data.user_lastname}_${data.user_firstname}_idDocument`)
-    officialDocumentBtn.attr('href', data.certification_officialDocumentPath)
-    officialDocumentBtn.attr('download', `${data.user_lastname}_${data.user_firstname}_officialDocument`)
+    idDocumentBtn.attr('href', data.idDocumentPath)
+    idDocumentBtn.attr('download', `${data.lastname}_${data.firstname}_idDocument`)
+    officialDocumentBtn.attr('href', data.officialDocumentPath)
+    officialDocumentBtn.attr('download', `${data.lastname}_${data.firstname}_officialDocument`)
 
     $('.aside-info').addClass("show");
 }

@@ -24,19 +24,13 @@ const getIngredients = (tab) => {
 const setTableIngredient = (data, tab) => {
     tab.clear();
     for(const row of data) {
-        let cols = []
-        for(const col in row) {
-
-            if(col != 'ingredient_id') {
-                cols.push(row[col])
-            }
-        }
+        let cols = [row.email, row.name, row.status, row.createdAt]
         let rowNode = tab
             .row.add( cols )
             .draw()
             .node();
         $(rowNode).click(function() {
-            getIngredientById(row['ingredient_id'])
+            getIngredientById(row['id'])
         });
     }
 }
@@ -55,7 +49,6 @@ const getIngredientById = (ingredientId) => {
     }).then((r) => {
         return r.json();
     }).then((data) => {
-        data = data[0]
         setAsideIngredientInfo(data);
     }).catch((error) => {
         console.log('Erreur : ' + error);
@@ -66,23 +59,23 @@ const setAsideIngredientInfo = (data) => {
     $('.aside-info').removeClass("show");
     let info = $('#infos');
     info.html("");
-    info.append( `<p>${data.ingredient_name}</p>` );
-    info.append( `<p>${data.user_email}</p>` );
-    info.append( `<p>${statusIngredient[data.ingredient_status] }</p>` );
+    info.append( `<p>${data.name}</p>` );
+    info.append( `<p>${data.email}</p>` );
+    info.append( `<p>${statusIngredient[data.status] }</p>` );
 
     let btns = $('#btns');
     btns.html("");
-    if (data.ingredient_status === 'inDemand') {
-        btns.append( `<button class='btn btn-pink little' onclick='modifyIngredientStatus(${data.ingredient_id}, "enabled")'> Aprouver </button>` );
-        btns.append( `<button class='btn btn-danger little' onclick='modifyIngredientStatus(${data.ingredient_id}, "refused")'> Refuser </button>` );
-    } else if (data.ingredient_status === 'enabled') {
-        btns.append( `<button class='btn btn-pink little' onclick='modifyIngredientStatus(${data.ingredient_id}, "disabled")'> Désactiver </button>` );
-    } else if (data.ingredient_status === 'disabled') {
-        btns.append( `<button class='btn btn-pink little' onclick='modifyIngredientStatus(${data.ingredient_id}, "enabled")'> Activer </button>` );
+    if (data.status === 'inDemand') {
+        btns.append( `<button class='btn btn-pink little' onclick='modifyIngredientStatus(${data.id}, "enabled")'> Aprouver </button>` );
+        btns.append( `<button class='btn btn-danger little' onclick='modifyIngredientStatus(${data.id}, "refused")'> Refuser </button>` );
+    } else if (data.status === 'enabled') {
+        btns.append( `<button class='btn btn-pink little' onclick='modifyIngredientStatus(${data.id}, "disabled")'> Désactiver </button>` );
+    } else if (data.status === 'disabled') {
+        btns.append( `<button class='btn btn-pink little' onclick='modifyIngredientStatus(${data.id}, "enabled")'> Activer </button>` );
     }
 
     let ingredientImageDiv = $('#ingredientImage')
-    ingredientImageDiv.attr('src', data.ingredient_path)
+    ingredientImageDiv.attr('src', data.path)
 
     $('.aside-info').addClass("show");
 }

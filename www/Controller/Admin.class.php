@@ -24,96 +24,48 @@ class Admin
         $ingredient = new IngredientModel();
         $comment = new CommentModel();
 
-        $totalUser = $user->select([
-            "user" => [
-                "args" => ["COUNT(*)"],
-                "params" => [
-                    "status" => "user",
-                    "isVerified" => "1"
-                ]
-            ]
-        ]);
+        $totalUser = $user->select2('user', ['id'])
+            ->where('status', 'user')
+            ->where('isVerified', '1')
+            ->count();
 
-        $totalChief = $user->select([
-            "user" => [
-                "args" => ["COUNT(*)"],
-                "params" => [
-                    "status" => "chief",
-                    "isVerified" => "1"
-                ]
-            ]
-        ]);
+        $totalChief = $user->select2('user', ['id'])
+            ->where('status', 'chief')
+            ->where('isVerified', '1')
+            ->count();
 
-        $totalArticle = $article->select([
-            "article" => [
-                "args" => ["COUNT(*)"],
-            ]
-        ]);
-
-        /*$totalCertificationDemand = $certification->select([
-            "certification" => [
-                "args" => ["COUNT(*)"],
-            ]
-        ]);*/
+        $totalArticle = $article->select2('article', ['id'])
+            ->count();
 
         $totalCertificationDemand = $certification->select2('certification', ['id'])
             ->where("status", "inDemand")
             ->count();
 
-        $totalIngredientDemand = $ingredient->select([
-            "ingredient" => [
-                "args" => ["COUNT(*)"],
-                "params" => [
-                    "status" => "inDemand"
-                ]
-            ]
-        ]);
+        $totalIngredientDemand = $ingredient->select2('ingredient', ['id'])
+            ->where('status', 'inDemand')
+            ->count();
 
         $totalCommentDemand = $comment->select2('comment', ['id'])
             ->where("status", "inDemand")
             ->count();
 
-        $totalUser = $totalUser[0]['COUNT(*)'];
-        $totalChief = $totalChief[0]['COUNT(*)'];
-        $totalArticle = $totalArticle[0]['COUNT(*)'];
-        $totalIngredientDemand = $totalIngredientDemand[0]['COUNT(*)'];
-
         $lastWeekDate = date('Y-m-d H:i:s', mktime(0,0,0,date('m'),date('d')-7,date('Y')));
 
-        $usersBeforeThisWeek = $user->select([
-            "user" => [
-                "args" => ["COUNT(*)"],
-                "params" => [
-                    "status" => "user",
-                    "isVerified" => "1",
-                    "createdAt" => ["value" => $lastWeekDate, "operator" => "<"]
-                ]
-            ]
-        ]);
+        $usersBeforeThisWeek = $user->select2('user', ['id'])
+            ->where("status", "user")
+            ->where("isVerified", "1")
+            ->where("createdAt", $lastWeekDate, '<')
+            ->count();
 
-        $chiefsBeforeThisWeek = $user->select([
-            "user" => [
-                "args" => ["COUNT(*)"],
-                "params" => [
-                    "status" => "chief",
-                    "isVerified" => "1",
-                    "createdAt" => ["value" => $lastWeekDate, "operator" => "<"]
-                ]
-            ]
-        ]);
+        $chiefsBeforeThisWeek = $user->select2('user', ['id'])
+            ->where("status", "chief")
+            ->where("isVerified", "1")
+            ->where("createdAt", $lastWeekDate, '<')
+            ->count();
 
-        $articlesBeforeThisWeek = $article->select([
-            "article" => [
-                "args" => ["COUNT(*)"],
-                "params" => [
-                    "createdAt" => ["value" => $lastWeekDate, "operator" => "<"]
-                ]
-            ]
-        ]);
-
-        $usersBeforeThisWeek = $usersBeforeThisWeek[0]['COUNT(*)'];
-        $chiefsBeforeThisWeek = $chiefsBeforeThisWeek[0]['COUNT(*)'];
-        $articlesBeforeThisWeek = $articlesBeforeThisWeek[0]['COUNT(*)'];
+        $articlesBeforeThisWeek = $article->select2('article', ['id'])
+            ->where("createdAt", $lastWeekDate, '<')
+            ->count();
 
         $ratioNewOldUsers = $this->ratioBeforeAfter($usersBeforeThisWeek, $totalUser);
         $ratioNewOldChiefs = $this->ratioBeforeAfter($chiefsBeforeThisWeek, $totalChief);

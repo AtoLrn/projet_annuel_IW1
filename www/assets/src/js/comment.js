@@ -23,19 +23,13 @@ const getComments = (tab) => {
 const setTableComment = (data, tab) => {
     tab.clear();
     for(const row of data) {
-        let cols = []
-        for(const col in row) {
-
-            if(col !== 'comment_id') {
-                cols.push(row[col])
-            }
-        }
+        let cols = [row.email, row.status, row.createdAt]
         let rowNode = tab
             .row.add( cols )
             .draw()
             .node();
         $(rowNode).click(function() {
-            getCommentById(row['comment_id'])
+            getCommentById(row['id'])
         });
     }
 }
@@ -54,7 +48,6 @@ const getCommentById = (commentId) => {
     }).then((r) => {
         return r.json();
     }).then((data) => {
-        data = data[0]
         setAsideCommentInfo(data);
     }).catch((error) => {
         console.log('Erreur : ' + error);
@@ -65,25 +58,25 @@ const setAsideCommentInfo = (data) => {
     $('.aside-info').removeClass("show");
     let info = $('#infos');
     info.html("");
-    info.append(`<p>${data.user_lastname}</p>`);
-    info.append(`<p>${data.user_firstname}</p>`);
-    info.append(`<p>${data.user_email}</p>`);
-    info.append(`<p>${statusComment[data.comment_status]}</p>`);
+    info.append(`<p>${data.lastname}</p>`);
+    info.append(`<p>${data.firstname}</p>`);
+    info.append(`<p>${data.email}</p>`);
+    info.append(`<p>${statusComment[data.status]}</p>`);
 
     let btns = $('#btns');
     btns.html("");
-    if (data.comment_status === 'inDemand') {
-        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.comment_id}, "approved")'> Aprouver </button>`);
-        btns.append(`<button class='btn btn-danger little' onclick='modifyCommentStatus(${data.comment_id}, "refused")'> Refuser </button>`);
-    } else if (data.comment_status === 'approved') {
-        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.comment_id}, "refused")'> Désactiver </button>`)
-    } else if (data.comment_status === 'refused') {
-        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.comment_id}, "approved")'> Activer </button>`)
+    if (data.status === 'inDemand') {
+        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.id}, "approved")'> Aprouver </button>`);
+        btns.append(`<button class='btn btn-danger little' onclick='modifyCommentStatus(${data.id}, "refused")'> Refuser </button>`);
+    } else if (data.status === 'approved') {
+        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.id}, "refused")'> Désactiver </button>`)
+    } else if (data.status === 'refused') {
+        btns.append(`<button class='btn btn-pink little' onclick='modifyCommentStatus(${data.id}, "approved")'> Activer </button>`)
     }
 
     let commentContentArea = $('#commentContentArea');
     commentContentArea.html("")
-    commentContentArea.append(`${data.comment_content}`)
+    commentContentArea.append(`${data.content}`)
 
     $('.aside-info').addClass("show");
 }

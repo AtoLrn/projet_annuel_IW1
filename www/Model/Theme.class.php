@@ -24,13 +24,11 @@ class Theme extends Sql
 
     public function selectTheme(int $idTheme): void 
     {
-        $themeSelected = $this->select([
-            "theme" => [
-                "args" => ["id"],
-                "params" => ['selected' => true] 
-            ]
-        ]);
-        $this->setId($themeSelected[0]['theme_id']);
+        $themeSelected = $this->select2('theme', ['id'])
+            ->where('selected', true)
+            ->fetch();
+
+        $this->setId($themeSelected->getId());
         $this->setSelected(0);
         $this->save();
         $this->setId($idTheme);

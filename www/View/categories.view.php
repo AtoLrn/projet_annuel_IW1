@@ -17,12 +17,12 @@
     <section class="grid row py-10">
     <?php foreach($categoriesList as $key => $category): ?>
         <article class="row w-auto p-3 bd-1 bd-pink br-2 xs-w-per-20">
-            <h1 class="p c-pink"> <?= ucfirst($category['category_name']) ?> </h1>
+            <h1 class="p c-pink"> <?= ucfirst($category->getName()) ?> </h1>
             <div>
-                <a href="/categories?edit=<?= $category['category_id'] ?>">
+                <a href="/categories?edit=<?= $category->getId() ?>">
                 <?php include "assets/img/logo/edit.php"; ?>
                 </a>
-                <a href="/delete-category?id=<?= $category['category_id'] ?>">
+                <a href="/delete-category?id=<?= $category->getId() ?>">
                 <?php include "assets/img/logo/bin.php"; ?>
                 </a>
             </div>

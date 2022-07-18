@@ -893,3 +893,66 @@
 [2022-07-11 18:14:32]: Error with DB Connection, could not find driver
 [2022-07-11 18:14:40]: Error with DB Connection, could not find driver
 [2022-07-11 18:14:40]: Error with DB Connection, could not find driver
+[2022-07-18 12:41:15]: CSRF detected and cancelled
+[2022-07-18 12:46:55]: Error with DB Connection, SQLSTATE[HY000] [2002] Connection refused
+[2022-07-18 12:46:55]: Error with DB Connection, SQLSTATE[HY000] [2002] Connection refused
+[2022-07-18 12:48:53]: Error with DB Connection, could not find driver
+[2022-07-18 12:48:53]: Error with DB Connection, could not find driver
+[2022-07-18 12:48:53]: Error with DB Connection, could not find driver
+[2022-07-18 12:48:53]: Error with DB Connection, could not find driver
+[2022-07-18 12:48:59]: Error with DB Connection, could not find driver
+[2022-07-18 12:48:59]: Error with DB Connection, could not find driver
+[2022-07-18 12:48:59]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:49:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:46]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:47]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:47]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:47]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:48]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:48]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:48]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:48]: Error with DB Connection, could not find driver
+[2022-07-18 12:53:48]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:48]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:56:49]: Error with DB Connection, could not find driver
+[2022-07-18 12:57:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:57:00]: Error with DB Connection, could not find driver
+[2022-07-18 12:57:00]: Error with DB Connection, could not find driver
+[2022-07-18 13:05:28]: CSRF detected and cancelled
+[2022-07-18 13:09:12]: CSRF detected and cancelled
+[2022-07-18 13:12:10]: CSRF detected and cancelled
+[2022-07-18 13:14:13]: Error while fetching articles.
+[2022-07-18 13:16:47]: Error while fetching articles.
+[2022-07-18 14:45:41]: Error while fetching certifications.
+[2022-07-18 14:45:58]: Error while fetching certifications.
+[2022-07-18 14:46:09]: Error while fetching certifications.
+[2022-07-18 14:46:13]: Error while fetching certifications.
+[2022-07-18 14:46:32]: Error while fetching certifications.
+[2022-07-18 14:47:10]: Error while fetching certifications.
+[2022-07-18 15:01:36]: Error while fetching comments.
+[2022-07-18 15:06:00]: Error while fetching comments.
+[2022-07-18 15:06:02]: Error while fetching comments.
+[2022-07-18 15:11:47]: Error while fetching comment with id: 1.
+[2022-07-18 15:11:48]: Error while fetching comment with id: 1.
+[2022-07-18 15:12:13]: Error while fetching comment with id: 1.
+[2022-07-18 15:12:14]: Error while fetching comment with id: 1.
+[2022-07-18 15:12:38]: Error while fetching comment with id: 1.
+[2022-07-18 15:13:07]: Error while fetching comment with id: 1.
