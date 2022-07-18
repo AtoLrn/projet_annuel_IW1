@@ -41,7 +41,7 @@ class Article
     public function getCommentsByArticle(int $articleId): ?array
     {
         $comment = new CommentModel();
-        return $comment->select2('comment', [ 'content', 'comment.status as status', 'comment.createdAt as createdAt', 'user.id as userId', 'firstname', 'profilePicture' ])
+        return $comment->select('comment', [ 'content', 'comment.status as status', 'comment.createdAt as createdAt', 'user.id as userId', 'firstname', 'profilePicture' ])
             ->leftJoin('user', 'comment.userId', 'user.id')
             ->where('articleId', $articleId)
             ->fetchAll();
@@ -68,16 +68,16 @@ class Article
         
         $image = new Image();
 
-        $images = $image->select2('image', ['path', 'main'])
+        $images = $image->select('image', ['path', 'main'])
             ->where('articleId', $article->getId())
             ->orderBy('main')
             ->fetchAll();
 
-        $score = $article->select2('star', ['COUNT(*) as total', 'AVG(score) as avg'])
+        $score = $article->select('star', ['COUNT(*) as total', 'AVG(score) as avg'])
             ->where('articleId', $article->getId())
             ->fetch();
 
-        $ingredients = $ingredients->select2('ingredient_article', ['name', 'path'])
+        $ingredients = $ingredients->select('ingredient_article', ['name', 'path'])
             ->leftJoin('ingredient', 'ingredient_article.ingredientId', 'ingredient.id')
             ->where('articleId', $article->getId())
             ->fetchAll();
@@ -133,7 +133,7 @@ class Article
                 foreach ($ingredients as $ingredient) {
                     $ingredientModel = new Ingredient();
 
-                    $ingredientId = $ingredientModel->select2('ingredient', ['id'])
+                    $ingredientId = $ingredientModel->select('ingredient', ['id'])
                         ->where('name', $ingredient)
                         ->fetch();
 
@@ -155,7 +155,7 @@ class Article
                     $i++;
                 }
 
-                $users = $user->select2('user', ['*'])
+                $users = $user->select('user', ['*'])
                     ->innerJoin('follow', 'user.id', 'follow.follower')
                     ->where('isFollowed', $user->getId())
                     ->where('notification', 1)
@@ -221,7 +221,7 @@ class Article
 
                 $ingredientModel = new Ingredient();
 
-                $oldIngredients = $ingredientModel->select2('ingredient', ['ingredient_article.id AS ingredientArticleId', 'name'])
+                $oldIngredients = $ingredientModel->select('ingredient', ['ingredient_article.id AS ingredientArticleId', 'name'])
                     ->leftJoin('ingredient_article', 'ingredient_article.ingredientId', 'ingredient.id')
                     ->where('ingredient_article.articleId', $id)
                     ->fetchAll();
@@ -235,7 +235,7 @@ class Article
                 foreach ($ingredients as $ingredient) {
                     $ingredientModel = new Ingredient();
 
-                    $ingredientId = $ingredientModel->select2('ingredient', ["id"])
+                    $ingredientId = $ingredientModel->select('ingredient', ["id"])
                         ->where('name', $ingredient)
                         ->fetch();
 
@@ -246,7 +246,7 @@ class Article
                 }
 
                 $image = new Image();
-                $images = $image->select2("image", ["id"])->where("articleId", $id)->fetchAll();
+                $images = $image->select("image", ["id"])->where("articleId", $id)->fetchAll();
 
                 foreach($images as $image) {
                     $image->delete();
@@ -277,7 +277,7 @@ class Article
         $getParams = isset($_GET['params']) && is_array(json_decode($_GET['params'])) ? json_decode($_GET['params']) : null;
         $article = new ArticleModel();
         
-        $article->select2("article", ["id", "title", "description", "createdAt"]);     
+        $article->select("article", ["id", "title", "description", "createdAt"]);     
         if(!is_null($getParams)) {
             $article->where($getParams[0]??"", $getParams[1]??null, $getParams[2]??null);
         }
@@ -305,15 +305,15 @@ class Article
         $id = $_POST['id'] ?? null;
         $article = new ArticleModel();
 
-        $result["article"] = $article->select2('article', ['id', 'title', 'description'])
+        $result["article"] = $article->select('article', ['id', 'title', 'description'])
             ->where('id', $id)
             ->fetch();
 
-        $result["comments"] = $article->select2('comment', ['id'])
+        $result["comments"] = $article->select('comment', ['id'])
             ->where("articleId", $id)
             ->count();
 
-        $result["note"] = $article->select2('star', ['AVG(score) AS avg'])
+        $result["note"] = $article->select('star', ['AVG(score) AS avg'])
             ->where("articleId", $id)
             ->fetch();
 
@@ -333,9 +333,7 @@ class Article
 
     public function setArticleScore(): void
     {
-        Security::csrf();
         $session = Session::getByToken();
-
         if(!isset($_POST['articleId']) || !is_numeric($_POST['articleId']) || !isset($_POST['score']) || !in_array($_POST['score'], [1,2,3,4,5])) {
             http_response_code(400);
             header("location: /404");
@@ -344,7 +342,7 @@ class Article
         
         $star = new StarModel();
 
-        $result = $star->select2('star', ["id"])
+        $result = $star->select('star', ["id"])
             ->where('articleId', $_POST['articleId'])
             ->where('userId', $session->getUserId())
             ->fetch();

@@ -19,14 +19,14 @@ class Follow
         $response = [];
         $follow = new FollowModel();
 
-        $response['count'] = $follow->select2('follow', ['id'])
+        $response['count'] = $follow->select('follow', ['id'])
             ->where('isFollowed', $id)
             ->count();
         
         $session = Session::getByToken();
 
         if(!is_null($session) && $session->getUserId() != $id) {
-            $follow = $follow->select2('follow', ['*'])
+            $follow = $follow->select('follow', ['*'])
                 ->where('follower', $session->getUserId())
                 ->fetch();
                         
@@ -54,7 +54,7 @@ class Follow
         }
 
         $follows = new FollowModel();
-        $follow = $follows->select2('follow', ['*'])
+        $follow = $follows->select('follow', ['*'])
             ->where('isFollowed', $id)
             ->where('follower', $session->getUserId())
             ->fetch();
@@ -82,7 +82,7 @@ class Follow
 
         $follows = new FollowModel();
         $session = Session::getByToken();
-        $follow = $follows->select2('follow', ['*'])
+        $follow = $follows->select('follow', ['*'])
             ->where('isFollowed', $id)
             ->where('follower', $session->getUserId())
             ->fetch();

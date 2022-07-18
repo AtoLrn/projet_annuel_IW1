@@ -120,7 +120,7 @@ class Article extends Sql
     {
         $ingredient = new Ingredient();
 
-        $enabledIngredients = $ingredient->select2('ingredient', ['name'])
+        $enabledIngredients = $ingredient->select('ingredient', ['name'])
             ->where('status', 'enabled')
             ->fetchAll();
 
@@ -133,7 +133,7 @@ class Article extends Sql
         $defaultSelected = "";
 
         if ($edit) {
-            $ingredients = $ingredient->select2('ingredient', ['ingredient_article.id', 'name'])
+            $ingredients = $ingredient->select('ingredient', ['ingredient_article.id', 'name'])
                 ->leftJoin('ingredient_article', 'ingredient_article.ingredientId', 'ingredient.id')
                 ->where('ingredient_article.articleId', $this->getId())
                 ->fetchAll();

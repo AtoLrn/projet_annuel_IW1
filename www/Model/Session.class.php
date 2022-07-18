@@ -64,7 +64,7 @@ class Session extends Sql
     {
         $session = new Session();
         $token = $_SESSION['token']??"";
-        $res = $session->select2('session', ["id", "token", "expiration", "userId"])
+        $res = $session->select('session', ["id", "token", "expiration", "userId"])
             ->where('token', $token)
             ->fetch();
         

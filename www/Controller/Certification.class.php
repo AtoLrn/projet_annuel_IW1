@@ -50,7 +50,7 @@ class Certification
             $user = $user->setId($session->getUserId());
             $certificationDemand = new CertificationModel();
 
-            $isDemandExist = $certificationDemand->select2('certification', ['id'])
+            $isDemandExist = $certificationDemand->select('certification', ['id'])
                 ->where('userId', $user->getId())
                 ->where('status', 'inDemand')
                 ->fetchAll();
@@ -79,7 +79,7 @@ class Certification
         Server::ensureHttpMethod('GET');
         $certifications = New CertificationModel();
 
-        $result = $certifications->select2('certification', ['certification.id AS id', 'certification.status as status', 'certification.createdAt as createdAt', 'user.email AS email'])
+        $result = $certifications->select('certification', ['certification.id AS id', 'certification.status as status', 'certification.createdAt as createdAt', 'user.email AS email'])
             ->innerJoin('user', 'user.id', 'certification.userId')
             ->fetchAll();
 
@@ -102,20 +102,8 @@ class Certification
 
         $id = $_POST['id'] ?? null;
         $certification = new CertificationModel();
-        /*$result = $certification->select(
-            [
-                "user" => [
-                    "args" => ["id", "email", "firstname", "lastname"],
-                    "ij" => ["certification"]
-                ],
-                "certification" => [
-                    "args" => ["id", "description", "idDocumentPath", "officialDocumentPath", "status", "createdAt"],
-                    "params" => ["id" => $id]
-                ]
-            ]
-        );*/
 
-        $result = $certification->select2('certification', ['certification.id as id', 'description', 'idDocumentPath', 'officialDocumentPath', 'certification.status AS status', 'certification.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
+        $result = $certification->select('certification', ['certification.id as id', 'description', 'idDocumentPath', 'officialDocumentPath', 'certification.status AS status', 'certification.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
             ->innerJoin('user', 'user.id', 'certification.userId')
             ->where('certification.id', $id)
             ->fetch();

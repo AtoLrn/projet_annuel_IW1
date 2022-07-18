@@ -66,7 +66,7 @@ class View
             $this->data['website_logo'] = "../assets/img/logo/".urlencode(LOGOPATH);
 
             $theme = new Theme();
-            $theme = $theme->select2('theme', ['*'])
+            $theme = $theme->select('theme', ['*'])
             ->where('selected', 1)
             ->fetch();
         }

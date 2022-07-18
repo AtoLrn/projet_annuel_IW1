@@ -3,7 +3,7 @@ namespace App\Core\Interfaces;
 
 interface QueryBuilder
 {
-    public function select2(string $table, array $columns): QueryBuilder;
+    public function select(string $table, array $columns): QueryBuilder;
 
     public function insert(string $table, array $columns): QueryBuilder;
 

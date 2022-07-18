@@ -39,7 +39,7 @@ class Comment {
         Server::ensureHttpMethod('GET');
         $comment = New CommentModel();
 
-        $result = $comment->select2('comment', ['comment.id AS id', 'comment.status AS status', 'comment.createdAt AS createdAt', 'email'])
+        $result = $comment->select('comment', ['comment.id AS id', 'comment.status AS status', 'comment.createdAt AS createdAt', 'email'])
             ->innerJoin('user', 'user.id', 'comment.userId')
             ->fetchAll();
 
@@ -75,7 +75,7 @@ class Comment {
             ]
         );*/
 
-        $result = $comment->select2('comment', ['comment.id AS id', 'content', 'comment.status as status', 'comment.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
+        $result = $comment->select('comment', ['comment.id AS id', 'content', 'comment.status as status', 'comment.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
             ->innerJoin('user', 'user.id', 'comment.userId')
             ->where('comment.id', $id)
             ->fetch();

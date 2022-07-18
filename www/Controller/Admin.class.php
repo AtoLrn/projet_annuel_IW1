@@ -24,46 +24,46 @@ class Admin
         $ingredient = new IngredientModel();
         $comment = new CommentModel();
 
-        $totalUser = $user->select2('user', ['id'])
+        $totalUser = $user->select('user', ['id'])
             ->where('status', 'user')
             ->where('isVerified', '1')
             ->count();
 
-        $totalChief = $user->select2('user', ['id'])
+        $totalChief = $user->select('user', ['id'])
             ->where('status', 'chief')
             ->where('isVerified', '1')
             ->count();
 
-        $totalArticle = $article->select2('article', ['id'])
+        $totalArticle = $article->select('article', ['id'])
             ->count();
 
-        $totalCertificationDemand = $certification->select2('certification', ['id'])
+        $totalCertificationDemand = $certification->select('certification', ['id'])
             ->where("status", "inDemand")
             ->count();
 
-        $totalIngredientDemand = $ingredient->select2('ingredient', ['id'])
+        $totalIngredientDemand = $ingredient->select('ingredient', ['id'])
             ->where('status', 'inDemand')
             ->count();
 
-        $totalCommentDemand = $comment->select2('comment', ['id'])
+        $totalCommentDemand = $comment->select('comment', ['id'])
             ->where("status", "inDemand")
             ->count();
 
         $lastWeekDate = date('Y-m-d H:i:s', mktime(0,0,0,date('m'),date('d')-7,date('Y')));
 
-        $usersBeforeThisWeek = $user->select2('user', ['id'])
+        $usersBeforeThisWeek = $user->select('user', ['id'])
             ->where("status", "user")
             ->where("isVerified", "1")
             ->where("createdAt", $lastWeekDate, '<')
             ->count();
 
-        $chiefsBeforeThisWeek = $user->select2('user', ['id'])
+        $chiefsBeforeThisWeek = $user->select('user', ['id'])
             ->where("status", "chief")
             ->where("isVerified", "1")
             ->where("createdAt", $lastWeekDate, '<')
             ->count();
 
-        $articlesBeforeThisWeek = $article->select2('article', ['id'])
+        $articlesBeforeThisWeek = $article->select('article', ['id'])
             ->where("createdAt", $lastWeekDate, '<')
             ->count();
 

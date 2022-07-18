@@ -57,7 +57,7 @@
         <?php 
             use App\Model\Page;
             $page = new Page();
-            $pages = $page->select2('page', ['*'])
+            $pages = $page->select('page', ['*'])
             ->where('footer', 1)
             ->fetchAll();
             

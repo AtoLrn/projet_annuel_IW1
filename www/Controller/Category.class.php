@@ -37,7 +37,7 @@ class Category
 
         $view->assign("categories", $categories);
 
-        $view->assign("categoriesList", $categories->select2('category', ['id', 'name'])->fetchAll());
+        $view->assign("categoriesList", $categories->select('category', ['id', 'name'])->fetchAll());
 
     }  
     

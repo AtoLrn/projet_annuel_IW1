@@ -1,9 +1,3 @@
-<?php
-    if(empty($_SESSION['uniq_csrf'])) {
-        $_SESSION['csrf_token'] = uniqid();
-        $_SESSION['uniq_csrf'] = 1;
-    }
- ?>
 <main class="main-article pt-20 container">
     <div class="grid" >
         <div class="row grid mt-18 a-start">
@@ -30,7 +24,6 @@
                         <form action="/set-score" method="POST">
                             <input type="hidden" name="score" value="<?= $i ?>">
                             <input type="hidden" name="articleId" value="<?= $article->getId() ?>">
-                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                             <button class="link">
                                 <svg id="star_<?= $i ?>" colorValue="<?= $i <= $score->avg ? '#FFC300' : '#feff98' ?>" class="stars" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor: pointer">
                                     <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" style="fill: <?= $i <= $score->avg ? '#FFC300' : '#feff98' ?>"/>

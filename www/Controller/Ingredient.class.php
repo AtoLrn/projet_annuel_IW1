@@ -40,7 +40,7 @@ class Ingredient
         $isRequestCreated = false;
         $session = Session::getByToken();
         $ingredientDemand = new IngredientModel();
-        $isDemandExist = $ingredientDemand->select2('ingredient', ['id'])
+        $isDemandExist = $ingredientDemand->select('ingredient', ['id'])
             ->where('userId', $session->getUserId())
             ->where('status', 'inDemand')
             ->fetchAll();       
@@ -66,7 +66,7 @@ class Ingredient
         Server::ensureHttpMethod('GET');
         $ingredients = new IngredientModel();
 
-        $result = $ingredients->select2('ingredient', ['ingredient.id AS id', 'name', 'ingredient.status AS status', 'ingredient.createdAt as createdAt', 'email'])
+        $result = $ingredients->select('ingredient', ['ingredient.id AS id', 'name', 'ingredient.status AS status', 'ingredient.createdAt as createdAt', 'email'])
             ->innerJoin('user', 'user.id', 'ingredient.userId')
             ->fetchAll();
 
@@ -88,7 +88,7 @@ class Ingredient
         $id = $_POST['id'] ?? null;
         $ingredients = new IngredientModel();
 
-        $result = $ingredients->select2('ingredient', ['ingredient.id AS id', 'name', 'path', 'ingredient.status AS status', 'ingredient.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
+        $result = $ingredients->select('ingredient', ['ingredient.id AS id', 'name', 'path', 'ingredient.status AS status', 'ingredient.createdAt as createdAt', 'user.id AS userId', 'email', 'firstname', 'lastname'])
             ->innerJoin('user', 'user.id', 'ingredient.userId')
             ->where('ingredient.id', $id)
             ->fetch();
