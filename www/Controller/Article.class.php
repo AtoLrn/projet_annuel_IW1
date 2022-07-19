@@ -383,7 +383,7 @@ class Article
             ->where('userId', $session->getUserId())
             ->fetch();
 
-        if(isset($result)) {
+        if(isset($result) && $result) {
             $star = $star->setId($result->getId());
         }else {
             $star->setUserId($session->getUserId());
