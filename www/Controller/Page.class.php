@@ -129,6 +129,10 @@ class Page
                 $target_file = "assets/img/articles/" . bin2hex(random_bytes(20));
                 if (move_uploaded_file($file, $target_file)) {
                     $image = new Image();
+                    $image = $image->select('image', ['id'])->where("pageId", $_GET['id'])->fetch();
+                    $image->delete();
+
+                    $image = new Image();
                     $image->setPageId($_GET['id']);
                     $image->setPath($target_file);
                     $image->setMain(1);
