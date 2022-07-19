@@ -9,19 +9,21 @@ use App\Model\Page as PageModel;
 class PageControl {
     public static function isExist (string $uri): ?Sql
     {
-        
+        $uri = substr($uri, 1);
         $page = new PageModel();
         $page = $page->select('page', ['id','userId', 'title', 'content', 'path'])
-            ->where('path', substr($uri, 1))
+            ->where('path', $uri)
             ->fetch();
 
         if ($page) return $page;
 
+        $uri = str_replace("recette/", "", $uri);        
+        $uri = urldecode($uri);
         $article = new Article();
         $article = $article->select('article', ['id','userId', 'title', 'content'])
-            ->where('path', substr($uri, 1))
+            ->where('title', $uri)
             ->fetch();
-
+            
         if ($article) return $article;
 
 

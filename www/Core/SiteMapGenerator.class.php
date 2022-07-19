@@ -2,6 +2,7 @@
 namespace App\Core;
 
 use App\Model\Page as PageModel;
+use App\Model\Article;
 
 class SiteMapGenerator 
 {
@@ -160,6 +161,21 @@ class SiteMapGenerator
             <url>
                 <loc>' . WEBSITEURL . '/' . $page->getPath() . '</loc>
                 <lastmod>' . date('Y-m-d', strtotime($page->updatedAt)) . '</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>0.5</priority>
+            </url>
+            ';
+        }
+
+        $article = new Article();
+        $article = $article->select('article', ['title', 'updatedAt'])
+            ->fetchAll();
+
+        foreach ($article as $article) {
+            $sitemap .= '
+            <url>
+                <loc>' . WEBSITEURL . '/recette/' . urlencode($article->getTitle()) . '</loc>
+                <lastmod>' . date('Y-m-d', strtotime($article->updatedAt)) . '</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
