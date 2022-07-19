@@ -8,6 +8,7 @@ class Image extends Sql
 {
     protected $id = null;
     protected $articleId = null;
+    protected $pageId = null;
     protected $path = null;
 
     public function __construct()
@@ -31,6 +32,19 @@ class Image extends Sql
     public function setArticleId(?int $articleId): void
     {
         $this->articleId = $articleId;
+    }
+
+        /**
+     * @return null|int
+     */
+    public function getPageId(): ?int
+    {
+        return $this->pageId;
+    }
+
+    public function setPageId(?int $pageId): void
+    {
+        $this->pageId = $pageId;
     }
 
     public function getPath(): ?string
