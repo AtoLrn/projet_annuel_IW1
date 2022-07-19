@@ -39,7 +39,7 @@ class Ingredient extends Sql
      */
     public function setName(string $name): void
     {
-        $this->name = $name;
+        $this->name = htmlspecialchars($name);
     }
 
     /**

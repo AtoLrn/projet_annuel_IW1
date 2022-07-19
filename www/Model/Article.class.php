@@ -33,7 +33,7 @@ class Article extends Sql
 
     public function setTitle(string $title): void
     {
-        $this->title = strtolower(trim($title));
+        $this->title = strtolower(trim(htmlspecialchars($title)));
     }
 
     public function getContent(): ?string
@@ -53,7 +53,7 @@ class Article extends Sql
 
     public function setDescription(?string $description): void
     {
-        $this->description = $description;
+        $this->description = htmlspecialchars($description);
     }
 
     public function getUserId(): ?string

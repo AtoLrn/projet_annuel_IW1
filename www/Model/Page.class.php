@@ -91,7 +91,7 @@ class Page extends Sql
      */
     public function setTitle(string $title): void
     {
-        $this->title = $title;
+        $this->title = htmlspecialchars($title);
     }
 
     /**
@@ -107,7 +107,7 @@ class Page extends Sql
      */
     public function setContent(string $content): void
     {
-        $this->content = $content;
+        $this->content = htmlspecialchars($content);
     }
 
     /**
@@ -123,7 +123,7 @@ class Page extends Sql
      */
     public function setPath(string $path): void
     {
-        $this->path = $path;
+        $this->path = htmlspecialchars($path);
     }
 
     /**

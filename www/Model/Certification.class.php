@@ -39,7 +39,7 @@ class Certification extends Sql
      */
     public function setDescription(string $description): void
     {
-        $this->description = $description;
+        $this->description = htmlspecialchars($description);
     }
 
     /**
