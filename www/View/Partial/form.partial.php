@@ -31,7 +31,8 @@
                     "placeholder" =>  $input["placeholder"] ?? "",
                     "options" =>  $input["options"],
                     "id" => $input["id"] ?? "",
-                    "value" => $input["value"] ?? ""
+                    "value" => $input["value"] ?? "",
+                    "multiple" => $input["multiple"] ?? "true"
                 ]) ?>
             <?php } elseif ($input["type"] === "file") { ?>
                 <?php $this->partialInclude("fileinput", 

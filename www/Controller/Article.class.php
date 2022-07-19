@@ -10,9 +10,10 @@ use App\Model\Article as ArticleModel;
 use App\Model\Star as StarModel;
 
 use App\Model\Ingredient as Ingredient;
+use App\Model\Category;
 use App\Model\IngredientArticle;
 use App\Core\Server;
-
+use App\Model\CategoryArticle;
 use App\Model\Comment as CommentModel;
 use App\Model\Session;
 use App\Model\Image;
@@ -121,7 +122,16 @@ class Article
                 $article->setTitle($_POST['title']);
                 $article->setDescription($_POST['description']);
                 $article->setContent($_POST['article']);
-                $article->setCategoryId(1);
+
+                if ($_POST['categories'] != "") {
+                    $category = new Category();
+                    $categoryId = $category->select("category", ['id'])->where('name', $_POST['categories'])->fetch();
+    
+                    $article->setCategoryId($categoryId->getId() ?? null);
+                } else {
+                    $article->setCategoryId(null);
+                }
+
                 $article->setUserId($user->getId());
                 $id = $article->save();
 
@@ -142,6 +152,7 @@ class Article
                     $assoc->setArticleId($id);
                     $assoc->save();
                 }
+
 
                 foreach ($_FILES["photo"]["tmp_name"] as $file) {
                     $target_file = "assets/img/articles/" . bin2hex(random_bytes(20));
@@ -210,7 +221,16 @@ class Article
                 $article->setTitle($_POST['title']);
                 $article->setDescription($_POST['description']);
                 $article->setContent($_POST['article']);
-                $article->setCategoryId(1);
+
+                if ($_POST['categories'] != "") {
+                    $category = new Category();
+                    $categoryId = $category->select("category", ['id'])->where('name', $_POST['categories'])->fetch();
+    
+                    $article->setCategoryId($categoryId->getId() ?? null);
+                } else {
+                    $article->setCategoryId(null);
+                }
+                
                 $article->save();
                 
 
@@ -218,6 +238,7 @@ class Article
                 $i = 0;
 
                 $ingredients = explode(",",$_POST['ingredient'][0]);
+
 
                 $ingredientModel = new Ingredient();
 
@@ -244,6 +265,8 @@ class Article
                     $assoc->setArticleId($id);
                     $assoc->save();
                 }
+
+   
 
                 $image = new Image();
                 $images = $image->select("image", ["id"])->where("articleId", $id)->fetchAll();

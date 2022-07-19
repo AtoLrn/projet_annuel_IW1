@@ -1,8 +1,8 @@
 class Select {
-    constructor(name, selector, placeholder, options, defaultValue = "") {
+    constructor(name, selector, placeholder, options, defaultValue = "", multiple = true) {
         this.selector = selector;
         this.name = name;
-        
+        this.multiple = multiple
         this.options = options || [];
         this.placeholder = placeholder;
         this.selection = [] 
@@ -64,13 +64,25 @@ class Select {
     reRender() {
         this.hiddenInput.val(this.selection)
         this.showcase.empty()
-        this.selection.forEach((item) => {
-            const section = $("<section/>")
-            section.click(this.handleRemove.bind(this, item))
-            section.append($(`<span>${item}</span>`))
-            section.append($("<span>X</span>").addClass("remove"))
-            this.showcase.append(section)
-        })
+        if (this.multiple) {
+            this.selection.forEach((item) => {
+                const section = $("<section/>")
+                section.click(this.handleRemove.bind(this, item))
+                section.append($(`<span>${item}</span>`))
+                section.append($("<span>X</span>").addClass("remove"))
+                this.showcase.append(section)
+            })
+        } else {
+            if (this.selection) {
+                const section = $("<section/>")
+                section.click(this.handleRemove.bind(this, this.selection))
+                section.append($(`<span>${this.selection}</span>`))
+                section.append($("<span>X</span>").addClass("remove"))
+                this.showcase.append(section)
+            }
+            
+        }
+        
 
         
         this.searchDiv.empty()
@@ -85,14 +97,21 @@ class Select {
     }
 
     handleRemove(value) {
-        this.selection = this.selection.filter(item => item !== value )
+        if (this.multiple) this.selection = this.selection.filter(item => item !== value )
+        else this.selection = ""
+
         this.reRender()
     }
 
     handleClick(value) {
         this.handleFocusIn()
-        this.selection.push(value)
-        this.selection = [...new Set(this.selection)]
+        if (this.multiple) {
+            this.selection.push(value)
+            this.selection = [...new Set(this.selection)]
+        } else {
+            this.selection = value
+        }
+        
         this.reRender()
     }
 

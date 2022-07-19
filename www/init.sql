@@ -105,6 +105,7 @@ CREATE TABLE `CUSTOM_PREFIX_ingredient_article` (
   PRIMARY KEY (`id`)
 );
 
+
 CREATE TABLE `CUSTOM_PREFIX_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `articleId` INT(11) NOT NULL,
