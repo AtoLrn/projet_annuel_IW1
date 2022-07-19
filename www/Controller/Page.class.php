@@ -9,6 +9,7 @@ use App\Core\View;
 use App\Model\Page as PageModel;
 use App\Model\Session;
 use App\Model\User as UserModel;
+use App\Model\Image;
 
 use App\Core\Logger;
 use App\Core\Middleware\Security;
@@ -24,9 +25,14 @@ class Page
 
         if (!$page->getEnabled()) header("Location: /not-found");
         
+        $image = new Image();
+        $image = $image->select('image', ['path'])
+            ->where('pageId', $page->getId())
+            ->fetch();
 
         $view = new View("dynamic-page", "front");
         $view->assign("page", $page);
+        $view->assign("image", $image->getPath());
     }
 
     public function createPage()
@@ -57,11 +63,24 @@ class Page
                     $page->setEnabled(isset($_POST["enable"]));
                     $page->setDisplayOnFooter(isset($_POST["footer"]));
 
-                    $page->save();
+                    $pageId = $page->save();
+
+                    if (isset($_FILES["thumbnail"])) {
+                        $file = $_FILES["thumbnail"]["tmp_name"];
+                        $target_file = "assets/img/articles/" . bin2hex(random_bytes(20));
+                        if (move_uploaded_file($file, $target_file)) {
+                            $image = new Image();
+                            $image->setPageId($pageId);
+                            $image->setPath($target_file);
+                            $image->setMain(1);
+                            $image->save();
+                        }
+                    }
+                    
 
                     SiteMapGenerator::generateSiteMap();
 
-                    header('location: /page/edit?id=' . $id);
+                    header('location: /page/edit?id=' . $pageId);
                 }
             }
             
@@ -103,8 +122,19 @@ class Page
             $page->setPath($path);
             $page->setEnabled(isset($_POST["enable"]));
             $page->setDisplayOnFooter(isset($_POST["footer"]));
-
             $page->save();
+
+            if (isset($_FILES["thumbnail"])) {
+                $file = $_FILES["thumbnail"]["tmp_name"];
+                $target_file = "assets/img/articles/" . bin2hex(random_bytes(20));
+                if (move_uploaded_file($file, $target_file)) {
+                    $image = new Image();
+                    $image->setPageId($_GET['id']);
+                    $image->setPath($target_file);
+                    $image->setMain(1);
+                    $image->save();
+                }
+            }
 
             SiteMapGenerator::generateSiteMap();
         }

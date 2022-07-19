@@ -172,6 +172,14 @@ class Page extends Sql
                     "label" => "Afficher dans le Footer",
                     "checked" => $this->footer ?? "false"
                 ],
+                "thumbnail" => [
+                    "type" => "file",
+                    "accept" => 'accept=image/*',
+                    "placeholder" => "Miniature",
+                    "class" => "input input-pink",
+                    "id" => "miniature",
+                    "label" => "Miniature"
+                ],
                 "content" => [
                     "readOnly" => "false",
                     "type" => "wysiwyg",

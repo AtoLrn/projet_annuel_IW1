@@ -108,10 +108,12 @@ CREATE TABLE `CUSTOM_PREFIX_ingredient_article` (
 
 CREATE TABLE `CUSTOM_PREFIX_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `articleId` INT(11) NOT NULL,
+  `articleId` INT(11) ,
+  `pageId` INT(11) ,
   `path` VARCHAR(2048) NOT NULL,
   `main` BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (`articleId`) REFERENCES `CUSTOM_PREFIX_article` (`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`pageId`) REFERENCES `CUSTOM_PREFIX_page` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 
