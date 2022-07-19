@@ -48,9 +48,22 @@ class Article
             ->fetchAll();
     }
 
-    public function getArticle()
+    public function getBySlug(string $slug)
     {
-        if (empty($_GET['id']) || !is_numeric($_GET['id'])) {
+        $uri = str_replace("recette/", "", $slug);        
+        $uri = urldecode($uri);
+
+        $article = new ArticleModel();
+        $article = $article->select('article', ['id'])
+            ->where('title', $uri)
+            ->fetch();
+
+        $this->getArticle($article->getId());
+    }
+
+    public function getArticle(int $id = -1)
+    {
+        if ($id == -1 && (empty($_GET['id']) || !is_numeric($_GET['id']))) {
             header("Location: /not-found");
             exit();
         }
@@ -58,7 +71,7 @@ class Article
         $article = new ArticleModel();
         $comment = new CommentModel();
         $ingredients = new Ingredient();
-        $article = $article->setId($_GET['id']);
+        $article = $article->setId($id == -1 ? $_GET['id'] : $id);
         $chief = new UserModel();
         $chief = $chief->setId($article->getUserId());
 
