@@ -66,12 +66,12 @@ class Article extends Sql
         $this->userId = $userId;
     }
 
-    public function getCategoryId(): ?string
+    public function getCategoryId(): ?int
     {
         return $this->categoryId;
     }
 
-    public function setCategoryId(?string $categoryId): void
+    public function setCategoryId(?int $categoryId): void
     {
         $this->categoryId = $categoryId;
     }
@@ -124,19 +124,39 @@ class Article extends Sql
             ->where('status', 'enabled')
             ->fetchAll();
 
+        $category = new Category();
+        $enabledCategories = $category->select('category', ['name'])->fetchAll();
+
         $options = array_map(function($elem) {
             return '\''.$elem->getName().'\'';
         },$enabledIngredients);
 
+        $optionsCategories = array_map(function($elem) {
+            return '\''.$elem->getName().'\'';
+        },$enabledCategories);
+
         $options = '['.implode(',', $options).']';
 
+        $optionsCategories = '['.implode(',', $optionsCategories).']';
+
+
         $defaultSelected = "";
+        $defaultSelectedCategories = "";
 
         if ($edit) {
             $ingredients = $ingredient->select('ingredient', ['ingredient_article.id', 'name'])
                 ->leftJoin('ingredient_article', 'ingredient_article.ingredientId', 'ingredient.id')
                 ->where('ingredient_article.articleId', $this->getId())
                 ->fetchAll();
+
+                if ($this->getCategoryId()) {
+                    $category = new Category();
+                    $defaultSelectedCategories = $category->select('category', ['name'])->where('id', $this->getCategoryId())->fetch();
+                    $defaultSelectedCategories = $defaultSelectedCategories->getName(); 
+                }
+            
+
+
             $defaultSelected =  implode(",", array_map(function($v) {
                 return $v->getName();
             },$ingredients)); 
@@ -183,6 +203,17 @@ class Article extends Sql
                     "label" => "Ingredients",
                     "options" => $options,
                     "value" => $defaultSelected
+                ],
+                "categories" => [
+                    "type" => "select",
+                    "placeholder" => "Liste Des Tags",
+                    "required" => true,
+                    "class" => "input input-pink",
+                    "id" => "categories",
+                    "label" => "Tags",
+                    "options" => $optionsCategories,
+                    "value" => $defaultSelectedCategories,
+                    "multiple" => "false"
                 ],
                 "photo[]" => [
                     "type" => "file",
