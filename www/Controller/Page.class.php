@@ -57,7 +57,7 @@ class Page
                     $page->setEnabled(isset($_POST["enable"]));
                     $page->setDisplayOnFooter(isset($_POST["footer"]));
 
-                    $id = $page->save();
+                    $page->save();
 
                     SiteMapGenerator::generateSiteMap();
 
@@ -119,7 +119,7 @@ class Page
         Server::ensureHttpMethod('GET');
         $pages = New PageModel();
 
-        $result = $pages->select('page', ['page.id AS id', 'title', 'path', 'email'])
+        $result = $pages->select('page', ['page.id AS id', 'title', 'path', 'email', 'page.createdAt AS createdAt'])
             ->leftJoin('user', 'page.userId', 'user.id')
             ->fetchAll();
 

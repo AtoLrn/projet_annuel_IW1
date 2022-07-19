@@ -26,7 +26,7 @@ const deletePageById = (id) => {
 const setTablePage = (data, tab) => {
     tab.clear();
     for(const row of data) {
-        let cols = [row['title'], row['path'], row['email']]
+        let cols = [row['title'], row['path'], row['email'], row['createdAt']]
         let rowNode = tab
             .row.add( cols )
             .draw()

@@ -159,7 +159,7 @@ class SiteMapGenerator
             $sitemap .= '
             <url>
                 <loc>' . WEBSITEURL . '/' . $page->getPath() . '</loc>
-                <lastmod>' . date('Y-m-d', strtotime($page->getUpdatedAt())) . '</lastmod>
+                <lastmod>' . date('Y-m-d', strtotime($page->updatedAt)) . '</lastmod>
                 <changefreq>daily</changefreq>
                 <priority>0.5</priority>
             </url>
