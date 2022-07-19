@@ -33,7 +33,7 @@ class Comment extends Sql
      */
     public function setContent(string $content): void
     {
-        $this->content = trim($content);
+        $this->content = trim(htmlspecialchars($content));
     }
 
     /**

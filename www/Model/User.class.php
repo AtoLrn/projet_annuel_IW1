@@ -49,7 +49,7 @@ class User extends Sql
      */
     public function setFirstname(?string $firstname): void
     {
-        $this->firstname = ucwords(strtolower(trim($firstname)));
+        $this->firstname = ucwords(strtolower(trim(htmlspecialchars($firstname))));
     }
 
     /**
@@ -65,7 +65,7 @@ class User extends Sql
      */
     public function setLastname(?string $lastname): void
     {
-        $this->lastname = strtoupper(trim($lastname));
+        $this->lastname = strtoupper(trim(htmlspecialchars($lastname)));
     }
 
 
@@ -82,7 +82,7 @@ class User extends Sql
      */
     public function setEmail(string $email): void
     {
-        $this->email = strtolower(trim($email));
+        $this->email = strtolower(trim(htmlspecialchars($email)));
     }
 
     /**
