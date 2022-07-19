@@ -70,7 +70,7 @@
     <div class="grid">
         <div class="col mt-10 a-center">
             <div class="w-per-10">
-                <?php $this->partialInclude("form", $comment->getCommentCreationForm()) ?>
+                <?php $this->partialInclude("form", $comment->getCommentCreationForm($article->getId())) ?>
             </div>
 
             <div class="w-per-10 py-4 px-8">

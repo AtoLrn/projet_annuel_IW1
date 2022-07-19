@@ -84,7 +84,7 @@ class Comment extends Sql
         $this->status = $status;
     }
 
-    public function getCommentCreationForm(): array
+    public function getCommentCreationForm($id): array
     {
         return [
             "config" => [
@@ -107,7 +107,7 @@ class Comment extends Sql
                 "articleId" => [
                     "type" => "hidden",
                     "required" => true,
-                    "value" => $_GET['id']
+                    "value" => $id
                 ]
             ]
         ];
