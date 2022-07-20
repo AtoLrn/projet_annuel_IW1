@@ -52,7 +52,7 @@
         <article class="row g-10 j-center">
         <?php foreach ($ingredients as $ingredient) {?>
                 <div class="cont-ingredient">
-                    <div class="ingredient-img shadow selected" style="background: url('/<?= $ingredient->getPath() ?>')"></div>
+                    <div class="ingredient-img shadow selected" style="background-image: url('/<?= $ingredient->getPath() ?>')"></div>
                     <p class="mt-4"><?= $ingredient->getName() ?></p>
                 </div>
         <?php } ?>   
