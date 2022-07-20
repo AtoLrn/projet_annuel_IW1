@@ -21,7 +21,7 @@ class Comment {
             if ($session !== null) {
                 $user = $user->setId($session->getUserId());
                 if (!empty($_POST)) {
-                    Security::csrf();
+                    // security::csrf();
                     $comment->setContent($_POST['description']);
                     $comment->setArticleId($_POST['articleId']);
                     $comment->setUserId($user->getId());

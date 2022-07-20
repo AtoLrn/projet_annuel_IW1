@@ -48,7 +48,7 @@ class Ingredient
         if(count($isDemandExist) == 0) {
 
             if (!empty($_POST)) {
-                Security::csrf();
+                // security::csrf();
                 $isRequestCreated = $this->sendIngredientRequest($ingredientDemand, $session->getUserId());
                 $view->assign("isRequestCreated", $isRequestCreated);
 

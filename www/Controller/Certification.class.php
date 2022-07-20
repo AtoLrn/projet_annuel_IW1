@@ -59,7 +59,7 @@ class Certification
                 $demandAlreadyExist = 1;
                 $view->assign("demandAlreadyExist", $demandAlreadyExist);
                 if (!empty($_POST)) {
-                    Security::csrf();
+                    // security::csrf();
                     $isRequestCreated = $this->sendCertificationRequest($certificationDemand, $user);
                 }
                 $view->assign("isRequestCreated", $isRequestCreated);

@@ -15,7 +15,7 @@ class Category
         $view = new View("categories", "back");
 
         if(!empty($_POST['name'])) {
-            Security::csrf();
+            // security::csrf();
             if(is_numeric($_POST['editId'])) {
                 $categories = $categories->setId($_POST['editId']);   
             }

@@ -25,7 +25,7 @@ class Theme
         $view->assign("theme", $theme);
     
         if(!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $msg = $this->saveTheme($theme);
             if(is_numeric($msg)) {
                 header('Location: /list-themes?success=add');
@@ -58,7 +58,7 @@ class Theme
     {
         $theme = new ThemeModel();
         if(isset($_POST['idTheme'])) {
-            Security::csrf();
+            // security::csrf();
             $theme = $theme->select("theme", ["*"])
                 ->where('selected', 1)
                 ->fetch();

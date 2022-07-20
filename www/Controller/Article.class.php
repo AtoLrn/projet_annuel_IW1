@@ -25,7 +25,7 @@ class Article
         $article = new ArticleModel();
 
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
             print_r($result);
             if (empty($result)) {
@@ -126,7 +126,7 @@ class Article
     {
         $article = new ArticleModel();
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
             $user = new UserModel();
             $session = Session::getByToken();
@@ -224,7 +224,7 @@ class Article
             return;
         } 
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $result = Verificator::checkForm($article->getArticleForm(), $_POST);
             $user = new UserModel();
             $session = Session::getByToken();
