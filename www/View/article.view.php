@@ -5,7 +5,7 @@
                 <h1 class="h1" style="font-size: 56px"><?= $article->getTitle() ?></h1>
                 <span class="c-light-pink" style="font-size: 24px"><?= $article->getDescription() ?></span>
                 <div class="row my-4">
-                    <div class="br-20 img-profile" style="background-image: url(<?= $chief->getProfilePicture() == "" ? "assets/img/users/default_user.jpg" : $chief->getProfilePicture() == "" ?>)">
+                    <div class="br-20 img-profile" style="background-image: url(<?= $chief->getProfilePicture() == "" ? "assets/img/users/default_user.jpg" : $chief->getProfilePicture() ?>)">
                     </div>
                     <div >
                         <span class="c-light-gray" ><?= $chief->getFirstname() . " " . $chief->getLastname() ?></span>
@@ -42,7 +42,9 @@
                         <div class="recette-img shadow selected"><img height="32px" src="/<?php echo $image->getPath() ?>" alt=""></div>
                     <?php } ?>
                 </article>
-                <div class="controller pl-6"><img id="left"  height="32px" src="assets/img/logo/left-arrow.svg" alt=""><img id="right" height="32px" src="assets/img/logo/right-arrow.svg" alt=""></div>
+                <div class="controller pl-6">
+                    <img id="left"  height="32px" src="assets/img/logo/left-arrow.svg" alt="">
+                    <img id="right" height="32px" src="assets/img/logo/right-arrow.svg" alt=""></div>
             </aside>
         </div>
     </div>
