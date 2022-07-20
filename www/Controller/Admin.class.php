@@ -118,7 +118,7 @@ class Admin
     {
         if (file_exists("conf.inc.json")) header("Location: /list");
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            Security::csrf();
+            // security::csrf();
             Verificator::checkForm($this->getSetupForm(), $_POST);
             try {
                 if ($_POST['dbPort'] && !is_numeric($_POST['dbPort'])) $errors[] = "Wrong Port Number";

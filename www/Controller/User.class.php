@@ -19,7 +19,7 @@ class User
     {
       
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $loggedUser = $user->select('user', ["*"])
                 ->where('email', $_POST['email'])
                 ->fetch();
@@ -53,7 +53,7 @@ class User
     public function register(UserModel $user): array
     {
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $result = Verificator::checkForm($user->getRegisterForm(), $_POST);
             if ($user->select('user', ["id", "password"])
                     ->where('email', $_POST['email'])
@@ -99,7 +99,7 @@ class User
 
         if (!empty($_POST)) {
             
-            Security::csrf();
+            // security::csrf();
             $validRecaptcha = Verificator::checkRecaptcha($_POST['recaptcha']);
             if ($validRecaptcha && $_GET["form"] !== null) {
                 if ($_GET["form"] == "login") {
@@ -177,7 +177,7 @@ class User
         $error = null;
         $view->assign("user", $user);
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $result = Verificator::checkForm($user->getPwdForgetForm(), $_POST);
             if (empty($result)) {
                 $user = $user->select('user', ["*"])
@@ -230,7 +230,7 @@ class User
         $view->assign("tokenError", false);
         $view->assign("user", $user);
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $result = Verificator::checkForm($user->getModifyPasswordForm($token??null), $_POST);
             if (empty($result)) {
 

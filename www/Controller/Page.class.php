@@ -39,7 +39,7 @@ class Page
     {
         $page = new PageModel();
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             if (!empty($_SESSION["token"])) {
                 $session = Session::getByToken();
                 if ($session !== null){
@@ -115,7 +115,7 @@ class Page
         }
 
         if (!empty($_POST)) {
-            Security::csrf();
+            // security::csrf();
             $path = CleanWords::formatePath($_POST['slug'] != "" ? $_POST['slug'] : $_POST['title']);
             $page->setTitle($_POST['title']);
             $page->setContent($_POST['content']);
